@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">qunadai</string>
+
+    <!-- behavior -->
+    <string name="behavior_product_detatil_bottom_bar_behavior">com.app.qunadai.content.behavior.ProductDetailBottomBarBehavior</string>
+
+</resources>
