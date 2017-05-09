@@ -2,8 +2,6 @@
 <resources>
     <!--沉浸式状态栏-->
     <style name="AppTheme" parent="@style/BaseAppTheme">
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
 
     <style name="MyProgressBar" parent="Base.Widget.AppCompat.ProgressBar">

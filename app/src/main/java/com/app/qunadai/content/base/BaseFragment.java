@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by wayne on 2017/5/8.
  */
@@ -41,6 +43,7 @@ public abstract class BaseFragment extends Fragment {
                              Bundle savedInstanceState) {
 //        Log.e("text", "fragment  onCreateView ");
         mRootView = createRootView();
+        ButterKnife.bind(this,mRootView);
         try {
             return mRootView;
         } catch (Exception e) {

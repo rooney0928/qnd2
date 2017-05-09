@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="transparent">@android:color/transparent</color>
     <color name="mainColor">#31B7C1</color>
     <color name="main_bg">#F6F6F6</color>
     <color name="white">#fff</color>
@@ -13,4 +14,9 @@
 
     <color name="orange">#FFB200</color>
     <color name="tab_grey">#999999</color>
+    <color name="text_grey">#999999</color>
+    <color name="circle_btn">#f2f2f2</color>
+
+    <color name="limit_value">#f28e38</color>
+
 </resources>

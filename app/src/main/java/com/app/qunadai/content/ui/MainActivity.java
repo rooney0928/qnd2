@@ -1,16 +1,25 @@
 package com.app.qunadai.content.ui;
 
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import com.app.qunadai.R;
+import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
+import com.app.qunadai.content.ui.home.frag.TestFragment;
+import com.app.qunadai.content.view.ForbidScrollViewpager;
+import com.app.qunadai.content.view.NoScrollViewPager;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -21,7 +30,7 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.vp_main)
-    ViewPager vp_main;
+    NoScrollViewPager vp_main;
 
     @BindView(R.id.rg_nav_group)
     RadioGroup rg_nav_group;
@@ -33,11 +42,10 @@ public class MainActivity extends BaseActivity {
     RadioButton rb_nav_bbs;
     @BindView(R.id.rb_nav_me)
     RadioButton rb_nav_me;
+    private Handler handler = new Handler();
 
     private HomeFragment homeFragment1;
-    private HomeFragment homeFragment2;
-    private HomeFragment homeFragment3;
-    private HomeFragment homeFragment4;
+    private TestFragment testFragment;
     private List<Fragment> fragments = new ArrayList<>();
     @Override
     protected void updateTopViewHideAndShow() {
@@ -59,45 +67,42 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         homeFragment1 = HomeFragment.getInstance();
-        homeFragment2 = HomeFragment.getInstance();
-        homeFragment3 = HomeFragment.getInstance();
-        homeFragment4 = HomeFragment.getInstance();
+//        testFragment = new TestFragment();
         fragments.add(homeFragment1);
-        fragments.add(homeFragment2);
-        fragments.add(homeFragment3);
-        fragments.add(homeFragment4);
     }
 
     @Override
     public void initViewData() {
 //        LogU.t("???"+rb_nav_home);
-        vp_main.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
+        /**/
+        vp_main.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),fragments));
 
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-        });
 
-        vp_main.setOffscreenPageLimit(4);
 
         rg_nav_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                //先清空标题栏
+                setTitleBarStatus(0);
                 switch (checkedId){
                     case R.id.rb_nav_home:
-//                        ToastUtil.showToast(MainActivity.this,"1");
                         vp_main.setCurrentItem(0);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                LogU.t("w--"+vp_main.getWidth());
+                                LogU.t("h--"+vp_main.getHeight());
+                            }
+                        },500);
+                        setTitleBarStatus(BaseActivity.TITLE_OFF);
                         break;
                     case R.id.rb_nav_limit:
                         vp_main.setCurrentItem(1);
                         break;
                     case R.id.rb_nav_bbs:
                         vp_main.setCurrentItem(2);
+                        setTitleBarStatus(BaseActivity.TITLE_ON_BACK_ON);
+
                         break;
                     case R.id.rb_nav_me:
                         vp_main.setCurrentItem(3);
@@ -105,7 +110,10 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+        vp_main.setOffscreenPageLimit(4);
+        rb_nav_home.setChecked(true);
 
     }
+
 
 }
