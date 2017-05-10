@@ -60,6 +60,12 @@ public class LogU {
 			Log.e("test",msg);
 		}
 	}
+
+	public static void te(String msg){
+		if(isDebug){
+			Log.e("test","er:"+msg);
+		}
+	}
 	public static void x(String msg){
 		if(isDebug){
 			Log.e("xxxx",msg);
