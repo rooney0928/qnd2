@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:av="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_limit_get"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="visible">
+
+
+                <ImageView
+                    android:id="@+id/iv_limit_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:src="@mipmap/limit_bg" />
+
+                <Button
+                    android:id="@+id/btn_get_quota"
+                    android:layout_width="108dp"
+                    android:layout_height="36dp"
+                    android:layout_below="@id/iv_limit_bg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shape_get_limit_bg"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:text="获取额度"
+                    android:textColor="@color/text_grey" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_limit_borrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/ll_quota_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@mipmap/quota_bg2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:text="可贷额度(元)"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_my_worth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="0"
+                        android:textColor="@color/mainColor"
+                        android:textSize="40sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ll_quota_bg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="总额度"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_quota"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/bt_raise_limit"
+                        android:layout_width="54dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="14dp"
+                        android:background="@drawable/shape_raise_limit_text"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="提额"
+                        android:textColor="@color/limit_value"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_borrow_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_bg"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_borrow_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/shape_limit_loan"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="借款"
+                    android:textColor="@color/mainColor"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_material_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="必填材料（材料越全，额度更高）"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f6f6f6" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_bank_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/increase500_1000"
+                av:mLogo="@mipmap/icon_bank_auth"
+                av:mName="银行卡验证"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_real_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/increase500_1000"
+                av:mLogo="@mipmap/icon_real_info"
+                av:mName="真实信息填写"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_ebank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/increase1k_5k"
+                av:mLogo="@mipmap/icon_ebank"
+                av:mName="网银"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/undecided"
+                av:mLogo="@mipmap/icon_carrier"
+                av:mName="运营商"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_alipay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/undecided"
+                av:mLogo="@mipmap/icon_alipay"
+                av:mName="支付宝"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_mailbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/undecided"
+                av:mLogo="@mipmap/icon_email"
+                av:mName="邮箱"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_provident_fund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/undecided"
+                av:mLogo="@mipmap/icon_fund"
+                av:mName="公积金"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_taobao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/undecided"
+                av:mLogo="@mipmap/icon_taobao"
+                av:mName="淘宝"
+                av:mStatus="no" />
+
+            <View style="@style/line_15dp" />
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/certificationLayout_credit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                av:mDesc="@string/undecided"
+                av:mLogo="@mipmap/icon_zhengxin"
+                av:mName="征信"
+                av:mStatus="no" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_loan_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:src="@mipmap/icon_question" />
+    </RelativeLayout>
+
+
+</ScrollView>

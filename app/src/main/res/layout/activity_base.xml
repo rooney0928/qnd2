@@ -18,14 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--中间布局-->
-
         <!--底部布局-->
         <FrameLayout
             android:id="@+id/fl_bottom_base"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"></FrameLayout>
+        <!--中间布局-->
         <FrameLayout
             android:id="@+id/fl_center_base"
             android:layout_width="match_parent"

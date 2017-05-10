@@ -15,8 +15,11 @@ import android.widget.TimePicker;
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.content.ui.home.frag.TestFragment;
+import com.app.qunadai.content.ui.limit.frag.LimitFragment;
+import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.ForbidScrollViewpager;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.utils.LogU;
@@ -44,8 +47,11 @@ public class MainActivity extends BaseActivity {
     RadioButton rb_nav_me;
     private Handler handler = new Handler();
 
-    private HomeFragment homeFragment1;
-    private TestFragment testFragment;
+    private HomeFragment homeFragment;
+    private LimitFragment limitFragment;
+    private BBSFragment bbsFragment;
+    private MeFragment meFragment;
+
     private List<Fragment> fragments = new ArrayList<>();
     @Override
     protected void updateTopViewHideAndShow() {
@@ -66,9 +72,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        homeFragment1 = HomeFragment.getInstance();
+        homeFragment = HomeFragment.getInstance();
+        limitFragment = LimitFragment.getInstance();
+        bbsFragment = BBSFragment.getInstance();
+        meFragment =  MeFragment.getInstance();
 //        testFragment = new TestFragment();
-        fragments.add(homeFragment1);
+        fragments.add(homeFragment);
+        fragments.add(limitFragment);
+        fragments.add(bbsFragment);
+        fragments.add(meFragment);
     }
 
     @Override
@@ -83,26 +95,21 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 //先清空标题栏
-                setTitleBarStatus(0);
+                setTitleBarStatus(TITLE_OFF);
+                setTitle("");
                 switch (checkedId){
                     case R.id.rb_nav_home:
                         vp_main.setCurrentItem(0);
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                LogU.t("w--"+vp_main.getWidth());
-                                LogU.t("h--"+vp_main.getHeight());
-                            }
-                        },500);
                         setTitleBarStatus(BaseActivity.TITLE_OFF);
                         break;
                     case R.id.rb_nav_limit:
                         vp_main.setCurrentItem(1);
+                        setTitleBarStatus(BaseActivity.TITLE_OFF);
                         break;
                     case R.id.rb_nav_bbs:
                         vp_main.setCurrentItem(2);
-                        setTitleBarStatus(BaseActivity.TITLE_ON_BACK_ON);
-
+                        setTitleBarStatus(BaseActivity.TITLE_ON_BACK_OFF);
+                        setTitle("社区");
                         break;
                     case R.id.rb_nav_me:
                         vp_main.setCurrentItem(3);

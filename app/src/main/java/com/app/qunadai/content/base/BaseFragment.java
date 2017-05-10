@@ -2,6 +2,7 @@ package com.app.qunadai.content.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,16 @@ public abstract class BaseFragment extends Fragment {
         } catch (Exception e) {
             throw new IllegalStateException("the method createPager() cannot return null");
         }
+
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
+    }
+
+    protected abstract void initData();
 
 
     /**

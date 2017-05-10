@@ -9,6 +9,7 @@
     <color name="main_bg">#F6F6F6</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
+    <color name="text_black">#333333</color>
     <color name="title_line">#BFBFBF</color>
     <color name="nav_line">#B2B2B2</color>
 
@@ -18,5 +19,6 @@
     <color name="circle_btn">#f2f2f2</color>
 
     <color name="limit_value">#f28e38</color>
+    <color name="line">#f6f6f6</color>
 
 </resources>

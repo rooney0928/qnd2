@@ -34,4 +34,9 @@ public class HomeFragment extends BaseFragment {
         View root = View.inflate(getActivity(), R.layout.fragment_home,null);
         return root;
     }
+
+    @Override
+    protected void initData() {
+
+    }
 }
