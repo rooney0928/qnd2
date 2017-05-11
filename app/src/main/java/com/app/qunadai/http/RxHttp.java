@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -23,7 +24,8 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-    private static final String ROOT = "https://mapi.qunadai.com/";
+    //    private static final String ROOT = "https://mapi.qunadai.com/";
+    public static final String ROOT = "http://192.168.13.132:8080/";
 
 
     static QndApi qndApi;
@@ -31,6 +33,7 @@ public class RxHttp {
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             .serializeNulls()
             .create();
+
     private static class SingletonHolder {
         //单例
         private static RxHttp rxHttp = new RxHttp();
@@ -66,23 +69,33 @@ public class RxHttp {
     }
 
     //用户部分
-    //登录密码短信
-    public static Observable<Message> getLoginSms(String phone){
+    //登录短信
+    public static Observable<Message> getLoginSms(String phone) {
         return qndApi.getLoginSms(phone);
     }
 
-    public static Observable<Token> loginByPwd(String phone,String pwd){
-        return qndApi.loginByPwd("password",phone,pwd);
+    //注册短信
+    public static Observable<Message> getRegisterSms(String phone) {
+        return qndApi.getRegisterSms(phone);
     }
 
-    public static Observable<Token> loginBySms(String phone,String sms){
-        return qndApi.loginBySms("sms",phone,sms);
+    //注册
+    public static Observable<String> register(String phone, String sms, String pwd) {
+        return qndApi.register("mobile", phone, sms, pwd);
+    }
+
+    //登录by密码
+    public static Observable<Token> loginByPwd(String phone, String pwd) {
+        return qndApi.loginByPwd("password", phone, pwd);
+    }
+
+    //登录by短信
+    public static Observable<Token> loginBySms(String phone, String sms) {
+        return qndApi.loginBySms("sms", phone, sms);
     }
 
 
-
-
-    public static Observable<HomeRecommend> getRecommend(){
+    public static Observable<HomeRecommend> getRecommend() {
         return qndApi.getRecommend();
     }
 

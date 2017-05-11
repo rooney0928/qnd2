@@ -2,6 +2,7 @@ package com.app.qunadai.content.ui.home.frag;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
@@ -29,6 +30,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     TabLayout tl_home_tab;
     @BindView(R.id.swipe_home)
     SwipeRefreshLayout swipe_home;
+
+    @BindView(R.id.vp_recommend)
+    ViewPager vp_recommend;
 
     private HomePresenter homePresenter;
 

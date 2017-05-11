@@ -8,6 +8,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -28,6 +31,31 @@ public interface QndApi {
     @FormUrlEncoded
     @POST("token/sms")
     Observable<Message> getLoginSms(@Field("mobileNumber") String mobileNumber);
+    /**
+     * 获取注册短信验证码
+     * @param mobileNumber
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("users/signup")
+    Observable<Message> getRegisterSms(@Field("mobileNumber") String mobileNumber);
+    /**
+     * 注册
+     * @return
+     */
+//    @PUT("users/activate")
+//    Observable<String> register(@Query("filter") String filter,
+//                                @Query("mobileNumber") String mobileNumber,
+//                                @Query("smsActivateCode") String sms,
+//                                @Query("sha1password") String pwd);
+    @FormUrlEncoded
+    @PUT("users/activate")
+    Observable<String> register(@Path("filter") String filter,
+                                @Path("mobileNumber") String mobileNumber,
+                                @Path("smsActivateCode") String sms,
+                                @Path("sha1password") String pwd);
+
+
 
     @FormUrlEncoded
     @POST("token")

@@ -24,7 +24,10 @@ import com.app.qunadai.bean.Token;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.LoginContract;
 import com.app.qunadai.content.presenter.LoginPresenter;
+import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -79,6 +82,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     InputMethodManager manager;
     private boolean isRequest;
+    private TimeCount time;
+
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -273,7 +278,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             @Override
             public void onClick(View v) {
                 //进入注册环节
-                Intent intentRegister = new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intentRegister = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intentRegister);
             }
         });
@@ -384,7 +389,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void loginDone(Token token) {
-        ToastUtil.showToastLong(this, "恭喜您，登录成功:" + token.getContent().getAccess_token());
+        ToastUtil.showToastLong(this, "恭喜您，登录成功");
+        PrefUtil.putString(this,"token",token.getContent().getAccess_token());
+        Intent intentMain = new Intent(this, MainActivity.class);
+        startActivity(intentMain);
     }
 
     @Override
@@ -398,7 +406,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     }
 
-    private TimeCount time;
 
     @Override
     public void requestEnd() {
