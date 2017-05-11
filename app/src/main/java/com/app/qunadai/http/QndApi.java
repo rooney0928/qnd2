@@ -2,6 +2,8 @@ package com.app.qunadai.http;
 
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.Message;
+import com.app.qunadai.bean.RegBean;
+import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.Token;
 
 import retrofit2.http.Field;
@@ -40,20 +42,34 @@ public interface QndApi {
     @POST("users/signup")
     Observable<Message> getRegisterSms(@Field("mobileNumber") String mobileNumber);
     /**
+     * 获取注册短信验证码
+     * @param mobileNumber
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("users")
+    Observable<Message> getForgetSms(@Field("filter") String filter
+                                    ,@Field("c") String c
+                                    ,@Field("mobileNumber") String mobileNumber);
+    /**
+     * 重置密码
+     * @return
+     */
+    @PUT("users")
+    Observable<ResetBean> reset(@Query("filter") String filter,
+                                @Query("c") String c,
+                                @Query("mobileNumber")String mobileNumber,
+                                @Query("verifiCode") String sms,
+                                @Query("sha1password") String pwd);
+    /**
      * 注册
      * @return
      */
-//    @PUT("users/activate")
-//    Observable<String> register(@Query("filter") String filter,
-//                                @Query("mobileNumber") String mobileNumber,
-//                                @Query("smsActivateCode") String sms,
-//                                @Query("sha1password") String pwd);
-    @FormUrlEncoded
     @PUT("users/activate")
-    Observable<String> register(@Path("filter") String filter,
-                                @Path("mobileNumber") String mobileNumber,
-                                @Path("smsActivateCode") String sms,
-                                @Path("sha1password") String pwd);
+    Observable<RegBean> register(@Query("filter") String filter,
+                                 @Query("mobileNumber") String mobileNumber,
+                                 @Query("smsActivateCode") String sms,
+                                 @Query("sha1password") String pwd);
 
 
 

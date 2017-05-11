@@ -1,6 +1,7 @@
 package com.app.qunadai.content.contract;
 
 import com.app.qunadai.bean.HomeRecommend;
+import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.content.base.BaseModel;
 import com.app.qunadai.content.base.BasePresenter;
 import com.app.qunadai.content.base.BaseView;
@@ -13,7 +14,7 @@ public interface RegisterContract {
     interface View extends BaseView {
         void getRegisterSms(String msg);
         void getRegisterSmsFail(String error);
-        void registerDone(String str);
+        void registerDone(RegBean bean);
         void registerFail(String error);
     }
 

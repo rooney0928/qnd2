@@ -1,5 +1,6 @@
 package com.app.qunadai.content.presenter;
 
+import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.content.contract.RegisterContract;
 import com.app.qunadai.content.model.RegisterModelImpl;
 
@@ -26,8 +27,8 @@ public class RegisterPresenter implements RegisterContract.Presenter {
             }
 
             @Override
-            public void registerDone(String str) {
-                view.registerDone(str);
+            public void registerDone(RegBean bean) {
+                view.registerDone(bean);
             }
 
             @Override

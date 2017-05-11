@@ -22,9 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".content.ui.user.RegisterActivity">
-
-        </activity>
+        <activity android:name=".content.ui.user.RegisterActivity"></activity>
+        <activity android:name=".content.ui.user.ForgetPwdActivity"></activity>
         <activity
             android:name=".content.ui.MainActivity"
             android:launchMode="singleTask">

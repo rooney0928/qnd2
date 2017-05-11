@@ -1,32 +1,12 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.Message;
+import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.content.contract.RegisterContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.http.RxSubscriber;
-import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.RxHolder;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.https.HttpsUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import cz.msebera.android.httpclient.Header;
-import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okio.BufferedSink;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -49,7 +29,7 @@ public class RegisterModelImpl implements RegisterContract.Model {
 
         void getRegisterSmsFail(String error);
 
-        void registerDone(String str);
+        void registerDone(RegBean str);
 
         void registerFail(String error);
 
@@ -139,36 +119,36 @@ public class RegisterModelImpl implements RegisterContract.Model {
 //                .add("smsActivateCode", sms).build();
 
 
-//        Observable<String> request = RxHttp.getInstance().register(phone, sms, pwd);
-//        Subscription sub = request.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new RxSubscriber<String>() {
-//                    @Override
-//                    public void onStart() {
-//                        onReturnDataListener.requestStart();
-//                        super.onStart();
-//                    }
-//
-//                    @Override
-//                    protected void onError(ApiException ex) {
-////                        onReturnDataListener.getRegisterSmsFail(ex.getMessage());
-//                        onReturnDataListener.registerFail(ex.getMessage());
-//                    }
-//
-//                    @Override
-//                    protected void onOk(String str) {
-////                        onReturnDataListener.getRegisterSms(bean.getDetail());
-//                        onReturnDataListener.registerDone(str);
-//                    }
-//
-//                    @Override
-//                    protected void requestEnd() {
-//                        onReturnDataListener.requestEnd();
-//                    }
-//                });
-//        RxHolder.addSubscription(sub);
+        Observable<RegBean> request = RxHttp.getInstance().register(phone, sms, pwd);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<RegBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
 
+                    @Override
+                    protected void onError(ApiException ex) {
+//                        onReturnDataListener.getRegisterSmsFail(ex.getMessage());
+                        onReturnDataListener.registerFail(ex.getMessage());
+                    }
 
+                    @Override
+                    protected void onOk(RegBean bean) {
+//                        onReturnDataListener.getRegisterSms(bean.getDetail());
+                        onReturnDataListener.registerDone(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+
+        /*
         AsyncHttpClient myClient = new AsyncHttpClient();
         String url = RxHttp.ROOT + "users/activate?filter=mobile&mobileNumber=" + phone + "&sha1password=" + pwd + "&smsActivateCode=" + sms;
         myClient.put(url, new AsyncHttpResponseHandler() {
@@ -191,14 +171,11 @@ public class RegisterModelImpl implements RegisterContract.Model {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                try {
-                    JSONObject obj = new JSONObject(new String(responseBody));
-                    String result = obj.optString("detail");
-                    onReturnDataListener.registerFail(result);
-                } catch (JSONException e) {
-//                    e.printStackTrace();
-                    onReturnDataListener.registerFail("注册失败");
-                }
+
+//                    JSONObject obj = new JSONObject(new String(responseBody));
+//                    String result = obj.optString("detail");
+                LogU.t(error.getMessage());
+                onReturnDataListener.registerFail("注册出错");
             }
 
             @Override
@@ -207,7 +184,7 @@ public class RegisterModelImpl implements RegisterContract.Model {
                 onReturnDataListener.requestEnd();
             }
         });
-
+        */
     }
 
 }

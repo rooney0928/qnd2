@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="手机号"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/et_forget_phone"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="66dp"
+            android:background="@null"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_forget_phone_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="验证码"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"/>
+
+
+        <EditText
+            android:id="@+id/et_forget_sms"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="66dp"
+            android:background="@null"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/bt_get_sms"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="100dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/shape_sms"
+            android:enabled="true"
+            android:text="获取验证码"
+            android:textColor="@color/mainColor"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="密码"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/et_forget_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="66dp"
+            android:background="@null"
+            android:hint="请设置登录密码(6-18位字符)"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_forget_pwd_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/bt_reset"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/selector_submit_style"
+        android:enabled="false"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="重置密码"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
+
+
+
+</LinearLayout>

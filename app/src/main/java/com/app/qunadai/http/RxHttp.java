@@ -3,6 +3,8 @@ package com.app.qunadai.http;
 import com.app.qunadai.QNDFactory;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.Message;
+import com.app.qunadai.bean.RegBean;
+import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.Token;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +27,8 @@ import rx.schedulers.Schedulers;
 public class RxHttp {
 
     //    private static final String ROOT = "https://mapi.qunadai.com/";
-    public static final String ROOT = "http://192.168.13.132:8080/";
+    public static final String ROOT = "https://mapit.qunadai.com/";
+//    public static final String ROOT = "http://192.168.13.132:8080/";
 
 
     static QndApi qndApi;
@@ -79,9 +82,19 @@ public class RxHttp {
         return qndApi.getRegisterSms(phone);
     }
 
+    //忘记密码短信
+    public static Observable<Message> getForgetSms(String phone) {
+        return qndApi.getForgetSms("mobileNumber", "sms", phone);
+    }
+
     //注册
-    public static Observable<String> register(String phone, String sms, String pwd) {
+    public static Observable<RegBean> register(String phone, String sms, String pwd) {
         return qndApi.register("mobile", phone, sms, pwd);
+    }
+
+    //重置密码
+    public static Observable<ResetBean> reset(String phone, String sms, String pwd) {
+        return qndApi.reset("mobileNumber", "pwd", phone, sms, pwd);
     }
 
     //登录by密码
