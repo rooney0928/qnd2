@@ -24,7 +24,7 @@ import butterknife.BindView;
  * Created by wayne on 2017/5/8.
  */
 
-public class HomeFragment extends BaseFragment implements HomeContract.View{
+public class HomeFragment extends BaseFragment implements HomeContract.View {
     @BindView(R.id.tl_home_tab)
     TabLayout tl_home_tab;
     @BindView(R.id.swipe_home)
@@ -34,6 +34,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
 
 
     private List<String> tabTitle;
+
     public static HomeFragment getInstance() {
         HomeFragment homeFragment = new HomeFragment();
         Bundle bundle = new Bundle();
@@ -49,16 +50,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
 
     @Override
     protected View createRootView() {
-        View root = View.inflate(getActivity(), R.layout.fragment_home,null);
+        View root = View.inflate(getActivity(), R.layout.fragment_home, null);
         return root;
     }
 
     @Override
     protected void initData() {
         homePresenter = new HomePresenter(this);
-
         initTabLayout();
-
         swipe_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
@@ -66,7 +65,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
                 swipe_home.setRefreshing(false);
             }
         });
-
         homePresenter.getHomeRecommend();
     }
 

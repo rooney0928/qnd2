@@ -193,6 +193,7 @@
                     android:textSize="40sp" />
 
                 <Button
+                    style="?android:attr/borderlessButtonStyle"
                     android:id="@+id/bt_home_borrow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

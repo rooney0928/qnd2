@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 public class ToastUtil {
     private static Toast toast;
+    private static Toast toastLong;
 
     /**
      * 单例toast
@@ -25,6 +26,16 @@ public class ToastUtil {
             LogU.t(msg);
             toast.setText(msg);
             toast.show();
+        }
+    }
+    public static void showToastLong(Context context, String msg) {
+        if (toastLong == null) {
+            toastLong = Toast.makeText(context, "", Toast.LENGTH_LONG);
+        }
+        if (!TextUtils.isEmpty(msg)) {
+            LogU.t(msg);
+            toastLong.setText(msg);
+            toastLong.show();
         }
     }
 }

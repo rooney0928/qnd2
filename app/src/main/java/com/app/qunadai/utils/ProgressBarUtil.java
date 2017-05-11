@@ -1,7 +1,13 @@
 package com.app.qunadai.utils;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * Created by wayne on 2017/1/10.
@@ -24,9 +30,26 @@ public class ProgressBarUtil {
     }
 
 
+
     public static void hideLoadDialog() {
         if (dialog != null) {
             dialog.dismiss();
         }
+    }
+    public static void hideLoadDialogDelay(final Activity activity) {
+        Observable.timer(400, TimeUnit.MILLISECONDS).subscribe(
+                new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ProgressBarUtil.hideLoadDialog();
+                            }
+                        });
+                    }
+                }
+        );
+
     }
 }

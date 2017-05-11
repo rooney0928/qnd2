@@ -2,6 +2,8 @@ package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
 import com.app.qunadai.bean.HomeRecommend;
+import com.app.qunadai.bean.Message;
+import com.app.qunadai.bean.Token;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -62,6 +64,22 @@ public class RxHttp {
     public static RxHttp getInstance() {
         return SingletonHolder.rxHttp;
     }
+
+    //用户部分
+    //登录密码短信
+    public static Observable<Message> getLoginSms(String phone){
+        return qndApi.getLoginSms(phone);
+    }
+
+    public static Observable<Token> loginByPwd(String phone,String pwd){
+        return qndApi.loginByPwd("password",phone,pwd);
+    }
+
+    public static Observable<Token> loginBySms(String phone,String sms){
+        return qndApi.loginBySms("sms",phone,sms);
+    }
+
+
 
 
     public static Observable<HomeRecommend> getRecommend(){
