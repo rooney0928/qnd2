@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_bg"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/ll_root"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_bg"
+              android:orientation="vertical">
 
     <include layout="@layout/layout_title"></include>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/title_line" />
+        android:background="@color/title_line"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,8 +28,8 @@
         <FrameLayout
             android:id="@+id/fl_center_base"
             android:layout_width="match_parent"
-            android:layout_above="@id/fl_bottom_base"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_above="@id/fl_bottom_base"></FrameLayout>
     </RelativeLayout>
 
 

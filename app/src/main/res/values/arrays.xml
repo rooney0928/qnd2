@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="filter_pro">
+        <item>职业身份</item>
+        <item>上班族</item>
+        <item>非上班族</item>
+    </string-array>
+
+    <!--贷款产品搜索金额-->
+    <string-array name="filter_amount">
+        <item>贷款额度</item>
+        <item>500元</item>
+        <item>1000元</item>
+        <item>2000元</item>
+        <item>3000元</item>
+        <item>4000元</item>
+        <item>5000元</item>
+        <item>6000元</item>
+        <item>7000元</item>
+        <item>8000元</item>
+        <item>9000元</item>
+        <item>10000元</item>
+        <item>15000元</item>
+        <item>20000元</item>
+        <item>25000元</item>
+        <item>30000元</item>
+        <item>35000元</item>
+        <item>40000元</item>
+        <item>45000元</item>
+        <item>50000元</item>
+    </string-array>
+    <!--贷款产品搜索期限-->
+    <string-array name="filter_term">
+        <item>贷款期限</item>
+        <item>1月</item>
+        <item>3月</item>
+        <item>6月</item>
+        <item>12月</item>
+        <item>18月</item>
+        <item>24月</item>
+        <item>30月</item>
+        <item>36月</item>
+        <item>48月</item>
+        <item>60月</item>
+    </string-array>
+
+</resources>

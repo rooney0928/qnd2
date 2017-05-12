@@ -34,9 +34,14 @@
             android:screenOrientation="portrait"
             ></activity>
         <activity
+            android:name=".content.ui.home.ProductsActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity
             android:name=".content.ui.home.RecommendActivity"
             android:screenOrientation="portrait"
             ></activity>
+
         <activity
             android:name=".content.ui.MainActivity"
             android:launchMode="singleTask"

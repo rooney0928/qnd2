@@ -22,6 +22,7 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.content.presenter.HomePresenter;
 import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.view.FullViewPager;
 import com.app.qunadai.utils.LogU;
@@ -127,6 +128,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void onClick(View v) {
                 //进入贷款产品列表
+                Intent intentProducts = new Intent(getActivity(), ProductsActivity.class);
+                startActivity(intentProducts);
             }
         });
         ll_home_recommend_loan.setOnClickListener(new View.OnClickListener() {

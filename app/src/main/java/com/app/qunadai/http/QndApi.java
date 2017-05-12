@@ -70,7 +70,7 @@ public interface QndApi {
                                 @Query("c") String c,
                                 @Query("mobileNumber") String mobileNumber,
                                 @Query("verifiCode") String sms,
-                                @Query("sha1password") String pwd);
+                                @Query("newsha1password") String pwd);
 
     /**
      * 注册

@@ -1,5 +1,9 @@
 package com.app.qunadai.utils;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -43,5 +47,39 @@ public class CommUtil {
             des += tmp;
         }
         return des;
+    }
+
+    public static int getScreenHeight(Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        int screenHeight = dm.heightPixels;
+        return screenHeight;
+    }
+
+    public static int getScreenWidth(Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        int screenWidth = dm.widthPixels;
+        return screenWidth;
+    }
+
+    /**
+     * 获取状态栏高度
+     *
+     * @param context
+     * @return
+     */
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }
