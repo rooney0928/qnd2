@@ -6,33 +6,30 @@ package com.app.qunadai.bean;
 
 public class LoanDetail {
 
+
     /**
-     * id : 214ba091-d0e2-4a17-8fb4-7187b84c85d3
-     * createdTime : 1492660800000
-     * updatedTime : 1493708442000
-     * provider : {"id":"9e5e6648-5b09-4f05-a155-2cf0307037f7","createdTime":1491019200000,"updatedTime":1493949350000,"name":"读秒","lppStatus":"ENABLED"}
-     * name : 读秒
-     * describe : “快贷”是挖财2015年推出的手机借钱app，分成“极速借款”（最高3000元）和“大额借款”（最高20万元）两种模式。
+     * id : 4b6786dd-a779-4ae3-8ab7-23b4c57c27c8
+     * createdTime : 1494312301000
+     * updatedTime : 1494411071000
+     * provider : {"id":"025339b0-3cf3-43a3-97b2-47de96357d05","createdTime":1491019200000,"updatedTime":1494214374000,"name":"平安i贷","lppStatus":"ENABLED"}
+     * name : 平安i贷
+     * describe : 1天极速放款!月收入3000即可申请.帮您轻松应急!
      * type : H5
-     * amount : 1000-50000
-     * minAmount : 1000
-     * maxAmount : 50000
-     * term : 1-24期
-     * minTerm : 1
-     * maxTerm : 24
-     * termUnit : 月
-     * applicationConditions : 1.22-55周岁工作稳定且有信用卡的全职工薪人士
-     2.芝麻分600以上
-     * applicationMaterials : 身份证、手机号、信用卡
-     * url : https://loan-m.jimu.com/loanv2/apply/index?from=jmhz152
-     * num : 3379
-     * rate : 0.7%-5%
+     * icon : f20d8780-88f3-42d7-b19e-4ef657ff066a
+     * minAmount : 2000
+     * maxAmount : 30000
+     * minTerm : 12
+     * maxTerm : 36
+     * applicationConditions : 18-55周岁月收入：3000元/月或以上，现居住地址居住时间：最低6个月，在申请地居住或工作，客户职业不属于限制性行业。身份证、户口本、工作证明、有房产提供房产、银行卡
+     * url : https://www.10100000.com/m/iloan/apply1.html?utm_source=wxhaihxxdy--m&utm_medium=cps&utm_campaign=m0018--iln&utm_content=m-LQ018&WT.mc_id=CXX-WXHAIHXXDY-LQ018-CSM-M0018ILN&
+     * num : 5987
+     * rate : 0.1%-0.1%
      * loanTime : 3分钟
      * pStatus : ENABLED
-     * showIndexStatus : SHOW
-     * minRate : 0.007
-     * maxRate : 0.05
-     * sucRate : 8%
+     * minRate : 0.002
+     * maxRate : 0.002
+     * rateStatus : MONTH
+     * sucRate : 12%
      */
 
     private String id;
@@ -42,23 +39,20 @@ public class LoanDetail {
     private String name;
     private String describe;
     private String type;
-    private String amount;
+    private String icon;
     private int minAmount;
     private int maxAmount;
-    private String term;
     private int minTerm;
     private int maxTerm;
-    private String termUnit;
     private String applicationConditions;
-    private String applicationMaterials;
     private String url;
     private int num;
     private String rate;
     private String loanTime;
     private String pStatus;
-    private String showIndexStatus;
     private double minRate;
     private double maxRate;
+    private String rateStatus;
     private String sucRate;
 
     public String getId() {
@@ -117,12 +111,12 @@ public class LoanDetail {
         this.type = type;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public int getMinAmount() {
@@ -141,14 +135,6 @@ public class LoanDetail {
         this.maxAmount = maxAmount;
     }
 
-    public String getTerm() {
-        return term;
-    }
-
-    public void setTerm(String term) {
-        this.term = term;
-    }
-
     public int getMinTerm() {
         return minTerm;
     }
@@ -165,28 +151,12 @@ public class LoanDetail {
         this.maxTerm = maxTerm;
     }
 
-    public String getTermUnit() {
-        return termUnit;
-    }
-
-    public void setTermUnit(String termUnit) {
-        this.termUnit = termUnit;
-    }
-
     public String getApplicationConditions() {
         return applicationConditions;
     }
 
     public void setApplicationConditions(String applicationConditions) {
         this.applicationConditions = applicationConditions;
-    }
-
-    public String getApplicationMaterials() {
-        return applicationMaterials;
-    }
-
-    public void setApplicationMaterials(String applicationMaterials) {
-        this.applicationMaterials = applicationMaterials;
     }
 
     public String getUrl() {
@@ -229,14 +199,6 @@ public class LoanDetail {
         this.pStatus = pStatus;
     }
 
-    public String getShowIndexStatus() {
-        return showIndexStatus;
-    }
-
-    public void setShowIndexStatus(String showIndexStatus) {
-        this.showIndexStatus = showIndexStatus;
-    }
-
     public double getMinRate() {
         return minRate;
     }
@@ -253,6 +215,14 @@ public class LoanDetail {
         this.maxRate = maxRate;
     }
 
+    public String getRateStatus() {
+        return rateStatus;
+    }
+
+    public void setRateStatus(String rateStatus) {
+        this.rateStatus = rateStatus;
+    }
+
     public String getSucRate() {
         return sucRate;
     }
@@ -263,10 +233,10 @@ public class LoanDetail {
 
     public static class ProviderBean {
         /**
-         * id : 9e5e6648-5b09-4f05-a155-2cf0307037f7
+         * id : 025339b0-3cf3-43a3-97b2-47de96357d05
          * createdTime : 1491019200000
-         * updatedTime : 1493949350000
-         * name : 读秒
+         * updatedTime : 1494214374000
+         * name : 平安i贷
          * lppStatus : ENABLED
          */
 

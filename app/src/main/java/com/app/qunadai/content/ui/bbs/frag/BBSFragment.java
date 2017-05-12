@@ -25,6 +25,11 @@ public class BBSFragment extends BaseFragment {
     }
 
     @Override
+    protected void initBundle(Bundle savedInstanceState) {
+
+    }
+
+    @Override
     protected void initData() {
 
     }

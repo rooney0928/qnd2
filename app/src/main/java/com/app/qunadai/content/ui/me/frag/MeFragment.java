@@ -34,6 +34,11 @@ public class MeFragment extends BaseFragment {
 
 
     @Override
+    protected void initBundle(Bundle savedInstanceState) {
+
+    }
+
+    @Override
     protected void initData() {
         ImgUtil.loadRound(getActivity(),R.mipmap.default_avatar,iv_me_avatar);
     }

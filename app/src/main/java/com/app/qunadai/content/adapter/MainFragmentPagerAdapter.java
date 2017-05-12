@@ -13,10 +13,26 @@ import java.util.List;
 
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
+
+    public MainFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+        super(fm);
+        this.fragments = fragments;
+        this.titles = titles;
+    }
 
     public MainFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         this.fragments = fragments;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (titles.size() != 0) {
+            return titles.get(position);
+        } else {
+            return super.getPageTitle(position);
+        }
     }
 
     @Override

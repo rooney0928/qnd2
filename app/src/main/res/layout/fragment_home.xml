@@ -215,10 +215,10 @@
                     app:tabGravity="fill"
                     app:tabMode="fixed"/>
 
-                <android.support.v4.view.ViewPager
+                <com.app.qunadai.content.view.FullViewPager
                     android:id="@+id/vp_recommend"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+                    android:layout_height="wrap_content"></com.app.qunadai.content.view.FullViewPager>
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

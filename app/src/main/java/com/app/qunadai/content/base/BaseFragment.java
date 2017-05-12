@@ -36,6 +36,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
 //        Log.e("text", "fragment  onCreate ");
         mActivity = getActivity();
+        initBundle(savedInstanceState);
     }
 
     // Fragment填充布局
@@ -58,6 +59,8 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initData();
     }
+
+    protected abstract void initBundle(Bundle savedInstanceState);
 
     protected abstract void initData();
 
