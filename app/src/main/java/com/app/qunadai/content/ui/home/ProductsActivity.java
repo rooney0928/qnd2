@@ -254,7 +254,6 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
                             tv_term.setText(text);
                             tv_term.setSelected(true);
                             iv_term.setSelected(true);
-
                             term = text;
                             if (text.equals("贷款期限")) {
                                 term = null;
