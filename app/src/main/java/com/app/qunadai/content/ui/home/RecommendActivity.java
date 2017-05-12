@@ -96,7 +96,8 @@ public class RecommendActivity extends BaseActivity implements RecommendContract
                     return;
                 }
                 if (NetworkUtil.checkNetwork(RecommendActivity.this)) {
-                    recommendPresenter.getRecommend(0, PAGE_SIZE);
+                    page=0;
+                    recommendPresenter.getRecommend(page, PAGE_SIZE);
                 } else {
                     swipe_layout.setRefreshing(false);
                 }
@@ -155,7 +156,7 @@ public class RecommendActivity extends BaseActivity implements RecommendContract
 
     @Override
     public void getRecommendFail(String error) {
-
+        ToastUtil.showToast(this,error);
     }
 
     @Override

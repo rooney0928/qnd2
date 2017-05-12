@@ -302,6 +302,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         int hide = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
         et_login_pwd.setInputType(cb_pwd_hide.isChecked() ? show : hide);
 
+        String phone = et_login_phone.getText().toString().trim();
+        String pwd = et_login_pwd.getText().toString().trim();
+        if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(pwd)) {
+            bt_login.setEnabled(false);
+        } else {
+            bt_login.setEnabled(true);
+        }
+
     }
 
     private void loginSystem() {

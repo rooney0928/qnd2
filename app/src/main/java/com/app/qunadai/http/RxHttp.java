@@ -1,6 +1,7 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
+import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.MeBean;
 import com.app.qunadai.bean.Message;
@@ -121,6 +122,13 @@ public class RxHttp {
     }
 
 
+    //获取过滤式贷款列表
+    public static Observable<ProductsBean> getFilterLoan(int page, int pageSize, String tagName,
+                                                         String amount, String term) {
+        return qndApi.getFilterLoan(page, pageSize, tagName, amount, term);
+    }
+
+    //获取推荐贷款
     public static Observable<Recommend> getRecommend(int page, int pageSize) {
         return qndApi.getRecommend("tagName", "推荐", page, pageSize);
     }

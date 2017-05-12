@@ -1,5 +1,6 @@
 package com.app.qunadai.http;
 
+import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.MeBean;
 import com.app.qunadai.bean.Message;
@@ -14,7 +15,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -96,12 +96,20 @@ public interface QndApi {
                                  @Field("smsCode") String sms);
 
     //home
-
     @GET("home/personalvalue")
     Observable<PersonBean> getPersonValue(@Query("access_token") String access_token);
 
     @GET("loan/products/getHomeData")
     Observable<HomeRecommend> getHomeRecommend();
+
+    @FormUrlEncoded
+    @POST("loan/products/getProducts")
+    Observable<ProductsBean> getFilterLoan(@Field("page") int page,
+                                           @Field("size") int pageSize,
+                                           @Field("tagName") String tagName,
+                                           @Field("amount") String amount,
+                                           @Field("term") String term);
+
 
     @GET("loan/products")
     Observable<Recommend> getRecommend(@Query("filter") String filter,

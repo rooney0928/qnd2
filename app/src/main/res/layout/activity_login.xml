@@ -114,7 +114,7 @@
             android:maxLines="1"
             android:paddingLeft="42dp"
             android:paddingRight="42dp"
-            android:text="13601816263"
+            android:text="222222"
             android:textColor="@color/black"
             android:textColorHint="@color/text_hint"
             android:textSize="14sp"/>

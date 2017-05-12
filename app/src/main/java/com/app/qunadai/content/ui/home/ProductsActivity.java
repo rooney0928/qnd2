@@ -1,5 +1,9 @@
 package com.app.qunadai.content.ui.home;
 
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -7,14 +11,25 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.LoanDetail;
+import com.app.qunadai.bean.ProductsBean;
+import com.app.qunadai.content.adapter.LoanAdapter;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.contract.ProductsContract;
+import com.app.qunadai.content.presenter.ProductsPresenter;
 import com.app.qunadai.content.view.LoanProductSelectPW;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
+import com.app.qunadai.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.functions.Action1;
 
 import static com.app.qunadai.content.view.LoanProductSelectPW.TYPE_LOAN_MONEY;
 import static com.app.qunadai.content.view.LoanProductSelectPW.TYPE_LOAN_TERM;
@@ -24,7 +39,12 @@ import static com.app.qunadai.content.view.LoanProductSelectPW.TYPE_LOAN_PROFESS
  * Created by wayne on 2017/5/12.
  */
 
-public class ProductsActivity extends BaseActivity {
+public class ProductsActivity extends BaseActivity implements ProductsContract.View {
+    private static final int PAGE_SIZE = 10;
+    int page = 0;
+
+
+    private ProductsPresenter productsPresenter;
 
     @BindView(R.id.ll_pro)
     LinearLayout ll_pro;
@@ -50,14 +70,24 @@ public class ProductsActivity extends BaseActivity {
     @BindView(R.id.ll_filter)
     LinearLayout ll_filter;
 
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout swipe_layout;
+    @BindView(R.id.rv_list)
+    RecyclerView rv_list;
+
+    LoanAdapter adapter;
+    List<LoanDetail> list;
+    LinearLayoutManager linearLayoutManager;
+    boolean isRefresh;
+
     private LoanProductSelectPW proPW;
     private LoanProductSelectPW amountPW;
     private LoanProductSelectPW termPW;
 
-    String tagName = "";
-    String amount = "";
-    String term = "";
-    int page;
+    String tagName = null;
+    String amount = null;
+    String term = null;
+    int lastVisibleItem;
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -78,7 +108,12 @@ public class ProductsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        productsPresenter = new ProductsPresenter(this);
+        list = new ArrayList<>();
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        adapter = new LoanAdapter(this);
+        rv_list.setLayoutManager(linearLayoutManager);
+        rv_list.setAdapter(adapter);
     }
 
     @Override
@@ -86,6 +121,48 @@ public class ProductsActivity extends BaseActivity {
         ll_pro.setOnClickListener(this);
         ll_amount.setOnClickListener(this);
         ll_term.setOnClickListener(this);
+        int mainColor = ContextCompat.getColor(this, R.color.mainColor);
+        swipe_layout.setColorSchemeColors(mainColor);
+
+        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (isRefresh) {
+                    return;
+                }
+                if (NetworkUtil.checkNetwork(ProductsActivity.this)) {
+                    page = 0;
+                    productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
+                } else {
+                    swipe_layout.setRefreshing(false);
+                }
+            }
+        });
+        rv_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView,
+                                             int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItem + 1 == adapter.getItemCount()) {
+                    swipe_layout.setRefreshing(true);
+                    // 此处在现实项目中，请换成网络请求数据代码，sendRequest .....
+//                    handler.sendEmptyMessageDelayed(0, 3000);
+                    page++;
+                    productsPresenter.requestProductsMore(page, PAGE_SIZE, tagName, amount, term);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+
+        });
+
+        productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
     }
 
     @Override
@@ -106,13 +183,14 @@ public class ProductsActivity extends BaseActivity {
                             iv_pro.setSelected(true);
 
                             tagName = text;
-                            if(text.equals("职业身份")){
-                                tagName = "";
+                            if (text.equals("职业身份")) {
+                                tagName = null;
                                 tv_pro.setSelected(false);
                                 iv_pro.setSelected(false);
                             }
                             LogU.t("tagName是：" + tagName + "，amount是：" + amount + "，term是：" + term);
                             page = 0;
+                            productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
                         }
                     });
                     proPW.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -138,16 +216,18 @@ public class ProductsActivity extends BaseActivity {
                             tv_amount.setText(text);
                             tv_amount.setSelected(true);
                             iv_amount.setSelected(true);
-                            if (text.equals("贷款额度")){
-                                amount = "";
+                            if (text.equals("贷款额度")) {
+                                amount = null;
                                 tv_amount.setSelected(false);
                                 iv_amount.setSelected(false);
-                            }else{
-                                amount=text.substring(0,text.indexOf("元"));
+                            } else {
+                                amount = text.substring(0, text.indexOf("元"));
                             }
                             LogU.t("tagName是：" + tagName + "，amount是：" + amount + "，term是：" + term);
                             page = 0;
                             //调用接口
+                            productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
+
                         }
                     });
                     amountPW.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -175,14 +255,16 @@ public class ProductsActivity extends BaseActivity {
                             tv_term.setSelected(true);
                             iv_term.setSelected(true);
 
-                            term=text;
-                            if(text.equals("贷款期限")){
-                                term = "";
+                            term = text;
+                            if (text.equals("贷款期限")) {
+                                term = null;
                                 tv_term.setSelected(false);
                                 iv_term.setSelected(false);
                             }
-                            LogU.t("tagName是：" + tagName+"，amount是：" + amount+"，term是：" + term);
-                            page=0;
+                            LogU.t("tagName是：" + tagName + "，amount是：" + amount + "，term是：" + term);
+                            page = 0;
+                            productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
+
                         }
                     });
                     termPW.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -199,6 +281,7 @@ public class ProductsActivity extends BaseActivity {
                 break;
 
         }
+
     }
 
     public void resetTextViewStatus(TextView textView, ImageView imageView, String text) {
@@ -218,5 +301,72 @@ public class ProductsActivity extends BaseActivity {
         }
         textView.setSelected(selected);
         imageView.setSelected(selected);
+    }
+
+    @Override
+    public void getProducts(ProductsBean bean) {
+        //刷新
+        List<LoanDetail> productList = bean.getContent().getPages().getContent();
+        list.clear();
+        list = productList;
+        adapter.setList(list);
+    }
+
+    @Override
+    public void getProductsMore(ProductsBean bean) {
+//加载更多
+        List<LoanDetail> productList = bean.getContent().getPages().getContent();
+        if (productList.size() > 0) {
+            list.addAll(productList);
+            adapter.setList(list);
+        } else {
+            if (page > 0) {
+                page--;
+            }
+            ToastUtil.showToast(this, "没有更多数据");
+        }
+    }
+
+    @Override
+    public void getProductsFail(String error) {
+        ToastUtil.showToast(this,error);
+
+    }
+
+    @Override
+    public void updateView(Object serverData) {
+
+    }
+
+    @Override
+    public void updateError(String error) {
+
+    }
+
+    @Override
+    public void requestStart() {
+        isRefresh = true;
+    }
+
+    @Override
+    public void requestEnd() {
+        if (swipe_layout != null && swipe_layout.isRefreshing()) {
+            //延迟500毫秒关闭swipe
+            Observable.timer(500, TimeUnit.MILLISECONDS).subscribe(
+                    new Action1<Long>() {
+                        @Override
+                        public void call(Long aLong) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    swipe_layout.setRefreshing(false);
+                                }
+                            });
+                        }
+                    }
+            );
+
+        }
+        isRefresh = false;
     }
 }

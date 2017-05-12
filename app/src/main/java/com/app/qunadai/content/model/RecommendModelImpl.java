@@ -62,13 +62,11 @@ public class RecommendModelImpl implements RecommendContract.Model{
 
                     @Override
                     protected void onError(ApiException ex) {
-//                        onReturnDataListener.loginFail(ex.getMessage());
                         onReturnDataListener.getRecommendFail(ex.getMessage());
                     }
 
                     @Override
                     protected void onOk(Recommend bean) {
-//                        onReturnDataListener.loginDone(token);
                         if(type==REFRESH){
                             onReturnDataListener.getRecommend(bean);
                         }else{

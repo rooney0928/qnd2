@@ -111,9 +111,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             fl_center_base.addView(centerView);
         }
         bottomView = createBottomView();
+        fl_bottom_base = (FrameLayout) root.findViewById(R.id.fl_bottom_base);
         if (bottomView != null) {
-            fl_bottom_base = (FrameLayout) root.findViewById(R.id.fl_bottom_base);
             fl_bottom_base.addView(bottomView);
+        }else{
+            fl_bottom_base.setVisibility(View.GONE);
         }
         ButterKnife.bind(this, root);
         updateTopViewHideAndShow();
