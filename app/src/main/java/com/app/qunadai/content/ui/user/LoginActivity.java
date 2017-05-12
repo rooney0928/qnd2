@@ -392,7 +392,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void loginDone(Token token) {
         ToastUtil.showToastLong(this, "恭喜您，登录成功");
-        PrefUtil.putString(this,"token",token.getContent().getAccess_token());
+        PrefUtil.putString(this,"access_token",token.getContent().getAccess_token());
         Intent intentMain = new Intent(this, MainActivity.class);
         startActivity(intentMain);
     }

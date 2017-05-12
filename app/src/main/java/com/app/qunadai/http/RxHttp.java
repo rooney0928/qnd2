@@ -2,7 +2,10 @@ package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
 import com.app.qunadai.bean.HomeRecommend;
+import com.app.qunadai.bean.MeBean;
 import com.app.qunadai.bean.Message;
+import com.app.qunadai.bean.PersonBean;
+import com.app.qunadai.bean.Recommend;
 import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.Token;
@@ -12,7 +15,6 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -107,9 +109,25 @@ public class RxHttp {
         return qndApi.loginBySms("sms", phone, sms);
     }
 
-
-    public static Observable<HomeRecommend> getRecommend() {
-        return qndApi.getRecommend();
+    //获取个人额度及信息
+    public static Observable<PersonBean> getPersonValue(String access_token) {
+        return qndApi.getPersonValue(access_token);
     }
+
+    //获取首页推荐
+    public static Observable<HomeRecommend> getHomeRecommend() {
+        return qndApi.getHomeRecommend();
+    }
+
+
+    public static Observable<Recommend> getRecommend(int page, int pageSize) {
+        return qndApi.getRecommend("tagName", "推荐", page, pageSize);
+    }
+
+    //个人页面头像昵称
+    public static Observable<MeBean> getMeCurrent(String token) {
+        return qndApi.getMeCurrent(token);
+    }
+
 
 }

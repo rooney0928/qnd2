@@ -14,7 +14,10 @@ import com.bumptech.glide.Glide;
 public class ImgUtil {
 
     public static void loadRound(Context context, int id, ImageView iv) {
-        Glide.with(context).load(id).transform(new GlideCircleTransform(context)).into(iv);
+        Glide.with(context).load(id).error(R.mipmap.moren).transform(new GlideCircleTransform(context)).into(iv);
+    }
+    public static void loadRound(Context context, String url, ImageView iv) {
+        Glide.with(context).load(url).error(R.mipmap.moren).transform(new GlideCircleTransform(context)).into(iv);
     }
 
     public static void loadImg(Context context, int id, ImageView iv) {

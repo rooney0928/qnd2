@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui.home.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,18 +8,25 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.LoanDetail;
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.content.presenter.HomePresenter;
 import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.view.FullViewPager;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.PrefKey;
+import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.RxHolder;
 import com.app.qunadai.utils.ToastUtil;
 import com.google.gson.Gson;
@@ -44,6 +52,23 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @BindView(R.id.vp_recommend)
     FullViewPager vp_recommend;
+
+    @BindView(R.id.ll_get_amount)
+    LinearLayout ll_get_amount;
+    @BindView(R.id.ll_home_allow_limit)
+    LinearLayout ll_home_allow_limit;
+
+    @BindView(R.id.tv_home_allow_limit)
+    TextView tv_home_allow_limit;
+    @BindView(R.id.rl_home_get_limit)
+    RelativeLayout rl_home_get_limit;
+    @BindView(R.id.bt_home_borrow)
+    Button bt_home_borrow;
+
+    @BindView(R.id.ll_home_speed_loan)
+    LinearLayout ll_home_speed_loan;
+    @BindView(R.id.ll_home_recommend_loan)
+    LinearLayout ll_home_recommend_loan;
 
     private HomePresenter homePresenter;
 
@@ -98,8 +123,23 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 swipe_home.setRefreshing(false);
             }
         });
+        ll_home_speed_loan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入贷款产品列表
+            }
+        });
+        ll_home_recommend_loan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入推荐列表
+                Intent intentReco = new Intent(getActivity(), RecommendActivity.class);
+                startActivity(intentReco);
+            }
+        });
 
         homePresenter.getHomeRecommend();
+        homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
     }
 
     private void initTabLayout() {
@@ -116,7 +156,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         tl_home_tab.addTab(tl_home_tab.newTab().setText(tabTitle.get(2)));
 
         vp_recommend.setOffscreenPageLimit(3);
-        vp_recommend.setAdapter(new MainFragmentPagerAdapter(getChildFragmentManager(),fragments,tabTitle));
+        vp_recommend.setAdapter(new MainFragmentPagerAdapter(getChildFragmentManager(), fragments, tabTitle));
 
     }
 
@@ -127,13 +167,43 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         recommendFragment1.setRecommendData(bean.getContent().getTab1());
         recommendFragment2.setRecommendData(bean.getContent().getTab2());
         recommendFragment3.setRecommendData(bean.getContent().getTab3());
-
     }
 
 
     @Override
     public void getHomeRecommendFail(String error) {
         LogU.te(error);
+    }
+
+    @Override
+    public void getPersonValue(PersonBean bean) {
+//        LogU.t("limit-"+bean.getContent().getPersonalValue().getValuation());
+        ll_get_amount.setVisibility(View.GONE);
+        ll_home_allow_limit.setVisibility(View.GONE);
+        if (0 == bean.getContent().getPersonalValue().getValuation()) {
+            ll_get_amount.setVisibility(View.VISIBLE);
+            rl_home_get_limit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //进入个人认证
+
+                }
+            });
+        } else {
+            ll_home_allow_limit.setVisibility(View.VISIBLE);
+            tv_home_allow_limit.setText(bean.getContent().getPersonalValue().getValuation());
+            bt_home_borrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //进入贷款列表
+                }
+            });
+        }
+    }
+
+    @Override
+    public void getPersonValueFail(String error) {
+        ToastUtil.showToast(getActivity(), error);
     }
 
     @Override

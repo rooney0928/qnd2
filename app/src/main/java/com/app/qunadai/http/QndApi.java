@@ -1,7 +1,10 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.bean.HomeRecommend;
+import com.app.qunadai.bean.MeBean;
 import com.app.qunadai.bean.Message;
+import com.app.qunadai.bean.PersonBean;
+import com.app.qunadai.bean.Recommend;
 import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.Token;
@@ -27,42 +30,51 @@ public interface QndApi {
 
     /**
      * 获取登录短信验证码
+     *
      * @param mobileNumber
      * @return
      */
     @FormUrlEncoded
     @POST("token/sms")
     Observable<Message> getLoginSms(@Field("mobileNumber") String mobileNumber);
+
     /**
      * 获取注册短信验证码
+     *
      * @param mobileNumber
      * @return
      */
     @FormUrlEncoded
     @POST("users/signup")
     Observable<Message> getRegisterSms(@Field("mobileNumber") String mobileNumber);
+
     /**
      * 获取注册短信验证码
+     *
      * @param mobileNumber
      * @return
      */
     @FormUrlEncoded
     @POST("users")
     Observable<Message> getForgetSms(@Field("filter") String filter
-                                    ,@Field("c") String c
-                                    ,@Field("mobileNumber") String mobileNumber);
+            , @Field("c") String c
+            , @Field("mobileNumber") String mobileNumber);
+
     /**
      * 重置密码
+     *
      * @return
      */
     @PUT("users")
     Observable<ResetBean> reset(@Query("filter") String filter,
                                 @Query("c") String c,
-                                @Query("mobileNumber")String mobileNumber,
+                                @Query("mobileNumber") String mobileNumber,
                                 @Query("verifiCode") String sms,
                                 @Query("sha1password") String pwd);
+
     /**
      * 注册
+     *
      * @return
      */
     @PUT("users/activate")
@@ -71,22 +83,35 @@ public interface QndApi {
                                  @Query("smsActivateCode") String sms,
                                  @Query("sha1password") String pwd);
 
-
-
     @FormUrlEncoded
     @POST("token")
     Observable<Token> loginByPwd(@Field("filter") String filter,
                                  @Field("mobileNumber") String mobileNumber,
                                  @Field("sha1password") String pwd);
+
     @FormUrlEncoded
     @POST("token")
     Observable<Token> loginBySms(@Field("filter") String filter,
                                  @Field("mobileNumber") String mobileNumber,
                                  @Field("smsCode") String sms);
 
+    //home
+
+    @GET("home/personalvalue")
+    Observable<PersonBean> getPersonValue(@Query("access_token") String access_token);
 
     @GET("loan/products/getHomeData")
-    Observable<HomeRecommend> getRecommend();
+    Observable<HomeRecommend> getHomeRecommend();
 
+    @GET("loan/products")
+    Observable<Recommend> getRecommend(@Query("filter") String filter,
+                                       @Query("tagName") String tagName,
+                                       @Query("page") int page,
+                                       @Query("pageSize") int pageSize);
+
+
+    //me
+    @GET("users/current")
+    Observable<MeBean> getMeCurrent(@Query("access_token") String access_token);
 
 }

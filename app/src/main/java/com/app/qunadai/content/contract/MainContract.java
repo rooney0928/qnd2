@@ -1,6 +1,8 @@
 package com.app.qunadai.content.contract;
 
 import com.app.qunadai.bean.HomeRecommend;
+import com.app.qunadai.bean.MeBean;
+import com.app.qunadai.bean.Token;
 import com.app.qunadai.content.base.BaseModel;
 import com.app.qunadai.content.base.BasePresenter;
 import com.app.qunadai.content.base.BaseView;

@@ -1,6 +1,7 @@
 package com.app.qunadai.content.presenter;
 
 import com.app.qunadai.bean.HomeRecommend;
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.content.model.HomeModelImpl;
 
@@ -26,6 +27,16 @@ public class HomePresenter implements HomeContract.Presenter{
             }
 
             @Override
+            public void getPersonValue(PersonBean bean) {
+                view.getPersonValue(bean);
+            }
+
+            @Override
+            public void getPersonValueFail(String error) {
+                view.getPersonValueFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -48,5 +59,10 @@ public class HomePresenter implements HomeContract.Presenter{
     @Override
     public void getHomeRecommend() {
         model.getHomeRecommend();
+    }
+
+    @Override
+    public void requestPersonValue(String token) {
+        model.requestPersonValue(token);
     }
 }

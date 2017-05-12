@@ -86,7 +86,6 @@
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/shape_raise_limit_text"
-
             android:layout_marginRight="8dp"
             android:text="立即申请"
             android:textColor="@color/orange"

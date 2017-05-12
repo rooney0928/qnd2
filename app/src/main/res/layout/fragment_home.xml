@@ -36,6 +36,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/ripple_nav_bg"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingBottom="10dp"
@@ -82,6 +83,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/ripple_nav_bg"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingBottom="10dp"
@@ -137,7 +139,7 @@
                         android:textSize="14sp"/>
 
                     <RelativeLayout
-                        android:id="@+id/ll_home_get_limit"
+                        android:id="@+id/rl_home_get_limit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -158,7 +160,6 @@
                             android:textSize="17sp"/>
 
                         <ImageView
-
                             android:layout_width="13dp"
                             android:layout_height="13dp"
                             android:layout_centerInParent="true"
@@ -177,7 +178,8 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="20dp">
+                    android:paddingBottom="20dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -219,6 +221,7 @@
                     android:id="@+id/vp_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></com.app.qunadai.content.view.FullViewPager>
+
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -29,4 +29,6 @@
 
     <!--home-->
     <color name="icon_bg">#f2f2f2</color>
+    <color name="recommend_bg">#FCE9D2</color>
+    <color name="text_orange_dark">#F3921E</color>
 </resources>
