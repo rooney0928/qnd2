@@ -27,6 +27,7 @@ import com.app.qunadai.content.presenter.LoginPresenter;
 import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -286,7 +287,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             @Override
             public void onClick(View v) {
                 //进入忘记密码环节
-                Intent intentForget = new Intent(LoginActivity.this,ForgetPwdActivity.class);
+                Intent intentForget = new Intent(LoginActivity.this, ForgetPwdActivity.class);
                 startActivity(intentForget);
             }
         });
@@ -400,9 +401,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void loginDone(Token token) {
         ToastUtil.showToastLong(this, "恭喜您，登录成功");
-        PrefUtil.putString(this,"access_token",token.getContent().getAccess_token());
+        PrefUtil.putString(this, PrefKey.TOKEN, token.getContent().getAccess_token());
+        PrefUtil.putString(this, PrefKey.PHONE, et_login_phone.getText().toString().trim());
         Intent intentMain = new Intent(this, MainActivity.class);
         startActivity(intentMain);
+        finish();
     }
 
     @Override
@@ -431,6 +434,20 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         return super.onTouchEvent(event);
     }
 
+    private long mPressedTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long mNowTime = System.currentTimeMillis();//获取第一次按键时间
+        if ((mNowTime - mPressedTime) > 2000) {//比较两次按键时间差
+            ToastUtil.showToast(this, "再按一次退出程序");
+            mPressedTime = mNowTime;
+        } else {
+            //退出程序
+            finish();
+            System.exit(0);
+        }
+    }
     /**
      * 点击其他地方隐藏键盘
      *

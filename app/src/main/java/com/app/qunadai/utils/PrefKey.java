@@ -6,4 +6,6 @@ package com.app.qunadai.utils;
 
 public class PrefKey {
     public static final String TOKEN = "access_token";
+    public static final String PHONE = "phone";
+
 }

@@ -9,6 +9,7 @@ import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.Recommend;
 import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
+import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -131,6 +132,13 @@ public class RxHttp {
     //获取推荐贷款
     public static Observable<Recommend> getRecommend(int page, int pageSize) {
         return qndApi.getRecommend("tagName", "推荐", page, pageSize);
+    }
+
+    //limit
+
+    //更新业务状态
+    public static Observable<StatusBean> updateStatus(String mobileNumber, String businessId,String token) {
+        return qndApi.updateStatus(mobileNumber, businessId,token);
     }
 
     //个人页面头像昵称

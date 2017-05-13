@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.ForbidScrollViewpager;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class MainActivity extends BaseActivity {
     private MeFragment meFragment;
 
     private List<Fragment> fragments = new ArrayList<>();
+
     @Override
     protected void updateTopViewHideAndShow() {
         setTitleBarStatus(TITLE_OFF);
@@ -60,13 +63,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected View createCenterView() {
-        View content = View.inflate(this,R.layout.activity_main,null);
+        View content = View.inflate(this, R.layout.activity_main, null);
         return content;
     }
 
     @Override
     protected View createBottomView() {
-        View footer = View.inflate(this,R.layout.layout_nav,null);
+        View footer = View.inflate(this, R.layout.layout_nav, null);
         return footer;
     }
 
@@ -75,7 +78,7 @@ public class MainActivity extends BaseActivity {
         homeFragment = HomeFragment.getInstance();
         limitFragment = LimitFragment.getInstance();
         bbsFragment = BBSFragment.getInstance();
-        meFragment =  MeFragment.getInstance();
+        meFragment = MeFragment.getInstance();
 //        testFragment = new TestFragment();
         fragments.add(homeFragment);
         fragments.add(limitFragment);
@@ -87,8 +90,7 @@ public class MainActivity extends BaseActivity {
     public void initViewData() {
 //        LogU.t("???"+rb_nav_home);
         /**/
-        vp_main.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),fragments));
-
+        vp_main.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), fragments));
 
 
         rg_nav_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -97,7 +99,7 @@ public class MainActivity extends BaseActivity {
                 //先清空标题栏
                 setTitleBarStatus(TITLE_OFF);
                 setTitle("");
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.rb_nav_home:
                         vp_main.setCurrentItem(0);
                         setTitleBarStatus(BaseActivity.TITLE_OFF);
@@ -137,4 +139,13 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ReqKey.REQ_MOXIE) {
+            if (limitFragment != null) {
+                limitFragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
 }

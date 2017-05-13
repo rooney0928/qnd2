@@ -128,6 +128,7 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
             @Override
             public void onRefresh() {
                 if (isRefresh) {
+                    swipe_layout.setRefreshing(false);
                     return;
                 }
                 if (NetworkUtil.checkNetwork(ProductsActivity.this)) {
@@ -161,7 +162,7 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
             }
 
         });
-
+        swipe_layout.setRefreshing(true);
         productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
     }
 
@@ -309,6 +310,7 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
         list.clear();
         list = productList;
         adapter.setList(list);
+        linearLayoutManager.scrollToPosition(0);
     }
 
     @Override

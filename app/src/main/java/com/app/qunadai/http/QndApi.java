@@ -8,6 +8,7 @@ import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.Recommend;
 import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
+import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 
 import retrofit2.http.Field;
@@ -116,7 +117,12 @@ public interface QndApi {
                                        @Query("tagName") String tagName,
                                        @Query("page") int page,
                                        @Query("pageSize") int pageSize);
-
+    //limit
+    @FormUrlEncoded
+    @POST("home/personalvalue/updateStatus")
+    Observable<StatusBean> updateStatus(@Field("mobileNumber") String mobileNumber,
+                                        @Field("businessId") String businessId,
+                                        @Field("access_token") String access_token);
 
     //me
     @GET("users/current")

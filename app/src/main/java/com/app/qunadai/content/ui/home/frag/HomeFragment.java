@@ -26,6 +26,7 @@ import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.view.FullViewPager;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.RxHolder;
@@ -36,10 +37,12 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.Observable;
 import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Created by wayne on 2017/5/8.
@@ -79,6 +82,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private RecommendFragment recommendFragment3;
 
     private List<String> tabTitle;
+    boolean isRefresh;
 
     public static HomeFragment getInstance() {
         HomeFragment homeFragment = new HomeFragment();
@@ -121,7 +125,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
             @Override
             public void onRefresh() {
-                swipe_home.setRefreshing(false);
+                if (isRefresh) {
+                    swipe_home.setRefreshing(false);
+                    return;
+                }
+                if (NetworkUtil.checkNetwork(getActivity())) {
+                    homePresenter.getHomeRecommend();
+                } else {
+                    swipe_home.setRefreshing(false);
+                }
             }
         });
         ll_home_speed_loan.setOnClickListener(new View.OnClickListener() {
@@ -183,22 +195,22 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 //        LogU.t("limit-"+bean.getContent().getPersonalValue().getValuation());
         ll_get_amount.setVisibility(View.GONE);
         ll_home_allow_limit.setVisibility(View.GONE);
-        if (0 == bean.getContent().getPersonalValue().getValuation()) {
-            ll_get_amount.setVisibility(View.VISIBLE);
-            rl_home_get_limit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //进入个人认证
-
-                }
-            });
-        } else {
+        if (0 != bean.getContent().getPersonalValue().getValuation()) {
             ll_home_allow_limit.setVisibility(View.VISIBLE);
             tv_home_allow_limit.setText(bean.getContent().getPersonalValue().getValuation());
             bt_home_borrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //进入贷款列表
+                }
+            });
+        } else {
+            ll_get_amount.setVisibility(View.VISIBLE);
+            rl_home_get_limit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //进入个人认证
+
                 }
             });
         }
@@ -221,11 +233,28 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void requestStart() {
-
+        isRefresh = true;
     }
 
     @Override
     public void requestEnd() {
+        if (swipe_home != null && swipe_home.isRefreshing()) {
+            //延迟500毫秒关闭swipe
+            Observable.timer(500, TimeUnit.MILLISECONDS).subscribe(
+                    new Action1<Long>() {
+                        @Override
+                        public void call(Long aLong) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    swipe_home.setRefreshing(false);
+                                }
+                            });
+                        }
+                    }
+            );
 
+        }
+        isRefresh = false;
     }
 }
