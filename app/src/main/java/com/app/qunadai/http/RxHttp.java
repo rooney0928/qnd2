@@ -1,6 +1,7 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
+import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.MeBean;
@@ -17,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -137,14 +139,24 @@ public class RxHttp {
     //limit
 
     //更新业务状态
-    public static Observable<StatusBean> updateStatus(String mobileNumber, String businessId,String token) {
-        return qndApi.updateStatus(mobileNumber, businessId,token);
+    public static Observable<StatusBean> updateStatus(String mobileNumber, String businessId, String token) {
+        return qndApi.updateStatus(mobileNumber, businessId, token);
     }
+    //me
 
     //个人页面头像昵称
     public static Observable<MeBean> getMeCurrent(String token) {
         return qndApi.getMeCurrent(token);
     }
 
+    //获取真实信息
+    public static Observable<PersonInfo> getPersonInfo(String token) {
+        return qndApi.getPersonInfo(token);
+    }
+
+    //设置真实信息
+    public static Observable<PersonInfo> setPersonInfo(String token, RequestBody body) {
+        return qndApi.setPersonInfo(token, body);
+    }
 
 }

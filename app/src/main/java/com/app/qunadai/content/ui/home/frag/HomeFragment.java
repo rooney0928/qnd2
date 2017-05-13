@@ -130,7 +130,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                     return;
                 }
                 if (NetworkUtil.checkNetwork(getActivity())) {
-                    homePresenter.getHomeRecommend();
+                    homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
                 } else {
                     swipe_home.setRefreshing(false);
                 }
@@ -192,7 +192,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void getPersonValue(PersonBean bean) {
-//        LogU.t("limit-"+bean.getContent().getPersonalValue().getValuation());
+        LogU.t("limit-"+bean.getContent().getPersonalValue().getValuation());
         ll_get_amount.setVisibility(View.GONE);
         ll_home_allow_limit.setVisibility(View.GONE);
         if (0 != bean.getContent().getPersonalValue().getValuation()) {
@@ -218,7 +218,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void getPersonValueFail(String error) {
-        ToastUtil.showToast(getActivity(), error);
+        ToastUtil.showToast(getActivity(), error+"-h");
     }
 
     @Override

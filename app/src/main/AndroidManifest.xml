@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.app.qunadai">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
+        <!--user-->
         <activity
             android:name=".content.ui.user.LoginActivity"
             android:launchMode="singleTask"
@@ -31,6 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".content.ui.user.RegisterActivity"
             android:screenOrientation="portrait"
@@ -40,6 +42,13 @@
             android:name=".content.ui.user.ForgetPwdActivity"
             android:screenOrientation="portrait"
             ></activity>
+        <!--home-->
+        <activity
+            android:name=".content.ui.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".content.ui.home.ProductsActivity"
             android:screenOrientation="portrait"
@@ -49,12 +58,14 @@
             android:screenOrientation="portrait"
             ></activity>
 
-        <activity
-            android:name=".content.ui.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
 
-        </activity>
+        <!--me-->
+        <activity
+            android:name=".content.ui.me.PersonInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            ></activity>
+
 
         <!--moxie-->
         <activity android:name=".third.moxie.WebViewActivity">

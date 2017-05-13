@@ -63,7 +63,7 @@ public class LogU {
 
 	public static void te(String msg){
 		if(isDebug){
-			Log.e("test","er:"+msg);
+			Log.e("etest","er:"+msg);
 		}
 	}
 	public static void x(String msg){

@@ -45,4 +45,41 @@
         <item>60月</item>
     </string-array>
 
+
+    <string-array name="info_period">
+        <item>7天</item>
+        <item>15天</item>
+        <item>1月</item>
+        <item>3月</item>
+        <item>5月</item>
+        <item>7月</item>
+        <item>9月</item>
+        <item>12月</item>
+        <item>18月</item>
+        <item>24月</item>
+        <item>36月</item>
+    </string-array>
+
+    <string-array name="info_job">
+        <item>上班族</item>
+        <item>学生</item>
+        <item>无固定职业</item>
+    </string-array>
+
+    <string-array name="info_edu">
+        <item>博士及以上</item>
+        <item>硕士</item>
+        <item>大学本科</item>
+        <item>高中或中专</item>
+        <item>初中</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="info_marry">
+        <item>已婚</item>
+        <item>未婚</item>
+        <item>离异</item>
+        <item>其他</item>
+    </string-array>
+
 </resources>

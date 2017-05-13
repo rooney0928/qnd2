@@ -22,6 +22,8 @@ import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -70,10 +72,13 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
     @BindView(R.id.ll_filter)
     LinearLayout ll_filter;
 
+    @BindView(R.id.tv_product_amount)
+    TextView tv_product_amount;
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout swipe_layout;
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
+
 
     LoanAdapter adapter;
     List<LoanDetail> list;
@@ -92,7 +97,7 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
     @Override
     protected void updateTopViewHideAndShow() {
         setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("贷款");
+        setTitle("搜索贷款");
     }
 
     @Override
@@ -330,7 +335,7 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
 
     @Override
     public void getProductsFail(String error) {
-        ToastUtil.showToast(this,error);
+        ToastUtil.showToast(this, error);
 
     }
 
@@ -369,5 +374,6 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
 
         }
         isRefresh = false;
+        tv_product_amount.setText(list == null ? "0" : list.size()+"");
     }
 }

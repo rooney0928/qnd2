@@ -269,7 +269,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
+        switch (resultCode) {
             case Activity.RESULT_OK:
 
 

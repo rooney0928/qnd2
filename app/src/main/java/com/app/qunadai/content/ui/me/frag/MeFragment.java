@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui.me.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import com.app.qunadai.bean.MeBean;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.MeContract;
 import com.app.qunadai.content.presenter.MePresenter;
+import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -63,6 +65,14 @@ public class MeFragment extends BaseFragment implements MeContract.View {
         mePresenter = new MePresenter(this);
         ImgUtil.loadRound(getActivity(), R.mipmap.default_avatar, iv_me_avatar);
         mePresenter.requestCurrent(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+
+        rl_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
+                startActivity(intentInfo);
+            }
+        });
     }
 
     @Override
@@ -74,7 +84,7 @@ public class MeFragment extends BaseFragment implements MeContract.View {
 
     @Override
     public void getCurrentFail(String error) {
-        ToastUtil.showToast(getActivity(),error);
+        ToastUtil.showToast(getActivity(),error+"-m");
     }
 
     @Override

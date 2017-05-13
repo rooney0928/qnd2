@@ -1,5 +1,6 @@
 package com.app.qunadai.http;
 
+import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.MeBean;
@@ -11,6 +12,8 @@ import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -117,6 +120,7 @@ public interface QndApi {
                                        @Query("tagName") String tagName,
                                        @Query("page") int page,
                                        @Query("pageSize") int pageSize);
+
     //limit
     @FormUrlEncoded
     @POST("home/personalvalue/updateStatus")
@@ -128,4 +132,12 @@ public interface QndApi {
     @GET("users/current")
     Observable<MeBean> getMeCurrent(@Query("access_token") String access_token);
 
+
+    @GET("home/creditinfo")
+    Observable<PersonInfo> getPersonInfo(@Query("access_token") String access_token);
+
+//    RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), "");
+
+    @PUT("home/creditinfo")
+    Observable<PersonInfo> setPersonInfo(@Query("access_token") String access_token, @Body RequestBody body);
 }
