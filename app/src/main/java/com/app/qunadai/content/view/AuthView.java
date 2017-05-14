@@ -76,12 +76,14 @@ public class AuthView extends RelativeLayout {
     }
 
     public void setAuthStatus(int status) {
+        this.status = status;
         if (status < 0 || status > 2) {
             throw new IllegalStateException("the authStatus is only 0,1,2");
         }
 
         switch (status) {
             case AUTH_NO:
+
                 iv_auth_status.setImageResource(R.mipmap.icon_unauth);
                 break;
             case AUTH_YES:

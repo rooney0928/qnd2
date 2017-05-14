@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -125,4 +126,23 @@ public class CommUtil {
             throw new IllegalArgumentException("the method only receive TextView EditText ");
         }
     }
+    public static int day2month(String day){
+        return day2month(str2int(day));
+    }
+    public static int day2month(BigDecimal day){
+        return day2month(day.intValue());
+    }
+    public static int day2month(int day){
+        BigDecimal bigDay = new BigDecimal(day);
+        BigDecimal permon = bigDay.divide(new BigDecimal(30),0,BigDecimal.ROUND_FLOOR);
+        int month = permon.intValue()+1;
+        return month;
+    }
+
+    public static int str2int(String str){
+        String number = str.trim().replaceAll("[^0-9.]","");
+        return Integer.parseInt(number);
+    }
+
+
 }

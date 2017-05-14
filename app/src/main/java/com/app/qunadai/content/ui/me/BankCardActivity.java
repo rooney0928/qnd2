@@ -50,6 +50,8 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
 
     @BindView(R.id.bt_submit)
     Button bt_submit;
+    @BindView(R.id.verify_title_bar)
+    View verify_title_bar;
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -70,6 +72,11 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
 
     @Override
     protected void initView() {
+        boolean hideTitle = getIntent().getBooleanExtra("titleHide", false);
+        if (hideTitle) {
+            verify_title_bar.setVisibility(View.GONE);
+        }
+
         bankcardPresenter = new BankcardPresenter(this);
     }
 
@@ -185,7 +192,6 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
     @Override
     public void setBankcardFail(String error) {
         ToastUtil.showToast(this, error);
-
     }
 
     @Override

@@ -90,6 +90,9 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     @BindView(R.id.bt_submit)
     Button bt_submit;
 
+    @BindView(R.id.verify_title_bar)
+    View verify_title_bar;
+
     InputMethodManager manager;
 
     private ChooseAddressWheel chooseAddressWheel;
@@ -97,6 +100,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     String address = "";
 
     JSONObject infoObj;
+    boolean isFromDetail;
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -119,6 +123,11 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     protected void initView() {
         EventBus.getDefault().register(this);
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        isFromDetail = getIntent().getBooleanExtra("isFromDetail",false);
+        boolean hideTitle = getIntent().getBooleanExtra("titleHide", false);
+        if (hideTitle) {
+            verify_title_bar.setVisibility(View.GONE);
+        }
 
         personInfoPresenter = new PersonInfoPresenter(this);
         chooseAddressWheel = new ChooseAddressWheel(this);
@@ -209,6 +218,10 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
                     tempAddr += s + " ";
                 }
                 tv_info_live.setText(tempAddr.trim());
+
+                address = tempAddr.trim().replace(" ",",");
+            }else{
+                address = content.getHabitualResidence();
             }
 
         } catch (JSONException e) {
@@ -220,14 +233,19 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
 
     @Override
     public void getPersonInfoFail(String error) {
-
+        ToastUtil.showToast(this,error);
     }
 
     @Override
     public void setPersonInfo(PersonInfo bean) {
-        ToastUtil.showToast(this, bean.getDetail());
-        Intent intent = new Intent(this, BankCardActivity.class);
-        startActivity(intent);
+        if(isFromDetail){
+            finish();
+        }else{
+            ToastUtil.showToast(this, bean.getDetail());
+            Intent intent = new Intent(this, BankCardActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -321,8 +339,8 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         String mEdu = CommUtil.getText(tv_info_edu);
         String mMarry = CommUtil.getText(tv_info_marry);
         String mAddress = address;
-        Intent intent = new Intent(this, BankCardActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, BankCardActivity.class);
+//        startActivity(intent);
 
         if (!CommUtil.isNumber(mAmount)) {
             ToastUtil.showToast(this, "请填写正确的借款额度");

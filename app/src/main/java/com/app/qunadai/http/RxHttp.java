@@ -2,7 +2,9 @@ package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonInfo;
+import com.app.qunadai.bean.ProductDetailBean;
 import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.MeBean;
@@ -135,6 +137,10 @@ public class RxHttp {
     //获取推荐贷款
     public static Observable<Recommend> getRecommend(int page, int pageSize) {
         return qndApi.getRecommend("tagName", "推荐", page, pageSize);
+    }
+    //获取产品详情
+    public static Observable<ProductDetailBean> getLoanDetail(String pid){
+        return qndApi.getLoanDetail(pid);
     }
 
     //limit

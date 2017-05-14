@@ -1,7 +1,9 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonInfo;
+import com.app.qunadai.bean.ProductDetailBean;
 import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.MeBean;
@@ -20,6 +22,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -121,6 +124,9 @@ public interface QndApi {
                                        @Query("tagName") String tagName,
                                        @Query("page") int page,
                                        @Query("pageSize") int pageSize);
+
+    @GET("loan/products/{pid}")
+    Observable<ProductDetailBean> getLoanDetail(@Path("pid") String pid);
 
     //limit
     @FormUrlEncoded

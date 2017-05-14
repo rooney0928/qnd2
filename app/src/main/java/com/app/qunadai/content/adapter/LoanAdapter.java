@@ -1,6 +1,7 @@
 package com.app.qunadai.content.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.LoanDetail;
+import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
 
@@ -45,12 +47,7 @@ public class LoanAdapter extends RecyclerView.Adapter {
         View view = LayoutInflater.from(context).inflate(R.layout.item_loan_msg, parent, false);
         LoanHolder holder = new LoanHolder(view);
 
-        holder.rl_loan_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //进入贷款产品
-            }
-        });
+
         return holder;
     }
 
@@ -87,13 +84,22 @@ public class LoanAdapter extends RecyclerView.Adapter {
         }
 
         public void setData() {
-            LoanDetail detail = list.get(getAdapterPosition());
+            final LoanDetail detail = list.get(getAdapterPosition());
 
             String imgUrl = RxHttp.ROOT + "/attachments/" + detail.getIcon();
             ImgUtil.loadImg(context, imgUrl, iv_avatar);
             tv_product_name.setText(detail.getName());
             tv_product_desc.setText(detail.getDescribe());
             tv_person.setText(detail.getNum()+"");
+            rl_loan_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //进入贷款产品
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
+                    intent.putExtra("pid",detail.getId());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
