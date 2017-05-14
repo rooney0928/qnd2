@@ -1,5 +1,6 @@
 package com.app.qunadai.http;
 
+import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
@@ -136,8 +137,14 @@ public interface QndApi {
     @GET("home/creditinfo")
     Observable<PersonInfo> getPersonInfo(@Query("access_token") String access_token);
 
-//    RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), "");
-
     @PUT("home/creditinfo")
     Observable<PersonInfo> setPersonInfo(@Query("access_token") String access_token, @Body RequestBody body);
+
+    @GET("home/requirement")
+    Observable<BankcardBean> getBankcardInfo(@Query("access_token") String access_token);
+
+    @POST("home/requirement")
+    Observable<BankcardBean> setBankcardInfo(@Query("access_token") String access_token, @Body RequestBody body);
+
+
 }

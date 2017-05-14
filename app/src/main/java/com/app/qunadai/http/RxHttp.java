@@ -1,6 +1,7 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
+import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductsBean;
 import com.app.qunadai.bean.HomeRecommend;
@@ -157,6 +158,16 @@ public class RxHttp {
     //设置真实信息
     public static Observable<PersonInfo> setPersonInfo(String token, RequestBody body) {
         return qndApi.setPersonInfo(token, body);
+    }
+
+    //获取银行卡
+    public static Observable<BankcardBean> getBankcard(String token) {
+        return qndApi.getBankcardInfo(token);
+    }
+
+    //设置银行卡
+    public static Observable<BankcardBean> setBankcard(String token, RequestBody body) {
+        return qndApi.setBankcardInfo(token, body);
     }
 
 }

@@ -131,6 +131,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 }
                 if (NetworkUtil.checkNetwork(getActivity())) {
                     homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+                    homePresenter.getHomeRecommend();
+
                 } else {
                     swipe_home.setRefreshing(false);
                 }
@@ -197,7 +199,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         ll_home_allow_limit.setVisibility(View.GONE);
         if (0 != bean.getContent().getPersonalValue().getValuation()) {
             ll_home_allow_limit.setVisibility(View.VISIBLE);
-            tv_home_allow_limit.setText(bean.getContent().getPersonalValue().getValuation());
+            tv_home_allow_limit.setText(""+bean.getContent().getPersonalValue().getValuation());
             bt_home_borrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

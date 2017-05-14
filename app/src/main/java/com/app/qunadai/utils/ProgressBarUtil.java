@@ -18,11 +18,19 @@ public class ProgressBarUtil {
 
     public static void showLoadDialog(Context context) {
         if (dialog == null || !dialog.isShowing()) {
-            dialog = ProgressDialog.show(context, "提示", "正在加载中");
+            dialog = ProgressDialog.show(context, "", "正在加载中");
         }
         dialog.show();
     }
-    public static void showLoadDialog(Context context,String msg) {
+
+    public static void showLoadDialog(Context context, String title, String msg) {
+        if (dialog == null || !dialog.isShowing()) {
+            dialog = ProgressDialog.show(context, title, msg);
+        }
+        dialog.show();
+    }
+
+    public static void showLoadDialog(Context context, String msg) {
         if (dialog == null || !dialog.isShowing()) {
             dialog = ProgressDialog.show(context, "提示", msg);
         }
@@ -30,12 +38,12 @@ public class ProgressBarUtil {
     }
 
 
-
     public static void hideLoadDialog() {
         if (dialog != null) {
             dialog.dismiss();
         }
     }
+
     public static void hideLoadDialogDelay(final Activity activity) {
         Observable.timer(400, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {

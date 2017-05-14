@@ -2,11 +2,13 @@ package com.app.qunadai.content.ui.me;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,11 +32,15 @@ import com.app.qunadai.third.address.utils.Utils;
 import com.app.qunadai.third.address.view.ChooseAddressWheel;
 import com.app.qunadai.third.address.view.listener.OnAddressChangeListener;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.EventClose;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -111,6 +117,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         personInfoPresenter = new PersonInfoPresenter(this);
@@ -219,6 +226,8 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     @Override
     public void setPersonInfo(PersonInfo bean) {
         ToastUtil.showToast(this, bean.getDetail());
+        Intent intent = new Intent(this, BankCardActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -312,6 +321,8 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         String mEdu = CommUtil.getText(tv_info_edu);
         String mMarry = CommUtil.getText(tv_info_marry);
         String mAddress = address;
+        Intent intent = new Intent(this, BankCardActivity.class);
+        startActivity(intent);
 
         if (!CommUtil.isNumber(mAmount)) {
             ToastUtil.showToast(this, "请填写正确的借款额度");
@@ -410,5 +421,17 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
                 manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
         }
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN, priority = 100) //在ui线程执行 优先级100
+    public void onReceive(EventClose event) {
+        LogU.t("close");
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

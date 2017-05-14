@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp">
+              android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:orientation="vertical"
+              android:paddingBottom="20dp"
+              android:paddingLeft="30dp"
+              android:paddingRight="30dp"
+              android:paddingTop="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
         <RelativeLayout
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:gravity="center"
-            android:background="@drawable/shape_round_text_bg_curr">
+            android:background="@drawable/shape_round_text_bg_curr"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/iv_progress_one"
                 android:layout_width="wrap_content"
@@ -29,8 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
+                android:textColor="@color/white"
                 android:textSize="14sp"
-                android:textColor="@color/white"/>
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <View
@@ -39,53 +42,56 @@
             android:layout_height="5dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:background="@drawable/shape_line_info_default"/>
+            android:background="@drawable/shape_line_info_ok"/>
 
         <RelativeLayout
             android:id="@+id/rl_next_progress_area"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:gravity="center"
-            android:background="@drawable/shape_round_text_bg_default">
+            android:background="@drawable/shape_round_text_bg_curr"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/iv_progress_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_small_hook"/>
+                android:src="@mipmap/icon_small_hook"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_verify_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2"
-                android:textSize="14sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
         </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="真实信息"
-            android:textSize="16sp"
-            android:textColor="@color/text_black"/>
+            android:textColor="@color/text_black"
+            android:textSize="16sp"/>
 
         <Space
             android:layout_width="50dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="银行卡验证"
-            android:textSize="16sp"
-            android:textColor="@color/text_black"/>
+            android:textColor="@color/text_black"
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </LinearLayout>

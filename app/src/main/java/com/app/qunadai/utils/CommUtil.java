@@ -105,6 +105,14 @@ public class CommUtil {
             return false;
         }
     }
+    public static boolean isNull(View view) {
+        String str = getText(view);
+        if (str == null || str.trim().length() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static String getText(View view) {
         if (view instanceof EditText) {

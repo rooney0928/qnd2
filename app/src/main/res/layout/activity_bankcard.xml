@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_bg"
+              android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/verify_title_bar"
+        layout="@layout/layout_info_title2"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:paddingLeft="12dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="持卡人姓名"
+            android:textColor="@color/text_black"/>
+
+        <EditText
+            android:id="@+id/et_bank_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="108dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:hint="姓名"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_bank_name_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:paddingLeft="12dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="银行卡卡号"
+            android:textColor="@color/text_black"/>
+
+        <EditText
+            android:id="@+id/et_bank_bankcard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="108dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:hint="卡号"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_bank_bankcard_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="12dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="持卡人身份证"
+            android:textColor="@color/text_black"/>
+
+        <EditText
+            android:id="@+id/et_bank_idcard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="108dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:hint="身份证号码"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/text_black"
+
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_bank_idcard_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:paddingLeft="12dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="银行预留手机号"
+            android:textColor="@color/text_black"/>
+
+        <EditText
+            android:id="@+id/et_bank_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="108dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:hint="手机号码"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_bank_phone_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/icon_clear"
+            android:textColorHint="@color/text_hint"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_agree_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_agree_protocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_cb_agree"
+                android:checked="true"
+                android:enabled="false"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingLeft="3dp"
+                android:paddingTop="10dp"
+                android:text="我已同意并阅读"
+                android:textColor="@color/text_grey"
+                android:textSize="12sp"/>
+
+
+            <TextView
+                android:id="@+id/tv_qunadai_protocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="《征信查询授权书》"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/bt_submit"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/selector_submit_style"
+        android:enabled="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="验证"
+        android:textColor="@color/white"
+        android:textSize="17sp"/>
+
+</LinearLayout>
