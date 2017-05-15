@@ -28,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public static final int TITLE_ON_BACK_OFF = 0;
     public static final int TITLE_ON_BACK_ON = 2;
     public static final int TITLE_OFF = 4;
+    public static final int TITLE_ON_RIGHT_ON = 6;
 
 
     /**
@@ -46,6 +47,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     RelativeLayout rl_back;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.tv_title_right)
+    TextView tv_title_right;
 
     @BindView(R.id.ll_root)
     LinearLayout ll_root;
@@ -114,7 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         fl_bottom_base = (FrameLayout) root.findViewById(R.id.fl_bottom_base);
         if (bottomView != null) {
             fl_bottom_base.addView(bottomView);
-        }else{
+        } else {
             fl_bottom_base.setVisibility(View.GONE);
         }
         ButterKnife.bind(this, root);
@@ -176,6 +179,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitle(String title) {
         tv_title.setText(title);
     }
+    public void setTitleRight(String title){
+        tv_title_right.setText(title);
+    }
 
     public void setTitleBarStatus(int status) {
         switch (status) {
@@ -189,13 +195,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                 tv_title.setVisibility(View.VISIBLE);
                 rl_back.setVisibility(View.GONE);
                 break;
+
             case TITLE_OFF:
                 ll_top.setVisibility(View.GONE);
+                break;
+            case TITLE_ON_RIGHT_ON:
+                ll_top.setVisibility(View.VISIBLE);
+                tv_title.setVisibility(View.VISIBLE);
+                rl_back.setVisibility(View.VISIBLE);
+                tv_title_right.setVisibility(View.VISIBLE);
                 break;
             default:
                 ll_top.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    public void setTitleRightEvent(View.OnClickListener listener){
+        tv_title_right.setOnClickListener(listener);
     }
 
 

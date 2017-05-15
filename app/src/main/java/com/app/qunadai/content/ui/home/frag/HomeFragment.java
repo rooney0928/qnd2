@@ -24,6 +24,7 @@ import com.app.qunadai.content.presenter.HomePresenter;
 import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
+import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.view.FullViewPager;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
@@ -33,6 +34,7 @@ import com.app.qunadai.utils.RxHolder;
 import com.app.qunadai.utils.ToastUtil;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -162,7 +164,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private void initTabLayout() {
         tabTitle = new ArrayList<>();
         tabTitle.add("2000以下");
-        tabTitle.add("2000-10000");
+        tabTitle.add("2000-1万");
         tabTitle.add("10000以上");
 
 
@@ -204,6 +206,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 @Override
                 public void onClick(View v) {
                     //进入贷款列表
+                    Intent intentProducts = new Intent(getActivity(),ProductsActivity.class);
+                    startActivity(intentProducts);
                 }
             });
         } else {
@@ -211,7 +215,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             rl_home_get_limit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //进入个人认证
+                    //进入身份认证
+                    Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
+                    startActivity(intentInfo);
 
                 }
             });

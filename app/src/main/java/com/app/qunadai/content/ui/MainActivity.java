@@ -23,9 +23,14 @@ import com.app.qunadai.content.ui.limit.frag.LimitFragment;
 import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.ForbidScrollViewpager;
 import com.app.qunadai.content.view.NoScrollViewPager;
+import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +80,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         homeFragment = HomeFragment.getInstance();
         limitFragment = LimitFragment.getInstance();
         bbsFragment = BBSFragment.getInstance();
@@ -85,6 +91,7 @@ public class MainActivity extends BaseActivity {
         fragments.add(bbsFragment);
         fragments.add(meFragment);
     }
+
 
     @Override
     public void initViewData() {
@@ -146,6 +153,20 @@ public class MainActivity extends BaseActivity {
             if (limitFragment != null) {
                 limitFragment.onActivityResult(requestCode, resultCode, data);
             }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventNick event) {
+        if (meFragment != null) {
+            meFragment.setNickname(event.getNickname());
         }
     }
 }

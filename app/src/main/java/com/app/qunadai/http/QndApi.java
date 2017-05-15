@@ -1,6 +1,7 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.bean.ApplyBean;
+import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonInfo;
@@ -145,6 +146,11 @@ public interface QndApi {
     @GET("users/current")
     Observable<MeBean> getMeCurrent(@Query("access_token") String access_token);
 
+    @POST("home/avatar")
+    Observable<AvatarBean> uploadAvatar(@Query("access_token")String access_token,@Body RequestBody body);
+
+    @PUT("users/current")
+    Observable<AvatarBean> uploadNickname(@Query("access_token")String access_token,@Body RequestBody body);
 
     @GET("home/creditinfo")
     Observable<PersonInfo> getPersonInfo(@Query("access_token") String access_token);

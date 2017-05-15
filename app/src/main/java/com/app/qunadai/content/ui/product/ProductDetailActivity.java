@@ -135,6 +135,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 //                        mAmount, mTime, mTimeType, mPid, "H5");
                 if (av_bankcard.getStatus() != AuthView.AUTH_YES || av_realinfo.getStatus() != AuthView.AUTH_YES) {
                     ToastUtil.showToast(ProductDetailActivity.this, "请完善认证后提交");
+                    return;
                 } else {
                     //在这里提交
                     if (productDetailBean != null) {

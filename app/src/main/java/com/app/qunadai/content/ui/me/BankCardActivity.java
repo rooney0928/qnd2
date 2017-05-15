@@ -7,12 +7,11 @@ import android.widget.ImageView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.BankcardBean;
-import com.app.qunadai.content.MyApp;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.BankcardContract;
 import com.app.qunadai.content.presenter.BankcardPresenter;
 import com.app.qunadai.utils.CommUtil;
-import com.app.qunadai.utils.EventClose;
+import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;

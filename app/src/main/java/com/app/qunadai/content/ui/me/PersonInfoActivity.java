@@ -4,15 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +26,7 @@ import com.app.qunadai.third.address.utils.Utils;
 import com.app.qunadai.third.address.view.ChooseAddressWheel;
 import com.app.qunadai.third.address.view.listener.OnAddressChangeListener;
 import com.app.qunadai.utils.CommUtil;
-import com.app.qunadai.utils.EventClose;
+import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
@@ -43,8 +37,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 import butterknife.BindView;
 

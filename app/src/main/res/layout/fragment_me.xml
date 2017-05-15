@@ -7,7 +7,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/rl_account"
+        android:id="@+id/rl_me_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/bg_avatar"

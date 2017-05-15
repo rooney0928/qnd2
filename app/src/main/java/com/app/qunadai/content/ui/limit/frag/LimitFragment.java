@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,9 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.LimitContract;
 import com.app.qunadai.content.presenter.LimitPresenter;
 import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.content.ui.home.ProductsActivity;
+import com.app.qunadai.content.ui.home.RecommendActivity;
+import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.view.AuthView;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
@@ -68,6 +72,13 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     @BindView(R.id.tv_limit_total)
     TextView tv_limit_total;
 
+    @BindView(R.id.bt_limit_get_limit)
+    Button bt_limit_get_limit;
+    @BindView(R.id.bt_limit_raise)
+    Button bt_limit_raise;
+    @BindView(R.id.bt_limit_borrow)
+    Button bt_limit_borrow;
+
     private PersonBean localPersonBean;
 
 
@@ -103,6 +114,32 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         av_fund.setOnClickListener(this);
         av_taobao.setOnClickListener(this);
         av_credit.setOnClickListener(this);
+
+
+        bt_limit_get_limit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入身份认证
+                Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
+                startActivity(intentInfo);
+            }
+        });
+        bt_limit_raise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入身份认证
+                Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
+                startActivity(intentInfo);
+            }
+        });
+        bt_limit_borrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入贷款推荐
+                Intent intentReco = new Intent(getActivity(), RecommendActivity.class);
+                startActivity(intentReco);
+            }
+        });
     }
 
     @Override
@@ -111,7 +148,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         rl_limit_get.setVisibility(View.GONE);
         rl_limit_borrow.setVisibility(View.GONE);
         ll_borrow_money.setVisibility(View.GONE);
-        tv_limit_money.setText(bean.getContent().getPersonalValue().getValuation()+"");
+        tv_limit_money.setText(bean.getContent().getPersonalValue().getValuation() + "");
+        tv_limit_total.setText(bean.getContent().getPersonalValue().getBalance() + "");
 
 
         if (0 != bean.getContent().getPersonalValue().getValuation()) {
@@ -122,33 +160,34 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         }
 
         //银行卡验证
-        setBindStatus(av_bankcard,bean.getContent().getPersonalValue().getBankStatus());
+        setBindStatus(av_bankcard, bean.getContent().getPersonalValue().getBankStatus());
         //真实信息
-        setBindStatus(av_realinfo,bean.getContent().getPersonalValue().getRealInfoStatus());
+        setBindStatus(av_realinfo, bean.getContent().getPersonalValue().getRealInfoStatus());
         //网银
-        setBindStatus(av_ebank,bean.getContent().getPersonalValue().getEbankStatus());
+        setBindStatus(av_ebank, bean.getContent().getPersonalValue().getEbankStatus());
         //运营商
-        setBindStatus(av_carrier,bean.getContent().getPersonalValue().getOperatorStatus());
+        setBindStatus(av_carrier, bean.getContent().getPersonalValue().getOperatorStatus());
         //支付宝
-        setBindStatus(av_alipay,bean.getContent().getPersonalValue().getAlipayStatus());
+        setBindStatus(av_alipay, bean.getContent().getPersonalValue().getAlipayStatus());
         //邮箱
-        setBindStatus(av_email,bean.getContent().getPersonalValue().getEmailStatus());
+        setBindStatus(av_email, bean.getContent().getPersonalValue().getEmailStatus());
         //公积金
-        setBindStatus(av_fund,bean.getContent().getPersonalValue().getFundStatus());
+        setBindStatus(av_fund, bean.getContent().getPersonalValue().getFundStatus());
         //淘宝
-        setBindStatus(av_taobao,bean.getContent().getPersonalValue().getTaobaoStatus());
+        setBindStatus(av_taobao, bean.getContent().getPersonalValue().getTaobaoStatus());
         //征信
-        setBindStatus(av_credit,bean.getContent().getPersonalValue().getZxStatus());
+        setBindStatus(av_credit, bean.getContent().getPersonalValue().getZxStatus());
     }
 
     /**
      * 设置认证状态
+     *
      * @param status
      */
-    private void setBindStatus(AuthView av,String status) {
+    private void setBindStatus(AuthView av, String status) {
         /** 新建,处理中,验证成功,验证失败,处理错误,用户被封禁,高风险,中风险,低风险 */
         //CREATED, PROCESSING, SUCCESS, FAILURE, ERROR, BANNED, HRISK, MRISK, LRISK
-        switch (status){
+        switch (status) {
             case "SUCCESS":
             case "HRISK":
             case "MRISK":
@@ -163,8 +202,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                 break;
         }
     }
-
-
 
 
     @Override
@@ -194,20 +231,19 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     @Override
     public void onClick(View v) {
-        if(v instanceof AuthView){
+        if (v instanceof AuthView) {
             Bundle bundle = new Bundle();
-            MainActivity mainActivity = (MainActivity)getActivity();
+            MainActivity mainActivity = (MainActivity) getActivity();
 
             MxParam mxParam = new MxParam();
-            mxParam.setUserId(PrefUtil.getString(getActivity(),PrefKey.PHONE,""));
+            mxParam.setUserId(PrefUtil.getString(getActivity(), PrefKey.PHONE, ""));
             mxParam.setApiKey(MyApp.MX_KEY);
             mxParam.setThemeColor("#31B7C1");//主题色（非必传）
 //            mxParam.setAgreementUrl(mainActivity.getSharedPreferValue("agreementUrl"));//自定义协议地址（非必传）
-            mxParam.setAgreementEntryText("同意数据获取协议");	//自定义协议相关说明（非必传）
+            mxParam.setAgreementEntryText("同意数据获取协议");    //自定义协议相关说明（非必传）
 //            mxParam.setCacheDisable(MxParam.PARAM_COMMON_YES);//不使用缓存（非必传）
 //            mxParam.setLoadingViewText("验证过程中不会浪费您任何流量\n请稍等片刻");  //设置导入过程中的自定义提示文案，为居中显示
 //            mxParam.setQuitDisable(true); //设置导入过程中，触发返回键或者点击actionbar的返回按钮的时候，不执行魔蝎的默认行为
-
 
 
 //            MxParam.PARAM_FUNCTION_MAIL（或MxParam.PARAM_FUNCTION_EMAIL）：邮箱导入
@@ -228,7 +264,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 //            MxParam.PARAM_FUNCTION_TAX：个税
 //            MxParam.PARAM_FUNCTION_SECURITY：社保
 
-            switch (v.getId()){
+            switch (v.getId()) {
 
                 case R.id.av_ebank:
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_ONLINEBANK);
@@ -252,8 +288,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_ZHENGXIN);
                     break;
             }
-            if(v.getId()==R.id.av_bankcard||v.getId()==R.id.av_credit){
-                switch (v.getId()){
+            if (v.getId() == R.id.av_bankcard || v.getId() == R.id.av_credit) {
+                switch (v.getId()) {
                     case R.id.av_bankcard:
                         //进入银行卡认证
                         break;
@@ -262,13 +298,12 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                         break;
                 }
 
-            }else{
+            } else {
                 bundle.putParcelable("param", mxParam);
                 Intent intent = new Intent(getActivity(), com.moxie.client.MainActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, ReqKey.REQ_MOXIE);
             }
-
 
 
         }
@@ -285,7 +320,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                 String result = b.getString("result");    //result即为回传的值(JSON格式)
 
                 if (TextUtils.isEmpty(result)) {
-                    ToastUtil.showToast(getActivity(),"没有进行导入操作!");
+                    ToastUtil.showToast(getActivity(), "没有进行导入操作!");
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
@@ -295,14 +330,14 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                         String taskType = jsonObject.getString("taskType");
                         switch (code) {
                             case -1:
-                                ToastUtil.showToast(getActivity(),"没有进行导入操作!");
+                                ToastUtil.showToast(getActivity(), "没有进行导入操作!");
 
                                 break;
                             case -2:
-                                ToastUtil.showToast(getActivity(),"导入失败(服务问题)!");
+                                ToastUtil.showToast(getActivity(), "导入失败(服务问题)!");
                                 break;
                             case -3:
-                                ToastUtil.showToast(getActivity(),"导入失败(服务异常)!");
+                                ToastUtil.showToast(getActivity(), "导入失败(服务异常)!");
                                 break;
                             case -4:
 //                                ToastUtil.showToast(getActivity(),"导入失败(");
@@ -312,7 +347,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                                 break;
                             case 1:
                                 requestUpdateStates(taskType);
-                                ToastUtil.showToast(getActivity(),"导入成功!");
+                                ToastUtil.showToast(getActivity(), "导入成功!");
                                 break;
                             case 2:
                                 /**
@@ -321,7 +356,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                                  * Task通知：登录成功/登录失败
                                  * Bill通知：账单通知
                                  */
-                                ToastUtil.showToast(getActivity(),"导入中");
+                                ToastUtil.showToast(getActivity(), "导入中");
                                 break;
                         }
                     } catch (JSONException e) {
@@ -337,8 +372,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     }
 
     private void requestUpdateStates(String taskType) {
-        String phone = PrefUtil.getString(getActivity(),PrefKey.PHONE,"");
-        String token = PrefUtil.getString(getActivity(),PrefKey.TOKEN,"");
-        limitPresenter.updateStatus(phone,taskType,token);
+        String phone = PrefUtil.getString(getActivity(), PrefKey.PHONE, "");
+        String token = PrefUtil.getString(getActivity(), PrefKey.TOKEN, "");
+        limitPresenter.updateStatus(phone, taskType, token);
     }
 }

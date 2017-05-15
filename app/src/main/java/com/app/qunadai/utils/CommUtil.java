@@ -2,12 +2,15 @@ package com.app.qunadai.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
@@ -165,4 +168,15 @@ public class CommUtil {
     public static String getLastChar(String str) {
         return str.substring(str.length() - 1, str.length());
     }
+
+
+
+    public static String Bitmap2StrByBase64(Bitmap bit){
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        bit.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
+        byte[] bytes=bos.toByteArray();
+        LogU.t("size=="+ bytes.length);
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
+
 }

@@ -76,49 +76,6 @@ public class RegisterModelImpl implements RegisterContract.Model {
 
     @Override
     public void register(String phone, String sms, String pwd) {
-//        try {
-//            JSONObject obj = new JSONObject();
-//            obj.put("filter", "mobile");
-//            obj.put("mobileNumber", phone);
-//            obj.put("sha1password", pwd);
-//            obj.put("smsActivateCode", sms);
-////            String url = RxHttp.ROOT + "users/activate?filter=mobile&mobile="+phone+"&sha1password="+pwd+"&smsActivateCode="+sms;
-//            OkHttpUtils
-//                    .put()//also can use delete() ,head() , patch()
-//                    .url(RxHttp.ROOT + "users/activate")
-//                    .requestBody(RequestBody.create(null, obj.toString()))//
-//                    .build()//
-//                    .execute(new Callback(){
-//
-//
-//                        @Override
-//                        public Object parseNetworkResponse(Response response, int id) throws Exception {
-//                            return null;
-//                        }
-//
-//                        @Override
-//                        public void onError(Call call, Exception e, int id) {
-//                            LogU.t("?"+e.getMessage());
-//                        }
-//
-//                        @Override
-//                        public void onResponse(Object response, int id) {
-//                            LogU.t("?"+response.toString());
-//                        }
-//                    });
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
-
-//        RequestBody body = new FormBody.Builder()
-//                .add("filter", "mobile")
-//                .add("mobileNumber", phone)
-//                .add("sha1password", pwd)
-//                .add("smsActivateCode", sms).build();
-
-
         Observable<RegBean> request = RxHttp.getInstance().register(phone, sms, pwd);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -148,43 +105,6 @@ public class RegisterModelImpl implements RegisterContract.Model {
                 });
         RxHolder.addSubscription(sub);
 
-        /*
-        AsyncHttpClient myClient = new AsyncHttpClient();
-        String url = RxHttp.ROOT + "users/activate?filter=mobile&mobileNumber=" + phone + "&sha1password=" + pwd + "&smsActivateCode=" + sms;
-        myClient.put(url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                onReturnDataListener.requestStart();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject obj = new JSONObject(new String(responseBody));
-                    String result = obj.optString("detail");
-                    onReturnDataListener.registerDone(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-//                    JSONObject obj = new JSONObject(new String(responseBody));
-//                    String result = obj.optString("detail");
-                LogU.t(error.getMessage());
-                onReturnDataListener.registerFail("注册出错");
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                onReturnDataListener.requestEnd();
-            }
-        });
-        */
     }
 
 }

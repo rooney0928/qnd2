@@ -12,6 +12,7 @@ import com.app.qunadai.bean.MeBean;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.MeContract;
 import com.app.qunadai.content.presenter.MePresenter;
+import com.app.qunadai.content.ui.me.AccountActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
@@ -32,13 +33,16 @@ public class MeFragment extends BaseFragment implements MeContract.View {
     @BindView(R.id.tv_me_name)
     TextView tv_me_name;
 
-
+    @BindView(R.id.rl_me_account)
+    RelativeLayout rl_me_account;
     @BindView(R.id.rl_loan)
     RelativeLayout rl_loan;
     @BindView(R.id.rl_info)
     RelativeLayout rl_info;
     @BindView(R.id.rl_setting)
     RelativeLayout rl_setting;
+
+    MeBean localMeBean;
 
     public static MeFragment getInstance() {
         MeFragment meFragment = new MeFragment();
@@ -73,10 +77,29 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                 startActivity(intentInfo);
             }
         });
+        rl_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        rl_me_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(localMeBean!=null){
+                    Intent intent = new Intent(getActivity(), AccountActivity.class);
+                    intent.putExtra("nickname",localMeBean.getContent().getUser().getNick());
+                    intent.putExtra("phone",localMeBean.getContent().getUser().getAccount().getMobileNumber());
+                    intent.putExtra("avatar",localMeBean.getContent().getUser().getAvatar());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
     public void getCurrent(MeBean meBean) {
+        localMeBean = meBean;
         String imgUrl = RxHttp.ROOT + "/attachments/" + meBean.getContent().getUser().getAvatar();
         ImgUtil.loadRound(getActivity(), imgUrl, iv_me_avatar);
         tv_me_name.setText(meBean.getContent().getUser().getNick());
@@ -84,7 +107,7 @@ public class MeFragment extends BaseFragment implements MeContract.View {
 
     @Override
     public void getCurrentFail(String error) {
-        ToastUtil.showToast(getActivity(),error+"-m");
+        ToastUtil.showToast(getActivity(), error + "-m");
     }
 
     @Override
@@ -105,5 +128,9 @@ public class MeFragment extends BaseFragment implements MeContract.View {
     @Override
     public void requestEnd() {
 
+    }
+
+    public void setNickname(String nickname){
+        tv_me_name.setText(nickname);
     }
 }

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="fragment-1.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/c1aa727afe8abd516e27cba9ce7198fac4081a9e/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/c1aa727afe8abd516e27cba9ce7198fac4081a9e/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yanzhenjie/fragment/1.0.1/953d3c5e0484ec9543004e9e630f5ba62e5900b8/fragment-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

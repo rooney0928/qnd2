@@ -67,4 +67,6 @@ dependencies {
     compile(name:'moxie-client-1.2.9', ext:'aar')
     compile 'org.greenrobot:eventbus:3.0.0'
 
+    compile 'com.yanzhenjie:album:1.0.6'
+    compile 'com.github.yalantis:ucrop:2.2.1'
 }

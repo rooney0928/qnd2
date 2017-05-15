@@ -31,7 +31,7 @@
                     android:src="@mipmap/limit_bg"/>
 
                 <Button
-                    android:id="@+id/btn_get_limit"
+                    android:id="@+id/bt_limit_get_limit"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="108dp"
                     android:layout_height="36dp"
@@ -111,7 +111,7 @@
                         android:textSize="14sp"/>
 
                     <Button
-                        android:id="@+id/bt_raise_limit"
+                        android:id="@+id/bt_limit_raise"
                         android:layout_width="54dp"
                         android:layout_height="24dp"
                         android:layout_marginLeft="14dp"
@@ -133,7 +133,7 @@
                 android:visibility="gone">
 
                 <Button
-                    android:id="@+id/btn_borrow_money"
+                    android:id="@+id/bt_limit_borrow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"

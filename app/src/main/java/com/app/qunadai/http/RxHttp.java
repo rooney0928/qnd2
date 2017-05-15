@@ -2,6 +2,7 @@ package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
 import com.app.qunadai.bean.ApplyBean;
+import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonInfo;
@@ -139,13 +140,14 @@ public class RxHttp {
     public static Observable<Recommend> getRecommend(int page, int pageSize) {
         return qndApi.getRecommend("tagName", "推荐", page, pageSize);
     }
+
     //获取产品详情
-    public static Observable<ProductDetailBean> getLoanDetail(String pid){
+    public static Observable<ProductDetailBean> getLoanDetail(String pid) {
         return qndApi.getLoanDetail(pid);
     }
 
-    public static Observable<ApplyBean> apply(String token, RequestBody body){
-        return qndApi.apply(token,body);
+    public static Observable<ApplyBean> apply(String token, RequestBody body) {
+        return qndApi.apply(token, body);
     }
 
     //limit
@@ -159,6 +161,13 @@ public class RxHttp {
     //个人页面头像昵称
     public static Observable<MeBean> getMeCurrent(String token) {
         return qndApi.getMeCurrent(token);
+    }
+
+    public static Observable<AvatarBean> uploadAvatar(String token, RequestBody body) {
+        return qndApi.uploadAvatar(token, body);
+    }
+    public static Observable<AvatarBean> uploadNickname(String token, RequestBody body) {
+        return qndApi.uploadNickname(token, body);
     }
 
     //获取真实信息

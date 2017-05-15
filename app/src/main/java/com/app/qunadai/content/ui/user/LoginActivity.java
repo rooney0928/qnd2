@@ -427,12 +427,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
-        hideKeyboard(event);
-        return super.onTouchEvent(event);
-    }
+
 
     private long mPressedTime = 0;
 
@@ -447,6 +442,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             finish();
             System.exit(0);
         }
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO Auto-generated method stub
+        hideKeyboard(event);
+        return super.onTouchEvent(event);
     }
     /**
      * 点击其他地方隐藏键盘

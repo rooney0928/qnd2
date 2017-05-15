@@ -29,6 +29,7 @@
         <item>40000元</item>
         <item>45000元</item>
         <item>50000元</item>
+        <item>100000元</item>
     </string-array>
     <!--贷款产品搜索期限-->
     <string-array name="filter_term">
@@ -58,6 +59,8 @@
         <item>18月</item>
         <item>24月</item>
         <item>36月</item>
+        <item>48月</item>
+        <item>60月</item>
     </string-array>
 
     <string-array name="info_job">
