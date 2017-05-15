@@ -7,5 +7,9 @@ package com.app.qunadai.utils;
 public class PrefKey {
     public static final String TOKEN = "access_token";
     public static final String PHONE = "phone";
+    public static final String PWD_ENCODE = "pwd_encode";
+    public static final String PWD = "pwd";
+    public static final String AUTO_LOGIN = "auto_login";
+
 
 }

@@ -410,7 +410,18 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void loginDone(Token token) {
         ToastUtil.showToastLong(this, "恭喜您，登录成功");
         PrefUtil.putString(this, PrefKey.TOKEN, token.getContent().getAccess_token());
-        PrefUtil.putString(this, PrefKey.PHONE, et_login_phone.getText().toString().trim());
+        PrefUtil.putString(this, PrefKey.PHONE, CommUtil.getText(et_login_phone));
+        if (login_type == TYPE_PWD) {
+            //密码模式则存2个密码(真假),标记自动登录
+            PrefUtil.putString(this, PrefKey.PWD_ENCODE, CommUtil.shaEncrypt(CommUtil.getText(et_login_pwd)));
+            PrefUtil.putString(this, PrefKey.PWD, CommUtil.getText(et_login_pwd));
+            PrefUtil.putBoolean(this,PrefKey.AUTO_LOGIN,true);
+        } else {
+            PrefUtil.putBoolean(this,PrefKey.AUTO_LOGIN,false);
+
+        }
+
+
         //延迟500毫秒关闭swipe
         Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {
@@ -427,7 +438,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                     }
                 }
         );
-
 
 
     }
@@ -451,8 +461,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
 
-
-
     private long mPressedTime = 0;
 
     @Override
@@ -468,12 +476,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // TODO Auto-generated method stub
         hideKeyboard(event);
         return super.onTouchEvent(event);
     }
+
     /**
      * 点击其他地方隐藏键盘
      *

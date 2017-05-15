@@ -22,11 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!--user-->
         <activity
-            android:name=".content.ui.user.LoginActivity"
-            android:launchMode="singleTask"
+            android:name=".content.ui.user.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -34,7 +31,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <!--user-->
+        <activity
+            android:name=".content.ui.user.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".content.ui.user.RegisterActivity"
