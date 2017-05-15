@@ -16,6 +16,7 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.RegisterContract;
 import com.app.qunadai.content.presenter.RegisterPresenter;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -117,7 +118,11 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                     return;
                 }
                 //请求发送短信
-                registerPresenter.requestRegisterSms(phone);
+                if (NetworkUtil.checkNetwork(RegisterActivity.this)) {
+                    registerPresenter.requestRegisterSms(phone);
+                }else{
+                    isRequest=false;
+                }
             }
         });
         ll_login.setOnClickListener(new View.OnClickListener() {
@@ -138,9 +143,9 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(et_register_phone.getText().toString().trim().length()==0){
+                if (et_register_phone.getText().toString().trim().length() == 0) {
                     iv_register_phone_clear.setVisibility(View.GONE);
-                }else{
+                } else {
                     iv_register_phone_clear.setVisibility(View.VISIBLE);
                 }
                 updateBtStatus();
@@ -177,7 +182,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (et_register_pwd.getText().toString().trim().length() == 0) {
                     iv_register_pwd_clear.setVisibility(View.GONE);
-                }else{
+                } else {
                     iv_register_pwd_clear.setVisibility(View.VISIBLE);
                 }
                 updateBtStatus();
@@ -214,7 +219,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         });
     }
 
-    private void updateBtStatus(){
+    private void updateBtStatus() {
         String phone = et_register_phone.getText().toString().trim();
         String sms = et_register_sms.getText().toString().trim();
         String pwd = et_register_pwd.getText().toString().trim();
@@ -245,8 +250,9 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         ToastUtil.showToast(this, bean.getDetail());
         enterLogin();
     }
-    public void enterLogin(){
-        Intent intentLogin = new Intent(this,LoginActivity.class);
+
+    public void enterLogin() {
+        Intent intentLogin = new Intent(this, LoginActivity.class);
         startActivity(intentLogin);
         finish();
     }

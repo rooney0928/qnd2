@@ -18,6 +18,7 @@ import com.app.qunadai.content.contract.ForgetContract;
 import com.app.qunadai.content.presenter.ForgetPresenter;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -196,14 +197,17 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
         bt_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = et_forget_phone.getText().toString().trim();
-                String sms = et_forget_sms.getText().toString().trim();
-                String pwd = et_forget_pwd.getText().toString().trim();
-                LogU.t("pwd?"+CommUtil.shaEncrypt(pwd));
-                if (phone.length() == 0 || sms.length() == 0 || pwd.length() == 0) {
-                    ToastUtil.showToast(ForgetPwdActivity.this,"信息未写全");
+                if (NetworkUtil.checkNetwork(ForgetPwdActivity.this)) {
+                    String phone = et_forget_phone.getText().toString().trim();
+                    String sms = et_forget_sms.getText().toString().trim();
+                    String pwd = et_forget_pwd.getText().toString().trim();
+                    LogU.t("pwd?"+CommUtil.shaEncrypt(pwd));
+                    if (phone.length() == 0 || sms.length() == 0 || pwd.length() == 0) {
+                        ToastUtil.showToast(ForgetPwdActivity.this,"信息未写全");
+                    }
+                    forgetPresenter.reset(phone,sms, CommUtil.shaEncrypt(pwd));
                 }
-                forgetPresenter.reset(phone,sms, CommUtil.shaEncrypt(pwd));
+
             }
         });
     }

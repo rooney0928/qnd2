@@ -27,12 +27,18 @@ import com.app.qunadai.content.presenter.LoginPresenter;
 import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * Created by wayne on 2017/5/11.
@@ -294,7 +300,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginSystem();
+                if (NetworkUtil.checkNetwork(LoginActivity.this)) {
+                    loginSystem();
+                }
             }
         });
 
@@ -403,14 +411,30 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         ToastUtil.showToastLong(this, "恭喜您，登录成功");
         PrefUtil.putString(this, PrefKey.TOKEN, token.getContent().getAccess_token());
         PrefUtil.putString(this, PrefKey.PHONE, et_login_phone.getText().toString().trim());
-        Intent intentMain = new Intent(this, MainActivity.class);
-        startActivity(intentMain);
-        finish();
+        //延迟500毫秒关闭swipe
+        Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
+                new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intentMain);
+                                finish();
+                            }
+                        });
+                    }
+                }
+        );
+
+
+
     }
 
     @Override
     public void loginFail(String error) {
-        ToastUtil.showToastLong(this, error);
+        ToastUtil.showToastLong(this, "系统开小差啦,请稍后~~");
     }
 
     @Override
@@ -441,6 +465,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             //退出程序
             finish();
             System.exit(0);
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
     @Override

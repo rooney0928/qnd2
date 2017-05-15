@@ -19,6 +19,7 @@ import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
+import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -82,17 +83,17 @@ public class MeFragment extends BaseFragment implements MeContract.View {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, ReqKey.REQ_QUIT_SYSTEM);
             }
         });
         rl_me_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(localMeBean!=null){
+                if (localMeBean != null) {
                     Intent intent = new Intent(getActivity(), AccountActivity.class);
-                    intent.putExtra("nickname",localMeBean.getContent().getUser().getNick());
-                    intent.putExtra("phone",localMeBean.getContent().getUser().getAccount().getMobileNumber());
-                    intent.putExtra("avatar",localMeBean.getContent().getUser().getAvatar());
+                    intent.putExtra("nickname", localMeBean.getContent().getUser().getNick());
+                    intent.putExtra("phone", localMeBean.getContent().getUser().getAccount().getMobileNumber());
+                    intent.putExtra("avatar", localMeBean.getContent().getUser().getAvatar());
                     startActivity(intent);
                 }
             }
@@ -133,7 +134,7 @@ public class MeFragment extends BaseFragment implements MeContract.View {
 
     }
 
-    public void setNickname(String nickname){
+    public void setNickname(String nickname) {
         tv_me_name.setText(nickname);
     }
 }

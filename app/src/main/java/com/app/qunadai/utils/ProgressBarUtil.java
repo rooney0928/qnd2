@@ -52,7 +52,9 @@ public class ProgressBarUtil {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ProgressBarUtil.hideLoadDialog();
+                                if (activity != null) {
+                                    ProgressBarUtil.hideLoadDialog();
+                                }
                             }
                         });
                     }

@@ -81,6 +81,7 @@ public class SettingActivity extends BaseActivity {
     private void showLogoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示");
+        builder.setMessage("是否确认退出");
         builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -88,8 +89,8 @@ public class SettingActivity extends BaseActivity {
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.PHONE);
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
+                EventBus.getDefault().post(new EventClose());
                 finish();
-                EventBus.getDefault().postSticky(new EventClose());
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

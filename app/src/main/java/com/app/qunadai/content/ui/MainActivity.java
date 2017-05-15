@@ -150,11 +150,22 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ReqKey.REQ_MOXIE) {
-            if (limitFragment != null) {
-                limitFragment.onActivityResult(requestCode, resultCode, data);
-            }
+        switch (requestCode){
+            case ReqKey.REQ_MOXIE:
+                if (limitFragment != null) {
+                    limitFragment.onActivityResult(requestCode, resultCode, data);
+                }
+                break;
+//            case ReqKey.REQ_QUIT_SYSTEM:
+//                if(resultCode==RESULT_OK){
+//                    finish();
+//                    System.exit(0);
+//                }
+//                break;
+
         }
+
+//        ReqKey.REQ_QUIT_SYSTEM
     }
 
     @Override
@@ -170,7 +181,7 @@ public class MainActivity extends BaseActivity {
             meFragment.setNickname(event.getNickname());
         }
     }
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventClose event) {
 //        if (meFragment != null) {
 //            meFragment.setNickname(event.getNickname());
