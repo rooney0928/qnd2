@@ -4,8 +4,14 @@ import android.content.Intent;
 import android.view.View;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.Token;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.contract.SplashContract;
+import com.app.qunadai.content.presenter.SplashPresenter;
 import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.PrefKey;
+import com.app.qunadai.utils.PrefUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +22,14 @@ import rx.functions.Action1;
  * Created by wayne on 2017/5/15.
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements SplashContract.View {
+    private SplashPresenter splashPresenter;
+
+    String phone;
+    String pwd;
+    String pwdEncode;
+    boolean autoLogin;
+
     @Override
     protected void updateTopViewHideAndShow() {
         setTitleBarStatus(TITLE_OFF);
@@ -34,7 +47,12 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        splashPresenter = new SplashPresenter(this);
 
+        phone = PrefUtil.getString(this, PrefKey.PHONE, "");
+//        pwdEncode = PrefUtil.getString(this, PrefKey.PWD_ENCODE, "");
+        pwd = PrefUtil.getString(this, PrefKey.PWD, "");
+        autoLogin = PrefUtil.getBoolean(this, PrefKey.AUTO_LOGIN, false);
     }
 
     @Override
@@ -47,13 +65,52 @@ public class SplashActivity extends BaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intentLogin = new Intent(SplashActivity.this, LoginActivity.class);
-                                startActivity(intentLogin);
-                                finish();
+                                if (autoLogin && !CommUtil.isNull(phone) && !CommUtil.isNull(pwd)) {
+                                    splashPresenter.loginByPwd(phone, CommUtil.shaEncrypt(pwd));
+                                } else {
+                                    Intent intentLogin = new Intent(SplashActivity.this, LoginActivity.class);
+                                    startActivity(intentLogin);
+                                    finish();
+                                }
+
                             }
                         });
                     }
                 }
         );
+    }
+
+    @Override
+    public void loginDone(Token token) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void loginFail(String error) {
+        Intent intentLogin = new Intent(this, LoginActivity.class);
+        startActivity(intentLogin);
+        finish();
+    }
+
+    @Override
+    public void updateView(Object serverData) {
+
+    }
+
+    @Override
+    public void updateError(String error) {
+
+    }
+
+    @Override
+    public void requestStart() {
+
+    }
+
+    @Override
+    public void requestEnd() {
+
     }
 }

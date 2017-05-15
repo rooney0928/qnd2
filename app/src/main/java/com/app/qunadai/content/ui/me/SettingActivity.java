@@ -47,6 +47,7 @@ public class SettingActivity extends BaseActivity {
     TextView tv_setting_cache;
     @BindView(R.id.tv_settion_version)
     TextView tv_settion_version;
+
     @Override
     protected void updateTopViewHideAndShow() {
         setTitleBarStatus(TITLE_ON_BACK_ON);
@@ -56,7 +57,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected View createCenterView() {
-        View view = View.inflate(this, R.layout.activity_setting,null);
+        View view = View.inflate(this, R.layout.activity_setting, null);
         return view;
     }
 
@@ -87,6 +88,10 @@ public class SettingActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.TOKEN);
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.PHONE);
+                PrefUtil.removeItem(SettingActivity.this, PrefKey.AUTO_LOGIN);
+                PrefUtil.removeItem(SettingActivity.this, PrefKey.PWD_ENCODE);
+                PrefUtil.removeItem(SettingActivity.this, PrefKey.PWD);
+
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
                 EventBus.getDefault().post(new EventClose());
@@ -109,15 +114,15 @@ public class SettingActivity extends BaseActivity {
         rl_setting_about.setOnClickListener(this);
         rl_setting_version.setOnClickListener(this);
 
-        tv_settion_version.setText("v"+ CommUtil.getVersionName(this));
+        tv_settion_version.setText("v" + CommUtil.getVersionName(this));
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_setting_about:
-                Intent intentAbout = new Intent(this,SettingActivity.class);
+                Intent intentAbout = new Intent(this, SettingActivity.class);
                 startActivity(intentAbout);
                 break;
         }
