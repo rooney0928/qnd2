@@ -1,6 +1,7 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
+import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonInfo;
@@ -141,6 +142,10 @@ public class RxHttp {
     //获取产品详情
     public static Observable<ProductDetailBean> getLoanDetail(String pid){
         return qndApi.getLoanDetail(pid);
+    }
+
+    public static Observable<ApplyBean> apply(String token, RequestBody body){
+        return qndApi.apply(token,body);
     }
 
     //limit

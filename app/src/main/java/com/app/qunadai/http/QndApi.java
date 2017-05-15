@@ -1,5 +1,6 @@
 package com.app.qunadai.http;
 
+import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonInfo;
@@ -127,6 +128,11 @@ public interface QndApi {
 
     @GET("loan/products/{pid}")
     Observable<ProductDetailBean> getLoanDetail(@Path("pid") String pid);
+
+
+    @POST("home/loan/orders")
+    Observable<ApplyBean> apply(@Query("access_token") String access_token, @Body RequestBody body);
+
 
     //limit
     @FormUrlEncoded

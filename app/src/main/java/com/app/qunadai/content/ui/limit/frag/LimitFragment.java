@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.PersonBean;
@@ -62,6 +63,11 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     @BindView(R.id.av_credit)
     AuthView av_credit;
 
+    @BindView(R.id.tv_limit_money)
+    TextView tv_limit_money;
+    @BindView(R.id.tv_limit_total)
+    TextView tv_limit_total;
+
     private PersonBean localPersonBean;
 
 
@@ -105,6 +111,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         rl_limit_get.setVisibility(View.GONE);
         rl_limit_borrow.setVisibility(View.GONE);
         ll_borrow_money.setVisibility(View.GONE);
+        tv_limit_money.setText(bean.getContent().getPersonalValue().getValuation()+"");
+
 
         if (0 != bean.getContent().getPersonalValue().getValuation()) {
             rl_limit_borrow.setVisibility(View.VISIBLE);

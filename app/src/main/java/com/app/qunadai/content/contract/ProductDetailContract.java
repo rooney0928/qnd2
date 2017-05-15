@@ -21,12 +21,14 @@ public interface ProductDetailContract {
     interface Presenter extends BasePresenter {
         void requestProductDetail(String pid);
         void requestPersonValue(String token);
+        void applyOrder(String token,String amount,String time,String timeType,String productId,String type);
 
     }
 
     interface Model extends BaseModel {
         void requestProductDetail(String pid);
         void requestPersonValue(String token);
+        void applyOrder(String token,String amount,String time,String timeType,String productId,String type);
 
     }
 }

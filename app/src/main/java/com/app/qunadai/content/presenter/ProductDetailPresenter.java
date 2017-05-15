@@ -65,4 +65,9 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     public void requestPersonValue(String token) {
         model.requestPersonValue(token);
     }
+
+    @Override
+    public void applyOrder(String token, String amount, String time, String timeType, String productId, String type) {
+        model.applyOrder(token, amount, time, timeType, productId, type);
+    }
 }

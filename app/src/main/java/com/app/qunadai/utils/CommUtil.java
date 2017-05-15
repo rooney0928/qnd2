@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -106,6 +107,7 @@ public class CommUtil {
             return false;
         }
     }
+
     public static boolean isNull(View view) {
         String str = getText(view);
         if (str == null || str.trim().length() == 0) {
@@ -126,23 +128,41 @@ public class CommUtil {
             throw new IllegalArgumentException("the method only receive TextView EditText ");
         }
     }
-    public static int day2month(String day){
+
+    public static int day2month(String day) {
         return day2month(str2int(day));
     }
-    public static int day2month(BigDecimal day){
+
+    public static int day2month(BigDecimal day) {
         return day2month(day.intValue());
     }
-    public static int day2month(int day){
+
+    public static int day2month(int day) {
         BigDecimal bigDay = new BigDecimal(day);
-        BigDecimal permon = bigDay.divide(new BigDecimal(30),0,BigDecimal.ROUND_FLOOR);
-        int month = permon.intValue()+1;
+        BigDecimal permon = bigDay.divide(new BigDecimal(30), 0, BigDecimal.ROUND_FLOOR);
+        int month = permon.intValue() + 1;
         return month;
     }
 
-    public static int str2int(String str){
-        String number = str.trim().replaceAll("[^0-9.]","");
+    public static int str2int(String str) {
+        String number = str.trim().replaceAll("[^0-9.]", "");
         return Integer.parseInt(number);
     }
 
+    public static String readAssert(Context context, String fileName) {
+        String resultString = "";
+        try {
+            InputStream inputStream = context.getResources().getAssets().open(fileName);
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            resultString = new String(buffer, "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultString;
+    }
 
+    public static String getLastChar(String str) {
+        return str.substring(str.length() - 1, str.length());
+    }
 }

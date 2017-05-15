@@ -53,9 +53,7 @@ public class RecommendFragment extends BaseFragment {
         rv_recommend.setAdapter(adapter);
     }
 
-
     public void setRecommendData(List<LoanDetail> list){
         adapter.setList(list);
     }
-
 }

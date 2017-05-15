@@ -1,5 +1,6 @@
 package com.app.qunadai.content.model;
 
+import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.ProductDetailBean;
@@ -8,8 +9,13 @@ import com.app.qunadai.content.contract.ProductsContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.http.RxSubscriber;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.RxHolder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -93,6 +99,51 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
                     protected void onOk(PersonBean bean) {
                         onReturnDataListener.getPersonValue(bean);
                     }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void applyOrder(String token, String amount, String time, String timeType, String productId, String type) {
+        JSONObject obj = new JSONObject();
+        JSONObject proObj = new JSONObject();
+        try {
+            obj.put("loanAmount", amount);
+            obj.put("timeLimit", time);
+            obj.put("timeLimitType", timeType);
+            proObj.put("id", productId);
+            proObj.put("type", "H5");
+            obj.put("product",proObj);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LogU.t(obj.toString());
+
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
+
+        Observable<ApplyBean> request = RxHttp.getInstance().apply(token,body);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<ApplyBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                    }
+
+                    @Override
+                    protected void onOk(ApplyBean bean) {
+                    }
+
 
                     @Override
                     protected void requestEnd() {
