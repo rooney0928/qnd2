@@ -1,6 +1,8 @@
 package com.app.qunadai.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
@@ -170,13 +172,32 @@ public class CommUtil {
     }
 
 
-
-    public static String Bitmap2StrByBase64(Bitmap bit){
-        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    public static String Bitmap2StrByBase64(Bitmap bit) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
-        byte[] bytes=bos.toByteArray();
-        LogU.t("size=="+ bytes.length);
+        byte[] bytes = bos.toByteArray();
+        LogU.t("size==" + bytes.length);
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
+    /**
+     * 获取版本名称
+     *
+     * @param context 上下文
+     * @return 版本名称
+     */
+    public static String getVersionName(Context context) {
+        //获取包管理器
+        PackageManager pm = context.getPackageManager();
+        //获取包信息
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), 0);
+        //返回版本号
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
 }

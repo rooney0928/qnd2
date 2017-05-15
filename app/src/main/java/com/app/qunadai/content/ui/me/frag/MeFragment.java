@@ -14,6 +14,7 @@ import com.app.qunadai.content.contract.MeContract;
 import com.app.qunadai.content.presenter.MePresenter;
 import com.app.qunadai.content.ui.me.AccountActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
+import com.app.qunadai.content.ui.me.SettingActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -80,7 +81,8 @@ public class MeFragment extends BaseFragment implements MeContract.View {
         rl_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
             }
         });
         rl_me_account.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +97,7 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                 }
             }
         });
+
     }
 
     @Override

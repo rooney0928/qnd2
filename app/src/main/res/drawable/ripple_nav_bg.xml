@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#8031B7C1">
+    android:color="#fff">
 
-    <item android:drawable="@color/white" />
-
+    <solid android:color="@color/white"/>
 </shape>

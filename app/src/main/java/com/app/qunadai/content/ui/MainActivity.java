@@ -23,6 +23,7 @@ import com.app.qunadai.content.ui.limit.frag.LimitFragment;
 import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.ForbidScrollViewpager;
 import com.app.qunadai.content.view.NoScrollViewPager;
+import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ReqKey;
@@ -169,4 +170,12 @@ public class MainActivity extends BaseActivity {
             meFragment.setNickname(event.getNickname());
         }
     }
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventClose event) {
+//        if (meFragment != null) {
+//            meFragment.setNickname(event.getNickname());
+//        }
+        finish();
+    }
+
 }

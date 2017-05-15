@@ -93,6 +93,10 @@
             android:name=".content.ui.me.NicknameActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".content.ui.me.SettingActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
 
         <activity

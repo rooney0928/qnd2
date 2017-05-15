@@ -30,6 +30,7 @@ import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
+import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import java.math.BigDecimal;
@@ -148,7 +149,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
                             mAmount, mTime, mTimeType, mPid, "H5");
 
                     Intent intent = new Intent(ProductDetailActivity.this, H5WebActivity.class);
-                    intent.putExtra("url",productDetailBean.getContent().getProduct().getUrl());
+                    intent.putExtra("url", productDetailBean.getContent().getProduct().getUrl());
+                    intent.putExtra("title",productDetailBean.getContent().getProduct().getName());
                     startActivity(intent);
                 }
             }
@@ -402,12 +404,13 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override
     public void requestStart() {
-
+        ProgressBarUtil.showLoadDialog(this);
     }
+
 
     @Override
     public void requestEnd() {
-
+        ProgressBarUtil.hideLoadDialogDelay(this);
     }
 
     /**
