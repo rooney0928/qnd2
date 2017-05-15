@@ -136,16 +136,20 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
                 if (av_bankcard.getStatus() != AuthView.AUTH_YES || av_realinfo.getStatus() != AuthView.AUTH_YES) {
                     ToastUtil.showToast(ProductDetailActivity.this, "请完善认证后提交");
                     return;
-                } else {
-                    //在这里提交
-                    if (productDetailBean != null) {
-                        String mAmount = CommUtil.getText(et_detail_amount);
-                        String mTime = "" + CommUtil.str2int(CommUtil.getText(tv_detail_term));
-                        String mTimeType = CommUtil.getLastChar(CommUtil.getText(tv_detail_term));
-                        String mPid = productDetailBean.getContent().getProduct().getId();
-                        productDetailPresenter.applyOrder(PrefUtil.getString(ProductDetailActivity.this, PrefKey.TOKEN, ""),
-                                mAmount, mTime, mTimeType, mPid, "H5");
-                    }
+                }
+
+                //在这里提交
+                if (productDetailBean != null) {
+                    String mAmount = CommUtil.getText(et_detail_amount);
+                    String mTime = "" + CommUtil.str2int(CommUtil.getText(tv_detail_term));
+                    String mTimeType = CommUtil.getLastChar(CommUtil.getText(tv_detail_term));
+                    String mPid = productDetailBean.getContent().getProduct().getId();
+                    productDetailPresenter.applyOrder(PrefUtil.getString(ProductDetailActivity.this, PrefKey.TOKEN, ""),
+                            mAmount, mTime, mTimeType, mPid, "H5");
+
+                    Intent intent = new Intent(ProductDetailActivity.this, H5WebActivity.class);
+                    intent.putExtra("url",productDetailBean.getContent().getProduct().getUrl());
+                    startActivity(intent);
                 }
             }
         });
