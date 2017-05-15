@@ -38,13 +38,12 @@
 
         <activity
             android:name=".content.ui.user.RegisterActivity"
-            android:screenOrientation="portrait"
-            ></activity>
-
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".content.ui.user.ForgetPwdActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait">
+        </activity>
         <!--home-->
         <activity
             android:name=".content.ui.MainActivity"
@@ -95,6 +94,10 @@
         </activity>
         <activity
             android:name=".content.ui.me.SettingActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".content.ui.me.AboutActivity"
             android:screenOrientation="portrait">
         </activity>
 

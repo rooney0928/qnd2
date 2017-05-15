@@ -111,4 +111,15 @@ public class SettingActivity extends BaseActivity {
 
         tv_settion_version.setText("v"+ CommUtil.getVersionName(this));
     }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.rl_setting_about:
+                Intent intentAbout = new Intent(this,SettingActivity.class);
+                startActivity(intentAbout);
+                break;
+        }
+    }
 }
