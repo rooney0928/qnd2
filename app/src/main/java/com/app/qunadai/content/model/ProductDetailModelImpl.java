@@ -61,7 +61,7 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getProductDetailFail(ex.getMessage());
+                        onReturnDataListener.getProductDetailFail(ex.getDisplayMessage());
                     }
 
                     @Override
@@ -92,7 +92,7 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getPersonValueFail(ex.getMessage());
+                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
                     }
 
                     @Override

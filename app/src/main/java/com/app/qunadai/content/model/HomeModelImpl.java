@@ -53,7 +53,7 @@ public class HomeModelImpl implements HomeContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        mOnReturnDataListener.getHomeRecommendError(ex.getMessage());
+                        mOnReturnDataListener.getHomeRecommendError(ex.getDisplayMessage());
                     }
 
                     @Override
@@ -83,7 +83,7 @@ public class HomeModelImpl implements HomeContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        mOnReturnDataListener.getPersonValueFail(ex.getMessage());
+                        mOnReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
                     }
 
                     @Override

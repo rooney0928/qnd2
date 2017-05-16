@@ -60,7 +60,7 @@ public class ForgetModelImpl implements ForgetContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getForgetSmsFail(ex.getMessage());
+                        onReturnDataListener.getForgetSmsFail(ex.getDisplayMessage());
                     }
 
                     @Override

@@ -28,6 +28,7 @@ import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
+import com.app.qunadai.utils.ProgressBarUtil;
 import com.yalantis.ucrop.UCrop;
 import com.yanzhenjie.album.Album;
 
@@ -281,12 +282,13 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
     @Override
     public void requestStart() {
-
+        ProgressBarUtil.showLoadDialog(this);
     }
+
 
     @Override
     public void requestEnd() {
-
+        ProgressBarUtil.hideLoadDialogDelay(this);
     }
 
     @Override

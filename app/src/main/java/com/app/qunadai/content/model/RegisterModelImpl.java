@@ -57,7 +57,7 @@ public class RegisterModelImpl implements RegisterContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getRegisterSmsFail(ex.getMessage());
+                        onReturnDataListener.getRegisterSmsFail(ex.getDisplayMessage());
                     }
 
                     @Override
@@ -89,7 +89,7 @@ public class RegisterModelImpl implements RegisterContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
 //                        onReturnDataListener.getRegisterSmsFail(ex.getMessage());
-                        onReturnDataListener.registerFail(ex.getMessage());
+                        onReturnDataListener.registerFail(ex.getDisplayMessage());
                     }
 
                     @Override

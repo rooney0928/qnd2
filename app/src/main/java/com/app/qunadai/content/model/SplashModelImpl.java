@@ -54,7 +54,7 @@ public class SplashModelImpl implements SplashContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.loginFail(ex.getMessage());
+                        onReturnDataListener.loginFail(ex.getDisplayMessage());
                     }
 
                     @Override

@@ -60,7 +60,7 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getPersonInfoFail(ex.getMessage());
+                        onReturnDataListener.getPersonInfoFail(ex.getDisplayMessage());
                     }
 
                     @Override
@@ -107,7 +107,7 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.setPersonInfoFail(ex.getMessage());
+                        onReturnDataListener.setPersonInfoFail(ex.getDisplayMessage());
                     }
 
                     @Override

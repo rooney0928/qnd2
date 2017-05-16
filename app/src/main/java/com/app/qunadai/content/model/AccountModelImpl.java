@@ -56,7 +56,7 @@ public class AccountModelImpl implements AccountContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.uploadAvatarFail(ex.getMessage());
+                        onReturnDataListener.uploadAvatarFail(ex.getDisplayMessage());
                     }
 
                     @Override

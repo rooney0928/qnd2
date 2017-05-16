@@ -66,7 +66,7 @@ public class ProductsModelImpl implements ProductsContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
 //                        onReturnDataListener.loginFail(ex.getMessage());
-                        onReturnDataListener.requestProductsFail(ex.getMessage());
+                        onReturnDataListener.requestProductsFail(ex.getDisplayMessage());
                     }
 
                     @Override

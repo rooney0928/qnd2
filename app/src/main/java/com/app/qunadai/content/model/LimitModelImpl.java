@@ -53,7 +53,7 @@ public class LimitModelImpl implements LimitContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        mOnReturnDataListener.getPersonValueFail(ex.getMessage());
+                        mOnReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
                     }
 
                     @Override

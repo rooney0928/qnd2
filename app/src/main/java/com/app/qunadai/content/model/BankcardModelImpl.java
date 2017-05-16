@@ -61,7 +61,7 @@ public class BankcardModelImpl implements BankcardContract.Model{
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getBankcardFail(ex.getMessage());
+                        onReturnDataListener.getBankcardFail(ex.getDisplayMessage());
                     }
 
                     @Override
@@ -104,7 +104,7 @@ public class BankcardModelImpl implements BankcardContract.Model{
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.setBankcardFail(ex.getMessage());
+                        onReturnDataListener.setBankcardFail(ex.getDisplayMessage());
                     }
 
                     @Override

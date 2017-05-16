@@ -51,7 +51,7 @@ public class MeModelImpl implements MeContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getCurrentFail(ex.getMessage());
+                        onReturnDataListener.getCurrentFail(ex.getDisplayMessage());
                     }
 
                     @Override

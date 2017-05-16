@@ -66,7 +66,7 @@ public class NicknameModelImpl implements NicknameContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.uploadNicknameFail(ex.getMessage());
+                        onReturnDataListener.uploadNicknameFail(ex.getDisplayMessage());
                     }
 
                     @Override

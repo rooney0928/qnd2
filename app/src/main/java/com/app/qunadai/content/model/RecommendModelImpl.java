@@ -62,7 +62,7 @@ public class RecommendModelImpl implements RecommendContract.Model{
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getRecommendFail(ex.getMessage());
+                        onReturnDataListener.getRecommendFail(ex.getDisplayMessage());
                     }
 
                     @Override

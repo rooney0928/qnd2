@@ -1,5 +1,7 @@
 package com.app.qunadai.http;
 
+import com.app.qunadai.http.Exception.ExceptionEngine;
+
 import rx.Subscriber;
 
 /**
@@ -16,11 +18,13 @@ public abstract class RxSubscriber<T> extends Subscriber<T>{
 
     @Override
     public void onError(Throwable e) {
-        if(e instanceof ApiException){
-            onError((ApiException)e);
-        }else{
-            onError(new ApiException(e,123));
-        }
+
+        ApiException ae =ExceptionEngine.handleException(e);
+//        if(e instanceof ApiException){
+            onError(ae);
+//        }else{
+//            onError(new ApiException(e,123));
+//        }
         requestEnd();
     }
 
