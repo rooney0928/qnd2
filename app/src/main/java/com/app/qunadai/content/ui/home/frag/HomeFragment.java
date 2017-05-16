@@ -76,6 +76,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @BindView(R.id.ll_home_recommend_loan)
     LinearLayout ll_home_recommend_loan;
 
+    @BindView(R.id.rl_home_more)
+    RelativeLayout rl_home_more;
+
     private HomePresenter homePresenter;
 
     private List<Fragment> fragments = new ArrayList<>();
@@ -141,6 +144,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             }
         });
         ll_home_speed_loan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入贷款产品列表
+                Intent intentProducts = new Intent(getActivity(), ProductsActivity.class);
+                startActivity(intentProducts);
+            }
+        });
+        rl_home_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //进入贷款产品列表

@@ -222,6 +222,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></com.app.qunadai.content.view.FullViewPager>
 
+                <RelativeLayout
+                    android:id="@+id/rl_home_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:drawablePadding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableRight="@mipmap/ic_go"
+                        android:text="更多贷款产品"/>
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
