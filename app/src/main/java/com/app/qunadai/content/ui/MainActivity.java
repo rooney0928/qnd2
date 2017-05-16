@@ -1,6 +1,7 @@
 package com.app.qunadai.content.ui;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -25,9 +26,11 @@ import com.app.qunadai.content.view.ForbidScrollViewpager;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventNick;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -91,6 +94,10 @@ public class MainActivity extends BaseActivity {
         fragments.add(limitFragment);
         fragments.add(bbsFragment);
         fragments.add(meFragment);
+
+        Point p = CommUtil.getSize(this);
+        LogU.t("width-"+p.x);
+        LogU.t("height-"+p.y);
     }
 
 
@@ -98,6 +105,8 @@ public class MainActivity extends BaseActivity {
     public void initViewData() {
 //        LogU.t("???"+rb_nav_home);
         /**/
+//        CrashReport.testANRCrash();
+//        CrashReport.testJavaCrash();
         vp_main.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), fragments));
 
 
@@ -186,7 +195,9 @@ public class MainActivity extends BaseActivity {
 //        if (meFragment != null) {
 //            meFragment.setNickname(event.getNickname());
 //        }
-        finish();
+        if("main".equalsIgnoreCase(event.getPage())){
+            finish();
+        }
     }
 
 }

@@ -19,7 +19,9 @@ import com.app.qunadai.content.presenter.LimitPresenter;
 import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
+import com.app.qunadai.content.ui.me.BankCardActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
+import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.content.view.AuthView;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
@@ -288,13 +290,20 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_ZHENGXIN);
                     break;
             }
-            if (v.getId() == R.id.av_bankcard || v.getId() == R.id.av_credit) {
+            if (v.getId() == R.id.av_bankcard || v.getId() == R.id.av_realinfo) {
                 switch (v.getId()) {
                     case R.id.av_bankcard:
                         //进入银行卡认证
+                        Intent intentBank = new Intent(getActivity(), BankCardActivity.class);
+                        intentBank.putExtra("titleHide", true);
+                        startActivity(intentBank);
                         break;
                     case R.id.av_realinfo:
                         //进入个人信息认证
+                        Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
+                        intentInfo.putExtra("titleHide", true);
+                        intentInfo.putExtra("isFromDetail", true);
+                        startActivity(intentInfo);
                         break;
                 }
 

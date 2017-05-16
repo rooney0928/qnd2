@@ -12,10 +12,49 @@ android {
         versionName "4.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        myConfig {
+            storeFile file("/Users/wayne/Documents/dev/Signature/keystore")
+            storePassword "a123456"
+            keyAlias "china"
+            keyPassword "a123456"
+        }
+    }
     buildTypes {
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            //混淆
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled false
+            // 移除无用的resource文件
+            shrinkResources false
+            //签名
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        xiaomi {}
+        baidu {}
+        yingyongbao {}
+        meizu {}
+        c360 {}
+        huawei {}
+        oppo {}
+        vivo {}
+        alibaba {}
+
+        pc6{}
+        qunadai {}
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }
     }
 }
@@ -69,4 +108,7 @@ dependencies {
 
     compile 'com.yanzhenjie:album:1.0.6'
     compile 'com.github.yalantis:ucrop:2.2.1'
+
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

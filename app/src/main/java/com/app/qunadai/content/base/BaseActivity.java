@@ -87,6 +87,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
 //                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        }
+
+        /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -95,7 +97,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
-        StatusBarUtil.StatusBarLightMode(this);
+
+        */
+//        StatusBarUtil.StatusBarLightMode(this);
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(root);
         initContentView();
     }

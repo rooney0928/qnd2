@@ -87,14 +87,14 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.TOKEN);
-                PrefUtil.removeItem(SettingActivity.this, PrefKey.PHONE);
+//                PrefUtil.removeItem(SettingActivity.this, PrefKey.PHONE);
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.AUTO_LOGIN);
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.PWD_ENCODE);
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.PWD);
 
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
-                EventBus.getDefault().post(new EventClose());
+                EventBus.getDefault().post(new EventClose("main"));
                 finish();
             }
         });

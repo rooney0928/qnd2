@@ -420,7 +420,12 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         }
     }
 
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO Auto-generated method stub
+        hideKeyboard(event);
+        return super.onTouchEvent(event);
+    }
     /**
      * 点击其他地方隐藏键盘
      *
@@ -434,10 +439,12 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         }
     }
 
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN, priority = 100) //在ui线程执行 优先级100
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100) //在ui线程执行 优先级100
     public void onReceive(EventClose event) {
         LogU.t("close");
-        finish();
+        if("info".equalsIgnoreCase(event.getPage())){
+            finish();
+        }
     }
 
     @Override

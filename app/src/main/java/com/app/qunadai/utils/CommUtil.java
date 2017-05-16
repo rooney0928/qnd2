@@ -1,13 +1,16 @@
 package com.app.qunadai.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -199,5 +202,12 @@ public class CommUtil {
         }
 
         return "";
+    }
+
+    public static Point getSize(Activity act) {
+        Display display = act.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);  //size.x就是宽度，size.y就是高度
+        return size;
     }
 }

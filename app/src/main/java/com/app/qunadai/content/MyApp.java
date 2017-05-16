@@ -3,6 +3,9 @@ package com.app.qunadai.content;
 import android.app.Application;
 import android.content.Context;
 
+import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.analytics.MobclickAgent;
+
 
 /**
  * Created by wayne on 2017/1/5.
@@ -15,12 +18,24 @@ public class MyApp extends Application {
     public static final String MX_KEY = "3ef6ede77e524c038765a874e95ce2ad";
     public static final String MX_TOKEN = "a4c70f4239b8488eb4f08b4378438d21";
 
-    //umen
+
 
     //bugly
+    public static final String BUGLY_ID = "33b9e0aeb0";
+    //umeng
+    public static final String UMENG_KEY = "56aecffe67e58e68ac00017b";
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
+        init();
+    }
+
+    private void init() {
+        CrashReport.initCrashReport(getApplicationContext(),BUGLY_ID,false);
+        MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
 }

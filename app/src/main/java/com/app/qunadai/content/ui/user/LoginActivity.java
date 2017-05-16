@@ -117,6 +117,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         bt_style_pwd.setSelected(true);
         login_type = TYPE_PWD;
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        //记住的密码
+        String phone = PrefUtil.getString(this,PrefKey.PHONE,"");
+        et_login_phone.setText(phone);
     }
 
     View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
@@ -444,7 +448,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void loginFail(String error) {
-        ToastUtil.showToastLong(this, "系统开小差啦,请稍后~~");
+        ToastUtil.showToastLong(this, error);
     }
 
     @Override
