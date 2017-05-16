@@ -87,7 +87,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private static final int TYPE_PWD = 0;
     private static final int TYPE_SMS = 2;
 
-    InputMethodManager manager;
     private boolean isRequest;
     private TimeCount time;
 
@@ -116,10 +115,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         time = new TimeCount(60000, 1000);
         bt_style_pwd.setSelected(true);
         login_type = TYPE_PWD;
-        manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         //记住的密码
-        String phone = PrefUtil.getString(this,PrefKey.PHONE,"");
+        String phone = PrefUtil.getString(this, PrefKey.PHONE, "");
         et_login_phone.setText(phone);
     }
 
@@ -419,9 +417,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             //密码模式则存2个密码(真假),标记自动登录
             PrefUtil.putString(this, PrefKey.PWD_ENCODE, CommUtil.shaEncrypt(CommUtil.getText(et_login_pwd)));
             PrefUtil.putString(this, PrefKey.PWD, CommUtil.getText(et_login_pwd));
-            PrefUtil.putBoolean(this,PrefKey.AUTO_LOGIN,true);
+            PrefUtil.putBoolean(this, PrefKey.AUTO_LOGIN, true);
         } else {
-            PrefUtil.putBoolean(this,PrefKey.AUTO_LOGIN,false);
+            PrefUtil.putBoolean(this, PrefKey.AUTO_LOGIN, false);
 
         }
 
@@ -454,7 +452,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void requestStart() {
         ProgressBarUtil.showLoadDialog(this);
-
+        //不用添加view的关闭键盘
+        if (manager != null) {
+            manager.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                    0);
+        }
     }
 
 
@@ -481,25 +483,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
-        hideKeyboard(event);
-        return super.onTouchEvent(event);
-    }
-
-    /**
-     * 点击其他地方隐藏键盘
-     *
-     * @param event
-     */
-    private void hideKeyboard(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
-                manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-        }
-    }
 
     /* 定义一个倒计时的内部类 */
     class TimeCount extends CountDownTimer {

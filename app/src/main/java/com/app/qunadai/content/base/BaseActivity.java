@@ -1,13 +1,16 @@
 package com.app.qunadai.content.base;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -64,6 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     View centerView;
 
+    public InputMethodManager manager;
 
     /**
      * 创建根布局
@@ -103,6 +107,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(root);
+        manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         initContentView();
     }
 
@@ -221,6 +227,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         tv_title_right.setOnClickListener(listener);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO Auto-generated method stub
+        hideKeyboard(event);
+        return super.onTouchEvent(event);
+    }
 
+    /**
+     * 点击其他地方隐藏键盘
+     *
+     * @param event
+     */
+    private void hideKeyboard(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
+                manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
 
 }

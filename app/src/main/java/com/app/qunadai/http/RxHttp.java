@@ -75,8 +75,8 @@ public class RxHttp {
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create(gson));
-        Retrofit gankRest = builder.build();
-        qndApi = gankRest.create(QndApi.class);
+        Retrofit qndRest = builder.build();
+        qndApi = qndRest.create(QndApi.class);
     }
 
     public static RxHttp getInstance() {
