@@ -119,6 +119,7 @@ public class RxHttp {
         return qndApi.loginBySms("sms", phone, sms);
     }
 
+    //home
     //获取个人额度及信息
     public static Observable<PersonBean> getPersonValue(String access_token) {
         return qndApi.getPersonValue(access_token);
@@ -128,7 +129,6 @@ public class RxHttp {
     public static Observable<HomeRecommend> getHomeRecommend() {
         return qndApi.getHomeRecommend();
     }
-
 
     //获取过滤式贷款列表
     public static Observable<ProductsBean> getFilterLoan(int page, int pageSize, String tagName,
@@ -151,13 +151,11 @@ public class RxHttp {
     }
 
     //limit
-
     //更新业务状态
     public static Observable<StatusBean> updateStatus(String mobileNumber, String businessId, String token) {
         return qndApi.updateStatus(mobileNumber, businessId, token);
     }
     //me
-
     //个人页面头像昵称
     public static Observable<MeBean> getMeCurrent(String token) {
         return qndApi.getMeCurrent(token);
@@ -166,6 +164,7 @@ public class RxHttp {
     public static Observable<AvatarBean> uploadAvatar(String token, RequestBody body) {
         return qndApi.uploadAvatar(token, body);
     }
+
     public static Observable<AvatarBean> uploadNickname(String token, RequestBody body) {
         return qndApi.uploadNickname(token, body);
     }
