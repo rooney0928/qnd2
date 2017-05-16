@@ -5,4 +5,17 @@ package com.app.qunadai.third.eventbus;
  */
 
 public class EventClose {
+    private String page;
+
+    public EventClose(String page) {
+        this.page = page;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
 }

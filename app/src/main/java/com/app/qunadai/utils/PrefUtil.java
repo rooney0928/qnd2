@@ -56,7 +56,7 @@ public class PrefUtil {
 	public static void removeItem(Context ctx, String key){
 		SharedPreferences pref = ctx.getSharedPreferences(SHARE_PREFS_NAME,
 				Context.MODE_PRIVATE);
-		pref.edit().remove(key);
+		pref.edit().remove(key).commit();
 	}
 
 

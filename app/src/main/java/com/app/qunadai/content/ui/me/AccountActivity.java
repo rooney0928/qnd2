@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -120,8 +121,8 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
         tv_account_nickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AccountActivity.this,NicknameActivity.class);
-                intent.putExtra("nickname",CommUtil.getText(tv_account_nickname));
+                Intent intent = new Intent(AccountActivity.this, NicknameActivity.class);
+                intent.putExtra("nickname", CommUtil.getText(tv_account_nickname));
                 startActivity(intent);
             }
         });
@@ -135,7 +136,7 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
                 showPicDialog();
                 break;
             case R.id.rl_account_nickname:
-                Intent intent = new Intent(this,NicknameActivity.class);
+                Intent intent = new Intent(this, NicknameActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -143,11 +144,16 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
 
     private void showPicDialog() {
+        Point p = CommUtil.getSize(this);
+
+        mImageList = new ArrayList<>();
         Album.album(AccountActivity.this)
                 .requestCode(ACTIVITY_REQUEST_SELECT_PHOTO) // Request code.
+                .statusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+                .toolBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .title("相册") // Title.
                 .selectCount(1) // Choose up to a few pictures.
-                .columnCount(3) // Number of albums.
+                .columnCount(p.x >= 720 ? 4 : 3) // 宽度大于720px则显示4列
                 .camera(true) // Have a camera function.
                 .checkedList(mImageList) // Has selected the picture, automatically select.
                 .start();
@@ -211,7 +217,6 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
             }
 
 
-
         }
     }
 
@@ -241,6 +246,8 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
             uriCrop = Uri.fromFile(new File(FileUtil.getImageDir(this) + File.separator + FileUtil.getRandomImgFilename()));
             Uri origin = Uri.fromFile(new File(mImageList.get(0)));
             UCrop.Options option = new UCrop.Options();
+            option.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+            option.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
             option.setHideBottomControls(true);
             option.setCircleDimmedLayer(true);
             UCrop.of(origin, uriCrop)

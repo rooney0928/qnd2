@@ -79,6 +79,12 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                 startActivity(intentInfo);
             }
         });
+        rl_loan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         rl_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

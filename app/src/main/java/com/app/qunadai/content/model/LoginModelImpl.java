@@ -54,7 +54,7 @@ public class LoginModelImpl implements LoginContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getLoginSmsFail(ex.getMessage());
+                        onReturnDataListener.getLoginSmsFail(ex.getCode()+":"+ex.getMessage());
                     }
 
                     @Override

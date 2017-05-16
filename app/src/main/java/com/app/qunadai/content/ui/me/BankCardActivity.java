@@ -183,7 +183,7 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
 
     @Override
     public void setBankcard(BankcardBean bean) {
-        EventBus.getDefault().postSticky(new EventClose());
+        EventBus.getDefault().post(new EventClose("info"));
         ToastUtil.showToastLong(this, "验证成功");
         finish();
     }
