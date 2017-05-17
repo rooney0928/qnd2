@@ -17,6 +17,11 @@ public class BankcardPresenter implements BankcardContract.Presenter {
         this.view = iview;
         model = new BankcardModelImpl(new BankcardModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getBankcard(BankcardBean bean) {
                 view.getBankcard(bean);
             }

@@ -94,8 +94,8 @@ public class SettingActivity extends BaseActivity {
 
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
-                EventBus.getDefault().post(new EventClose("main"));
-                finish();
+//                EventBus.getDefault().post(new EventClose("main"));
+//                finish();
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -126,5 +126,25 @@ public class SettingActivity extends BaseActivity {
                 startActivity(intentAbout);
                 break;
         }
+    }
+
+    @Override
+    public void updateView(Object serverData) {
+
+    }
+
+    @Override
+    public void updateError(String error) {
+
+    }
+
+    @Override
+    public void requestStart() {
+
+    }
+
+    @Override
+    public void requestEnd() {
+
     }
 }

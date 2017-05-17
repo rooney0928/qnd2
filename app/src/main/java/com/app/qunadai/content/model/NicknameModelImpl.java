@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.AvatarBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -28,7 +29,7 @@ public class NicknameModelImpl implements NicknameContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener extends BaseReturnListener {
         void uploadNickname(AvatarBean bean);
 
         void uploadNicknameFail(String error);
@@ -51,7 +52,6 @@ public class NicknameModelImpl implements NicknameContract.Model {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
 
         Observable<AvatarBean> request = RxHttp.uploadNickname(token, body);
@@ -67,13 +67,15 @@ public class NicknameModelImpl implements NicknameContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.uploadNicknameFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
                     protected void onOk(AvatarBean bean) {
                         onReturnDataListener.uploadNickname(bean);
                     }
-
 
                     @Override
                     protected void requestEnd() {

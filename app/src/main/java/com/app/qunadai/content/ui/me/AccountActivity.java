@@ -18,6 +18,7 @@ import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.AccountContract;
 import com.app.qunadai.content.presenter.AccountPresenter;
+import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.utils.CommUtil;
@@ -293,4 +294,5 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
     public void onMessageEvent(EventNick event) {
         tv_account_nickname.setText(event.getNickname());
     }
+
 }

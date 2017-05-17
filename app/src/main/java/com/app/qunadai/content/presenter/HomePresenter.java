@@ -17,6 +17,11 @@ public class HomePresenter implements HomeContract.Presenter{
         this.view = iview;
         model = new HomeModelImpl(new HomeModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getHomeRecommend(HomeRecommend bean) {
                 view.getHomeRecommend(bean);
             }

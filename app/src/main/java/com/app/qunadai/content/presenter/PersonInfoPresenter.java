@@ -16,6 +16,11 @@ public class PersonInfoPresenter implements PersonInfoContract.Presenter {
         this.view = iview;
         model = new PersonInfoModelImpl(new PersonInfoModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getPersonInfo(PersonInfo bean) {
                 view.getPersonInfo(bean);
             }

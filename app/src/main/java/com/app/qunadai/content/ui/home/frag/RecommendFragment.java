@@ -56,4 +56,24 @@ public class RecommendFragment extends BaseFragment {
     public void setRecommendData(List<LoanDetail> list){
         adapter.setList(list);
     }
+
+    @Override
+    public void updateView(Object serverData) {
+
+    }
+
+    @Override
+    public void updateError(String error) {
+
+    }
+
+    @Override
+    public void requestStart() {
+
+    }
+
+    @Override
+    public void requestEnd() {
+
+    }
 }

@@ -2,11 +2,13 @@ package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.Message;
 import com.app.qunadai.bean.RegBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.RegisterContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.http.RxSubscriber;
 import com.app.qunadai.utils.RxHolder;
+
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,7 +26,7 @@ public class RegisterModelImpl implements RegisterContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener{
         void getRegisterSms(String msg);
 
         void getRegisterSmsFail(String error);

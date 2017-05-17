@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.ProductsBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.ProductsContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;

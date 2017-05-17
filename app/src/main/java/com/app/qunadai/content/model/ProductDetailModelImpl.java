@@ -4,6 +4,7 @@ import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.ProductDetailBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.ProductDetailContract;
 import com.app.qunadai.content.contract.ProductsContract;
 import com.app.qunadai.http.ApiException;
@@ -33,7 +34,7 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener extends BaseReturnListener{
         void getProductDetail(ProductDetailBean bean);
 
         void getProductDetailFail(String error);
@@ -69,7 +70,6 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
                         onReturnDataListener.getProductDetail(bean);
                     }
 
-
                     @Override
                     protected void requestEnd() {
                         onReturnDataListener.requestEnd();
@@ -93,6 +93,9 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
@@ -118,15 +121,14 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
             obj.put("timeLimitType", timeType);
             proObj.put("id", productId);
             proObj.put("type", "H5");
-            obj.put("product",proObj);
+            obj.put("product", proObj);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        LogU.t(obj.toString());
-
+//        LogU.t(obj.toString());
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
 
-        Observable<ApplyBean> request = RxHttp.getInstance().apply(token,body);
+        Observable<ApplyBean> request = RxHttp.getInstance().apply(token, body);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<ApplyBean>() {
@@ -144,7 +146,6 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
                     protected void onOk(ApplyBean bean) {
                     }
 
-
                     @Override
                     protected void requestEnd() {
                         onReturnDataListener.requestEnd();
@@ -152,7 +153,6 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
                 });
         RxHolder.addSubscription(sub);
     }
-
 
     @Override
     public void getServerData() {

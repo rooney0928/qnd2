@@ -45,14 +45,14 @@ public class ProgressBarUtil {
     }
 
     public static void hideLoadDialogDelay(final Activity activity) {
-        Observable.timer(400, TimeUnit.MILLISECONDS).subscribe(
+        Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (activity != null) {
+                                if (activity != null && !activity.isFinishing()) {
                                     ProgressBarUtil.hideLoadDialog();
                                 }
                             }

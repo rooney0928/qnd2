@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui.me;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.BankcardContract;
 import com.app.qunadai.content.presenter.BankcardPresenter;
+import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
@@ -206,13 +208,16 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
     @Override
     public void requestStart() {
         ProgressBarUtil.showLoadDialog(this);
-
     }
 
 
     @Override
     public void requestEnd() {
         ProgressBarUtil.hideLoadDialogDelay(this);
-
+    }
+    @Override
+    public void tokenFail() {
+        Intent intentLogin = new Intent(this, LoginActivity.class);
+        startActivity(intentLogin);
     }
 }

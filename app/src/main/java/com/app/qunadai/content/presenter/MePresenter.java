@@ -18,6 +18,11 @@ public class MePresenter implements MeContract.Presenter {
 
         model = new MeModelImpl(new MeModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getCurrent(MeBean bean) {
                 view.getCurrent(bean);
             }

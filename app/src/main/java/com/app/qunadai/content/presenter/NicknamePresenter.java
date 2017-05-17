@@ -16,6 +16,11 @@ public class NicknamePresenter implements NicknameContract.Presenter {
         this.view = iview;
         model = new NicknameModelImpl(new NicknameModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void uploadNickname(AvatarBean bean) {
                 view.uploadNickname(bean);
             }

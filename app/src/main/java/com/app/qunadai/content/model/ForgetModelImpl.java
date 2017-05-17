@@ -2,6 +2,7 @@ package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.Message;
 import com.app.qunadai.bean.ResetBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.ForgetContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -19,14 +20,13 @@ import rx.schedulers.Schedulers;
 
 public class ForgetModelImpl implements ForgetContract.Model {
 
-
     private OnReturnDataListener onReturnDataListener;
 
     public ForgetModelImpl(OnReturnDataListener onReturnDataListener) {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener extends BaseReturnListener {
         void getForgetSms(Message msg);
 
         void getForgetSmsFail(String error);
@@ -39,7 +39,6 @@ public class ForgetModelImpl implements ForgetContract.Model {
 
         void requestEnd();
     }
-
 
     @Override
     public void getServerData() {
@@ -74,7 +73,6 @@ public class ForgetModelImpl implements ForgetContract.Model {
                     }
                 });
         RxHolder.addSubscription(sub);
-
     }
 
     @Override

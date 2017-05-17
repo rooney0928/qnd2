@@ -17,6 +17,11 @@ public class ForgetPresenter implements ForgetContract.Presenter {
         this.view = iview;
         model = new ForgetModelImpl(new ForgetModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getForgetSms(Message msg) {
                 view.getForgetSms(msg);
             }

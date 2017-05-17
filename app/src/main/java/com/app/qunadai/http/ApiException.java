@@ -7,6 +7,7 @@ package com.app.qunadai.http;
 public class ApiException extends Exception {
     private int code;
     private String displayMessage;
+    private boolean isTokenFail = false;
 
 
     public ApiException(Throwable throwable, int code) {
@@ -24,5 +25,13 @@ public class ApiException extends Exception {
 
     public int getCode() {
         return code;
+    }
+
+    public boolean isTokenFail() {
+        return isTokenFail;
+    }
+
+    public void setTokenFail(boolean tokenFail) {
+        isTokenFail = tokenFail;
     }
 }

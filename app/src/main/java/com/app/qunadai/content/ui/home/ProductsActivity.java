@@ -374,6 +374,7 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
 
         }
         isRefresh = false;
-        tv_product_amount.setText(list == null ? "0" : list.size()+"");
+        tv_product_amount.setText(list == null ? "0" : list.size() + "");
     }
+
 }

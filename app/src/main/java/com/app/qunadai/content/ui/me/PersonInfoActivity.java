@@ -452,4 +452,5 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

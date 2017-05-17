@@ -60,9 +60,7 @@ public class SplashModelImpl implements SplashContract.Model {
                     @Override
                     protected void onOk(Token token) {
                         onReturnDataListener.loginDone(token);
-
                     }
-
 
                     @Override
                     protected void requestEnd() {

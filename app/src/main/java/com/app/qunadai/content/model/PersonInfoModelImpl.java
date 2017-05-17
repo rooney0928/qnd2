@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.PersonInfo;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.PersonInfoContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -27,7 +28,7 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener extends BaseReturnListener {
         void getPersonInfo(PersonInfo bean);
 
         void getPersonInfoFail(String error);
@@ -61,13 +62,15 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getPersonInfoFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
                     protected void onOk(PersonInfo bean) {
                         onReturnDataListener.getPersonInfo(bean);
                     }
-
 
                     @Override
                     protected void requestEnd() {
@@ -92,7 +95,6 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
 
         Observable<PersonInfo> request = RxHttp.getInstance().setPersonInfo(token, body);
@@ -108,13 +110,15 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.setPersonInfoFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
                     protected void onOk(PersonInfo bean) {
                         onReturnDataListener.setPersonInfo(bean);
                     }
-
 
                     @Override
                     protected void requestEnd() {

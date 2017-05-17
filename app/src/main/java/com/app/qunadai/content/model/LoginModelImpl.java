@@ -3,6 +3,7 @@ package com.app.qunadai.content.model;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.Message;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.LoginContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -27,14 +28,18 @@ public class LoginModelImpl implements LoginContract.Model {
 
     public interface OnReturnDataListener{
         void getLoginSms(String msg);
+
         void getLoginSmsFail(String error);
+
         void loginDone(Token token);
+
         void loginFail(String error);
 
-
         void requestStart();
+
         void requestEnd();
     }
+
     @Override
     public void getServerData() {
 
@@ -54,7 +59,7 @@ public class LoginModelImpl implements LoginContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.getLoginSmsFail(ex.getCode()+":"+ex.getDisplayMessage());
+                        onReturnDataListener.getLoginSmsFail(ex.getCode() + ":" + ex.getDisplayMessage());
                     }
 
                     @Override
@@ -74,7 +79,7 @@ public class LoginModelImpl implements LoginContract.Model {
 
     @Override
     public void loginByPwd(String phone, String pwd) {
-        Observable<Token> request = RxHttp.getInstance().loginByPwd(phone,pwd);
+        Observable<Token> request = RxHttp.getInstance().loginByPwd(phone, pwd);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<Token>() {
@@ -106,7 +111,7 @@ public class LoginModelImpl implements LoginContract.Model {
 
     @Override
     public void loginBySms(String phone, String sms) {
-        Observable<Token> request = RxHttp.getInstance().loginBySms(phone,sms);
+        Observable<Token> request = RxHttp.getInstance().loginBySms(phone, sms);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<Token>() {

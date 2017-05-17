@@ -16,6 +16,11 @@ public class AccountPresenter implements AccountContract.Presenter {
         this.view = iview;
         model = new AccountModelImpl(new AccountModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void uploadAvatar(AvatarBean bean) {
                 view.uploadAvatar(bean);
             }

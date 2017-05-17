@@ -19,6 +19,11 @@ public class RecommendPresenter implements RecommendContract.Presenter {
 
         model = new RecommendModelImpl(new RecommendModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getRecommend(Recommend bean) {
                 view.getRecommend(bean);
             }

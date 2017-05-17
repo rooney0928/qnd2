@@ -1,6 +1,7 @@
 package com.app.qunadai.content.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,13 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.app.qunadai.content.ui.user.LoginActivity;
+
 import butterknife.ButterKnife;
 
 /**
  * Created by wayne on 2017/5/8.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements BaseView {
 
     /**
      * 内容
@@ -30,6 +33,7 @@ public abstract class BaseFragment extends Fragment {
     protected Activity mActivity;
 
     protected View mRootView;
+
     // Fragment创建
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public abstract class BaseFragment extends Fragment {
                              Bundle savedInstanceState) {
 //        Log.e("text", "fragment  onCreateView ");
         mRootView = createRootView();
-        ButterKnife.bind(this,mRootView);
+        ButterKnife.bind(this, mRootView);
         try {
             return mRootView;
         } catch (Exception e) {
@@ -79,5 +83,11 @@ public abstract class BaseFragment extends Fragment {
      */
     public Fragment getFragment() {
         return this;
+    }
+
+    @Override
+    public void tokenFail() {
+        Intent intentLogin = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intentLogin);
     }
 }

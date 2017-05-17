@@ -20,6 +20,11 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
         model = new ProductDetailModelImpl(new ProductDetailModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getProductDetail(ProductDetailBean bean) {
                 view.getProductDetail(bean);
             }

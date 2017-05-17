@@ -2,6 +2,7 @@ package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.PersonBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -18,19 +19,23 @@ import rx.schedulers.Schedulers;
  */
 
 public class HomeModelImpl implements HomeContract.Model {
-    private OnReturnDataListener mOnReturnDataListener;
+    private OnReturnDataListener onReturnDataListener;
 
     public HomeModelImpl(OnReturnDataListener onReturnDataListener) {
-        this.mOnReturnDataListener = onReturnDataListener;
+        this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener{
+    public interface OnReturnDataListener extends BaseReturnListener {
         void getHomeRecommend(HomeRecommend bean);
+
         void getHomeRecommendError(String error);
+
         void getPersonValue(PersonBean bean);
+
         void getPersonValueFail(String error);
 
         void requestStart();
+
         void requestEnd();
     }
 
@@ -47,23 +52,23 @@ public class HomeModelImpl implements HomeContract.Model {
                 .subscribe(new RxSubscriber<HomeRecommend>() {
                     @Override
                     public void onStart() {
-                        mOnReturnDataListener.requestStart();
+                        onReturnDataListener.requestStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onError(ApiException ex) {
-                        mOnReturnDataListener.getHomeRecommendError(ex.getDisplayMessage());
+                        onReturnDataListener.getHomeRecommendError(ex.getDisplayMessage());
                     }
 
                     @Override
                     protected void onOk(HomeRecommend bean) {
-                        mOnReturnDataListener.getHomeRecommend(bean);
+                        onReturnDataListener.getHomeRecommend(bean);
                     }
 
                     @Override
                     protected void requestEnd() {
-                        mOnReturnDataListener.requestEnd();
+                        onReturnDataListener.requestEnd();
                     }
                 });
         RxHolder.addSubscription(sub);
@@ -77,23 +82,26 @@ public class HomeModelImpl implements HomeContract.Model {
                 .subscribe(new RxSubscriber<PersonBean>() {
                     @Override
                     public void onStart() {
-                        mOnReturnDataListener.requestStart();
+                        onReturnDataListener.requestStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onError(ApiException ex) {
-                        mOnReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
                     protected void onOk(PersonBean bean) {
-                        mOnReturnDataListener.getPersonValue(bean);
+                        onReturnDataListener.getPersonValue(bean);
                     }
 
                     @Override
                     protected void requestEnd() {
-                        mOnReturnDataListener.requestEnd();
+                        onReturnDataListener.requestEnd();
                     }
                 });
         RxHolder.addSubscription(sub);

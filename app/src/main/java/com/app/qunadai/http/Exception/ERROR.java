@@ -21,4 +21,8 @@ public class ERROR {
      * 协议出错
      */
     public static final int HTTP_ERROR = 1003;
+    /**
+     * token出错
+     */
+    public static final int TOKEN_ERROR = 1003;
 }

@@ -1,6 +1,7 @@
 package com.app.qunadai.content.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.content.ui.user.LoginActivity;
+import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.StatusBarUtil;
 
 import butterknife.BindView;
@@ -26,7 +29,7 @@ import butterknife.ButterKnife;
  * Created by wayne on 2017/1/4.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, BaseView {
 
     public static final int TITLE_ON_BACK_OFF = 0;
     public static final int TITLE_ON_BACK_ON = 2;
@@ -109,6 +112,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setContentView(root);
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        AppManager.add(this);
         initContentView();
     }
 
@@ -191,7 +195,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitle(String title) {
         tv_title.setText(title);
     }
-    public void setTitleRight(String title){
+
+    public void setTitleRight(String title) {
         tv_title_right.setText(title);
     }
 
@@ -223,7 +228,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void setTitleRightEvent(View.OnClickListener listener){
+    public void setTitleRightEvent(View.OnClickListener listener) {
         tv_title_right.setOnClickListener(listener);
     }
 
@@ -247,4 +252,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    @Override
+    public void tokenFail() {
+        Intent intentLogin = new Intent(this, LoginActivity.class);
+        startActivity(intentLogin);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.remove(this);
+    }
 }

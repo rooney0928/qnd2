@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.AvatarBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.AccountContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -24,7 +25,7 @@ public class AccountModelImpl implements AccountContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener extends BaseReturnListener{
         void uploadAvatar(AvatarBean bean);
 
         void uploadAvatarFail(String error);
@@ -32,6 +33,7 @@ public class AccountModelImpl implements AccountContract.Model {
         void requestStart();
 
         void requestEnd();
+
     }
 
 
@@ -57,13 +59,16 @@ public class AccountModelImpl implements AccountContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.uploadAvatarFail(ex.getDisplayMessage());
+
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
                     protected void onOk(AvatarBean bean) {
                         onReturnDataListener.uploadAvatar(bean);
                     }
-
 
                     @Override
                     protected void requestEnd() {

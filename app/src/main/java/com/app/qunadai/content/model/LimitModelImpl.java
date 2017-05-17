@@ -1,9 +1,8 @@
 package com.app.qunadai.content.model;
 
-import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.StatusBean;
-import com.app.qunadai.content.contract.HomeContract;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.LimitContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -20,17 +19,19 @@ import rx.schedulers.Schedulers;
  */
 
 public class LimitModelImpl implements LimitContract.Model {
-    private OnReturnDataListener mOnReturnDataListener;
+    private OnReturnDataListener onReturnDataListener;
 
     public LimitModelImpl(OnReturnDataListener onReturnDataListener) {
-        this.mOnReturnDataListener = onReturnDataListener;
+        this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener{
+    public interface OnReturnDataListener extends BaseReturnListener {
         void getPersonValue(PersonBean bean);
+
         void getPersonValueFail(String error);
 
         void requestStart();
+
         void requestEnd();
     }
 
@@ -47,43 +48,46 @@ public class LimitModelImpl implements LimitContract.Model {
                 .subscribe(new RxSubscriber<PersonBean>() {
                     @Override
                     public void onStart() {
-                        mOnReturnDataListener.requestStart();
+                        onReturnDataListener.requestStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onError(ApiException ex) {
-                        mOnReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
                     protected void onOk(PersonBean bean) {
-                        mOnReturnDataListener.getPersonValue(bean);
+                        onReturnDataListener.getPersonValue(bean);
                     }
 
                     @Override
                     protected void requestEnd() {
-                        mOnReturnDataListener.requestEnd();
+                        onReturnDataListener.requestEnd();
                     }
                 });
         RxHolder.addSubscription(sub);
     }
 
     @Override
-    public void updateStatus(String mobileNumber, String businessId,String token) {
-        Observable<StatusBean> request = RxHttp.getInstance().updateStatus(mobileNumber,businessId,token);
+    public void updateStatus(String mobileNumber, String businessId, String token) {
+        Observable<StatusBean> request = RxHttp.getInstance().updateStatus(mobileNumber, businessId, token);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<StatusBean>() {
                     @Override
                     public void onStart() {
-                        mOnReturnDataListener.requestStart();
+                        onReturnDataListener.requestStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onError(ApiException ex) {
-//                        mOnReturnDataListener.getPersonValueFail(ex.getMessage());
+//                        onReturnDataListener.getPersonValueFail(ex.getMessage());
                     }
 
                     @Override
@@ -93,7 +97,7 @@ public class LimitModelImpl implements LimitContract.Model {
 
                     @Override
                     protected void requestEnd() {
-                        mOnReturnDataListener.requestEnd();
+                        onReturnDataListener.requestEnd();
                     }
                 });
         RxHolder.addSubscription(sub);

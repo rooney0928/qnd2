@@ -15,6 +15,7 @@ import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.content.presenter.NicknamePresenter;
+import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -71,7 +72,6 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
         et_nickname_text.setText(nickname);
 
     }
-
 
     @Override
     public void initViewData() {

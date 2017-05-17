@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.BankcardContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -20,7 +21,7 @@ import rx.schedulers.Schedulers;
  * Created by wayne on 2017/5/14.
  */
 
-public class BankcardModelImpl implements BankcardContract.Model{
+public class BankcardModelImpl implements BankcardContract.Model {
 
     private OnReturnDataListener onReturnDataListener;
 
@@ -28,7 +29,7 @@ public class BankcardModelImpl implements BankcardContract.Model{
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener extends BaseReturnListener {
         void getBankcard(BankcardBean bean);
 
         void getBankcardFail(String error);
@@ -44,7 +45,7 @@ public class BankcardModelImpl implements BankcardContract.Model{
 
     @Override
     public void getServerData() {
-        
+
     }
 
     @Override
@@ -62,6 +63,9 @@ public class BankcardModelImpl implements BankcardContract.Model{
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getBankcardFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
@@ -92,7 +96,7 @@ public class BankcardModelImpl implements BankcardContract.Model{
         }
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
 
-        Observable<BankcardBean> request = RxHttp.getInstance().setBankcard(token,body);
+        Observable<BankcardBean> request = RxHttp.getInstance().setBankcard(token, body);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<BankcardBean>() {

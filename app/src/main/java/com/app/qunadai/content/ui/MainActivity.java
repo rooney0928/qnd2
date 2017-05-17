@@ -200,4 +200,23 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void updateView(Object serverData) {
+
+    }
+
+    @Override
+    public void updateError(String error) {
+
+    }
+
+    @Override
+    public void requestStart() {
+
+    }
+
+    @Override
+    public void requestEnd() {
+
+    }
 }

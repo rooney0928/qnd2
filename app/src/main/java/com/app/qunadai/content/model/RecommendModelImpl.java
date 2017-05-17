@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.Recommend;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.RecommendContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -16,7 +17,7 @@ import rx.schedulers.Schedulers;
  * Created by wayne on 2017/5/12.
  */
 
-public class RecommendModelImpl implements RecommendContract.Model{
+public class RecommendModelImpl implements RecommendContract.Model {
     private static int REFRESH = 0;
     private static int LOAD_MORE = 1;
     private OnReturnDataListener onReturnDataListener;
@@ -25,12 +26,15 @@ public class RecommendModelImpl implements RecommendContract.Model{
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener{
+    public interface OnReturnDataListener extends BaseReturnListener {
         void getRecommend(Recommend bean);
+
         void getRecommendMore(Recommend bean);
+
         void getRecommendFail(String error);
 
         void requestStart();
+
         void requestEnd();
     }
 
@@ -41,16 +45,16 @@ public class RecommendModelImpl implements RecommendContract.Model{
 
     @Override
     public void getRecommend(int page, int pageSize) {
-        requestRecommend(REFRESH,page,pageSize);
+        requestRecommend(REFRESH, page, pageSize);
     }
 
     @Override
     public void getRecommendMore(int page, int pageSize) {
-        requestRecommend(LOAD_MORE,page,pageSize);
+        requestRecommend(LOAD_MORE, page, pageSize);
     }
 
-    public void requestRecommend(final int type, int page, int pageSize){
-        Observable<Recommend> request = RxHttp.getInstance().getRecommend(page,pageSize);
+    public void requestRecommend(final int type, int page, int pageSize) {
+        Observable<Recommend> request = RxHttp.getInstance().getRecommend(page, pageSize);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<Recommend>() {
@@ -67,9 +71,9 @@ public class RecommendModelImpl implements RecommendContract.Model{
 
                     @Override
                     protected void onOk(Recommend bean) {
-                        if(type==REFRESH){
+                        if (type == REFRESH) {
                             onReturnDataListener.getRecommend(bean);
-                        }else{
+                        } else {
                             onReturnDataListener.getRecommendMore(bean);
                         }
                     }

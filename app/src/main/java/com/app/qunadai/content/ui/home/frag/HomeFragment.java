@@ -25,6 +25,7 @@ import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
+import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.content.view.FullViewPager;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;

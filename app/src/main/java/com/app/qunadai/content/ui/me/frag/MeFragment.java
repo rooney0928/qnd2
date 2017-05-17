@@ -15,6 +15,7 @@ import com.app.qunadai.content.presenter.MePresenter;
 import com.app.qunadai.content.ui.me.AccountActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.ui.me.SettingActivity;
+import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -143,5 +144,10 @@ public class MeFragment extends BaseFragment implements MeContract.View {
     public void setNickname(String nickname) {
         tv_me_name.setText(nickname);
         localMeBean.getContent().getUser().setNick(nickname);
+    }
+    @Override
+    public void tokenFail() {
+        Intent intentLogin = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intentLogin);
     }
 }

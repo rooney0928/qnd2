@@ -18,6 +18,11 @@ public class LimitPresenter implements LimitContract.Presenter {
         model = new LimitModelImpl(new LimitModelImpl.OnReturnDataListener() {
 
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getPersonValue(PersonBean bean) {
                 view.getPersonValue(bean);
             }

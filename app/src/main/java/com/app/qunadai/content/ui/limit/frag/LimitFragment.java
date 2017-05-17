@@ -22,6 +22,7 @@ import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.BankCardActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.ui.product.ProductDetailActivity;
+import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.content.view.AuthView;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
@@ -82,7 +83,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     Button bt_limit_borrow;
 
     private PersonBean localPersonBean;
-
 
     public static LimitFragment getInstance() {
         LimitFragment limitFragment = new LimitFragment();
@@ -204,7 +204,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                 break;
         }
     }
-
 
     @Override
     public void getPersonValueFail(String error) {

@@ -26,6 +26,7 @@ import com.app.qunadai.content.contract.LoginContract;
 import com.app.qunadai.content.presenter.LoginPresenter;
 import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
+import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
@@ -144,6 +145,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void initViewData() {
+        //结束其他所有页面
+        AppManager.closeActivityWithout(this);
+
+
         bt_style_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -420,7 +425,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             PrefUtil.putBoolean(this, PrefKey.AUTO_LOGIN, true);
         } else {
             PrefUtil.putBoolean(this, PrefKey.AUTO_LOGIN, false);
-
         }
 
 

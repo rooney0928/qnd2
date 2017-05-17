@@ -24,4 +24,5 @@ public interface BaseView<W> {
     void updateError(String error);
     void requestStart();
     void requestEnd();
+    void tokenFail();
 }

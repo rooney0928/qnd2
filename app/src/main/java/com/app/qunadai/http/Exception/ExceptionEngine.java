@@ -26,6 +26,7 @@ public class ExceptionEngine {
     private static final int FORBIDDEN = 403;
     private static final int NOT_FOUND = 404;
     private static final int REQUEST_TIMEOUT = 408;
+    private static final int TOKEN_FAIL = 471;
     private static final int INTERNAL_SERVER_ERROR = 500;
     private static final int BAD_GATEWAY = 502;
     private static final int SERVICE_UNAVAILABLE = 503;
@@ -54,6 +55,10 @@ public class ExceptionEngine {
 //                        e1.printStackTrace();
                         ex.setDisplayMessage("错误" + httpException.code() + ":json解析错误");
                     }
+                    break;
+                case TOKEN_FAIL:
+                    ex.setTokenFail(true);
+                    ex.setDisplayMessage("错误:登录失效,请重新登录");
                     break;
                 case FORBIDDEN:
                 case NOT_FOUND:

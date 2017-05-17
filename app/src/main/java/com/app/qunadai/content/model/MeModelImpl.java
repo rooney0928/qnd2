@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.MeBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.MeContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -24,11 +25,13 @@ public class MeModelImpl implements MeContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener{
+    public interface OnReturnDataListener extends BaseReturnListener {
         void getCurrent(MeBean bean);
+
         void getCurrentFail(String error);
 
         void requestStart();
+
         void requestEnd();
     }
 
@@ -52,14 +55,15 @@ public class MeModelImpl implements MeContract.Model {
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getCurrentFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
                     }
 
                     @Override
                     protected void onOk(MeBean bean) {
-//                        onReturnDataListener.loginDone(token);
                         onReturnDataListener.getCurrent(bean);
                     }
-
 
                     @Override
                     protected void requestEnd() {
