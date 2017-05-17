@@ -1,6 +1,5 @@
 package com.app.qunadai.content.ui.me;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,7 +7,6 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -119,14 +117,6 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
     @Override
     public void initViewData() {
-        tv_account_nickname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountActivity.this, NicknameActivity.class);
-                intent.putExtra("nickname", CommUtil.getText(tv_account_nickname));
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -138,6 +128,7 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
                 break;
             case R.id.rl_account_nickname:
                 Intent intent = new Intent(this, NicknameActivity.class);
+                intent.putExtra("nickname", CommUtil.getText(tv_account_nickname));
                 startActivity(intent);
                 break;
         }

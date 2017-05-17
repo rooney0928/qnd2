@@ -23,14 +23,20 @@ import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * Created by wayne on 2017/5/15.
  */
 
-public class NicknameActivity extends BaseActivity implements NicknameContract.View{
+public class NicknameActivity extends BaseActivity implements NicknameContract.View {
 
     private NicknamePresenter nicknamePresenter;
     @BindView(R.id.et_nickname_text)
@@ -64,8 +70,8 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
         String nickname = getIntent().getStringExtra("nickname");
         et_nickname_text.setText(nickname);
 
-
     }
+
 
     @Override
     public void initViewData() {
@@ -73,7 +79,7 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
             @Override
             public void onClick(View v) {
                 nicknamePresenter.uploadNickname(
-                        PrefUtil.getString(NicknameActivity.this, PrefKey.TOKEN,""),CommUtil.getText(et_nickname_text));
+                        PrefUtil.getString(NicknameActivity.this, PrefKey.TOKEN, ""), CommUtil.getText(et_nickname_text));
             }
         });
         iv_nickname_clear.setOnClickListener(new View.OnClickListener() {
@@ -106,14 +112,28 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
 
     @Override
     public void uploadNickname(AvatarBean bean) {
-        EventBus.getDefault().postSticky(new EventNick(bean.getContent().getUser().getNick()));
-        finish();
+
+        EventBus.getDefault().post(new EventNick(bean.getContent().getUser().getNick()));
+        //延迟500毫秒关闭swipe
+        Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
+                new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        });
+                    }
+                }
+        );
 
     }
 
     @Override
     public void uploadNicknameFail(String error) {
-        ToastUtil.showToast(this,error);
+        ToastUtil.showToast(this, error);
     }
 
     @Override
@@ -144,6 +164,7 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
         hideKeyboard(event);
         return super.onTouchEvent(event);
     }
+
     /**
      * 点击其他地方隐藏键盘
      *

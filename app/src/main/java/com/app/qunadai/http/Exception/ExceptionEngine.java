@@ -40,9 +40,8 @@ public class ExceptionEngine {
                 case PARAM_ERROR:
                 case UNAUTHORIZED:
                 case INTERNAL_SERVER_ERROR:
-                    String errorJson = null;
                     try {
-                        errorJson = httpException.response().errorBody().string();
+                        String errorJson = httpException.response().errorBody().string();
                         JSONObject obj = new JSONObject(errorJson);
                         String detail = obj.optString("detail");
                         ex.setDisplayMessage("错误" + httpException.code() + ":" + detail);
@@ -53,7 +52,7 @@ public class ExceptionEngine {
 
                     } catch (JSONException e1) {
 //                        e1.printStackTrace();
-                        ex.setDisplayMessage("错误" + httpException.code() + ":解析错误");
+                        ex.setDisplayMessage("错误" + httpException.code() + ":json解析错误");
                     }
                     break;
                 case FORBIDDEN:
@@ -80,8 +79,7 @@ public class ExceptionEngine {
             return ex;
         } else if (e instanceof ConnectException || e instanceof SocketTimeoutException) {
             ex = new ApiException(e, ERROR.NETWORD_ERROR);
-            ex.setDisplayMessage("连接超时" +
-                    "");  //均视为网络错误
+            ex.setDisplayMessage("连接超时");  //均视为网络错误
             return ex;
         } else {
             ex = new ApiException(e, ERROR.UNKNOWN);

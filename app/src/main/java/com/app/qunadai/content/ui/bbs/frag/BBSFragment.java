@@ -34,7 +34,7 @@ public class BBSFragment extends BaseFragment {
     }
     @Override
     protected View createRootView() {
-        View root = View.inflate(getActivity(), R.layout.fragment_bbs,null);
+        View root = View.inflate(getActivity(), R.layout.fragment_help,null);
         return root;
     }
 

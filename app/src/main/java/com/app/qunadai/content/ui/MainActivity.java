@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventNick event) {
         if (meFragment != null) {
             meFragment.setNickname(event.getNickname());
