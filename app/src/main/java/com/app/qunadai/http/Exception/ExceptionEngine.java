@@ -40,7 +40,7 @@ public class ExceptionEngine {
             switch (httpException.code()) {
                 case PARAM_ERROR:
                 case UNAUTHORIZED:
-                case INTERNAL_SERVER_ERROR:
+
                     try {
                         String errorJson = httpException.response().errorBody().string();
                         JSONObject obj = new JSONObject(errorJson);
@@ -55,6 +55,10 @@ public class ExceptionEngine {
 //                        e1.printStackTrace();
                         ex.setDisplayMessage("错误" + httpException.code() + ":json解析错误");
                     }
+                    break;
+                case INTERNAL_SERVER_ERROR:
+
+                    ex.setDisplayMessage("错误" + httpException.code() + ":系统开小差啦,请稍后~~");
                     break;
                 case TOKEN_FAIL:
                     ex.setTokenFail(true);

@@ -19,18 +19,18 @@ import butterknife.BindView;
  * Created by wayne on 2017/5/10.
  */
 
-public class BBSFragment extends BaseFragment {
+public class HelpFragment extends BaseFragment {
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
 
     QuestionAdapter adapter;
     LinearLayoutManager linearLayoutManager;
 
-    public static BBSFragment getInstance() {
-        BBSFragment bbsFragment = new BBSFragment();
+    public static HelpFragment getInstance() {
+        HelpFragment helpFragment = new HelpFragment();
         Bundle bundle = new Bundle();
-        bbsFragment.setArguments(bundle);
-        return bbsFragment;
+        helpFragment.setArguments(bundle);
+        return helpFragment;
     }
     @Override
     protected View createRootView() {

@@ -5,24 +5,17 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TimePicker;
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
-import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
+import com.app.qunadai.content.ui.bbs.frag.HelpFragment;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
-import com.app.qunadai.content.ui.home.frag.TestFragment;
 import com.app.qunadai.content.ui.limit.frag.LimitFragment;
 import com.app.qunadai.content.ui.me.frag.MeFragment;
-import com.app.qunadai.content.view.ForbidScrollViewpager;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventNick;
@@ -30,7 +23,6 @@ import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -60,7 +52,7 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment homeFragment;
     private LimitFragment limitFragment;
-    private BBSFragment bbsFragment;
+    private HelpFragment helpFragment;
     private MeFragment meFragment;
 
     private List<Fragment> fragments = new ArrayList<>();
@@ -87,12 +79,12 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         homeFragment = HomeFragment.getInstance();
         limitFragment = LimitFragment.getInstance();
-        bbsFragment = BBSFragment.getInstance();
+        helpFragment = HelpFragment.getInstance();
         meFragment = MeFragment.getInstance();
 //        testFragment = new TestFragment();
         fragments.add(homeFragment);
         fragments.add(limitFragment);
-        fragments.add(bbsFragment);
+        fragments.add(helpFragment);
         fragments.add(meFragment);
 
         Point p = CommUtil.getSize(this);
