@@ -353,7 +353,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="#FFB200"
+        android:background="@drawable/ripple_submit_bg"
         android:gravity="center"
         android:text="立即申请"
         android:textColor="@color/white"

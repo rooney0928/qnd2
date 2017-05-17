@@ -23,26 +23,46 @@ public class ProgressBarUtil {
         dialog.show();
     }
 
-    public static void showLoadDialog(Context context, String title, String msg) {
-        if (dialog == null || !dialog.isShowing()) {
-            dialog = ProgressDialog.show(context, title, msg);
-        }
-        dialog.show();
+    public static void showLoadDialog(final Activity activity, String title, final String msg) {
+        Observable.timer(10, TimeUnit.MILLISECONDS).subscribe(
+                new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (dialog == null || !dialog.isShowing()) {
+                                    dialog = ProgressDialog.show(activity, "提示", msg);
+                                }
+                                dialog.show();
+                            }
+                        });
+                    }
+                }
+        );
     }
 
-    public static void showLoadDialog(Context context, String msg) {
-        if (dialog == null || !dialog.isShowing()) {
-            dialog = ProgressDialog.show(context, "提示", msg);
-        }
-        dialog.show();
+    public static void showLoadDialog(final Activity activity, final String msg) {
+
+        Observable.timer(10, TimeUnit.MILLISECONDS).subscribe(
+                new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (dialog == null || !dialog.isShowing()) {
+                                    dialog = ProgressDialog.show(activity, "提示", msg);
+                                }
+                                dialog.show();
+                            }
+                        });
+                    }
+                }
+        );
+
     }
 
-
-    public static void hideLoadDialog() {
-        if (dialog != null) {
-            dialog.dismiss();
-        }
-    }
 
     public static void hideLoadDialogDelay(final Activity activity) {
         Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
@@ -53,7 +73,9 @@ public class ProgressBarUtil {
                             @Override
                             public void run() {
                                 if (activity != null && !activity.isFinishing()) {
-                                    ProgressBarUtil.hideLoadDialog();
+                                    if (dialog != null) {
+                                        dialog.dismiss();
+                                    }
                                 }
                             }
                         });
