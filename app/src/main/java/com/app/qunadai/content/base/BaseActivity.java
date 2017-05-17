@@ -1,9 +1,8 @@
 package com.app.qunadai.content.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -72,6 +71,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public InputMethodManager manager;
 
+    public ProgressDialog pdLoad;
+
     /**
      * 创建根布局
      *
@@ -81,31 +82,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         root = View.inflate(this, R.layout.activity_base, null);
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        }
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            Window window = getWindow();
-//            // Translucent status bar
-//            window.setFlags(
-//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        }
-
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-
-        */
 //        StatusBarUtil.StatusBarLightMode(this);
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -156,7 +132,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 控制标题栏view
      */
     protected abstract void updateTopViewHideAndShow();
-
 
     /**
      * 创建中间view
@@ -263,4 +238,23 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onDestroy();
         AppManager.remove(this);
     }
+
+
+    //加载对话框
+    public void showLoading() {
+        if (pdLoad == null) {
+            pdLoad = new ProgressDialog(this);
+            pdLoad.setMessage("正在加载中");
+            pdLoad.setIndeterminate(true);
+            pdLoad.setCancelable(true);
+        }
+        pdLoad.show();
+    }
+    public void hideLoading() {
+        if (pdLoad != null && pdLoad.isShowing()) {
+            pdLoad.dismiss();
+        }
+    }
+
+
 }

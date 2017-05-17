@@ -1,6 +1,5 @@
 package com.app.qunadai.content.ui.user;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -8,9 +7,7 @@ import android.text.InputType;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -25,14 +22,11 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.LoginContract;
 import com.app.qunadai.content.presenter.LoginPresenter;
 import com.app.qunadai.content.ui.MainActivity;
-import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
-import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
-import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -455,7 +449,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void requestStart() {
-        ProgressBarUtil.showLoadDialog(this);
+//        ProgressBarUtil.showLoadDialog(this);
+        showLoading();
         //不用添加view的关闭键盘
         if (manager != null) {
             manager.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
@@ -467,7 +462,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void requestEnd() {
         isRequest = false;
-        ProgressBarUtil.hideLoadDialogDelay(this);
+//        ProgressBarUtil.hideLoadDialogDelay(this);
+        hideLoading();
     }
 
 

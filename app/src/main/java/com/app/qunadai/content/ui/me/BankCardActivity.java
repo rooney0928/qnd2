@@ -17,7 +17,6 @@ import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
-import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -207,13 +206,15 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
 
     @Override
     public void requestStart() {
-        ProgressBarUtil.showLoadDialog(this);
+//        ProgressBarUtil.showLoadDialog(this);
+        showLoading();
     }
 
 
     @Override
     public void requestEnd() {
-        ProgressBarUtil.hideLoadDialogDelay(this);
+//        ProgressBarUtil.hideLoadDialogDelay(this);
+        hideLoading();
     }
     @Override
     public void tokenFail() {

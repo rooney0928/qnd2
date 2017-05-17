@@ -1,7 +1,6 @@
 package com.app.qunadai.content.ui.me;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -15,17 +14,13 @@ import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.content.presenter.NicknamePresenter;
-import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
-import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.concurrent.TimeUnit;
 
@@ -148,14 +143,17 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
 
     @Override
     public void requestStart() {
-        ProgressBarUtil.showLoadDialog(this);
+//        ProgressBarUtil.showLoadDialog(this);
+        showLoading();
+
 
     }
 
 
     @Override
     public void requestEnd() {
-        ProgressBarUtil.hideLoadDialogDelay(this);
+//        ProgressBarUtil.hideLoadDialogDelay(this);
+        hideLoading();
     }
 
     @Override

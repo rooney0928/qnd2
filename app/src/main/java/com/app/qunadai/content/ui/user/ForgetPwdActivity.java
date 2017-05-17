@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import com.app.qunadai.content.presenter.ForgetPresenter;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
-import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -261,13 +259,15 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
 
     @Override
     public void requestStart() {
-        ProgressBarUtil.showLoadDialog(this);
+//        ProgressBarUtil.showLoadDialog(this);
+        showLoading();
     }
 
     @Override
     public void requestEnd() {
         isRequest = false;
-        ProgressBarUtil.hideLoadDialogDelay(this);
+//        ProgressBarUtil.hideLoadDialogDelay(this);
+        hideLoading();
     }
 
     public void enterLogin(){

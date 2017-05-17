@@ -30,7 +30,6 @@ import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
-import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import java.math.BigDecimal;
@@ -404,13 +403,15 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override
     public void requestStart() {
-        ProgressBarUtil.showLoadDialog(this);
+//        ProgressBarUtil.showLoadDialog(this);
+        showLoading();
     }
 
 
     @Override
     public void requestEnd() {
-        ProgressBarUtil.hideLoadDialogDelay(this);
+//        ProgressBarUtil.hideLoadDialogDelay(this);
+        hideLoading();
     }
 
     /**

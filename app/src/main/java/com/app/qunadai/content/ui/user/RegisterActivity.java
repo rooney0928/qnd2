@@ -17,7 +17,6 @@ import com.app.qunadai.content.contract.RegisterContract;
 import com.app.qunadai.content.presenter.RegisterPresenter;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
-import com.app.qunadai.utils.ProgressBarUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 
@@ -274,13 +273,15 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     public void requestStart() {
-        ProgressBarUtil.showLoadDialog(this);
+//        ProgressBarUtil.showLoadDialog(this);
+        showLoading();
     }
 
     @Override
     public void requestEnd() {
         isRequest = false;
-        ProgressBarUtil.hideLoadDialogDelay(this);
+//        ProgressBarUtil.hideLoadDialogDelay(this);
+        hideLoading();
     }
 
     /* 定义一个倒计时的内部类 */

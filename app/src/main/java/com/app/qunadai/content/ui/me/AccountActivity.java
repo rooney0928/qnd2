@@ -18,7 +18,6 @@ import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.AccountContract;
 import com.app.qunadai.content.presenter.AccountPresenter;
-import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.utils.CommUtil;
@@ -27,7 +26,6 @@ import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
-import com.app.qunadai.utils.ProgressBarUtil;
 import com.yalantis.ucrop.UCrop;
 import com.yanzhenjie.album.Album;
 
@@ -274,13 +272,15 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
     @Override
     public void requestStart() {
-        ProgressBarUtil.showLoadDialog(this);
+//        ProgressBarUtil.showLoadDialog(this);
+        showLoading();
     }
 
 
     @Override
     public void requestEnd() {
-        ProgressBarUtil.hideLoadDialogDelay(this);
+//        ProgressBarUtil.hideLoadDialogDelay(this);
+        hideLoading();
     }
 
     @Override
