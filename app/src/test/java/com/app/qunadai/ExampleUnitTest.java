@@ -78,4 +78,11 @@ public class ExampleUnitTest {
     }
 
 
+    @Test
+    public void getLastVersion(){
+        String version = "4.0.2";
+        String last = String.valueOf(version.charAt(version.length() - 1));
+        assertEquals("2",last);
+    }
+
 }

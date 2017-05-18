@@ -1,6 +1,11 @@
 package com.app.qunadai.content.ui.user;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import com.app.qunadai.R;
@@ -9,14 +14,26 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.SplashContract;
 import com.app.qunadai.content.presenter.SplashPresenter;
 import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
+import com.pgyersdk.Pgy;
+import com.pgyersdk.javabean.AppBean;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionNo;
+import com.yanzhenjie.permission.PermissionYes;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.functions.Action1;
+
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 
 /**
  * Created by wayne on 2017/5/15.
@@ -45,18 +62,126 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         return null;
     }
 
+    AlertDialog dialog;
+
     @Override
     protected void initView() {
         splashPresenter = new SplashPresenter(this);
 
-        phone = PrefUtil.getString(this, PrefKey.PHONE, "");
-//        pwdEncode = PrefUtil.getString(this, PrefKey.PWD_ENCODE, "");
-        pwd = PrefUtil.getString(this, PrefKey.PWD, "");
-        autoLogin = PrefUtil.getBoolean(this, PrefKey.AUTO_LOGIN, false);
+        //首先判断权限
+        AndPermission.with(this)
+                .requestCode(300)
+                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .callback(this)
+                .start()
+                ;
+    }
+
+    @PermissionYes(300)
+    private void getPermissionYes(List<String> grantedPermissions) {
+        // Successfully.
+        update();
+    }
+
+    @PermissionNo(300)
+    private void getPermissionNo(List<String> deniedPermissions) {
+        // Failure.
+        showSettingDialog();
+    }
+    private void showSettingDialog() {
+        String title = "权限申请";
+        String content = "需要(读写外部存储)权限,以保证程序正常功能的使用\n" +
+                "    请在[设置-应用管理-权限]中开启所需权限..";
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(content);
+        builder.setCancelable(false);
+        builder.setPositiveButton("去设置", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Uri packageURI = Uri.parse("package:" + getPkgName());
+                Intent intent = new Intent(ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                startActivity(intent);
+                dialog.dismiss();
+                AppManager.finishProgram();
+
+            }
+        });
+        builder.setNegativeButton("我知道了", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                AppManager.finishProgram();
+            }
+        });
+        builder.show();
+    }
+
+    private String getPkgName() {
+        return this.getPackageName();
+    }
+
+    public void update() {
+        PgyUpdateManager.register(this, "qunadai", new UpdateManagerListener() {
+            @Override
+            public void onNoUpdateAvailable() {
+                loginDelay();
+            }
+
+            @Override
+            public void onUpdateAvailable(String s) {
+                // 将新版本信息封装到AppBean中
+                final AppBean appBean = getAppBeanFromString(s);
+                AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+                builder.setTitle("更新");
+                builder.setMessage(appBean.getReleaseNote());
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startDownloadTask(SplashActivity.this, appBean.getDownloadURL());
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkNeedUpdate(appBean.getVersionName());
+                    }
+                });
+                dialog = builder.show();
+                dialog.setCancelable(false);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        checkNeedUpdate(appBean.getVersionName());
+                    }
+                });
+            }
+
+
+        });
+    }
+
+    public void checkNeedUpdate(String version) {
+        String last = String.valueOf(version.charAt(version.length() - 1));
+        int i = Integer.parseInt(last);
+        if (i % 2 == 0) {
+            //余2为0则强制更新,此时关闭
+            AppManager.finishProgram();
+        }else{
+            loginDelay();
+        }
     }
 
     @Override
     public void initViewData() {
+
+    }
+
+    public void loginDelay() {
+        phone = PrefUtil.getString(this, PrefKey.PHONE, "");
+//        pwdEncode = PrefUtil.getString(this, PrefKey.PWD_ENCODE, "");
+        pwd = PrefUtil.getString(this, PrefKey.PWD, "");
+        autoLogin = PrefUtil.getBoolean(this, PrefKey.AUTO_LOGIN, false);
         //延迟3000毫秒登录
         Observable.timer(3000, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {
