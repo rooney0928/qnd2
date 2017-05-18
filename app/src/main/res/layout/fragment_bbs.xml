@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical">
     <!--顶部2按钮-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="90dp"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -17,8 +19,33 @@
             android:layout_marginRight="6dp"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_bbs_orange">
+            android:background="@drawable/bg_bbs_orange"
+            android:gravity="center">
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_crown"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网贷达人"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="达人帖子"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -29,9 +56,39 @@
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_bbs_blue">
+            android:background="@drawable/bg_bbs_blue"
+            android:gravity="center">
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_file"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="帮助中心"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="需求解答"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

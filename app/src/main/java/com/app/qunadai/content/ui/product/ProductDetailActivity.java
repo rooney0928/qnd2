@@ -371,19 +371,20 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             av_bankcard.setOnClickListener(nullClick);
         }
 
-        if (av_realinfo.getStatus() != AuthView.AUTH_YES) {
-            av_realinfo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(ProductDetailActivity.this, PersonInfoActivity.class);
-                    intent.putExtra("titleHide", true);
-                    intent.putExtra("isFromDetail", true);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            av_realinfo.setOnClickListener(nullClick);
-        }
+        av_realinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailActivity.this, PersonInfoActivity.class);
+                intent.putExtra("titleHide", true);
+                intent.putExtra("isFromDetail", true);
+                startActivity(intent);
+            }
+        });
+//        if (av_realinfo.getStatus() != AuthView.AUTH_YES) {
+//
+//        } else {
+//            av_realinfo.setOnClickListener(nullClick);
+//        }
     }
 
     @Override
