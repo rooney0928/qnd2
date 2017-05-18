@@ -15,8 +15,13 @@ public class MyApp extends Application {
     public static Context context;
 
     //测试
-    public static final String MX_KEY = "3ef6ede77e524c038765a874e95ce2ad";
-    public static final String MX_TOKEN = "a4c70f4239b8488eb4f08b4378438d21";
+//    public static final String MX_KEY = "3ef6ede77e524c038765a874e95ce2ad";
+//    public static final String MX_TOKEN = "a4c70f4239b8488eb4f08b4378438d21";
+
+    //上线
+    public static final String MX_KEY = "191424e222e54baf8ec241394f8882f9";
+    public static final String MX_TOKEN = "399efb697cef4e219c1365b096ac669d";
+
 
 
 

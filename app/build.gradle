@@ -111,4 +111,7 @@ dependencies {
 
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
+
+    //自动更新
+    compile 'com.pgyersdk:sdk:2.5.6'
 }
