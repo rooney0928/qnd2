@@ -5,5 +5,4 @@
     <item android:drawable="@drawable/shape_semicircle_solid_orange" android:state_enabled="true" />
     <item android:drawable="@drawable/shape_semicircle_solid_gray" android:state_enabled="false" />
 
-
 </selector>

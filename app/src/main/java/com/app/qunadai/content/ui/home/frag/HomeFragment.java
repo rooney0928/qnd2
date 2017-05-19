@@ -176,15 +176,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private void initTabLayout() {
         tabTitle = new ArrayList<>();
         tabTitle.add("2000以下");
-        tabTitle.add("2000-1万");
+        tabTitle.add("2000-10000");
         tabTitle.add("10000以上");
-
 
         tl_home_tab.setupWithViewPager(vp_recommend);
         tl_home_tab.setTabMode(TabLayout.MODE_FIXED);
         tl_home_tab.addTab(tl_home_tab.newTab().setText(tabTitle.get(0)));
         tl_home_tab.addTab(tl_home_tab.newTab().setText(tabTitle.get(1)));
         tl_home_tab.addTab(tl_home_tab.newTab().setText(tabTitle.get(2)));
+
 
         vp_recommend.setOffscreenPageLimit(3);
         vp_recommend.setAdapter(new MainFragmentPagerAdapter(getChildFragmentManager(), fragments, tabTitle));
