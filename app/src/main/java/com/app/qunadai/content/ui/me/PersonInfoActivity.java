@@ -136,6 +136,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         initAddressData();
 //        et_info_income.setText("");
         personInfoPresenter.requestPersonInfo(PrefUtil.getString(this, PrefKey.TOKEN, ""));
+        personInfoPresenter.requestPersonValue(PrefUtil.getString(this, PrefKey.TOKEN, ""));
     }
 
     @Override

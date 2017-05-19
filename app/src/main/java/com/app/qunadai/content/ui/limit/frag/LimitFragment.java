@@ -229,6 +229,10 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     public void requestEnd() {
 
     }
+    public void refreshMsg(){
+        limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -293,9 +297,27 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                 switch (v.getId()) {
                     case R.id.av_bankcard:
                         //进入银行卡认证
-                        Intent intentBank = new Intent(getActivity(), BankCardActivity.class);
-                        intentBank.putExtra("titleHide", true);
-                        startActivity(intentBank);
+                        if (av_bankcard.getStatus() == AuthView.AUTH_YES) {
+//                            av_bankcard.setOnClickListener(nullClick);
+
+                        } else if (av_bankcard.getStatus() == AuthView.AUTH_ING) {
+                            av_bankcard.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ToastUtil.showToast(getActivity(), "正在认证中");
+                                }
+                            });
+                        } else {
+                            av_bankcard.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intentBank = new Intent(getActivity(), BankCardActivity.class);
+                                    intentBank.putExtra("titleHide", true);
+                                    startActivity(intentBank);
+                                }
+                            });
+                        }
+
                         break;
                     case R.id.av_realinfo:
                         //进入个人信息认证

@@ -65,7 +65,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="一小时到账"
+                                android:text="1小时到账"
                                 android:textColor="@color/text_grey"
                                 android:textSize="14sp"/>
                         </LinearLayout>

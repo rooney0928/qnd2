@@ -236,6 +236,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         }
     }
 
+    public void refreshMsg(){
+        if(fragments!=null&&tabTitle!=null){
+            homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+
+        }
+
+    }
+
     @Override
     public void getPersonValueFail(String error) {
         ToastUtil.showToast(getActivity(), error+"-h");

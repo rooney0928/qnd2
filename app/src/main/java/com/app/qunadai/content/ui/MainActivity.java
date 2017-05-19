@@ -88,8 +88,8 @@ public class MainActivity extends BaseActivity {
         fragments.add(meFragment);
 
         Point p = CommUtil.getSize(this);
-        LogU.t("width-"+p.x);
-        LogU.t("height-"+p.y);
+        LogU.t("width-" + p.x);
+        LogU.t("height-" + p.y);
     }
 
 
@@ -112,10 +112,17 @@ public class MainActivity extends BaseActivity {
                     case R.id.rb_nav_home:
                         vp_main.setCurrentItem(0);
                         setTitleBarStatus(BaseActivity.TITLE_OFF);
+                        if (homeFragment != null) {
+                            homeFragment.refreshMsg();
+                        }
                         break;
                     case R.id.rb_nav_limit:
                         vp_main.setCurrentItem(1);
                         setTitleBarStatus(BaseActivity.TITLE_OFF);
+
+                        if (limitFragment != null) {
+                            limitFragment.refreshMsg();
+                        }
                         break;
                     case R.id.rb_nav_bbs:
                         vp_main.setCurrentItem(2);
@@ -151,7 +158,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case ReqKey.REQ_MOXIE:
                 if (limitFragment != null) {
                     limitFragment.onActivityResult(requestCode, resultCode, data);
@@ -182,12 +189,13 @@ public class MainActivity extends BaseActivity {
             meFragment.setNickname(event.getNickname());
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventClose event) {
 //        if (meFragment != null) {
 //            meFragment.setNickname(event.getNickname());
 //        }
-        if("main".equalsIgnoreCase(event.getPage())){
+        if ("main".equalsIgnoreCase(event.getPage())) {
             finish();
         }
     }
