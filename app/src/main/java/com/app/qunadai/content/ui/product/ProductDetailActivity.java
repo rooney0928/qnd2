@@ -371,6 +371,27 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             av_bankcard.setOnClickListener(nullClick);
         }
 
+
+        if(av_bankcard.getStatus()==AuthView.AUTH_YES){
+            av_bankcard.setOnClickListener(nullClick);
+        }else if(av_bankcard.getStatus()==AuthView.AUTH_ING){
+            av_bankcard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showToast(ProductDetailActivity.this,"正在认证中");
+                }
+            });
+        }else{
+            av_bankcard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ProductDetailActivity.this, BankCardActivity.class);
+                    intent.putExtra("titleHide", true);
+                    startActivity(intent);
+                }
+            });
+        }
+
         av_realinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -142,7 +142,7 @@ public class MeFragment extends BaseFragment implements MeContract.View {
     }
 
     public void setNickname(String nickname) {
-//        tv_me_name.setText(nickname);
+        tv_me_name.setText(nickname);
         localMeBean.getContent().getUser().setNick(nickname);
         mePresenter.requestCurrent(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
 

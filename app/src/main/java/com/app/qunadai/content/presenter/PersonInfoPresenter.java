@@ -1,5 +1,6 @@
 package com.app.qunadai.content.presenter;
 
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.content.contract.PersonInfoContract;
 import com.app.qunadai.content.model.PersonInfoModelImpl;
@@ -41,6 +42,16 @@ public class PersonInfoPresenter implements PersonInfoContract.Presenter {
             }
 
             @Override
+            public void getPersonValue(PersonBean bean) {
+                view.getPersonValue(bean);
+            }
+
+            @Override
+            public void getPersonValueFail(String error) {
+                view.getPersonValueFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -64,6 +75,11 @@ public class PersonInfoPresenter implements PersonInfoContract.Presenter {
 
     @Override
     public void setPersonInfo(String token, String amount, String period, String job, String income, String edu, String marry, String address) {
-        model.setPersonInfo(token,amount,period,job,income,edu,marry,address);
+        model.setPersonInfo(token, amount, period, job, income, edu, marry, address);
+    }
+
+    @Override
+    public void requestPersonValue(String token) {
+        model.requestPersonValue(token);
     }
 }

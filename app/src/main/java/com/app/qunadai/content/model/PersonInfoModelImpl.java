@@ -1,5 +1,6 @@
 package com.app.qunadai.content.model;
 
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.PersonInfoContract;
@@ -36,6 +37,10 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
         void setPersonInfo(PersonInfo bean);
 
         void setPersonInfoFail(String error);
+
+        void getPersonValue(PersonBean bean);
+
+        void getPersonValueFail(String error);
 
         void requestStart();
 
@@ -118,6 +123,39 @@ public class PersonInfoModelImpl implements PersonInfoContract.Model {
                     @Override
                     protected void onOk(PersonInfo bean) {
                         onReturnDataListener.setPersonInfo(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void requestPersonValue(String token) {
+        Observable<PersonBean> request = RxHttp.getInstance().getPersonValue(token);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<PersonBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
+                    }
+
+                    @Override
+                    protected void onOk(PersonBean bean) {
+                        onReturnDataListener.getPersonValue(bean);
                     }
 
                     @Override

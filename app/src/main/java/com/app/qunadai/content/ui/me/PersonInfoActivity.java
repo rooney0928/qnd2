@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.PersonInfoContract;
@@ -93,6 +94,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
 
     JSONObject infoObj;
     boolean isFromDetail;
+    boolean canEnterBank;
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -233,9 +235,13 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         if(isFromDetail){
             finish();
         }else{
-            ToastUtil.showToast(this, bean.getDetail());
-            Intent intent = new Intent(this, BankCardActivity.class);
-            startActivity(intent);
+            if(canEnterBank){
+                ToastUtil.showToast(this, bean.getDetail());
+                Intent intent = new Intent(this, BankCardActivity.class);
+                startActivity(intent);
+            }else{
+                finish();
+            }
         }
 
     }
@@ -243,6 +249,31 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     @Override
     public void setPersonInfoFail(String error) {
         ToastUtil.showToast(this, error);
+    }
+
+    @Override
+    public void getPersonValue(PersonBean value) {
+        PersonBean.ContentBean.PersonalValueBean info = value.getContent().getPersonalValue();
+        switch (info.getBankStatus()) {
+            case "SUCCESS":
+            case "HRISK":
+            case "MRISK":
+            case "LRISK":
+                canEnterBank = false;
+                break;
+            case "PROCESSING":
+                canEnterBank = false;
+                break;
+            default:
+                canEnterBank = true;
+                break;
+        }
+    }
+
+    @Override
+    public void getPersonValueFail(String error) {
+        ToastUtil.showToast(this, error);
+
     }
 
     @Override
