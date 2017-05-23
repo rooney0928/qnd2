@@ -167,45 +167,68 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void setTitle(String title) {
-        tv_title.setText(title);
-    }
 
     public void setTitleRight(String title) {
         tv_title_right.setText(title);
     }
 
-    public void setTitleBarStatus(int status) {
-        switch (status) {
-            case TITLE_ON_BACK_ON:
-                ll_top.setVisibility(View.VISIBLE);
-                tv_title.setVisibility(View.VISIBLE);
-                rl_back.setVisibility(View.VISIBLE);
-                break;
-            case TITLE_ON_BACK_OFF:
-                ll_top.setVisibility(View.VISIBLE);
-                tv_title.setVisibility(View.VISIBLE);
-                rl_back.setVisibility(View.GONE);
-                break;
+    //标题栏相关
+    public void clearTitleBar() {
+        ll_top.setVisibility(View.GONE);
+//        tv_title.setVisibility(View.GONE);
+        rl_back.setVisibility(View.GONE);
+        tv_title_right.setVisibility(View.GONE);
+    }
 
-            case TITLE_OFF:
-                ll_top.setVisibility(View.GONE);
-                break;
-            case TITLE_ON_RIGHT_ON:
-                ll_top.setVisibility(View.VISIBLE);
-                tv_title.setVisibility(View.VISIBLE);
-                rl_back.setVisibility(View.VISIBLE);
-                tv_title_right.setVisibility(View.VISIBLE);
-                break;
-            default:
-                ll_top.setVisibility(View.GONE);
-                break;
-        }
+    public void setTitleBarVisible(boolean isShow) {
+        ll_top.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     public void setTitleRightEvent(View.OnClickListener listener) {
         tv_title_right.setOnClickListener(listener);
     }
+
+    public void setTitleText(String title) {
+        tv_title.setText(title);
+    }
+
+    public void setTitleRightText(String title) {
+        tv_title.setText(title);
+    }
+
+    public void setBackVisible(boolean isShow) {
+        rl_back.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+
+//    public void setTitleBarStatus(int status) {
+//        switch (status) {
+//            case TITLE_ON_BACK_ON:
+//                ll_top.setVisibility(View.VISIBLE);
+//                tv_title.setVisibility(View.VISIBLE);
+//                rl_back.setVisibility(View.VISIBLE);
+//                break;
+//            case TITLE_ON_BACK_OFF:
+//                ll_top.setVisibility(View.VISIBLE);
+//                tv_title.setVisibility(View.VISIBLE);
+//                rl_back.setVisibility(View.GONE);
+//                break;
+//
+//            case TITLE_OFF:
+//                ll_top.setVisibility(View.GONE);
+//                break;
+//            case TITLE_ON_RIGHT_ON:
+//                ll_top.setVisibility(View.VISIBLE);
+//                tv_title.setVisibility(View.VISIBLE);
+//                rl_back.setVisibility(View.VISIBLE);
+//                tv_title_right.setVisibility(View.VISIBLE);
+//                break;
+//            default:
+//                ll_top.setVisibility(View.GONE);
+//                break;
+//        }
+//    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -250,6 +273,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
         pdLoad.show();
     }
+
     public void hideLoading() {
         if (pdLoad != null && pdLoad.isShowing()) {
             pdLoad.dismiss();

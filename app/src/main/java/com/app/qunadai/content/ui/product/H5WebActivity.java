@@ -76,7 +76,9 @@ public class H5WebActivity extends BaseActivity {
         if (getIntent() != null && getIntent().getExtras() != null) {
             webUrl = getIntent().getExtras().getString("url");
             String title =getIntent().getStringExtra("title");
-            setTitle(title);
+
+
+            setTitleText(title);
         }
         initWebView();
     }

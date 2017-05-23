@@ -49,7 +49,8 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_OFF);
+//        setTitleBarStatus(TITLE_OFF);
+        clearTitleBar();
     }
 
     @Override

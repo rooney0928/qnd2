@@ -96,8 +96,9 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("搜索贷款");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+
+        setTitleText("搜索贷款");
     }
 
     @Override

@@ -50,8 +50,8 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("设置");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("设置");
     }
 
 

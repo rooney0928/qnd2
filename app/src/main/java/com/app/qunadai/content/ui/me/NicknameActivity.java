@@ -44,7 +44,7 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_RIGHT_ON);
+//        setTitleBarStatus(TITLE_ON_RIGHT_ON);
         setTitleRight("保存");
     }
 

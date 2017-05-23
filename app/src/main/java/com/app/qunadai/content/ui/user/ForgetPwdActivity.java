@@ -51,8 +51,8 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("重置密码");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("重置密码");
     }
 
     @Override

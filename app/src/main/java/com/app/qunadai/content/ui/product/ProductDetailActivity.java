@@ -99,8 +99,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("借款详情");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("借款详情");
     }
 
     @Override

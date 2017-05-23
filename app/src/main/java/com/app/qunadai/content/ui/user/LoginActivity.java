@@ -88,8 +88,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("登录");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("登录");
     }
 
     @Override

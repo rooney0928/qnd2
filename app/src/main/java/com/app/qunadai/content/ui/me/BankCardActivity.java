@@ -55,8 +55,8 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("身份验证");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("身份验证");
     }
 
     @Override

@@ -74,8 +74,8 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("账号信息");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("账号信息");
     }
 
     @Override

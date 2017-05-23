@@ -32,8 +32,9 @@
     <color name="recommend_bg">#FCE9D2</color>
     <color name="text_orange_dark">#F3921E</color>
 
-
-
+    <!--bbs-->
+    <color name="item_info">#b1b1b1</color>
+    <color name="item_look">#b2b2b2</color>
 
     <color name="c1">#f1f1f1</color>
     <color name="c2">#eeeeee</color>

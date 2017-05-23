@@ -98,8 +98,8 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("个人信息");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("个人信息");
     }
 
     @Override

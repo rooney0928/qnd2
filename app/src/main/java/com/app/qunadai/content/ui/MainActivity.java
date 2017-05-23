@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.bbs.frag.HelpFragment;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.content.ui.limit.frag.LimitFragment;
@@ -52,14 +53,15 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment homeFragment;
     private LimitFragment limitFragment;
-    private HelpFragment helpFragment;
+    private BBSFragment bbsFragment;
     private MeFragment meFragment;
 
     private List<Fragment> fragments = new ArrayList<>();
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_OFF);
+//        setTitleBarStatus(TITLE_OFF);
+        clearTitleBar();
     }
 
     @Override
@@ -79,17 +81,17 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         homeFragment = HomeFragment.getInstance();
         limitFragment = LimitFragment.getInstance();
-        helpFragment = HelpFragment.getInstance();
+        bbsFragment = BBSFragment.getInstance();
         meFragment = MeFragment.getInstance();
 //        testFragment = new TestFragment();
         fragments.add(homeFragment);
         fragments.add(limitFragment);
-        fragments.add(helpFragment);
+        fragments.add(bbsFragment);
         fragments.add(meFragment);
 
-        Point p = CommUtil.getSize(this);
-        LogU.t("width-" + p.x);
-        LogU.t("height-" + p.y);
+//        Point p = CommUtil.getSize(this);
+//        LogU.t("width-" + p.x);
+//        LogU.t("height-" + p.y);
     }
 
 
@@ -106,19 +108,18 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 //先清空标题栏
-                setTitleBarStatus(TITLE_OFF);
-                setTitle("");
+//                setTitleBarStatus(TITLE_OFF);
+                clearTitleBar();
+                setTitleText("");
                 switch (checkedId) {
                     case R.id.rb_nav_home:
                         vp_main.setCurrentItem(0);
-                        setTitleBarStatus(BaseActivity.TITLE_OFF);
                         if (homeFragment != null) {
                             homeFragment.refreshMsg();
                         }
                         break;
                     case R.id.rb_nav_limit:
                         vp_main.setCurrentItem(1);
-                        setTitleBarStatus(BaseActivity.TITLE_OFF);
 
                         if (limitFragment != null) {
                             limitFragment.refreshMsg();
@@ -126,8 +127,8 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.rb_nav_bbs:
                         vp_main.setCurrentItem(2);
-                        setTitleBarStatus(BaseActivity.TITLE_ON_BACK_OFF);
-                        setTitle("社区");
+                        setTitleBarVisible(true);
+                        setTitleText("社区");
                         break;
                     case R.id.rb_nav_me:
                         vp_main.setCurrentItem(3);

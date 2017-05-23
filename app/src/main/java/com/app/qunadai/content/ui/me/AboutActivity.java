@@ -12,8 +12,8 @@ import com.app.qunadai.content.base.BaseActivity;
 public class AboutActivity extends BaseActivity {
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("关于我们");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("关于我们");
     }
 
     @Override

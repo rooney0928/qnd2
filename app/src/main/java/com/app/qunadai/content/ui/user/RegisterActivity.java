@@ -56,8 +56,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("注册");
+//        setTitleBarStatus(TITLE_ON_BACK_ON);
+        setTitleText("注册");
     }
 
     @Override

@@ -57,8 +57,7 @@ public class RecommendActivity extends BaseActivity implements RecommendContract
 
     @Override
     protected void updateTopViewHideAndShow() {
-        setTitleBarStatus(TITLE_ON_BACK_ON);
-        setTitle("为您推荐");
+        setTitleText("为您推荐");
     }
 
     @Override
