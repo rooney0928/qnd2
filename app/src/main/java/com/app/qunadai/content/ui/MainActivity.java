@@ -129,6 +129,14 @@ public class MainActivity extends BaseActivity {
                         vp_main.setCurrentItem(2);
                         setTitleBarVisible(true);
                         setTitleText("社区");
+                        setTitleRightText("我的帖子");
+                        setTitleRightEvent(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //进入我的帖子
+
+                            }
+                        });
                         break;
                     case R.id.rb_nav_me:
                         vp_main.setCurrentItem(3);

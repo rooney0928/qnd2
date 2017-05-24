@@ -87,7 +87,7 @@ public class LoanAdapter extends RecyclerView.Adapter {
             final LoanDetail detail = list.get(getAdapterPosition());
 
             String imgUrl = RxHttp.ROOT + "/attachments/" + detail.getIcon();
-            ImgUtil.loadImg(context, imgUrl, iv_avatar);
+            ImgUtil.loadImgAvatar(context, imgUrl, iv_avatar);
             tv_product_name.setText(detail.getName());
             tv_product_desc.setText(detail.getDescribe());
             tv_person.setText(detail.getNum()+"");

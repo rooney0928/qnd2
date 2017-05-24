@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="90dp"
+    android:background="@drawable/ripple_nav_bg"
     android:orientation="horizontal"
     android:padding="12dp">
 
@@ -83,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:text="89"
+                android:textSize="12dp"
                 android:textColor="@color/item_look"/>
         </LinearLayout>
 

@@ -4,20 +4,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.Recommend;
+import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.adapter.LoanAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.RecommendContract;
 import com.app.qunadai.content.presenter.RecommendPresenter;
-import com.app.qunadai.third.EndlessRecyclerOnScrollListener;
-import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -77,6 +73,8 @@ public class RecommendActivity extends BaseActivity implements RecommendContract
         list = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapter = new LoanAdapter(this);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
+        rv_list.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_list.setLayoutManager(linearLayoutManager);
         rv_list.setAdapter(adapter);
 

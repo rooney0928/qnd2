@@ -8,5 +8,5 @@ public class QNDFactory {
     /**
      * debug开关
      */
-    public static boolean isDebug = false;
+    public static boolean isDebug = true;
 }

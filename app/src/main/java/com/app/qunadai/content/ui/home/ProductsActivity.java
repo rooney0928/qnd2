@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.ProductsBean;
+import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.adapter.LoanAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.ProductsContract;
@@ -21,8 +22,6 @@ import com.app.qunadai.content.view.LoanProductSelectPW;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -118,6 +117,8 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
         list = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapter = new LoanAdapter(this);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
+        rv_list.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_list.setLayoutManager(linearLayoutManager);
         rv_list.setAdapter(adapter);
     }

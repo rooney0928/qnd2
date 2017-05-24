@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,8 +53,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     RelativeLayout rl_back;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.tv_title_left)
+    TextView tv_title_left;
     @BindView(R.id.tv_title_right)
     TextView tv_title_right;
+    @BindView(R.id.iv_title_img_right)
+    ImageView iv_title_img_right;
 
     @BindView(R.id.ll_root)
     LinearLayout ll_root;
@@ -183,7 +188,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitleBarVisible(boolean isShow) {
         ll_top.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
-
+    public void setTitleLeftEvent(View.OnClickListener listener) {
+        tv_title_left.setOnClickListener(listener);
+    }
     public void setTitleRightEvent(View.OnClickListener listener) {
         tv_title_right.setOnClickListener(listener);
     }
@@ -191,9 +198,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitleText(String title) {
         tv_title.setText(title);
     }
-
+    public void setTitleLeftText(String title) {
+        tv_title_left.setText(title);
+        tv_title_left.setVisibility(View.VISIBLE);
+    }
     public void setTitleRightText(String title) {
-        tv_title.setText(title);
+        tv_title_right.setText(title);
+        tv_title_right.setVisibility(View.VISIBLE);
+    }
+
+    public void setTitleRightImg(int imgId){
+        iv_title_img_right.setImageResource(imgId);
+        iv_title_img_right.setVisibility(View.VISIBLE);
     }
 
     public void setBackVisible(boolean isShow) {
