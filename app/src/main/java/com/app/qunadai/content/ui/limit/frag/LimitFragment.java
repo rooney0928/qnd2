@@ -243,7 +243,9 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     }
     public void refreshMsg(){
-        limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+        if(getActivity()!=null){
+            limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+        }
 
     }
 

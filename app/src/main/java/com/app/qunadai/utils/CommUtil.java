@@ -154,7 +154,11 @@ public class CommUtil {
 
     public static int str2int(String str) {
         String number = str.trim().replaceAll("[^0-9.]", "");
-        return Integer.parseInt(number);
+        if("".equals(number)){
+            return 0;
+        }else{
+            return Integer.parseInt(number);
+        }
     }
 
     public static String readAssert(Context context, String fileName) {
