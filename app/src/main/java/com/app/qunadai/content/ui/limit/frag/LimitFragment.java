@@ -160,6 +160,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
         //银行卡验证
         setBindStatus(av_bankcard, bean.getContent().getPersonalValue().getBankStatus());
+
+
         //真实信息
         setBindStatus(av_realinfo, bean.getContent().getPersonalValue().getRealInfoStatus());
         //网银
@@ -176,6 +178,19 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         setBindStatus(av_taobao, bean.getContent().getPersonalValue().getTaobaoStatus());
         //征信
         setBindStatus(av_credit, bean.getContent().getPersonalValue().getZxStatus());
+
+        switch (bean.getContent().getPersonalValue().getBankStatus()){
+            case "SUCCESS":
+            case "HRISK":
+            case "MRISK":
+            case "LRISK":
+            case "PROCESSING":
+                PrefUtil.putBoolean(getActivity(),PrefKey.BANK_CHECKED,true);
+                break;
+            default:
+                PrefUtil.putBoolean(getActivity(),PrefKey.BANK_CHECKED,false);
+                break;
+        }
     }
 
     /**
@@ -200,6 +215,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                 av.setAuthStatus(AuthView.AUTH_NO);
                 break;
         }
+
     }
 
     @Override

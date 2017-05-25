@@ -3,15 +3,21 @@ package com.app.qunadai.content.ui.me;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.app.qunadai.QNDFactory;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.BankcardContract;
 import com.app.qunadai.content.presenter.BankcardPresenter;
+import com.app.qunadai.content.ui.product.BrowserActivity;
 import com.app.qunadai.content.ui.user.LoginActivity;
+import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
@@ -47,6 +53,12 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
     ImageView iv_bank_idcard_clear;
     @BindView(R.id.iv_bank_phone_clear)
     ImageView iv_bank_phone_clear;
+
+    @BindView(R.id.cb_bank_check)
+    CheckBox cb_bank_check;
+    @BindView(R.id.tv_bank_agreement)
+    TextView tv_bank_agreement;
+
 
     @BindView(R.id.bt_submit)
     Button bt_submit;
@@ -143,22 +155,43 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!CommUtil.isNull(et_bank_name) &&
-                        !CommUtil.isNull(et_bank_bankcard) &&
-                        !CommUtil.isNull(et_bank_idcard) &&
-                        !CommUtil.isNull(et_bank_phone)
+                if (CommUtil.isNull(et_bank_name) ||
+                        CommUtil.isNull(et_bank_bankcard) ||
+                        CommUtil.isNull(et_bank_idcard) ||
+                        CommUtil.isNull(et_bank_phone)
                         ) {
-                    LogU.t("可以提交");
-                    String token = PrefUtil.getString(BankCardActivity.this, PrefKey.TOKEN, "");
-                    bankcardPresenter.setBankcard(token, CommUtil.getText(et_bank_name), CommUtil.getText(et_bank_bankcard),
-                            CommUtil.getText(et_bank_idcard), CommUtil.getText(et_bank_phone));
-                } else {
                     ToastUtil.showToast(BankCardActivity.this, "信息不完整");
+                    return;
                 }
+
+                if (!CommUtil.getText(et_bank_phone)
+                        .equals(PrefUtil.getString(BankCardActivity.this, PrefKey.PHONE, ""))) {
+                    ToastUtil.showToast(BankCardActivity.this, "手机号与登录手机号不一致");
+                    return;
+                }
+                String token = PrefUtil.getString(BankCardActivity.this, PrefKey.TOKEN, "");
+                bankcardPresenter.setBankcard(token, CommUtil.getText(et_bank_name), CommUtil.getText(et_bank_bankcard),
+                        CommUtil.getText(et_bank_idcard), CommUtil.getText(et_bank_phone));
 
 //                EventBus.getDefault().postSticky(new EventClose());
             }
         });
+        cb_bank_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                bt_submit.setEnabled(isChecked);
+            }
+        });
+        tv_bank_agreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BankCardActivity.this, BrowserActivity.class);
+                intent.putExtra("url", QNDFactory.ZHENGXIN_URL);
+                intent.putExtra("title","征信查询授权书");
+                startActivity(intent);
+            }
+        });
+
 
         bankcardPresenter.requestBankcard(PrefUtil.getString(this, PrefKey.TOKEN, ""));
 
@@ -187,6 +220,7 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
         EventBus.getDefault().post(new EventClose("info"));
         ToastUtil.showToastLong(this, "验证成功");
         finish();
+        EventBus.getDefault().post(new EventTurn(1));
     }
 
     @Override
@@ -216,6 +250,7 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
 //        ProgressBarUtil.hideLoadDialogDelay(this);
         hideLoading();
     }
+
     @Override
     public void tokenFail() {
         Intent intentLogin = new Intent(this, LoginActivity.class);

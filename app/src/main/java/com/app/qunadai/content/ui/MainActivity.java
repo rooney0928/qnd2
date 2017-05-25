@@ -20,6 +20,7 @@ import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventNick;
+import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ReqKey;
@@ -189,6 +190,23 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventTurn event) {
+        clearTitleBar();
+        switch (event.getPage()) {
+            case 0:
+                break;
+            case 1:
+                vp_main.setCurrentItem(1);
+
+                if (limitFragment != null) {
+                    limitFragment.refreshMsg();
+                }
+                break;
+
+        }
     }
 
 

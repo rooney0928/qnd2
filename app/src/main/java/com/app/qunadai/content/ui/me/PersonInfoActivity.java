@@ -3,6 +3,7 @@ package com.app.qunadai.content.ui.me;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import com.app.qunadai.third.address.utils.JsonUtil;
 import com.app.qunadai.third.address.utils.Utils;
 import com.app.qunadai.third.address.view.ChooseAddressWheel;
 import com.app.qunadai.third.address.view.listener.OnAddressChangeListener;
+import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
@@ -86,6 +89,16 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     @BindView(R.id.verify_title_bar)
     View verify_title_bar;
 
+    @BindView(R.id.view_progress_bar)
+    View view_progress_bar;
+    @BindView(R.id.rl_next_progress_area)
+    RelativeLayout rl_next_progress_area;
+    @BindView(R.id.iv_progress_two)
+    ImageView iv_progress_two;
+    @BindView(R.id.tv_verify_two)
+    TextView tv_verify_two;
+
+
     InputMethodManager manager;
 
     private ChooseAddressWheel chooseAddressWheel;
@@ -117,7 +130,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     protected void initView() {
         EventBus.getDefault().register(this);
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        isFromDetail = getIntent().getBooleanExtra("isFromDetail",false);
+        isFromDetail = getIntent().getBooleanExtra("isFromDetail", false);
         boolean hideTitle = getIntent().getBooleanExtra("titleHide", false);
         if (hideTitle) {
             verify_title_bar.setVisibility(View.GONE);
@@ -135,6 +148,16 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         });
         initAddressData();
 //        et_info_income.setText("");
+
+        //修改进度条样式
+        boolean bankChecked = PrefUtil.getBoolean(this,PrefKey.BANK_CHECKED,false);
+        if(bankChecked){
+            view_progress_bar.setBackgroundResource(R.drawable.shape_line_info_ok);
+            rl_next_progress_area.setBackgroundResource(R.drawable.shape_round_text_bg_curr);
+            iv_progress_two.setVisibility(View.VISIBLE);
+            tv_verify_two.setVisibility(View.GONE);
+        }
+
         personInfoPresenter.requestPersonInfo(PrefUtil.getString(this, PrefKey.TOKEN, ""));
         personInfoPresenter.requestPersonValue(PrefUtil.getString(this, PrefKey.TOKEN, ""));
     }
@@ -214,9 +237,12 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
                 }
                 tv_info_live.setText(tempAddr.trim());
 
-                address = tempAddr.trim().replace(" ",",");
-            }else{
+                address = tempAddr.trim().replace(" ", ",");
+                tv_info_live.setText(address);
+            } else {
                 address = content.getHabitualResidence();
+                tv_info_live.setText(address);
+
             }
 
         } catch (JSONException e) {
@@ -228,19 +254,21 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
 
     @Override
     public void getPersonInfoFail(String error) {
-        ToastUtil.showToast(this,error);
+        ToastUtil.showToast(this, error);
     }
 
     @Override
     public void setPersonInfo(PersonInfo bean) {
-        if(isFromDetail){
+        if (isFromDetail) {
             finish();
-        }else{
-            if(canEnterBank){
+        } else {
+            if (canEnterBank) {
                 ToastUtil.showToast(this, bean.getDetail());
                 Intent intent = new Intent(this, BankCardActivity.class);
                 startActivity(intent);
-            }else{
+            } else {
+                EventBus.getDefault().post(new EventTurn(1));
+
                 finish();
             }
         }
@@ -460,6 +488,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         hideKeyboard(event);
         return super.onTouchEvent(event);
     }
+
     /**
      * 点击其他地方隐藏键盘
      *
@@ -476,7 +505,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100) //在ui线程执行 优先级100
     public void onReceive(EventClose event) {
         LogU.t("close");
-        if("info".equalsIgnoreCase(event.getPage())){
+        if ("info".equalsIgnoreCase(event.getPage())) {
             finish();
         }
     }
