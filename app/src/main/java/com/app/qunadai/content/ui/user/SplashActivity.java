@@ -122,6 +122,9 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         return this.getPackageName();
     }
 
+    /**
+     * 检测有否升级
+     */
     public void update() {
         PgyUpdateManager.register(this, "qunadai", new UpdateManagerListener() {
             @Override
