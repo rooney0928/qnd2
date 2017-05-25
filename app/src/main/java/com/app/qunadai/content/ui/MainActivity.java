@@ -199,11 +199,8 @@ public class MainActivity extends BaseActivity {
             case 0:
                 break;
             case 1:
-                vp_main.setCurrentItem(1);
+                rb_nav_limit.setChecked(true);
 
-                if (limitFragment != null) {
-                    limitFragment.refreshMsg();
-                }
                 break;
 
         }
