@@ -6,10 +6,10 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.app.qunadai"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
-        versionCode 56
-        versionName "4.0.2"
+        versionCode 57
+        versionName "4.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -79,7 +79,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -89,7 +88,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-
     //retrofit
     compile 'io.reactivex:rxjava:1.2.4'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -98,21 +96,16 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-
     compile 'com.zhy:okhttputils:2.6.2'
-
-
     compile 'com.squareup.okio:okio:1.12.0'
-    compile(name:'moxie-client-1.2.9', ext:'aar')
+    compile(name: 'moxie-client-1.2.9', ext: 'aar')
     compile 'org.greenrobot:eventbus:3.0.0'
-
     compile 'com.yanzhenjie:album:1.0.6'
     compile 'com.github.yalantis:ucrop:2.2.1'
     compile 'com.yanzhenjie:permission:1.0.7'
-
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
-
     //自动更新
     compile 'com.pgyersdk:sdk:2.5.6'
+    compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
 }

@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.content.adapter.OnCompatItemClickListener;
 import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.StatusBarUtil;
@@ -193,6 +194,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
     public void setTitleRightEvent(View.OnClickListener listener) {
         tv_title_right.setOnClickListener(listener);
+    }
+    public void setBackListener(View.OnClickListener listener){
+        rl_back.setOnClickListener(listener);
     }
 
     public void setTitleText(String title) {

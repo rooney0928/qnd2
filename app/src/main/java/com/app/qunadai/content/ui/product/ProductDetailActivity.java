@@ -147,7 +147,12 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
                     productDetailPresenter.applyOrder(PrefUtil.getString(ProductDetailActivity.this, PrefKey.TOKEN, ""),
                             mAmount, mTime, mTimeType, mPid, "H5");
 
-                    Intent intent = new Intent(ProductDetailActivity.this, H5WebActivity.class);
+//                    Intent intent = new Intent(ProductDetailActivity.this, H5WebActivity.class);
+//                    intent.putExtra("url", productDetailBean.getContent().getProduct().getUrl());
+//                    intent.putExtra("title",productDetailBean.getContent().getProduct().getName());
+//                    startActivity(intent);
+
+                    Intent intent = new Intent(ProductDetailActivity.this, BrowserActivity.class);
                     intent.putExtra("url", productDetailBean.getContent().getProduct().getUrl());
                     intent.putExtra("title",productDetailBean.getContent().getProduct().getName());
                     startActivity(intent);
@@ -285,6 +290,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
                     showTermDialog(arr);
                 }
             });
+        }else{
+            tv_detail_term.setText(bean.getTerm());
         }
 
         //载入完先计算一遍

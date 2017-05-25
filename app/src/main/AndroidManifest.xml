@@ -73,6 +73,10 @@
             android:name=".content.ui.product.H5WebActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".content.ui.product.BrowserActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" >
+        </activity>
 
         <!--bbs-->
         <activity
