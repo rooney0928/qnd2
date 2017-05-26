@@ -24,6 +24,7 @@ import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.FileUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.yalantis.ucrop.UCrop;
@@ -197,8 +198,9 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
                 //裁剪
                 if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
                     final Uri resultUri = UCrop.getOutput(data);
-
-                    uploadImg(resultUri);
+                    if(NetworkUtil.checkNetwork(this)){
+                        uploadImg(resultUri);
+                    }
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     final Throwable cropError = UCrop.getError(data);
                     LogU.t(cropError.getMessage());

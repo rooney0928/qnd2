@@ -16,6 +16,7 @@ import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.content.presenter.NicknamePresenter;
 import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -73,8 +74,17 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
         setTitleRightEvent(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nicknamePresenter.uploadNickname(
-                        PrefUtil.getString(NicknameActivity.this, PrefKey.TOKEN, ""), CommUtil.getText(et_nickname_text));
+
+                if(CommUtil.getText(et_nickname_text).equals("")){
+                    ToastUtil.showToast(NicknameActivity.this,"昵称不能为空");
+                    return;
+                }
+
+                if(NetworkUtil.checkNetwork(NicknameActivity.this)){
+                    nicknamePresenter.uploadNickname(
+                            PrefUtil.getString(NicknameActivity.this, PrefKey.TOKEN, ""), CommUtil.getText(et_nickname_text));
+                }
+
             }
         });
         iv_nickname_clear.setOnClickListener(new View.OnClickListener() {

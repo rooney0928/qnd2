@@ -254,18 +254,24 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             @Override
             public void onClick(View v) {
                 //发送登录验证码
-                if (isRequest) {
-                    ToastUtil.showToast(LoginActivity.this, "请稍后");
-                    return;
+
+                if (NetworkUtil.checkNetwork(LoginActivity.this)) {
+                    if (isRequest) {
+                        ToastUtil.showToast(LoginActivity.this, "请稍后");
+                        return;
+                    }
+                    isRequest = true;
+                    String phone = et_login_phone.getText().toString().trim();
+                    if (phone.length() == 0) {
+                        isRequest = false;
+                        ToastUtil.showToast(LoginActivity.this, "请填写正确的手机号");
+                        return;
+                    }
+
+                    loginPresenter.requestLoginSms(phone);
                 }
-                isRequest = true;
-                String phone = et_login_phone.getText().toString().trim();
-                if (phone.length() == 0) {
-                    isRequest = false;
-                    ToastUtil.showToast(LoginActivity.this, "请填写正确的手机号");
-                    return;
-                }
-                loginPresenter.requestLoginSms(phone);
+
+
             }
         });
 

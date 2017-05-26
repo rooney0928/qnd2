@@ -105,23 +105,23 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         bt_get_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isRequest) {
-                    ToastUtil.showToast(RegisterActivity.this, "请稍后");
-                    return;
-                }
-                isRequest = true;
-                String phone = et_register_phone.getText().toString().trim();
-                if (phone.length() == 0) {
-                    isRequest = false;
-                    ToastUtil.showToast(RegisterActivity.this, "请填写正确的手机号");
-                    return;
-                }
-                //请求发送短信
                 if (NetworkUtil.checkNetwork(RegisterActivity.this)) {
+                    if (isRequest) {
+                        ToastUtil.showToast(RegisterActivity.this, "请稍后");
+                        return;
+                    }
+                    isRequest = true;
+                    String phone = et_register_phone.getText().toString().trim();
+                    if (phone.length() == 0) {
+                        isRequest = false;
+                        ToastUtil.showToast(RegisterActivity.this, "请填写正确的手机号");
+                        return;
+                    }
+                    //请求发送短信
                     registerPresenter.requestRegisterSms(phone);
-                }else{
-                    isRequest=false;
                 }
+
+
             }
         });
         ll_login.setOnClickListener(new View.OnClickListener() {
@@ -210,10 +210,16 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = et_register_phone.getText().toString().trim();
-                String sms = et_register_sms.getText().toString().trim();
-                String pwd = et_register_pwd.getText().toString().trim();
-                registerPresenter.register(phone, sms, CommUtil.shaEncrypt(pwd));
+
+
+                if (NetworkUtil.checkNetwork(RegisterActivity.this)) {
+                    String phone = et_register_phone.getText().toString().trim();
+                    String sms = et_register_sms.getText().toString().trim();
+                    String pwd = et_register_pwd.getText().toString().trim();
+                    registerPresenter.register(phone, sms, CommUtil.shaEncrypt(pwd));
+                }
+
+
             }
         });
     }

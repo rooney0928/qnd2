@@ -22,6 +22,7 @@ import com.app.qunadai.content.ui.me.BankCardActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.view.AuthView;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ReqKey;
@@ -243,8 +244,10 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     }
     public void refreshMsg(){
-        if(getActivity()!=null){
-            limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+        if(NetworkUtil.checkNetwork(getActivity())){
+            if(getActivity()!=null){
+                limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+            }
         }
 
     }

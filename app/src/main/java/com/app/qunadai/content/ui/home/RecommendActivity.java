@@ -123,8 +123,9 @@ public class RecommendActivity extends BaseActivity implements RecommendContract
             }
 
         });
-
-        recommendPresenter.getRecommend(page, PAGE_SIZE);
+        if(NetworkUtil.checkNetwork(this)){
+            recommendPresenter.getRecommend(page, PAGE_SIZE);
+        }
     }
 
     @Override

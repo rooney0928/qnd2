@@ -170,7 +170,10 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
 
         });
         swipe_layout.setRefreshing(true);
-        productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
+
+        if(NetworkUtil.checkNetwork(this)){
+            productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
+        }
     }
 
     @Override

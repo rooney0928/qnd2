@@ -21,6 +21,7 @@ import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -155,6 +156,9 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (NetworkUtil.checkNetwork(BankCardActivity.this)) {
+                    return;
+                }
                 if (CommUtil.isNull(et_bank_name) ||
                         CommUtil.isNull(et_bank_bankcard) ||
                         CommUtil.isNull(et_bank_idcard) ||
@@ -192,8 +196,9 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
             }
         });
 
-
-        bankcardPresenter.requestBankcard(PrefUtil.getString(this, PrefKey.TOKEN, ""));
+        if(NetworkUtil.checkNetwork(this)){
+            bankcardPresenter.requestBankcard(PrefUtil.getString(this, PrefKey.TOKEN, ""));
+        }
 
     }
 

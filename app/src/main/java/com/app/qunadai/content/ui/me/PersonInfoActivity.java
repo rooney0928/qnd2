@@ -32,6 +32,7 @@ import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -150,16 +151,18 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
 //        et_info_income.setText("");
 
         //修改进度条样式
-        boolean bankChecked = PrefUtil.getBoolean(this,PrefKey.BANK_CHECKED,false);
-        if(bankChecked){
+        boolean bankChecked = PrefUtil.getBoolean(this, PrefKey.BANK_CHECKED, false);
+        if (bankChecked) {
             view_progress_bar.setBackgroundResource(R.drawable.shape_line_info_ok);
             rl_next_progress_area.setBackgroundResource(R.drawable.shape_round_text_bg_curr);
             iv_progress_two.setVisibility(View.VISIBLE);
             tv_verify_two.setVisibility(View.GONE);
         }
+        if (NetworkUtil.checkNetwork(this)) {
+            personInfoPresenter.requestPersonInfo(PrefUtil.getString(this, PrefKey.TOKEN, ""));
+            personInfoPresenter.requestPersonValue(PrefUtil.getString(this, PrefKey.TOKEN, ""));
+        }
 
-        personInfoPresenter.requestPersonInfo(PrefUtil.getString(this, PrefKey.TOKEN, ""));
-        personInfoPresenter.requestPersonValue(PrefUtil.getString(this, PrefKey.TOKEN, ""));
     }
 
     @Override

@@ -112,7 +112,11 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
                     return;
                 }
                 //请求发送短信
-                forgetPresenter.requestForgetSms(phone);
+                if(NetworkUtil.checkNetwork(ForgetPwdActivity.this)){
+
+                    forgetPresenter.requestForgetSms(phone);
+                }
+
             }
 
         });
@@ -203,7 +207,11 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
                     if (phone.length() == 0 || sms.length() == 0 || pwd.length() == 0) {
                         ToastUtil.showToast(ForgetPwdActivity.this,"信息未写全");
                     }
-                    forgetPresenter.reset(phone,sms, CommUtil.shaEncrypt(pwd));
+
+                    if(NetworkUtil.checkNetwork(ForgetPwdActivity.this)){
+                        forgetPresenter.reset(phone,sms, CommUtil.shaEncrypt(pwd));
+                    }
+
                 }
 
             }

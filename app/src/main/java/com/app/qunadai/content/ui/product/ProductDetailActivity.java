@@ -28,6 +28,7 @@ import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -120,8 +121,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         String pid = getIntent().getStringExtra("pid");
         String token = PrefUtil.getString(this, PrefKey.TOKEN, "");
 
-        productDetailPresenter.requestPersonValue(token);
-        productDetailPresenter.requestProductDetail(pid);
+
+        if(NetworkUtil.checkNetwork(this)){
+            productDetailPresenter.requestPersonValue(token);
+            productDetailPresenter.requestProductDetail(pid);
+        }
     }
 
     @Override

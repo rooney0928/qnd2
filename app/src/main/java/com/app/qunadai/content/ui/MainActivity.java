@@ -54,7 +54,8 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment homeFragment;
     private LimitFragment limitFragment;
-    private BBSFragment bbsFragment;
+//    private BBSFragment bbsFragment;
+    private HelpFragment helpFragment;
     private MeFragment meFragment;
 
     private List<Fragment> fragments = new ArrayList<>();
@@ -82,12 +83,13 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         homeFragment = HomeFragment.getInstance();
         limitFragment = LimitFragment.getInstance();
-        bbsFragment = BBSFragment.getInstance();
+//        bbsFragment = BBSFragment.getInstance();
+        helpFragment = HelpFragment.getInstance();
         meFragment = MeFragment.getInstance();
 //        testFragment = new TestFragment();
         fragments.add(homeFragment);
         fragments.add(limitFragment);
-        fragments.add(bbsFragment);
+        fragments.add(helpFragment);
         fragments.add(meFragment);
 
 //        Point p = CommUtil.getSize(this);
@@ -130,14 +132,14 @@ public class MainActivity extends BaseActivity {
                         vp_main.setCurrentItem(2);
                         setTitleBarVisible(true);
                         setTitleText("社区");
-                        setTitleRightText("我的帖子");
-                        setTitleRightEvent(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //进入我的帖子
-
-                            }
-                        });
+//                        setTitleRightText("我的帖子");
+//                        setTitleRightEvent(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                //进入我的帖子
+//
+//                            }
+//                        });
                         break;
                     case R.id.rb_nav_me:
                         vp_main.setCurrentItem(3);
