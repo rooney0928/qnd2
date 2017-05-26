@@ -22,6 +22,7 @@ import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.PersonInfoContract;
 import com.app.qunadai.content.presenter.PersonInfoPresenter;
+import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.third.address.model.AddressDetailsEntity;
 import com.app.qunadai.third.address.model.AddressModel;
 import com.app.qunadai.third.address.utils.JsonUtil;
@@ -390,48 +391,50 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     }
 
     private void submit() {
-        String mAmount = CommUtil.getText(et_info_amount);
-        String mPeriod = CommUtil.getText(tv_info_period);
-        String mJob = CommUtil.getText(tv_info_job);
-        String mIncome = CommUtil.getText(et_info_income);
-        String mEdu = CommUtil.getText(tv_info_edu);
-        String mMarry = CommUtil.getText(tv_info_marry);
-        String mAddress = address;
-//        Intent intent = new Intent(this, BankCardActivity.class);
-//        startActivity(intent);
+        if (NetworkUtil.checkNetwork(this)) {
+            String mAmount = CommUtil.getText(et_info_amount);
+            String mPeriod = CommUtil.getText(tv_info_period);
+            String mJob = CommUtil.getText(tv_info_job);
+            String mIncome = CommUtil.getText(et_info_income);
+            String mEdu = CommUtil.getText(tv_info_edu);
+            String mMarry = CommUtil.getText(tv_info_marry);
+            String mAddress = address;
 
-        if (!CommUtil.isNumber(mAmount)) {
-            ToastUtil.showToast(this, "请填写正确的借款额度");
-            return;
-        }
-        if (TextUtils.isEmpty(mPeriod)) {
-            ToastUtil.showToast(this, "请选择借款期限");
-            return;
-        }
-        if (TextUtils.isEmpty(mJob)) {
-            ToastUtil.showToast(this, "请选择职业情况");
-            return;
-        }
-        if (!CommUtil.isNumber(mIncome)) {
-            ToastUtil.showToast(this, "请填写正确的家庭收入");
-            return;
-        }
-        if (TextUtils.isEmpty(mEdu)) {
-            ToastUtil.showToast(this, "请选择教育程度");
-            return;
-        }
-        if (TextUtils.isEmpty(mMarry)) {
-            ToastUtil.showToast(this, "请选择婚姻状况");
-            return;
-        }
-        if (TextUtils.isEmpty(mAddress)) {
-            ToastUtil.showToast(this, "请选择常居住地");
-            return;
-        }
+            if (!CommUtil.isNumber(mAmount)) {
+                ToastUtil.showToast(this, "请填写正确的借款额度");
+                return;
+            }
+            if (TextUtils.isEmpty(mPeriod)) {
+                ToastUtil.showToast(this, "请选择借款期限");
+                return;
+            }
+            if (TextUtils.isEmpty(mJob)) {
+                ToastUtil.showToast(this, "请选择职业情况");
+                return;
+            }
+            if (!CommUtil.isNumber(mIncome)) {
+                ToastUtil.showToast(this, "请填写正确的家庭收入");
+                return;
+            }
+            if (TextUtils.isEmpty(mEdu)) {
+                ToastUtil.showToast(this, "请选择教育程度");
+                return;
+            }
+            if (TextUtils.isEmpty(mMarry)) {
+                ToastUtil.showToast(this, "请选择婚姻状况");
+                return;
+            }
+            if (TextUtils.isEmpty(mAddress)) {
+                ToastUtil.showToast(this, "请选择常居住地");
+                return;
+            }
 
 //        ToastUtil.showToast(this, "可以提交了");
-        personInfoPresenter.setPersonInfo(PrefUtil.getString(this, PrefKey.TOKEN, "")
-                , mAmount, mPeriod, mJob, mIncome, mEdu, mMarry, mAddress);
+            personInfoPresenter.setPersonInfo(PrefUtil.getString(this, PrefKey.TOKEN, "")
+                    , mAmount, mPeriod, mJob, mIncome, mEdu, mMarry, mAddress);
+        }
+
+
     }
 
     AlertDialog dialog;

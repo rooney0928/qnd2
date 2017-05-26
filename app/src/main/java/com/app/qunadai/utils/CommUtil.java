@@ -153,10 +153,13 @@ public class CommUtil {
     }
 
     public static int str2int(String str) {
-        String number = str.trim().replaceAll("[^0-9.]", "");
-        if("".equals(number)){
+        if (str == null) {
             return 0;
-        }else{
+        }
+        String number = str.trim().replaceAll("[^0-9.]", "");
+        if ("".equals(number)) {
+            return 0;
+        } else {
             return Integer.parseInt(number);
         }
     }
@@ -199,7 +202,7 @@ public class CommUtil {
         //获取包信息
         try {
             PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), 0);
-        //返回版本号
+            //返回版本号
             return packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

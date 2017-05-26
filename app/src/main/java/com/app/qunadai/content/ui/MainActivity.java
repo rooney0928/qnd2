@@ -23,6 +23,7 @@ import com.app.qunadai.third.eventbus.EventNick;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment homeFragment;
     private LimitFragment limitFragment;
-//    private BBSFragment bbsFragment;
+    //    private BBSFragment bbsFragment;
     private HelpFragment helpFragment;
     private MeFragment meFragment;
 
@@ -117,16 +118,24 @@ public class MainActivity extends BaseActivity {
                 switch (checkedId) {
                     case R.id.rb_nav_home:
                         vp_main.setCurrentItem(0);
-                        if (homeFragment != null) {
-                            homeFragment.refreshMsg();
+                        if (NetworkUtil.checkNetwork(MainActivity.this)) {
+
+                            if (homeFragment != null) {
+                                homeFragment.refreshMsg();
+
+                            }
                         }
                         break;
                     case R.id.rb_nav_limit:
                         vp_main.setCurrentItem(1);
 
-                        if (limitFragment != null) {
-                            limitFragment.refreshMsg();
+
+                        if (NetworkUtil.checkNetwork(MainActivity.this)) {
+                            if (limitFragment != null) {
+                                limitFragment.refreshMsg();
+                            }
                         }
+
                         break;
                     case R.id.rb_nav_bbs:
                         vp_main.setCurrentItem(2);
