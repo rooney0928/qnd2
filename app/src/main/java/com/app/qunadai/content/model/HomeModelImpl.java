@@ -7,6 +7,7 @@ import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.http.RxSubscriber;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.RxHolder;
 
 import rx.Observable;
@@ -76,34 +77,40 @@ public class HomeModelImpl implements HomeContract.Model {
 
     @Override
     public void requestPersonValue(String token) {
-        Observable<PersonBean> request = RxHttp.getInstance().getPersonValue(token);
-        Subscription sub = request.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxSubscriber<PersonBean>() {
-                    @Override
-                    public void onStart() {
-                        onReturnDataListener.requestStart();
-                        super.onStart();
-                    }
 
-                    @Override
-                    protected void onError(ApiException ex) {
-                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
-                        if(ex.isTokenFail()){
-                            onReturnDataListener.tokenFail();
+        if(CommUtil.isNull(token)){
+            onReturnDataListener.tokenFail();
+        }else{
+            Observable<PersonBean> request = RxHttp.getInstance().getPersonValue(token);
+            Subscription sub = request.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new RxSubscriber<PersonBean>() {
+                        @Override
+                        public void onStart() {
+                            onReturnDataListener.requestStart();
+                            super.onStart();
                         }
-                    }
 
-                    @Override
-                    protected void onOk(PersonBean bean) {
-                        onReturnDataListener.getPersonValue(bean);
-                    }
+                        @Override
+                        protected void onError(ApiException ex) {
+                            onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                            if(ex.isTokenFail()){
+                                onReturnDataListener.tokenFail();
+                            }
+                        }
 
-                    @Override
-                    protected void requestEnd() {
-                        onReturnDataListener.requestEnd();
-                    }
-                });
-        RxHolder.addSubscription(sub);
+                        @Override
+                        protected void onOk(PersonBean bean) {
+                            onReturnDataListener.getPersonValue(bean);
+                        }
+
+                        @Override
+                        protected void requestEnd() {
+                            onReturnDataListener.requestEnd();
+                        }
+                    });
+            RxHolder.addSubscription(sub);
+        }
+
     }
 }

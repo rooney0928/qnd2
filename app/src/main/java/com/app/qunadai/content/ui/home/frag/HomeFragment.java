@@ -237,7 +237,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     }
 
     public void refreshMsg(){
-        if(fragments!=null&&tabTitle!=null){
+        if(homePresenter!=null){
             homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
 
         }

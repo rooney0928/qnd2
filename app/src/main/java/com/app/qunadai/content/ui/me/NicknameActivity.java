@@ -14,7 +14,7 @@ import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.content.presenter.NicknamePresenter;
-import com.app.qunadai.third.eventbus.EventNick;
+import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -118,7 +118,7 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
     @Override
     public void uploadNickname(AvatarBean bean) {
 
-        EventBus.getDefault().post(new EventNick(bean.getContent().getUser().getNick()));
+        EventBus.getDefault().post(new EventMe(bean.getContent().getUser().getNick()));
         //延迟500毫秒关闭swipe
         Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {

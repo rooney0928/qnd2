@@ -1,7 +1,6 @@
 package com.app.qunadai.content.ui;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -12,17 +11,14 @@ import android.widget.RadioGroup;
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
-import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.bbs.frag.HelpFragment;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.content.ui.limit.frag.LimitFragment;
 import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
-import com.app.qunadai.third.eventbus.EventNick;
+import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.third.eventbus.EventTurn;
-import com.app.qunadai.utils.CommUtil;
-import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
@@ -219,16 +215,16 @@ public class MainActivity extends BaseActivity {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventNick event) {
+    public void onMessageEvent(EventMe event) {
         if (meFragment != null) {
-            meFragment.setNickname(event.getNickname());
+            meFragment.setMeMessage(event.getNickname());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventClose event) {
 //        if (meFragment != null) {
-//            meFragment.setNickname(event.getNickname());
+//            meFragment.setMeMessage(event.getNickname());
 //        }
         if ("main".equalsIgnoreCase(event.getPage())) {
             finish();

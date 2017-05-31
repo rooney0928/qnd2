@@ -4,11 +4,13 @@ package com.app.qunadai.third.eventbus;
  * Created by wayne on 2017/5/15.
  */
 
-public class EventNick {
+public class EventMe {
     private String nickname;
 
-    public EventNick(String nickname) {
+    public EventMe(String nickname) {
         this.nickname = nickname;
+    }
+    public EventMe() {
     }
 
     public String getNickname() {

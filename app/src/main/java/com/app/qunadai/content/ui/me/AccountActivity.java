@@ -19,7 +19,7 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.AccountContract;
 import com.app.qunadai.content.presenter.AccountPresenter;
 import com.app.qunadai.http.RxHttp;
-import com.app.qunadai.third.eventbus.EventNick;
+import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.FileUtil;
 import com.app.qunadai.utils.ImgUtil;
@@ -255,6 +255,8 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
     public void uploadAvatar(AvatarBean bean) {
         String imgUrl = RxHttp.ROOT + "/attachments/" + bean.getContent().getUser().getAvatar();
         ImgUtil.loadRound(this, imgUrl, iv_account_avatar);
+        EventBus.getDefault().post(new EventMe());
+
     }
 
     @Override
@@ -293,7 +295,7 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventNick event) {
+    public void onMessageEvent(EventMe event) {
         tv_account_nickname.setText(event.getNickname());
     }
 

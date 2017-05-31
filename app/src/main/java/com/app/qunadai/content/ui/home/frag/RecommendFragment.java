@@ -55,6 +55,7 @@ public class RecommendFragment extends BaseFragment {
 
     public void setRecommendData(List<LoanDetail> list){
         adapter.setList(list);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
