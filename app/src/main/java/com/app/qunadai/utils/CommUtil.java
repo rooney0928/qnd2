@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -216,5 +218,9 @@ public class CommUtil {
         Point size = new Point();
         display.getSize(size);  //size.x就是宽度，size.y就是高度
         return size;
+    }
+
+    public static void tcEvent(Context context, String eventId, String eventLabel) {
+        TCAgent.onEvent(context, eventId, eventLabel);
     }
 }

@@ -21,6 +21,7 @@ import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.BankCardActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.view.AuthView;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -102,6 +103,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     @Override
     protected void initData() {
+        CommUtil.tcEvent(getActivity(),"worth_page","身价着陆页");
         limitPresenter = new LimitPresenter(this);
         limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
 
@@ -329,6 +331,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                             av_bankcard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    CommUtil.tcEvent(getActivity(),"Bank_card","银行卡验证");
                                     Intent intentBank = new Intent(getActivity(), BankCardActivity.class);
                                     intentBank.putExtra("titleHide", true);
                                     startActivity(intentBank);
@@ -339,6 +342,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                         break;
                     case R.id.av_realinfo:
                         //进入个人信息认证
+                        CommUtil.tcEvent(getActivity(),"Real_information","真实信息");
+
                         Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
                         intentInfo.putExtra("titleHide", true);
                         intentInfo.putExtra("isFromDetail", true);

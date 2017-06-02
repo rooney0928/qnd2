@@ -6,6 +6,7 @@ import android.content.Context;
 import com.pgyersdk.Pgy;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.tendcloud.tenddata.TCAgent;
 import com.umeng.analytics.MobclickAgent;
 
 
@@ -46,5 +47,10 @@ public class MyApp extends Application{
         CrashReport.initCrashReport(getApplicationContext(),BUGLY_ID,false);
         MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
         Pgy.init(this,PGY_KEY);
+
+        //talkingData
+        TCAgent.LOG_ON=true;
+        TCAgent.init(this);
+        TCAgent.setReportUncaughtExceptions(false);
     }
 }

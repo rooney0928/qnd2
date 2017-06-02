@@ -14,6 +14,7 @@ import com.app.qunadai.R;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 
 import java.util.List;
@@ -95,6 +96,7 @@ public class LoanAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     //进入贷款产品
+                    CommUtil.tcEvent(context,"Product list","产品列表");
                     Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("pid",detail.getId());
                     context.startActivity(intent);
