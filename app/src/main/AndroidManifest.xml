@@ -75,7 +75,7 @@
         </activity>
         <activity
             android:name=".content.ui.product.BrowserActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden" >
+            android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
 
         <!--bbs-->
@@ -87,6 +87,15 @@
             android:name=".content.ui.bbs.PostActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
+        </activity>
+        <activity
+            android:name=".content.ui.bbs.PostDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".content.ui.bbs.TalentActivity"
+            android:screenOrientation="portrait">
         </activity>
         <!--me-->
         <activity
@@ -145,14 +154,20 @@
         </provider>
 
 
-        <service android:name="com.talkingdata.sdk.TDAntiCheatingService"
-                 android:process="com.talkingdata.sdk.TDAntiCheatingService">  <!--用户质量评估Service可以配置在主进程或者单独进程-->
+        <service
+            android:name="com.talkingdata.sdk.TDAntiCheatingService"
+            android:process="com.talkingdata.sdk.TDAntiCheatingService">  <!--用户质量评估Service可以配置在主进程或者单独进程-->
             <intent-filter>
-                <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
+                <action android:name="com.talkingdata.sdk.TDAntiCheatingService"/>
             </intent-filter>
         </service>
-        <meta-data android:name="TD_APP_ID" android:value="6139BCBE350B4F508F2AD0413014B8BC" />
-        <meta-data android:name="TD_CHANNEL_ID" android:value="${UMENG_CHANNEL_VALUE}" />
+
+        <meta-data
+            android:name="TD_APP_ID"
+            android:value="6139BCBE350B4F508F2AD0413014B8BC"/>
+        <meta-data
+            android:name="TD_CHANNEL_ID"
+            android:value="${UMENG_CHANNEL_VALUE}"/>
 
 
         <meta-data
