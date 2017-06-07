@@ -48,6 +48,8 @@ public class PostDetailActivity extends BaseActivity{
         rv_comment.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_comment.setLayoutManager(linearLayoutManager);
         rv_comment.setAdapter(commentAdapter);
+        //保持滑动惯性
+        rv_comment.setNestedScrollingEnabled(false);
     }
 
     @Override
