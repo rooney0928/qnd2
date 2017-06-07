@@ -3,9 +3,12 @@ package com.app.qunadai.content.ui.bbs;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.CommentAdapter;
+import com.app.qunadai.content.adapter.OnCompatItemClickListener;
 import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseActivity;
 
@@ -15,10 +18,14 @@ import butterknife.BindView;
  * Created by wayne on 2017/6/5.
  */
 
-public class PostDetailActivity extends BaseActivity{
-
+public class PostDetailActivity extends BaseActivity {
+    @BindView(R.id.sv_layout)
+    ScrollView sv_layout;
     @BindView(R.id.rv_comment)
     RecyclerView rv_comment;
+    @BindView(R.id.ll_comment_part)
+    LinearLayout ll_comment_part;
+
 
     CommentAdapter commentAdapter;
     LinearLayoutManager linearLayoutManager;
@@ -31,7 +38,7 @@ public class PostDetailActivity extends BaseActivity{
 
     @Override
     protected View createCenterView() {
-        View view = View.inflate(this, R.layout.activity_post_detail,null);
+        View view = View.inflate(this, R.layout.activity_post_detail, null);
         return view;
     }
 
@@ -42,7 +49,14 @@ public class PostDetailActivity extends BaseActivity{
 
     @Override
     protected void initView() {
-        commentAdapter = new CommentAdapter(this);
+        commentAdapter = new CommentAdapter(this, new OnCompatItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+//                rv_comment.scrollTo(0,500);
+                sv_layout.scrollTo(0, ll_comment_part.getTop() + view.getWidth() * position);
+            }
+        });
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
         rv_comment.addItemDecoration(new SpaceItemDecoration(spacingInPixels));

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.app.qunadai.R;
+import com.app.qunadai.content.ui.bbs.ReplyActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,9 +22,11 @@ import butterknife.ButterKnife;
 public class CommentAdapter extends RecyclerView.Adapter {
 
     private Context context;
+    private OnCompatItemClickListener itemClickListener;
 
-    public CommentAdapter(Context context) {
+    public CommentAdapter(Context context, OnCompatItemClickListener listener) {
         this.context = context;
+        this.itemClickListener = listener;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class CommentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ViewHolder){
+        if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.setData();
         }
@@ -54,11 +57,26 @@ public class CommentAdapter extends RecyclerView.Adapter {
         ReplyAdapter adapter;
         LinearLayoutManager linearLayoutManager;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
-            adapter = new ReplyAdapter(context);
+//            linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+
+            //禁止二级recyclerview滑动
+            linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            adapter = new ReplyAdapter(context, new OnCompatItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //计算评论框高度
+//                    int commentH =
+                    itemClickListener.onItemClick(itemView,getAdapterPosition());
+                }
+            });
             rv_reply.setLayoutManager(linearLayoutManager);
             rv_reply.setAdapter(adapter);
         }
@@ -67,6 +85,14 @@ public class CommentAdapter extends RecyclerView.Adapter {
             if (getAdapterPosition() % 2 == 0) {
                 ll_comment_reply.setVisibility(View.GONE);
             }
+
+            ll_comment_reply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentReply = new Intent(context, ReplyActivity.class);
+                    context.startActivity(intentReply);
+                }
+            });
         }
     }
 
