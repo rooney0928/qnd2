@@ -121,7 +121,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
             public void onClick(View v) {
                 //进入身份认证
                 Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
-                startActivity(intentInfo);
+                startActivityForResult(intentInfo,ReqKey.REQ_BANK_INFO);
             }
         });
         bt_limit_raise.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
             public void onClick(View v) {
                 //进入身份认证
                 Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
-                startActivity(intentInfo);
+                startActivityForResult(intentInfo,ReqKey.REQ_BANK_INFO);
             }
         });
         bt_limit_borrow.setOnClickListener(new View.OnClickListener() {
@@ -331,7 +331,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                                 public void onClick(View v) {
                                     Intent intentBank = new Intent(getActivity(), BankCardActivity.class);
                                     intentBank.putExtra("titleHide", true);
-                                    startActivity(intentBank);
+                                    startActivityForResult(intentBank,ReqKey.REQ_BANK_INFO);
                                 }
                             });
                         }
@@ -342,7 +342,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                         Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
                         intentInfo.putExtra("titleHide", true);
                         intentInfo.putExtra("isFromDetail", true);
-                        startActivity(intentInfo);
+                        startActivityForResult(intentInfo,ReqKey.REQ_BANK_INFO);
                         break;
                 }
 
@@ -360,68 +360,73 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) {
-            case Activity.RESULT_OK:
+        if(resultCode==Activity.RESULT_OK){
+            switch (requestCode){
+                case ReqKey.REQ_BANK_INFO:
+                    limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
 
+                    break;
+                case ReqKey.REQ_MOXIE:
+                    Bundle b = data.getExtras();              //data为B中回传的Intent
+                    String result = b.getString("result");    //result即为回传的值(JSON格式)
 
-                Bundle b = data.getExtras();              //data为B中回传的Intent
-                String result = b.getString("result");    //result即为回传的值(JSON格式)
+                    if (TextUtils.isEmpty(result)) {
+                        ToastUtil.showToast(getActivity(), "没有进行导入操作!");
+                    } else {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            LogU.t("json0--" + jsonObject.toString());
 
-                if (TextUtils.isEmpty(result)) {
-                    ToastUtil.showToast(getActivity(), "没有进行导入操作!");
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        LogU.t("json0--" + jsonObject.toString());
+                            int code = jsonObject.getInt("code");
+                            String taskType = jsonObject.getString("taskType");
+                            switch (code) {
+                                case -1:
+                                    ToastUtil.showToast(getActivity(), "没有进行导入操作!");
 
-                        int code = jsonObject.getInt("code");
-                        String taskType = jsonObject.getString("taskType");
-                        switch (code) {
-                            case -1:
-                                ToastUtil.showToast(getActivity(), "没有进行导入操作!");
-
-                                break;
-                            case -2:
-                                ToastUtil.showToast(getActivity(), "导入失败(服务问题)!");
-                                break;
-                            case -3:
-                                ToastUtil.showToast(getActivity(), "导入失败(服务异常)!");
-                                break;
-                            case -4:
+                                    break;
+                                case -2:
+                                    ToastUtil.showToast(getActivity(), "导入失败(服务问题)!");
+                                    break;
+                                case -3:
+                                    ToastUtil.showToast(getActivity(), "导入失败(服务异常)!");
+                                    break;
+                                case -4:
 //                                ToastUtil.showToast(getActivity(),"导入失败(");
-                                break;
-                            case 0:
+                                    break;
+                                case 0:
 //                                ToastUtil.showToast(getActivity(),"导入失败!");
-                                break;
-                            case 1:
-                                requestUpdateStates(taskType);
-                                ToastUtil.showToast(getActivity(), "导入成功!");
-                                break;
-                            case 2:
-                                /**
-                                 * 如果用户中途导入魔蝎SDK会出现这个情况，如需获取最终状态请轮询贵方后台接口
-                                 * 魔蝎后台会向贵方后台推送Task通知和Bill通知
-                                 * Task通知：登录成功/登录失败
-                                 * Bill通知：账单通知
-                                 */
-                                ToastUtil.showToast(getActivity(), "导入中");
-                                break;
+                                    break;
+                                case 1:
+                                    requestUpdateStates(taskType);
+                                    ToastUtil.showToast(getActivity(), "导入成功!");
+                                    break;
+                                case 2:
+                                    /**
+                                     * 如果用户中途导入魔蝎SDK会出现这个情况，如需获取最终状态请轮询贵方后台接口
+                                     * 魔蝎后台会向贵方后台推送Task通知和Bill通知
+                                     * Task通知：登录成功/登录失败
+                                     * Bill通知：账单通知
+                                     */
+                                    ToastUtil.showToast(getActivity(), "导入中");
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        break;
                     }
                     break;
-                }
-
-                break;
-            default:
-                break;
+            }
         }
+
+
+
     }
 
     private void requestUpdateStates(String taskType) {
         String phone = PrefUtil.getString(getActivity(), PrefKey.PHONE, "");
         String token = PrefUtil.getString(getActivity(), PrefKey.TOKEN, "");
         limitPresenter.updateStatus(phone, taskType, token);
+        limitPresenter.requestPersonValue(token);
     }
 }

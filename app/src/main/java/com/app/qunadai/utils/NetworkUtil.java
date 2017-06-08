@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 /**
  * 检查网络状态工具类
  * Created by Saturn_kk on 2016/10/16.
@@ -40,13 +42,18 @@ public class NetworkUtil {
      * @return
      */
     public static boolean checkNetwork(Context context) {
+//        CrashReport.postCatchedException(new Exception("检查网络，无context"));
+        if (context == null) {
+            ToastUtil.showToast(context, "并没有网络，请联网再试1");
+            return false;
+        }
         ConnectivityManager connectivityManager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager == null ? null : connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnected()){
+        if (networkInfo != null && networkInfo.isConnected()) {
             return true;
-        }else{
-            ToastUtil.showToast(context,"并没有网络，请联网再试");
+        } else {
+            ToastUtil.showToast(context, "并没有网络，请联网再试");
             return false;
         }
     }

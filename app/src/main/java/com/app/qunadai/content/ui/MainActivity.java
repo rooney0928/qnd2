@@ -177,6 +177,7 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ReqKey.REQ_MOXIE:
+            case ReqKey.REQ_BANK_INFO:
                 if (limitFragment != null) {
                     limitFragment.onActivityResult(requestCode, resultCode, data);
                 }

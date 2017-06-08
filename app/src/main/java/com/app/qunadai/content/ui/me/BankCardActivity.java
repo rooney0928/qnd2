@@ -25,6 +25,7 @@ import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -156,7 +157,10 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (NetworkUtil.checkNetwork(BankCardActivity.this)) {
+
+
+                if (!NetworkUtil.checkNetwork(BankCardActivity.this)) {
+                    CrashReport.postCatchedException(new Exception("检查网络，无context"));
                     return;
                 }
                 if (CommUtil.isNull(et_bank_name) ||

@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui.me;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -161,7 +162,7 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
         }
         if (NetworkUtil.checkNetwork(this)) {
             personInfoPresenter.requestPersonInfo(PrefUtil.getString(this, PrefKey.TOKEN, ""));
-            personInfoPresenter.requestPersonValue(PrefUtil.getString(this, PrefKey.TOKEN, ""));
+//            personInfoPresenter.requestPersonValue(PrefUtil.getString(this, PrefKey.TOKEN, ""));
         }
 
     }
@@ -264,17 +265,18 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
     @Override
     public void setPersonInfo(PersonInfo bean) {
         if (isFromDetail) {
+            setResult(Activity.RESULT_OK);
             finish();
         } else {
-            if (canEnterBank) {
+//            if (canEnterBank) {
                 ToastUtil.showToast(this, bean.getDetail());
                 Intent intent = new Intent(this, BankCardActivity.class);
                 startActivity(intent);
-            } else {
-                EventBus.getDefault().post(new EventTurn(1));
-
-                finish();
-            }
+//            } else {
+//                EventBus.getDefault().post(new EventTurn(1));
+//
+//                finish();
+//            }
         }
 
     }
