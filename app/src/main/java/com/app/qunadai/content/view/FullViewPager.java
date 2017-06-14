@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
+ * viewpager数据全显示
  * Created by wayne on 2017/5/12.
  */
 

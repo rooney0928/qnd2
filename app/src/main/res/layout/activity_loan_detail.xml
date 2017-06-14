@@ -32,7 +32,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp">
 
+
                     <ImageView
+                        android:background="@drawable/bg_product_avatar"
+                        android:padding="8dp"
                         android:id="@+id/iv_detail_avatar"
                         android:layout_width="54dp"
                         android:layout_height="54dp"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll_filter"
@@ -19,7 +19,7 @@
             android:layout_marginRight="16dp"
             android:text="筛选:"
             android:textColor="@color/text_black"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,9 +30,9 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="#f3f3f3"/>
+                android:layout_marginTop="10dp"
+                android:background="#f3f3f3" />
 
             <LinearLayout
                 android:id="@+id/ll_pro"
@@ -50,22 +50,22 @@
                     android:drawablePadding="5dp"
                     android:text="职业身份"
                     android:textColor="@drawable/selector_filter_text"
-                    android:textSize="13dp"/>
+                    android:textSize="13dp" />
 
                 <ImageView
                     android:id="@+id/iv_pro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/selector_tri"/>
+                    android:src="@drawable/selector_tri" />
             </LinearLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="#f3f3f3"/>
+                android:layout_marginTop="10dp"
+                android:background="#f3f3f3" />
 
             <LinearLayout
                 android:id="@+id/ll_amount"
@@ -83,22 +83,22 @@
                     android:drawablePadding="5dp"
                     android:text="贷款额度"
                     android:textColor="@drawable/selector_filter_text"
-                    android:textSize="13dp"/>
+                    android:textSize="13dp" />
 
                 <ImageView
                     android:id="@+id/iv_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/selector_tri"/>
+                    android:src="@drawable/selector_tri" />
             </LinearLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="#f3f3f3"/>
+                android:layout_marginTop="10dp"
+                android:background="#f3f3f3" />
 
             <LinearLayout
                 android:id="@+id/ll_term"
@@ -116,7 +116,7 @@
                     android:drawablePadding="5dp"
                     android:text="贷款期限"
                     android:textColor="@drawable/selector_filter_text"
-                    android:textSize="13dp"/>
+                    android:textSize="13dp" />
 
 
                 <ImageView
@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/selector_tri"/>
+                    android:src="@drawable/selector_tri" />
             </LinearLayout>
 
         </LinearLayout>
@@ -133,7 +133,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#B2B2B2"/>
+        android:background="#B2B2B2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -146,33 +146,45 @@
             android:paddingBottom="6dp"
             android:paddingLeft="6dp"
             android:paddingTop="6dp"
-            android:text="为您推荐"/>
+            android:text="为您推荐" />
 
         <TextView
             android:id="@+id/tv_product_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
-            android:textColor="@color/mainColor"/>
+            android:text="0"
+            android:textColor="@color/mainColor" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="个产品"/>
+            android:text="个产品" />
     </LinearLayout>
 
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <View
+            android:id="@+id/view_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#80000000" />
+    </RelativeLayout>
+
 </LinearLayout>

@@ -89,7 +89,7 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/shape_raise_limit_text"
             android:text="立即申请"
-            android:textColor="@color/orange"
+            android:textColor="@color/limit_value"
             android:textSize="12sp"/>
 
     </LinearLayout>

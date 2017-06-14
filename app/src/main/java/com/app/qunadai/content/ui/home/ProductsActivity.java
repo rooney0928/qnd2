@@ -13,18 +13,18 @@ import android.widget.TextView;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.ProductsBean;
+import com.app.qunadai.content.adapter.OnCompatItemClickListener;
 import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.adapter.LoanAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.ProductsContract;
 import com.app.qunadai.content.presenter.ProductsPresenter;
-import com.app.qunadai.content.view.LoanProductSelectPW;
+import com.app.qunadai.content.view.filter.FilterPopup;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -32,9 +32,6 @@ import butterknife.BindView;
 import rx.Observable;
 import rx.functions.Action1;
 
-import static com.app.qunadai.content.view.LoanProductSelectPW.TYPE_LOAN_MONEY;
-import static com.app.qunadai.content.view.LoanProductSelectPW.TYPE_LOAN_TERM;
-import static com.app.qunadai.content.view.LoanProductSelectPW.TYPE_LOAN_PROFESSIONAL;
 
 /**
  * Created by wayne on 2017/5/12.
@@ -77,6 +74,8 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
     SwipeRefreshLayout swipe_layout;
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
+    @BindView(R.id.view_shadow)
+    View view_shadow;
 
 
     LoanAdapter adapter;
@@ -84,20 +83,22 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
     LinearLayoutManager linearLayoutManager;
     boolean isRefresh;
 
-    private LoanProductSelectPW proPW;
-    private LoanProductSelectPW amountPW;
-    private LoanProductSelectPW termPW;
+
+    private FilterPopup proPop;
+    private FilterPopup amountPop;
+    private FilterPopup termPop;
 
     String tagName = null;
     String amount = null;
     String term = null;
     int lastVisibleItem;
 
+
     @Override
     protected void updateTopViewHideAndShow() {
 //        setTitleBarStatus(TITLE_ON_BACK_ON);
 
-        setTitleText("搜索贷款");
+        setTitleText("贷款");
     }
 
     @Override
@@ -171,7 +172,7 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
         });
         swipe_layout.setRefreshing(true);
 
-        if(NetworkUtil.checkNetwork(this)){
+        if (NetworkUtil.checkNetwork(this)) {
             productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
         }
     }
@@ -183,114 +184,114 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
 
         switch (v.getId()) {
             case R.id.ll_pro:
-                if (proPW == null) {
-                    List list = Arrays.asList(getResources().getStringArray(R.array.filter_pro));
-                    proPW = new LoanProductSelectPW(this, list, TYPE_LOAN_PROFESSIONAL);
-                    proPW.setOnItemTextClickListener(new LoanProductSelectPW.ItemTextClickListener() {
-                        @Override
-                        public void onItemClick(String text, TextView textView, int type) {
-                            tv_pro.setText(text);
-                            tv_pro.setSelected(true);
-                            iv_pro.setSelected(true);
 
-                            tagName = text;
-                            if (text.equals("职业身份")) {
-                                tagName = null;
-                                tv_pro.setSelected(false);
-                                iv_pro.setSelected(false);
-                            }
-                            LogU.t("tagName是：" + tagName + "，amount是：" + amount + "，term是：" + term);
-                            page = 0;
-                            productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
-                        }
-                    });
-                    proPW.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            resetTextViewStatus(tv_pro, iv_pro, "职业身份");
-                            resetTextViewStatus(tv_amount, iv_amount, "贷款额度");
-                            resetTextViewStatus(tv_term, iv_term, "贷款期限");
-                        }
-                    });
+                final String[] pros = getResources().getStringArray(R.array.filter_pro);
+                if (proPop == null) {
+                    proPop = new FilterPopup(this, pros);
                 }
-                proPW.showAsDropDown(ll_filter);
+                proPop.setItemClickListener(new OnCompatItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        tv_pro.setText(pros[position]);
+                        tv_pro.setSelected(true);
+                        iv_pro.setSelected(true);
+                        tagName = pros[position];
+                        if (position == 0) {
+                            tagName = null;
+                            tv_pro.setSelected(false);
+                            iv_pro.setSelected(false);
+                        }
+                        page = 0;
+
+                        productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
+
+                    }
+                });
+                proPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        view_shadow.setVisibility(View.GONE);
+                    }
+                });
+                proPop.showPopupWindow(ll_filter);
+                view_shadow.setVisibility(View.VISIBLE);
+
+
                 break;
             case R.id.ll_amount:
-                changeSelectedStyle(tv_amount, iv_amount, true);
 
-                if (amountPW == null) {
-                    List list = Arrays.asList(getResources().getStringArray(R.array.filter_amount));
-                    amountPW = new LoanProductSelectPW(this, list, TYPE_LOAN_MONEY);
-                    amountPW.setOnItemTextClickListener(new LoanProductSelectPW.ItemTextClickListener() {
-                        @Override
-                        public void onItemClick(String text, TextView textView, int type) {
-                            tv_amount.setText(text);
-                            tv_amount.setSelected(true);
-                            iv_amount.setSelected(true);
-                            if (text.equals("贷款额度")) {
-                                amount = null;
-                                tv_amount.setSelected(false);
-                                iv_amount.setSelected(false);
-                            } else {
-                                amount = text.substring(0, text.indexOf("元"));
-                            }
-                            LogU.t("tagName是：" + tagName + "，amount是：" + amount + "，term是：" + term);
-                            page = 0;
-                            //调用接口
-                            productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
-
-                        }
-                    });
-                    amountPW.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            resetTextViewStatus(tv_pro, iv_pro, "职业身份");
-                            resetTextViewStatus(tv_amount, iv_amount, "贷款额度");
-                            resetTextViewStatus(tv_term, iv_term, "贷款期限");
-                        }
-                    });
+                final String[] amounts = getResources().getStringArray(R.array.filter_amount);
+                if (amountPop == null) {
+                    amountPop = new FilterPopup(this, amounts);
                 }
+                amountPop.setItemClickListener(new OnCompatItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        tv_amount.setText(amounts[position]);
+                        tv_amount.setSelected(true);
+                        iv_amount.setSelected(true);
+                        if (position == 0) {
+                            amount = null;
+                            tv_amount.setSelected(false);
+                            iv_amount.setSelected(false);
+                        } else {
+                            amount = amounts[position].substring(0, amounts[position].indexOf("元"));
+                        }
+                        page = 0;
+                        //调用接口
+                        productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
 
-                amountPW.showAsDropDown(ll_filter);
+                    }
+                });
+                amountPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        view_shadow.setVisibility(View.GONE);
+                    }
+                });
+                amountPop.showPopupWindow(ll_filter);
+                view_shadow.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.ll_term:
-                changeSelectedStyle(tv_term, iv_term, true);
 
-                if (termPW == null) {
-                    List list = Arrays.asList(getResources().getStringArray(R.array.filter_term));
-                    termPW = new LoanProductSelectPW(this, list, TYPE_LOAN_TERM);
-                    termPW.setOnItemTextClickListener(new LoanProductSelectPW.ItemTextClickListener() {
-                        @Override
-                        public void onItemClick(String text, TextView textView, int type) {
-                            tv_term.setText(text);
-                            tv_term.setSelected(true);
-                            iv_term.setSelected(true);
-                            term = text;
-                            if (text.equals("贷款期限")) {
-                                term = null;
-                                tv_term.setSelected(false);
-                                iv_term.setSelected(false);
-                            }
-                            LogU.t("tagName是：" + tagName + "，amount是：" + amount + "，term是：" + term);
-                            page = 0;
-                            productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
 
-                        }
-                    });
-                    termPW.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            resetTextViewStatus(tv_pro, iv_pro, "职业身份");
-                            resetTextViewStatus(tv_amount, iv_amount, "贷款额度");
-                            resetTextViewStatus(tv_term, iv_term, "贷款期限");
-                        }
-                    });
+                final String[] terms = getResources().getStringArray(R.array.filter_term);
+                if (termPop == null) {
+                    termPop = new FilterPopup(this, terms);
                 }
+                termPop.setItemClickListener(new OnCompatItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        tv_term.setText(terms[position]);
+                        tv_term.setSelected(true);
+                        iv_term.setSelected(true);
+                        term = terms[position];
+                        if (position == 0) {
+                            term = null;
+                            tv_term.setSelected(false);
+                            iv_term.setSelected(false);
+                        }
+                        page = 0;
+                        productsPresenter.requestProducts(page, PAGE_SIZE, tagName, amount, term);
 
-                termPW.showAsDropDown(ll_filter);
+                    }
+                });
+                termPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        view_shadow.setVisibility(View.GONE);
+                    }
+                });
+                termPop.showPopupWindow(ll_filter);
+                view_shadow.setVisibility(View.VISIBLE);
+                LogU.t("tagName是：" + tagName + "，amount是：" + amount + "，term是：" + term);
+
                 break;
 
         }
+
+
 
     }
 

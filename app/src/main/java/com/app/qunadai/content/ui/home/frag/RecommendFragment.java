@@ -8,6 +8,7 @@ import android.view.View;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.content.adapter.LoanAdapter;
+import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseFragment;
 
 import org.json.JSONArray;
@@ -49,6 +50,10 @@ public class RecommendFragment extends BaseFragment {
     protected void initData() {
         adapter = new LoanAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+//        rv_recommend.setLayoutManager(linearLayoutManager);
+//        rv_recommend.setAdapter(adapter);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
+        rv_recommend.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_recommend.setLayoutManager(linearLayoutManager);
         rv_recommend.setAdapter(adapter);
     }

@@ -122,7 +122,7 @@ public class SettingActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.rl_setting_about:
-                Intent intentAbout = new Intent(this, SettingActivity.class);
+                Intent intentAbout = new Intent(this, AboutActivity.class);
                 startActivity(intentAbout);
                 break;
         }

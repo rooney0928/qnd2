@@ -34,16 +34,16 @@
     <!--贷款产品搜索期限-->
     <string-array name="filter_term">
         <item>贷款期限</item>
-        <item>1月</item>
-        <item>3月</item>
-        <item>6月</item>
-        <item>12月</item>
-        <item>18月</item>
-        <item>24月</item>
-        <item>30月</item>
-        <item>36月</item>
-        <item>48月</item>
-        <item>60月</item>
+        <item>1个月</item>
+        <item>3个月</item>
+        <item>6个月</item>
+        <item>12个月</item>
+        <item>18个月</item>
+        <item>24个月</item>
+        <item>30个月</item>
+        <item>36个月</item>
+        <item>48个月</item>
+        <item>60个月</item>
     </string-array>
 
 
