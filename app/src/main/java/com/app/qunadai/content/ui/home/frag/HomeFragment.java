@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.content.view.FullViewPager;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -51,11 +53,14 @@ import rx.functions.Action1;
  * Created by wayne on 2017/5/8.
  */
 
-public class HomeFragment extends BaseFragment implements HomeContract.View {
+public class HomeFragment extends BaseFragment implements HomeContract.View, View.OnClickListener {
     @BindView(R.id.tl_home_tab)
     TabLayout tl_home_tab;
     @BindView(R.id.swipe_home)
     SwipeRefreshLayout swipe_home;
+
+    @BindView(R.id.iv_home_banner)
+    ImageView iv_home_banner;
 
     @BindView(R.id.vp_recommend)
     FullViewPager vp_recommend;
@@ -116,6 +121,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     protected void initData() {
+        CommUtil.tcEvent(getActivity(),"home_page","首页着陆页");
+
         homePresenter = new HomePresenter(this);
         fragments = new ArrayList<>();
         recommendFragment1 = RecommendFragment.getInstance();
@@ -148,6 +155,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void onClick(View v) {
                 //进入贷款产品列表
+                CommUtil.tcEvent(getActivity(),"Rapid_loan","极速贷款");
                 Intent intentProducts = new Intent(getActivity(), ProductsActivity.class);
                 startActivity(intentProducts);
             }
@@ -164,10 +172,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void onClick(View v) {
                 //进入推荐列表
+                CommUtil.tcEvent(getActivity(),"Loans_to_recommend","贷款推荐");
                 Intent intentReco = new Intent(getActivity(), RecommendActivity.class);
                 startActivity(intentReco);
             }
         });
+        iv_home_banner.setOnClickListener(this);
 
         homePresenter.getHomeRecommend();
         homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
@@ -284,5 +294,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
         }
         isRefresh = false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_home_banner:
+                CommUtil.tcEvent(getActivity(),"banner","焦点图");
+                break;
+        }
     }
 }

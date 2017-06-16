@@ -20,6 +20,7 @@
 
 
                 <ImageView
+                    android:id="@+id/iv_home_banner"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:background="@mipmap/banner_default"/>
@@ -145,7 +146,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_get_limit_shadow"
+                        android:background="@drawable/bg_half_btn"
                         android:gravity="center"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
@@ -201,7 +202,7 @@
                         android:id="@+id/bt_home_borrow"
                         android:layout_width="260dp"
                         android:layout_height="36dp"
-                        android:background="@drawable/bg_get_limit_shadow"
+                        android:background="@drawable/bg_half_btn"
                         android:gravity="center"
                         android:text="我要借钱"
                         android:textColor="@color/mainColor"

@@ -35,6 +35,7 @@
     <!--bbs-->
     <color name="item_info">#b1b1b1</color>
     <color name="item_look">#b2b2b2</color>
+    <color name="red_praise">#ff5d4c</color>
 
     <color name="c1">#f1f1f1</color>
     <color name="c2">#eeeeee</color>
