@@ -114,7 +114,6 @@ public class PostActivity extends BaseActivity {
      */
     private void previewImage(int position) {
         Album.gallery(this)
-                .requestCode(ACTIVITY_REQUEST_PREVIEW_PHOTO) // Request code.
                 .statusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .toolBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
 //                .navigationBarColor(navigationBarColor) // NavigationBar color.
@@ -122,7 +121,7 @@ public class PostActivity extends BaseActivity {
                 .checkedList(mImageList) // List of pictures to preview.
                 .currentPosition(position) // First display position image of the list.
                 .checkFunction(true) // Anti-election function.
-                .start();
+                .start(ACTIVITY_REQUEST_PREVIEW_PHOTO);
     }
 
     @Override

@@ -139,16 +139,15 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
         Point p = CommUtil.getSize(this);
 
         mImageList = new ArrayList<>();
-        Album.album(AccountActivity.this)
-                .requestCode(ACTIVITY_REQUEST_SELECT_PHOTO) // Request code.
+        Album.albumRadio(AccountActivity.this)
                 .statusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .toolBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .title("相册") // Title.
-                .selectCount(1) // Choose up to a few pictures.
+//                .selectCount(1) // Choose up to a few pictures.
                 .columnCount(p.x >= 720 ? 4 : 3) // 宽度大于720px则显示4列
                 .camera(true) // Have a camera function.
-                .checkedList(mImageList) // Has selected the picture, automatically select.
-                .start();
+//                .checkedList(mImageList) // Has selected the picture, automatically select.
+                .start(ACTIVITY_REQUEST_SELECT_PHOTO);
     }
 
     public String hideUserPhone(String phone) {

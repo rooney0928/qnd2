@@ -37,10 +37,10 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-//    public static final String ROOT = "https://mapi.qunadai.com/";
-    public static final String ROOT = "https://mapit.qunadai.com/";
+    public static final String ROOT = "https://mapi.qunadai.com/";
+//    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
-//    public static final String ROOT = "http://192.168.13.203:8282/";
+//    public static final String ROOT = "http://192.168.12.233:10080/";
 
 
     static QndApi qndApi;

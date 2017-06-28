@@ -2,6 +2,7 @@ package com.app.qunadai;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 
 import com.pgyersdk.Pgy;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -14,18 +15,16 @@ import com.umeng.analytics.MobclickAgent;
  * Created by wayne on 2017/1/5.
  */
 
-public class MyApp extends Application{
+public class MyApp extends Application {
     public static Context context;
 
     //测试
-    public static final String MX_KEY = "3ef6ede77e524c038765a874e95ce2ad";
-    public static final String MX_TOKEN = "a4c70f4239b8488eb4f08b4378438d21";
+//    public static final String MX_KEY = "3ef6ede77e524c038765a874e95ce2ad";
+//    public static final String MX_TOKEN = "a4c70f4239b8488eb4f08b4378438d21";
 
     //上线
-//    public static final String MX_KEY = "191424e222e54baf8ec241394f8882f9";
-//    public static final String MX_TOKEN = "399efb697cef4e219c1365b096ac669d";
-
-
+    public static final String MX_KEY = "191424e222e54baf8ec241394f8882f9";
+    public static final String MX_TOKEN = "399efb697cef4e219c1365b096ac669d";
 
 
     //bugly
@@ -44,13 +43,19 @@ public class MyApp extends Application{
     }
 
     private void init() {
-        CrashReport.initCrashReport(getApplicationContext(),BUGLY_ID,false);
+        CrashReport.initCrashReport(getApplicationContext(), BUGLY_ID, false);
         MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        Pgy.init(this,PGY_KEY);
+        Pgy.init(this, PGY_KEY);
+
+        //umeng
+//        MobclickAgent.setDebugMode(false);
+//        MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig(
+//                context, UMENG_KEY, "qunadai", MobclickAgent.EScenarioType.E_UM_NORMAL, false);
+//        MobclickAgent.startWithConfigure(config);
 
         //talkingData
-        TCAgent.LOG_ON=true;
-        TCAgent.init(this);
+        TCAgent.LOG_ON = false;
         TCAgent.setReportUncaughtExceptions(false);
+        TCAgent.init(this);
     }
 }
