@@ -16,6 +16,7 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.bbs.PostNewBean;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -142,15 +143,20 @@ public interface QndApi {
                                         @Field("businessId") String businessId,
                                         @Field("access_token") String access_token);
 
+    //bbs
+    @POST("forum/articles/newArticle")
+    Observable<PostNewBean> postNew(@Query("access_token") String access_token, @Body RequestBody body);
+
+
     //me
     @GET("users/current")
     Observable<MeBean> getMeCurrent(@Query("access_token") String access_token);
 
     @POST("home/avatar")
-    Observable<AvatarBean> uploadAvatar(@Query("access_token")String access_token,@Body RequestBody body);
+    Observable<AvatarBean> uploadAvatar(@Query("access_token") String access_token, @Body RequestBody body);
 
     @PUT("users/current")
-    Observable<AvatarBean> uploadNickname(@Query("access_token")String access_token,@Body RequestBody body);
+    Observable<AvatarBean> uploadNickname(@Query("access_token") String access_token, @Body RequestBody body);
 
     @GET("home/creditinfo")
     Observable<PersonInfo> getPersonInfo(@Query("access_token") String access_token);

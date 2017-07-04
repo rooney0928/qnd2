@@ -254,7 +254,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             @Override
             public void onClick(View v) {
                 //发送登录验证码
-
                 if (NetworkUtil.checkNetwork(LoginActivity.this)) {
                     if (isRequest) {
                         ToastUtil.showToast(LoginActivity.this, "请稍后");

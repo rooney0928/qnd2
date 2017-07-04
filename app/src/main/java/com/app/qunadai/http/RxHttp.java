@@ -17,8 +17,11 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.bbs.PostNewBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,10 +40,10 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-    public static final String ROOT = "https://mapi.qunadai.com/";
+    //    public static final String ROOT = "https://mapi.qunadai.com/";
 //    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
-//    public static final String ROOT = "http://192.168.12.233:10080/";
+    public static final String ROOT = "http://192.168.7.165:8080/";
 
 
     static QndApi qndApi;
@@ -155,6 +158,15 @@ public class RxHttp {
     public static Observable<StatusBean> updateStatus(String mobileNumber, String businessId, String token) {
         return qndApi.updateStatus(mobileNumber, businessId, token);
     }
+
+    //bbs
+
+    //发帖
+    public static Observable<PostNewBean> postNew(String token, RequestBody body) {
+        return qndApi.postNew(token,body);
+    }
+
+
     //me
     //个人页面头像昵称
     public static Observable<MeBean> getMeCurrent(String token) {

@@ -11,6 +11,10 @@ android {
         versionCode 60
         versionName "4.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi','x86','armeabi-v7a','arm64-v8a';//x86
+        }
     }
 
     signingConfigs {
@@ -105,6 +109,8 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.0.7'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
+
+    compile 'com.zxy.android:tiny:0.0.6'
     //自动更新
     compile 'com.pgyersdk:sdk:2.5.6'
 
