@@ -197,6 +197,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
     public void setTitleRightEvent(View.OnClickListener listener) {
         tv_title_right.setOnClickListener(listener);
+        iv_title_img_right.setOnClickListener(listener);
     }
     public void setBackListener(View.OnClickListener listener){
         rl_back.setOnClickListener(listener);

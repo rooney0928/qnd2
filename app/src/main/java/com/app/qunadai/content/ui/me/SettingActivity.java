@@ -3,6 +3,8 @@ package com.app.qunadai.content.ui.me;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +16,13 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.FileSizeUtil;
 import com.app.qunadai.utils.FileUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
+import com.app.qunadai.utils.ToastUtil;
+import com.zxy.tiny.Tiny;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -115,6 +120,28 @@ public class SettingActivity extends BaseActivity {
         rl_setting_version.setOnClickListener(this);
 
         tv_settion_version.setText("v" + CommUtil.getVersionName(this));
+
+
+        setTinyCache();
+
+    }
+
+    private void setTinyCache() {
+        String tinyDir = Environment.getExternalStorageDirectory() + File.separator + "Android/data/" + getPackageName() + "/tiny/";
+        File tiny = new File(tinyDir);
+        String cacheText = "";
+        if (tiny.exists()) {
+            double size = FileSizeUtil.getFileOrFilesSize(tiny.getAbsolutePath(), FileSizeUtil.SIZETYPE_KB);
+            cacheText = size + " kb";
+            if (size >= 1000) {
+                size = FileSizeUtil.getFileOrFilesSize(tiny.getAbsolutePath(), FileSizeUtil.SIZETYPE_MB);
+                cacheText = size + " mb";
+            }
+
+            tv_setting_cache.setText(cacheText);
+        }else{
+            tv_setting_cache.setText("0.0 kb");
+        }
     }
 
     @Override
@@ -124,6 +151,14 @@ public class SettingActivity extends BaseActivity {
             case R.id.rl_setting_about:
                 Intent intentAbout = new Intent(this, AboutActivity.class);
                 startActivity(intentAbout);
+                break;
+            case R.id.rl_setting_cache:
+                boolean clear = Tiny.getInstance().clearCompressDirectory();
+                if(clear){
+                    setTinyCache();
+                    ToastUtil.showToast(this,"恭喜您，已清空缓存");
+                }
+
                 break;
         }
     }
