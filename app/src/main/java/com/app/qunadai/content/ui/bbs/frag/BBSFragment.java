@@ -9,19 +9,37 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.bbs.Post;
+import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.content.adapter.BBSHomeAdapter;
 import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseFragment;
+import com.app.qunadai.content.contract.bbs.BBSHomeContract;
+import com.app.qunadai.content.presenter.bbs.BBSHomePresenter;
 import com.app.qunadai.content.ui.bbs.PostActivity;
 import com.app.qunadai.content.ui.bbs.TalentActivity;
+import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * Created by wayne on 2017/5/22.
  */
 
-public class BBSFragment extends BaseFragment implements View.OnClickListener {
+public class BBSFragment extends BaseFragment implements View.OnClickListener, BBSHomeContract.View {
+    private BBSHomePresenter bbsHomePresenter;
+
+    private static final int PAGE_SIZE = 10;
+    int page = 0;
+    boolean isRefresh;
+
 
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
@@ -33,6 +51,8 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener {
 
     LinearLayoutManager linearLayoutManager;
     BBSHomeAdapter adapter;
+
+    private List<Post> list;
 
 
     public static BBSFragment getInstance() {
@@ -55,8 +75,10 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
+        bbsHomePresenter = new BBSHomePresenter(this);
+        list = new ArrayList<>();
 
-        adapter = new BBSHomeAdapter();
+        adapter = new BBSHomeAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
         rv_list.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
@@ -66,7 +88,27 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener {
         ll_bbs_post.setOnClickListener(this);
         ll_bbs_talent.setOnClickListener(this);
 
+        bbsHomePresenter.getPostList(page, PAGE_SIZE);
     }
+
+    /**
+     * 加载更多
+     */
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+            LogU.t("load bbs h");
+            if (!recyclerView.canScrollVertically(1)) {// 手指不能向上滑动了
+                // TODO 这里有个注意的地方，如果你刚进来时没有数据，
+                // TODO 但是设置了适配器，这个时候就会触发加载更多，需要开发者判断下是否有数据，如果有数据才去加载更多。
+                if (list != null && list.size() > 0) {
+                    page++;
+                    bbsHomePresenter.getPostList(page, PAGE_SIZE);
+                }
+            }
+        }
+    };
 
     @Override
     public void requestStart() {
@@ -75,7 +117,7 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void requestEnd() {
-
+        isRefresh = false;
     }
 
     @Override
@@ -90,7 +132,7 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_bbs_post:
                 //发帖
                 Intent intentPost = new Intent(getActivity(), PostActivity.class);
@@ -102,6 +144,37 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intentTalent);
                 break;
         }
+    }
+
+    @Override
+    public void postList(StrategyBean bean) {
+        //刷新
+        List<Post> productList = bean.getContent().getArticle().getContent();
+        list.clear();
+        list = productList;
+        adapter.setList(list);
+        linearLayoutManager.scrollToPosition(0);
+    }
+
+    @Override
+    public void postListMore(StrategyBean bean) {
+        //加载更多
+        List<Post> productList = bean.getContent().getArticle().getContent();
+        if (productList.size() > 0) {
+            list.addAll(productList);
+            adapter.setList(list);
+        } else {
+            if (page > 0) {
+                page--;
+            }
+            ToastUtil.showToast(getActivity(), "没有更多数据");
+        }
+    }
+
+    @Override
+    public void postListFail(String error) {
+        ToastUtil.showToast(getActivity(), error);
+
     }
 }
 

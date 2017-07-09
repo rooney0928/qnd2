@@ -276,9 +276,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void tokenFail() {
+        exeLogin();
+    }
+
+
+    public void exeLogin() {
         Intent intentLogin = new Intent(this, LoginActivity.class);
         startActivity(intentLogin);
     }
+
 
     @Override
     protected void onDestroy() {

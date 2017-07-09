@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
@@ -18,17 +19,19 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_comment_avatar"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@mipmap/default_avatar"/>
 
             <TextView
+                android:id="@+id/tv_comment_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="用户名11111111"
                 android:textColor="@color/text_black"
-                android:textSize="12dp"/>
+                android:textSize="12dp"
+                tools:text="用户名11111111"/>
 
             <View
                 android:layout_width="1dp"
@@ -38,11 +41,12 @@
                 android:background="@color/gap"/>
 
             <TextView
+                android:id="@+id/tv_comment_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="刚刚"
                 android:textColor="@color/item_info"
-                android:textSize="12dp"/>
+                android:textSize="12dp"
+                tools:text="刚刚"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -54,34 +58,38 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/cb_comment_praise"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="18dp"
                     android:button="@null"
-                    android:drawableLeft="@drawable/selector_comment_praise"
+                    android:drawableLeft="@drawable/selector_comment_item_praise"
                     android:drawablePadding="3dp"
-                    android:text="2000"
-                    android:textColor="@drawable/selector_comment_praise_text"
-                    android:textSize="12sp"/>
+                    android:textColor="@drawable/selector_comment_item_praise_text"
+                    android:textSize="12sp"
+                    tools:text="2000"/>
 
                 <TextView
+                    android:id="@+id/tv_comment_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:drawableLeft="@mipmap/ic_comment"
                     android:drawablePadding="3dp"
-                    android:text="9527"
                     android:textColor="@color/text_grey"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:text="9527"/>
             </LinearLayout>
         </LinearLayout>
         <!--评论内容-->
         <TextView
+            android:id="@+id/tv_comment_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="6dp"
             android:lineSpacingExtra="3dp"
-            android:text="《绝命毒师》系列创作者文斯·吉里根确定正在与索尼展开合作，将会在PSVR平台推出一款以《绝命毒师》为主题的“非游戏”类VR体验作品！体验者将可从【独特的角度】深入了解该系列的世界观！[群体围观]"/>
+            tools:text="《绝命毒师》系列创作者文斯·吉里根确定正在与索尼展开合作，将会在PSVR平台推出一款以《绝命毒师》为主题的“非游戏”类VR体验作品！体验者将可从【独特的角度】深入了解该系列的世界观！[群体围观]"/>
         <!--回复内容-->
         <LinearLayout
             android:id="@+id/ll_comment_reply"
@@ -89,7 +97,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:background="@drawable/ic_reply_box"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_reply"

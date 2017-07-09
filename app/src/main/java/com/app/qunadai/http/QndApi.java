@@ -16,7 +16,13 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.bbs.Comment;
+import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.PostListBean;
 import com.app.qunadai.bean.bbs.PostNewBean;
+import com.app.qunadai.bean.bbs.SendCommentBean;
+import com.app.qunadai.bean.bbs.StrategyBean;
+import com.app.qunadai.bean.bbs.TalentBean;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -144,8 +150,29 @@ public interface QndApi {
                                         @Field("access_token") String access_token);
 
     //bbs
+    @GET("forum/articles/postings")
+    Observable<TalentBean> getTalent(@Query("page") int page, @Query("size") int size);
+
+    @GET("forum/articles/strategies")
+    Observable<StrategyBean> getStrategies(@Query("page") int page, @Query("size") int size);
+
     @POST("forum/articles/newArticle")
     Observable<PostNewBean> postNew(@Query("access_token") String access_token, @Body RequestBody body);
+
+    @GET("forum/articles/mine")
+    Observable<PostListBean> getMyPostList(@Query("access_token") String token, @Query("page") int page, @Query("size") int size);
+
+    @GET("forum/comments/article/listForUser")
+    Observable<CommentList> getCommentList(@Query("access_token") String token, @Query("aid") String aid, @Query("page") int page, @Query("size") int size);
+
+    @GET("forum/comments/article/list")
+    Observable<CommentList> getCommentListNoUser(@Query("aid") String aid, @Query("page") int page, @Query("size") int size);
+
+    @POST("forum/comments/newComment/{articleId}")
+    Observable<SendCommentBean> sendComment(@Path("articleId") String articleId, @Query("access_token") String token, @Body RequestBody body);
+
+    @PUT("forum/articles/{articleId}/thumbUps")
+    Observable<SendCommentBean> sendComment(@Path("articleId") String articleId, @Query("access_token") String token);
 
 
     //me

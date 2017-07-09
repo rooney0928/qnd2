@@ -230,7 +230,6 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
         }
     }
 
-    private int size = 3;
 
     private void refreshImage() {
         //在这里上传图片

@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.ui.bbs.PostMyActivity;
 import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.bbs.frag.HelpFragment;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
@@ -127,7 +128,6 @@ public class MainActivity extends BaseActivity {
                     case R.id.rb_nav_limit:
                         vp_main.setCurrentItem(1);
 
-
                         if (NetworkUtil.checkNetwork(MainActivity.this)) {
                             if (limitFragment != null) {
                                 limitFragment.refreshMsg();
@@ -145,6 +145,8 @@ public class MainActivity extends BaseActivity {
                             public void onClick(View v) {
                                 //进入我的帖子
 
+                                Intent intentMyPost = new Intent(MainActivity.this, PostMyActivity.class);
+                                startActivity(intentMyPost);
                             }
                         });
                         break;

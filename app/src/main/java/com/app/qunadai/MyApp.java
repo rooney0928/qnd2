@@ -7,6 +7,8 @@ import android.os.Build;
 import com.pgyersdk.Pgy;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tendcloud.tenddata.TCAgent;
 import com.umeng.analytics.MobclickAgent;
 
@@ -19,12 +21,12 @@ public class MyApp extends Application {
     public static Context context;
 
     //测试
-//    public static final String MX_KEY = "3ef6ede77e524c038765a874e95ce2ad";
-//    public static final String MX_TOKEN = "a4c70f4239b8488eb4f08b4378438d21";
+    public static final String MX_KEY = "3ef6ede77e524c038765a874e95ce2ad";
+    public static final String MX_TOKEN = "a4c70f4239b8488eb4f08b4378438d21";
 
     //上线
-    public static final String MX_KEY = "191424e222e54baf8ec241394f8882f9";
-    public static final String MX_TOKEN = "399efb697cef4e219c1365b096ac669d";
+//    public static final String MX_KEY = "191424e222e54baf8ec241394f8882f9";
+//    public static final String MX_TOKEN = "399efb697cef4e219c1365b096ac669d";
 
 
     //bugly
@@ -34,6 +36,9 @@ public class MyApp extends Application {
 
     //pgy 蒲公英
     public static final String PGY_KEY = "48a92fa2e222dd69f83f4bc1684237c6";
+
+    private static final String WX_ID = "wx02d89c8c3173cb34";
+    public static IWXAPI api;
 
     @Override
     public void onCreate() {
@@ -53,9 +58,17 @@ public class MyApp extends Application {
 //                context, UMENG_KEY, "qunadai", MobclickAgent.EScenarioType.E_UM_NORMAL, false);
 //        MobclickAgent.startWithConfigure(config);
 
+        //WX
+        api = WXAPIFactory.createWXAPI(this,WX_ID,true);
+        api.registerApp(WX_ID);
+        api.getWXAppSupportAPI();
+
+
         //talkingData
         TCAgent.LOG_ON = false;
         TCAgent.setReportUncaughtExceptions(false);
         TCAgent.init(this);
     }
+
+
 }

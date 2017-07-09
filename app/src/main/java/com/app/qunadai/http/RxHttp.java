@@ -17,7 +17,12 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.PostListBean;
 import com.app.qunadai.bean.bbs.PostNewBean;
+import com.app.qunadai.bean.bbs.SendCommentBean;
+import com.app.qunadai.bean.bbs.StrategyBean;
+import com.app.qunadai.bean.bbs.TalentBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -40,10 +45,10 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-    //    public static final String ROOT = "https://mapi.qunadai.com/";
-//    public static final String ROOT = "https://mapit.qunadai.com/";
+    //        public static final String ROOT = "https://mapi.qunadai.com/";
+    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
-    public static final String ROOT = "http://192.168.7.165:8080/";
+//    public static final String ROOT = "http://192.168.7.165:8080/";
 
 
     static QndApi qndApi;
@@ -149,6 +154,7 @@ public class RxHttp {
         return qndApi.getLoanDetail(pid);
     }
 
+    //申请贷款，给后台做log
     public static Observable<ApplyBean> apply(String token, RequestBody body) {
         return qndApi.apply(token, body);
     }
@@ -161,9 +167,40 @@ public class RxHttp {
 
     //bbs
 
+    //达人攻略
+    public static Observable<TalentBean> getTalent(int page, int size) {
+        return qndApi.getTalent(page, size);
+    }
+
+
+    //bbs首页攻略
+    public static Observable<StrategyBean> getStrategies(int page, int size) {
+        return qndApi.getStrategies(page, size);
+    }
+
     //发帖
     public static Observable<PostNewBean> postNew(String token, RequestBody body) {
-        return qndApi.postNew(token,body);
+        return qndApi.postNew(token, body);
+    }
+
+    //我的帖子列表
+    public static Observable<PostListBean> getMyPostList(String token, int page, int size) {
+        return qndApi.getMyPostList(token, page, size);
+    }
+
+    //获取帖子回复列表
+    public static Observable<CommentList> getCommentList(String token, String aid, int page, int size) {
+        return qndApi.getCommentList(token, aid, page, size);
+    }
+
+    //获取帖子回复列表(无登录)
+    public static Observable<CommentList> getCommentListNoUser(String aid, int page, int size) {
+        return qndApi.getCommentListNoUser(aid, page, size);
+    }
+
+    //发送回复
+    public static Observable<SendCommentBean> sendComment(String token, String aid, RequestBody body) {
+        return qndApi.sendComment(aid, token, body);
     }
 
 
@@ -173,10 +210,12 @@ public class RxHttp {
         return qndApi.getMeCurrent(token);
     }
 
+    //上传头像
     public static Observable<AvatarBean> uploadAvatar(String token, RequestBody body) {
         return qndApi.uploadAvatar(token, body);
     }
 
+    //上传昵称
     public static Observable<AvatarBean> uploadNickname(String token, RequestBody body) {
         return qndApi.uploadNickname(token, body);
     }

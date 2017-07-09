@@ -3,6 +3,7 @@ package com.app.qunadai.content.ui.bbs;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -21,17 +22,23 @@ import com.app.qunadai.content.adapter.PostImgAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.bbs.PostNewContract;
 import com.app.qunadai.content.presenter.bbs.PostNewPresenter;
+import com.app.qunadai.third.eventbus.EventRefresh;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.FileSizeUtil;
+import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
+import com.bumptech.glide.Glide;
 import com.yanzhenjie.album.Album;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapBatchCallback;
 import com.zxy.tiny.callback.FileBatchCallback;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -96,6 +103,7 @@ public class PostActivity extends BaseActivity implements PostNewContract.View {
             return;
         }
         String[] pics = mImageList.toArray(new String[mImageList.size()]);
+
         /*
         Tiny.getInstance().source(pics).batchAsFile().batchCompress(new FileBatchCallback() {
             @Override
@@ -104,30 +112,47 @@ public class PostActivity extends BaseActivity implements PostNewContract.View {
                     String token = PrefUtil.getString(PostActivity.this, PrefKey.TOKEN, "");
 
                     String[] base64 = new String[outfile.length];
-                    for (String s : outfile) {
-                        LogU.t("path---" + s);
-                        LogU.t("size---" + FileSizeUtil.getFileOrFilesSize(s,FileSizeUtil.SIZETYPE_KB));
-                        CommUtil.Bitmap2StrByBase64(bm);
+
+                    for (int i = 0; i < outfile.length; i++) {
+//                        BitmapFactory.Options options = new BitmapFactory.Options();
+//                        options.inTempStorage = new byte[1024*1024*5]; //5MB的临时存储空间
+//                        Bitmap bm = BitmapFactory.decodeFile(outfile[i],options);
+                        Bitmap bm = BitmapFactory.decodeFile(outfile[i]);
+
+                        base64[i] = CommUtil.Bitmap2StrByBase64(bm);
+//                        LogU.t(base64[i]);
+//                        System.out.println(base64[i]);
+
+//                        ImgUtil.loadImg();
+//                        Glide.with(PostActivity.this).load(bm).into(iv_post_album);
                     }
-                    postNewPresenter.postNew(token, title, content, outfile);
+//                    CommUtil.Bitmap2StrByBase64(bm);
+                    postNewPresenter.postNew(token, title, content, base64);
 
                 }
             }
         });
-        */
-        Tiny.getInstance().source(pics).batchAsBitmap().batchCompress(new BitmapBatchCallback() {
-            @Override
-            public void callback(boolean isSuccess, Bitmap[] bitmaps) {
-                //return the batch compressed bitmap object
-                String[] base64 = new String[bitmaps.length];
-                String token = PrefUtil.getString(PostActivity.this, PrefKey.TOKEN, "");
+*/
+        if (pics.length > 0) {
+            Tiny.getInstance().source(pics).batchAsBitmap().batchCompress(new BitmapBatchCallback() {
+                @Override
+                public void callback(boolean isSuccess, Bitmap[] bitmaps) {
+                    //return the batch compressed bitmap object
+                    String[] base64 = new String[bitmaps.length];
+                    String token = PrefUtil.getString(PostActivity.this, PrefKey.TOKEN, "");
 
-                for (int i = 0; i < bitmaps.length; i++) {
-                    base64[i] = CommUtil.Bitmap2StrByBase64(bitmaps[i]);
+                    for (int i = 0; i < bitmaps.length; i++) {
+                        base64[i] = CommUtil.Bitmap2StrByBase64(bitmaps[i]);
+                    }
+                    postNewPresenter.postNew(token, title, content, base64);
                 }
-                postNewPresenter.postNew(token, title, content, base64);
-            }
-        });
+            });
+        }else{
+            String token = PrefUtil.getString(PostActivity.this, PrefKey.TOKEN, "");
+            postNewPresenter.postNew(token, title, content, new String[]{});
+        }
+
+
     }
 
     AlertDialog dialog;
@@ -274,6 +299,11 @@ public class PostActivity extends BaseActivity implements PostNewContract.View {
     @Override
     public void postNewOk(PostNewBean bean) {
         ToastUtil.showToast(this, "恭喜您，发帖成功");
+        if (manager != null) {
+            manager.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                    0);
+        }
+        EventBus.getDefault().post(new EventRefresh());
         finish();
     }
 

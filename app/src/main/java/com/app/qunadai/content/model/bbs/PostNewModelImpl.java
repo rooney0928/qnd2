@@ -1,4 +1,4 @@
-package com.app.qunadai.content.model;
+package com.app.qunadai.content.model.bbs;
 
 import com.app.qunadai.bean.bbs.PostNewBean;
 import com.app.qunadai.content.base.BaseReturnListener;

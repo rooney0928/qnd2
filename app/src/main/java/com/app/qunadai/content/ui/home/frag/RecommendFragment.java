@@ -55,6 +55,7 @@ public class RecommendFragment extends BaseFragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
         rv_recommend.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_recommend.setLayoutManager(linearLayoutManager);
+        rv_recommend.setNestedScrollingEnabled(false);
         rv_recommend.setAdapter(adapter);
     }
 

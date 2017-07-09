@@ -1,99 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/sv_layout"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/view_comment">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/sv_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!--正文模块-->
+            android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="12dp">
-                <!--标题-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="这是详情标题，还在为缺钱着急？快来看看这里有大把钞票给你，快来抢吧"
-                    android:textColor="@color/text_black"
-                    android:textSize="18dp"/>
-
-                <!--信息-->
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--正文模块-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@mipmap/default_avatar"/>
-
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+                    <!--标题-->
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_post_detail_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="用户名11111111"
                         android:textColor="@color/text_black"
-                        android:textSize="12dp"/>
+                        android:textSize="18dp"
+                        tools:text="这是详情标题，还在为缺钱着急？快来看看这里有大把钞票给你，快来抢吧"/>
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@color/gap"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="刚刚"
-                        android:textColor="@color/item_info"
-                        android:textSize="12dp"/>
-
+                    <!--信息-->
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="18dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic_eye"/>
+                            android:id="@+id/iv_post_detail_avatar"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/default_avatar"/>
 
                         <TextView
+                            android:id="@+id/tv_post_detail_username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="8090"
-                            android:textColor="@color/item_look"
-                            android:textSize="12dp"/>
-                    </LinearLayout>
-                </LinearLayout>
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/text_black"
+                            android:textSize="12dp"
+                            tools:text="用户名11111111"/>
 
-                <!--正文-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:lineSpacingExtra="3dp"
-                    android:text="【网红店与黄牛的爱恨纠葛】鲍师傅聘请了不同团队的充场人员假排队至少一个月。有“牛头”一天甚至为鲍师傅提供了200人次。“牛头”们“爆料”：“喜茶的投资很大，第一天一共聘请了300多个人假排队”。“假排队的人员构成很有讲究，有学生、有青年、有白领、有中年人，让人无法看破。”“喜茶做了七天就效果达到了”。
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/gap"/>
+
+                        <TextView
+                            android:id="@+id/tv_post_detail_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/item_info"
+                            android:textSize="12dp"
+                            tools:text="刚刚"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_eye"/>
+
+                            <TextView
+                                android:id="@+id/tv_post_detail_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="3dp"
+                                android:textColor="@color/item_look"
+                                android:textSize="12dp"
+                                tools:text="8090"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!--正文-->
+                    <TextView
+                        android:id="@+id/tv_post_detail_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="@color/text_black"
+                        android:visibility="visible"
+                        tools:text="【网红店与黄牛的爱恨纠葛】鲍师傅聘请了不同团队的充场人员假排队至少一个月。有“牛头”一天甚至为鲍师傅提供了200人次。“牛头”们“爆料”：“喜茶的投资很大，第一天一共聘请了300多个人假排队”。“假排队的人员构成很有讲究，有学生、有青年、有白领、有中年人，让人无法看破。”“喜茶做了七天就效果达到了”。
 
 
 SQUARE ENIX与Pokelabo共同开发的『SINoALICE』配信倒数PV
@@ -113,179 +128,130 @@ SQUARE ENIX与Pokelabo共同开发的『SINoALICE』配信倒数PV
 
 6月6日配信开始 →
 
-"
-                    android:textColor="@color/text_black"
-                    android:visibility="visible"/>
+"/>
 
-                <!--图片组-->
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-                <!--点赞，微信，朋友圈-->
+                    <!--图片组-->
+                    <android.support.v7.widget.RecyclerView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                    <!--点赞，微信，朋友圈-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/ll_post_detail_praise"
+                            android:layout_width="92dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_half_btn"
+                            android:gravity="center"
+
+                            android:padding="8dp">
+
+                            <CheckBox
+                                android:id="@+id/cb_post_detail_praise"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:background="@drawable/selector_post_praise"
+                                android:button="@null"
+                                android:checked="false"
+                                android:enabled="false"/>
+
+                            <TextView
+                                android:id="@+id/tv_post_detail_praise"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="300"
+                                android:textColor="@drawable/selector_comment_item_praise_text"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_post_detail_wechat"
+                            android:layout_width="92dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/bg_half_btn"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@mipmap/ic_wechat"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="微信"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_post_detail_friend"
+                            android:layout_width="92dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_half_btn"
+                            android:gravity="center"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:src="@mipmap/ic_friend"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="朋友圈"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--评论模块-->
                 <LinearLayout
+                    android:id="@+id/ll_comment_part"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="92dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_half_btn"
-                        android:gravity="center"
-                        android:padding="8dp">
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:src="@mipmap/ic_praise_p"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="300"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="92dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:background="@drawable/bg_half_btn"
-                        android:gravity="center"
-                        android:padding="8dp">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@mipmap/ic_wechat"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="微信"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="92dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_half_btn"
-                        android:gravity="center"
-                        android:padding="8dp">
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:src="@mipmap/ic_friend"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="朋友圈"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <!--评论模块-->
-            <LinearLayout
-                android:id="@+id/ll_comment_part"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="12dp"
-                    android:text="评论"
-                    android:textColor="@color/text_black"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gap"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-    <!--评论部分-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:background="#f6f6f6"
-        android:gravity="center_vertical">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="@drawable/bg_comment">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:src="@mipmap/ic_comment_pen"/>
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:text="让我也说两句"
-                        android:textColor="#b0b0b0"/>
+                        android:background="@color/white"
+                        android:padding="12dp"
+                        android:text="评论"
+                        android:textColor="@color/text_black"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gap"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
                 </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-            </RelativeLayout>
+    <!--评论部分-->
+    <include
+        android:id="@+id/view_comment"
+        layout="@layout/view_comment"/>
 
-            <EditText
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:maxLength="38"
-                android:maxLines="1"
-                android:paddingLeft="20dp"
-                android:text=""
-                android:textColor="@color/text_black"
-                android:textSize="14sp"/>
-        </RelativeLayout>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:paddingLeft="12dp"
-            android:src="@mipmap/ic_praise"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_comment_x"/>
-    </LinearLayout>
 </RelativeLayout>

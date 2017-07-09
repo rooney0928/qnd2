@@ -2,7 +2,7 @@ package com.app.qunadai.content.presenter.bbs;
 
 import com.app.qunadai.bean.bbs.PostNewBean;
 import com.app.qunadai.content.contract.bbs.PostNewContract;
-import com.app.qunadai.content.model.PostNewModelImpl;
+import com.app.qunadai.content.model.bbs.PostNewModelImpl;
 
 /**
  * Created by wayne on 2017/7/3.

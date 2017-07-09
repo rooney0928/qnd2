@@ -295,24 +295,6 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
 
     }
 
-    public void resetTextViewStatus(TextView textView, ImageView imageView, String text) {
-        String currentText = textView.getText().toString().trim();
-        if (currentText.equals(text)) {
-            textView.setSelected(false);
-            imageView.setSelected(false);
-        }
-    }
-
-    /**
-     * 更改选项的样式
-     */
-    public void changeSelectedStyle(TextView textView, ImageView imageView, boolean selected) {
-        if (textView.isSelected()) {
-            return;
-        }
-        textView.setSelected(selected);
-        imageView.setSelected(selected);
-    }
 
     @Override
     public void getProducts(ProductsBean bean) {

@@ -140,7 +140,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void initViewData() {
         //结束其他所有页面
-        AppManager.closeActivityWithout(this);
+//        AppManager.closeActivityWithout(this);
 
 
         bt_style_pwd.setOnClickListener(new View.OnClickListener() {

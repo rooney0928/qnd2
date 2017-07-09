@@ -36,7 +36,7 @@ android {
             // 移除无用的resource文件
             shrinkResources false
             //签名
-//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
         release {
             minifyEnabled false
@@ -111,6 +111,8 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
 
     compile 'com.zxy.android:tiny:0.0.6'
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //自动更新
     compile 'com.pgyersdk:sdk:2.5.6'
 
