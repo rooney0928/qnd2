@@ -15,6 +15,7 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.bbs.TalentContract;
 import com.app.qunadai.content.presenter.bbs.TalentPresenter;
 import com.app.qunadai.third.eventbus.EventRefresh;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -167,6 +168,10 @@ public class TalentActivity extends BaseActivity implements TalentContract.View 
         setTitleRightEvent(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 //进入发帖
                 Intent intentPost = new Intent(TalentActivity.this, PostActivity.class);
                 startActivity(intentPost);

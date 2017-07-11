@@ -103,9 +103,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     @Override
     protected void initData() {
-        CommUtil.tcEvent(getActivity(),"worth_page","身价着陆页");
+        CommUtil.tcEvent(getActivity(), "worth_page", "身价着陆页");
         limitPresenter = new LimitPresenter(this);
-        limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
 
         av_bankcard.setOnClickListener(this);
         av_realinfo.setOnClickListener(this);
@@ -121,17 +120,26 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         bt_limit_get_limit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 //进入身份认证
                 Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
-                startActivityForResult(intentInfo,ReqKey.REQ_BANK_INFO);
+                startActivityForResult(intentInfo, ReqKey.REQ_BANK_INFO);
             }
         });
         bt_limit_raise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 //进入身份认证
                 Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
-                startActivityForResult(intentInfo,ReqKey.REQ_BANK_INFO);
+                startActivityForResult(intentInfo, ReqKey.REQ_BANK_INFO);
             }
         });
         bt_limit_borrow.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +150,11 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                 startActivity(intentReco);
             }
         });
+
+        if (NetworkUtil.checkNetwork(getActivity())) {
+            refreshMsg();
+        }
+
     }
 
     @Override
@@ -182,16 +195,16 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         //征信
         setBindStatus(av_credit, bean.getContent().getPersonalValue().getZxStatus());
 
-        switch (bean.getContent().getPersonalValue().getBankStatus()){
+        switch (bean.getContent().getPersonalValue().getBankStatus()) {
             case "SUCCESS":
             case "HRISK":
             case "MRISK":
             case "LRISK":
             case "PROCESSING":
-                PrefUtil.putBoolean(getActivity(),PrefKey.BANK_CHECKED,true);
+                PrefUtil.putBoolean(getActivity(), PrefKey.BANK_CHECKED, true);
                 break;
             default:
-                PrefUtil.putBoolean(getActivity(),PrefKey.BANK_CHECKED,false);
+                PrefUtil.putBoolean(getActivity(), PrefKey.BANK_CHECKED, false);
                 break;
         }
     }
@@ -245,11 +258,10 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     public void requestEnd() {
 
     }
-    public void refreshMsg(){
-        if(NetworkUtil.checkNetwork(getActivity())){
-            if(getActivity()!=null){
-                limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
-            }
+
+    public void refreshMsg() {
+        if (getActivity() != null && !CommUtil.isNull(getToken()) && NetworkUtil.checkNetwork(getActivity())) {
+            limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
         }
 
     }
@@ -257,6 +269,10 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     @Override
     public void onClick(View v) {
         if (v instanceof AuthView) {
+            if (CommUtil.isNull(getToken())) {
+                exeLogin();
+                return;
+            }
             Bundle bundle = new Bundle();
             MainActivity mainActivity = (MainActivity) getActivity();
 
@@ -314,6 +330,10 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                     break;
             }
             if (v.getId() == R.id.av_bankcard || v.getId() == R.id.av_realinfo) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 switch (v.getId()) {
                     case R.id.av_bankcard:
                         //进入银行卡认证
@@ -331,10 +351,10 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                             av_bankcard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    CommUtil.tcEvent(getActivity(),"Bank_card","银行卡验证");
+                                    CommUtil.tcEvent(getActivity(), "Bank_card", "银行卡验证");
                                     Intent intentBank = new Intent(getActivity(), BankCardActivity.class);
                                     intentBank.putExtra("titleHide", true);
-                                    startActivityForResult(intentBank,ReqKey.REQ_BANK_INFO);
+                                    startActivityForResult(intentBank, ReqKey.REQ_BANK_INFO);
                                 }
                             });
                         }
@@ -342,12 +362,12 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                         break;
                     case R.id.av_realinfo:
                         //进入个人信息认证
-                        CommUtil.tcEvent(getActivity(),"Real_information","真实信息");
+                        CommUtil.tcEvent(getActivity(), "Real_information", "真实信息");
 
                         Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
                         intentInfo.putExtra("titleHide", true);
                         intentInfo.putExtra("isFromDetail", true);
-                        startActivityForResult(intentInfo,ReqKey.REQ_BANK_INFO);
+                        startActivityForResult(intentInfo, ReqKey.REQ_BANK_INFO);
                         break;
                 }
 
@@ -365,8 +385,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==Activity.RESULT_OK){
-            switch (requestCode){
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
                 case ReqKey.REQ_BANK_INFO:
                     limitPresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
 
@@ -423,7 +443,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                     break;
             }
         }
-
 
 
     }

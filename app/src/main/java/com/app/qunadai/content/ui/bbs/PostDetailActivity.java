@@ -80,8 +80,8 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
     private static final int ACTIVITY_REQUEST_PREVIEW_PHOTO = 102;
 
 
-    @BindView(R.id.swipe_layout)
-    SwipeRefreshLayout swipe_layout;
+    //    @BindView(R.id.swipe_layout)
+//    SwipeRefreshLayout swipe_layout;
     @BindView(R.id.sv_layout)
     ScrollView sv_layout;
     @BindView(R.id.rv_comment)
@@ -143,13 +143,6 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
     @Override
     protected void updateTopViewHideAndShow() {
         setTitleText("详情");
-        setTitleRightImg(R.mipmap.ic_repost);
-        setTitleRightEvent(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareToWX(SendMessageToWX.Req.WXSceneSession);
-            }
-        });
     }
 
     @Override
@@ -209,7 +202,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItem + 1 == commentAdapter.getItemCount()) {
-                    swipe_layout.setRefreshing(true);
+//                    swipe_layout.setRefreshing(true);
                     // 此处在现实项目中，请换成网络请求数据代码，sendRequest .....
 //                    handler.sendEmptyMessageDelayed(0, 3000);
                     LogU.t("load2");
@@ -253,10 +246,15 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                 .start(ACTIVITY_REQUEST_PREVIEW_PHOTO);
     }
 
+    boolean isAdmin;
+
     @Override
     public void initViewData() {
         post = (Post) getIntent().getSerializableExtra("post");
-
+        isAdmin = getIntent().getBooleanExtra("admin", false);
+        if (isAdmin) {
+            tv_post_detail_username.setText("去哪贷");
+        }
 
         ll_post_detail_praise.setOnClickListener(this);
         ll_post_detail_wechat.setOnClickListener(this);
@@ -271,17 +269,17 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         }
 
 
-        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                page = 0;
-                if (CommUtil.isNull(token)) {
-                    postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
-                } else {
-                    postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
-                }
-            }
-        });
+//        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                page = 0;
+//                if (CommUtil.isNull(token)) {
+//                    postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
+//                } else {
+//                    postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+//                }
+//            }
+//        });
         et_comment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -324,6 +322,10 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         switch (v.getId()) {
             case R.id.ll_post_detail_praise:
                 //点赞
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 boolean isPraise = cb_post_detail_praise.isChecked();
 
 
@@ -343,17 +345,21 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
                 break;
             case R.id.iv_comment_send:
-                if (CommUtil.isNull(token)) {
-                    exeLogin();
-                } else {
-                    String content = CommUtil.getText(et_comment);
-                    if (CommUtil.isNull(content)) {
-                        ToastUtil.showToast(this, "内容不能为空");
-                        return;
-                    }
-                    postDetailPresenter.sendComment(token, post.getId(), content);
-                }
+                sendComment();
                 break;
+        }
+    }
+
+    public void sendComment() {
+        if (CommUtil.isNull(token)) {
+            exeLogin();
+        } else {
+            String content = CommUtil.getText(et_comment);
+            if (CommUtil.isNull(content)) {
+                ToastUtil.showToast(this, "内容不能为空");
+                return;
+            }
+            postDetailPresenter.sendComment(token, post.getId(), content);
         }
     }
 
@@ -432,9 +438,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                             @Override
                             public void run() {
                                 hideLoading();
-                                if (swipe_layout != null && swipe_layout.isRefreshing()) {
-                                    swipe_layout.setRefreshing(false);
-                                }
+//                                if (swipe_layout != null && swipe_layout.isRefreshing()) {
+//                                    swipe_layout.setRefreshing(false);
+//                                }
                                 isRefresh = false;
                             }
                         });
@@ -454,12 +460,15 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         Post tpost = bean.getContent().getArticle();
         post = tpost;
         tv_post_detail_title.setText(tpost.getTitle());
-        tv_post_detail_username.setText(tpost.getUserNick());
+        if (!isAdmin) {
+            tv_post_detail_username.setText(tpost.getUserNick());
+        }
         tv_post_detail_time.setText(RelativeDateFormat.format(new Date(tpost.getCreatedTime())));
         tv_post_detail_view.setText("" + tpost.getBrowseAmount());
         tv_post_detail_content.setText(tpost.getContent());
         cb_post_detail_praise.setChecked(tpost.isPraisedByCurrentUser());
         tv_post_detail_praise.setText("" + tpost.getThumbUpAmount());
+        tv_post_detail_praise.setSelected(tpost.isPraisedByCurrentUser());
 
         String imgUrl = RxHttp.ROOT + "attachments/" + tpost.getUserAvatar();
         ImgUtil.loadImgAvatar(this, imgUrl, iv_post_detail_avatar);

@@ -19,8 +19,11 @@ import com.app.qunadai.content.ui.limit.frag.LimitFragment;
 import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
+import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventMe;
+import com.app.qunadai.third.eventbus.EventToken;
 import com.app.qunadai.third.eventbus.EventTurn;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
@@ -54,7 +57,7 @@ public class MainActivity extends BaseActivity {
     private HomeFragment homeFragment;
     private LimitFragment limitFragment;
     private BBSFragment bbsFragment;
-//    private HelpFragment helpFragment;
+    //    private HelpFragment helpFragment;
     private MeFragment meFragment;
 
     private List<Fragment> fragments = new ArrayList<>();
@@ -144,7 +147,10 @@ public class MainActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 //进入我的帖子
-
+                                if (CommUtil.isNull(getToken())) {
+                                    exeLogin();
+                                    return;
+                                }
                                 Intent intentMyPost = new Intent(MainActivity.this, PostMyActivity.class);
                                 startActivity(intentMyPost);
                             }
@@ -223,6 +229,26 @@ public class MainActivity extends BaseActivity {
     public void onMessageEvent(EventMe event) {
         if (meFragment != null) {
             meFragment.setMeMessage(event.getNickname());
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventToken event) {
+        if (CommUtil.isNull(getToken())) {
+            exeLogin();
+            return;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventLogin event) {
+        if (homeFragment != null) {
+            homeFragment.refreshMsg();
+        }
+        if (limitFragment != null) {
+            limitFragment.refreshMsg();
+        }
+        if (meFragment != null) {
+            meFragment.refreshMsg();
         }
     }
 

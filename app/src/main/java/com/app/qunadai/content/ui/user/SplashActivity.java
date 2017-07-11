@@ -75,7 +75,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
                 .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .callback(this)
                 .start()
-                ;
+        ;
     }
 
     @PermissionYes(300)
@@ -89,6 +89,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         // Failure.
         showSettingDialog();
     }
+
     private void showSettingDialog() {
         String title = "权限申请";
         String content = "需要(读写外部存储)权限,以保证程序正常功能的使用\n" +
@@ -105,7 +106,6 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
                 startActivity(intent);
                 dialog.dismiss();
                 AppManager.finishProgram();
-
             }
         });
         builder.setNegativeButton("我知道了", new DialogInterface.OnClickListener() {
@@ -171,7 +171,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         if (i % 2 == 0) {
             //余2为0则强制更新,此时关闭
             AppManager.finishProgram();
-        }else{
+        } else {
             loginDelay();
         }
     }
@@ -186,7 +186,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 //        pwdEncode = PrefUtil.getString(this, PrefKey.PWD_ENCODE, "");
         pwd = PrefUtil.getString(this, PrefKey.PWD, "");
         autoLogin = PrefUtil.getBoolean(this, PrefKey.AUTO_LOGIN, false);
-        //延迟3000毫秒登录
+        //延迟3000毫秒进入首页
         Observable.timer(3000, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {
                     @Override
@@ -194,13 +194,18 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (autoLogin && !CommUtil.isNull(phone) && !CommUtil.isNull(pwd)) {
-                                    splashPresenter.loginByPwd(phone, CommUtil.shaEncrypt(pwd));
-                                } else {
-                                    Intent intentLogin = new Intent(SplashActivity.this, LoginActivity.class);
-                                    startActivity(intentLogin);
-                                    finish();
-                                }
+//                                if (autoLogin && !CommUtil.isNull(phone) && !CommUtil.isNull(pwd)) {
+//                                    splashPresenter.loginByPwd(phone, CommUtil.shaEncrypt(pwd));
+//                                } else {
+//                                Intent intentLogin = new Intent(SplashActivity.this, LoginActivity.class);
+//                                startActivity(intentLogin);
+//                                finish();
+//                                }
+
+
+                                Intent intentMain = new Intent(SplashActivity.this,MainActivity.class);
+                                startActivity(intentMain);
+                                finish();
 
                             }
                         });

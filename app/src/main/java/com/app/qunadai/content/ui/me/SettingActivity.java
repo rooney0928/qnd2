@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.CommUtil;
@@ -97,10 +98,13 @@ public class SettingActivity extends BaseActivity {
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.PWD_ENCODE);
                 PrefUtil.removeItem(SettingActivity.this, PrefKey.PWD);
 
-                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+//                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+//                startActivity(intent);
+                EventBus.getDefault().post(new EventClose("main"));
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
                 startActivity(intent);
-//                EventBus.getDefault().post(new EventClose("main"));
-//                finish();
+                finish();
+
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

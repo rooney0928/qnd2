@@ -22,12 +22,16 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.LoginContract;
 import com.app.qunadai.content.presenter.LoginPresenter;
 import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.third.eventbus.EventClose;
+import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -415,6 +419,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void loginDone(Token token) {
         ToastUtil.showToastLong(this, "恭喜您，登录成功");
+//        EventBus.getDefault().post(new EventClose("main"));
+
         PrefUtil.putString(this, PrefKey.TOKEN, token.getContent().getAccess_token());
         PrefUtil.putString(this, PrefKey.PHONE, CommUtil.getText(et_login_phone));
         if (login_type == TYPE_PWD) {
@@ -435,8 +441,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intentMain);
+
+//                                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+//                                startActivity(intentMain);
+//                                finish();
+
+                                EventBus.getDefault().post(new EventLogin());
                                 finish();
                             }
                         });
@@ -472,21 +482,21 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
 
-    private long mPressedTime = 0;
-
-    @Override
-    public void onBackPressed() {
-        long mNowTime = System.currentTimeMillis();//获取第一次按键时间
-        if ((mNowTime - mPressedTime) > 2000) {//比较两次按键时间差
-            ToastUtil.showToast(this, "再按一次退出程序");
-            mPressedTime = mNowTime;
-        } else {
-            //退出程序
-            finish();
-            System.exit(0);
-            android.os.Process.killProcess(android.os.Process.myPid());
-        }
-    }
+//    private long mPressedTime = 0;
+//
+//    @Override
+//    public void onBackPressed() {
+//        long mNowTime = System.currentTimeMillis();//获取第一次按键时间
+//        if ((mNowTime - mPressedTime) > 2000) {//比较两次按键时间差
+//            ToastUtil.showToast(this, "再按一次退出程序");
+//            mPressedTime = mNowTime;
+//        } else {
+//            //退出程序
+//            finish();
+//            System.exit(0);
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//        }
+//    }
 
 
     /* 定义一个倒计时的内部类 */

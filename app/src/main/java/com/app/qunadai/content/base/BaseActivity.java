@@ -22,6 +22,8 @@ import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.OnCompatItemClickListener;
 import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.utils.AppManager;
+import com.app.qunadai.utils.PrefKey;
+import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.StatusBarUtil;
 
 import butterknife.BindView;
@@ -90,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         root = View.inflate(this, R.layout.activity_base, null);
 //        StatusBarUtil.StatusBarLightMode(this);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -192,30 +194,35 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitleBarVisible(boolean isShow) {
         ll_top.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
+
     public void setTitleLeftEvent(View.OnClickListener listener) {
         tv_title_left.setOnClickListener(listener);
     }
+
     public void setTitleRightEvent(View.OnClickListener listener) {
         tv_title_right.setOnClickListener(listener);
         iv_title_img_right.setOnClickListener(listener);
     }
-    public void setBackListener(View.OnClickListener listener){
+
+    public void setBackListener(View.OnClickListener listener) {
         rl_back.setOnClickListener(listener);
     }
 
     public void setTitleText(String title) {
         tv_title.setText(title);
     }
+
     public void setTitleLeftText(String title) {
         tv_title_left.setText(title);
         tv_title_left.setVisibility(View.VISIBLE);
     }
+
     public void setTitleRightText(String title) {
         tv_title_right.setText(title);
         tv_title_right.setVisibility(View.VISIBLE);
     }
 
-    public void setTitleRightImg(int imgId){
+    public void setTitleRightImg(int imgId) {
         iv_title_img_right.setImageResource(imgId);
         iv_title_img_right.setVisibility(View.VISIBLE);
     }
@@ -281,6 +288,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
 
     public void exeLogin() {
+        PrefUtil.removeItem(this, PrefKey.TOKEN);
         Intent intentLogin = new Intent(this, LoginActivity.class);
         startActivity(intentLogin);
     }
@@ -308,6 +316,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (pdLoad != null && pdLoad.isShowing()) {
             pdLoad.dismiss();
         }
+    }
+
+    public String getToken() {
+        return PrefUtil.getString(this, PrefKey.TOKEN, "");
     }
 
 

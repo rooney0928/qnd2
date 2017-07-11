@@ -33,6 +33,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/white"
+                android:text="请登录"
                 android:textSize="18dp" />
 
         </LinearLayout>

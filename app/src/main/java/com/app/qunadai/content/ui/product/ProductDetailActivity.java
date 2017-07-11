@@ -122,9 +122,12 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         String token = PrefUtil.getString(this, PrefKey.TOKEN, "");
 
 
-        if(NetworkUtil.checkNetwork(this)){
-            productDetailPresenter.requestPersonValue(token);
+        if (NetworkUtil.checkNetwork(this)) {
             productDetailPresenter.requestProductDetail(pid);
+
+            if (!CommUtil.isNull(token)) {
+                productDetailPresenter.requestPersonValue(token);
+            }
         }
     }
 
@@ -133,7 +136,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
 
 //                productDetailPresenter.applyOrder(PrefUtil.getString(ProductDetailActivity.this, PrefKey.TOKEN, ""),
 //                        mAmount, mTime, mTimeType, mPid, "H5");
@@ -158,8 +164,27 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
                     Intent intent = new Intent(ProductDetailActivity.this, BrowserActivity.class);
                     intent.putExtra("url", productDetailBean.getContent().getProduct().getUrl());
-                    intent.putExtra("title",productDetailBean.getContent().getProduct().getName());
+                    intent.putExtra("title", productDetailBean.getContent().getProduct().getName());
                     startActivity(intent);
+                }
+            }
+        });
+
+
+        av_bankcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                }
+            }
+        });
+
+        av_realinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
                 }
             }
         });
@@ -294,7 +319,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
                     showTermDialog(arr);
                 }
             });
-        }else{
+        } else {
             tv_detail_term.setText(bean.getTerm());
         }
 

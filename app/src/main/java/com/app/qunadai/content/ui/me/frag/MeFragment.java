@@ -19,6 +19,7 @@ import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ReqKey;
@@ -70,15 +71,19 @@ public class MeFragment extends BaseFragment implements MeContract.View {
 
     @Override
     protected void initData() {
-        CommUtil.tcEvent(getActivity(),"my_page","我的着陆页");
+        CommUtil.tcEvent(getActivity(), "my_page", "我的着陆页");
         mePresenter = new MePresenter(this);
         ImgUtil.loadRound(getActivity(), R.mipmap.default_avatar, iv_me_avatar);
-        mePresenter.requestCurrent(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+
 
         rl_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommUtil.tcEvent(getActivity(),"Personal_information","个人信息");
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
+                CommUtil.tcEvent(getActivity(), "Personal_information", "个人信息");
                 Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
                 startActivity(intentInfo);
             }
@@ -86,7 +91,11 @@ public class MeFragment extends BaseFragment implements MeContract.View {
         rl_loan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommUtil.tcEvent(getActivity(),"My_loan","我的贷款");
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
+                CommUtil.tcEvent(getActivity(), "My_loan", "我的贷款");
             }
         });
         rl_setting.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +108,10 @@ public class MeFragment extends BaseFragment implements MeContract.View {
         rl_me_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 if (localMeBean != null) {
                     Intent intent = new Intent(getActivity(), AccountActivity.class);
                     intent.putExtra("nickname", localMeBean.getContent().getUser().getNick());
@@ -108,7 +121,16 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                 }
             }
         });
+        if (NetworkUtil.checkNetwork(getActivity())) {
+            refreshMsg();
+        }
 
+    }
+
+    public void refreshMsg() {
+        if (getActivity() != null && !CommUtil.isNull(getToken()) && mePresenter != null) {
+            mePresenter.requestCurrent(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+        }
     }
 
     @Override
@@ -150,9 +172,11 @@ public class MeFragment extends BaseFragment implements MeContract.View {
         mePresenter.requestCurrent(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
 
     }
+
     @Override
     public void tokenFail() {
         Intent intentLogin = new Intent(getActivity(), LoginActivity.class);
         startActivity(intentLogin);
     }
+
 }

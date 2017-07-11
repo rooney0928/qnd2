@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.app.qunadai.content.ui.user.LoginActivity;
+import com.app.qunadai.utils.PrefKey;
+import com.app.qunadai.utils.PrefUtil;
 
 import butterknife.ButterKnife;
 
@@ -90,4 +92,15 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         Intent intentLogin = new Intent(getActivity(), LoginActivity.class);
         startActivity(intentLogin);
     }
+
+    public String getToken() {
+        return PrefUtil.getString(getActivity(), PrefKey.TOKEN, "");
+    }
+
+    public void exeLogin() {
+        PrefUtil.removeItem(getActivity(), PrefKey.TOKEN);
+        Intent intentLogin = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intentLogin);
+    }
+
 }

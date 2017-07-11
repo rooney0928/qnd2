@@ -75,6 +75,7 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     protected void initBundle(Bundle savedInstanceState) {
 
     }
+    int lastVisibleItem;
 
     @Override
     protected void initData() {
@@ -87,6 +88,29 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
         rv_list.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_list.setLayoutManager(linearLayoutManager);
         rv_list.setAdapter(adapter);
+        rv_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView,
+                                             int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItem + 1 == adapter.getItemCount()) {
+//                    swipe_layout.setRefreshing(true);
+                    // 此处在现实项目中，请换成网络请求数据代码，sendRequest .....
+//                    handler.sendEmptyMessageDelayed(0, 3000);
+                    page++;
+                    bbsHomePresenter.getPostList(page, PAGE_SIZE);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+
+        });
 
         ll_bbs_post.setOnClickListener(this);
         ll_bbs_talent.setOnClickListener(this);

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_home"
@@ -127,10 +128,10 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="center"
-
                     android:orientation="vertical"
                     android:paddingBottom="21dp"
-                    android:paddingTop="21dp">
+                    android:paddingTop="21dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -194,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="0"
+                        android:text="1000"
                         android:textColor="@color/limit_value"
                         android:textSize="40sp"/>
 
@@ -231,10 +232,10 @@
                     android:background="@color/white">
 
                     <TextView
-                        android:drawablePadding="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:drawablePadding="5dp"
                         android:drawableRight="@mipmap/ic_go"
                         android:text="更多贷款产品"/>
                 </RelativeLayout>

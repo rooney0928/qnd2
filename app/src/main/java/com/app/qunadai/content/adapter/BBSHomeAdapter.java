@@ -91,7 +91,7 @@ public class BBSHomeAdapter extends RecyclerView.Adapter {
             ImgUtil.loadImgAvatar(context, imgUrl, iv_post_avatar);
 
             tv_post_title.setText(p.getTitle());
-            tv_post_username.setText("去哪贷小蜜");
+            tv_post_username.setText("去哪贷");
             tv_post_time.setText(RelativeDateFormat.format(new Date(p.getCreatedTime())));
             tv_post_view.setText("" + p.getBrowseAmount());
 
@@ -106,6 +106,7 @@ public class BBSHomeAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intentDetail = new Intent(context, PostDetailActivity.class);
                     intentDetail.putExtra("post", p);
+                    intentDetail.putExtra("admin",true);
                     context.startActivity(intentDetail);
                 }
             });

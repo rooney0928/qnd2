@@ -72,6 +72,10 @@ public class PostMyActivity extends BaseActivity implements PostMyContract.View 
         setTitleRightEvent(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 //进入发帖
                 Intent intentPost = new Intent(PostMyActivity.this, PostActivity.class);
                 startActivity(intentPost);

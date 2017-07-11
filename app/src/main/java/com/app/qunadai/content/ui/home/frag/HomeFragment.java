@@ -121,7 +121,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
     @Override
     protected void initData() {
-        CommUtil.tcEvent(getActivity(),"home_page","首页着陆页");
+        CommUtil.tcEvent(getActivity(), "home_page", "首页着陆页");
 
         homePresenter = new HomePresenter(this);
         fragments = new ArrayList<>();
@@ -155,7 +155,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             @Override
             public void onClick(View v) {
                 //进入贷款产品列表
-                CommUtil.tcEvent(getActivity(),"Rapid_loan","极速贷款");
+                CommUtil.tcEvent(getActivity(), "Rapid_loan", "极速贷款");
                 Intent intentProducts = new Intent(getActivity(), ProductsActivity.class);
                 startActivity(intentProducts);
             }
@@ -172,15 +172,26 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             @Override
             public void onClick(View v) {
                 //进入推荐列表
-                CommUtil.tcEvent(getActivity(),"Loans_to_recommend","贷款推荐");
+                CommUtil.tcEvent(getActivity(), "Loans_to_recommend", "贷款推荐");
                 Intent intentReco = new Intent(getActivity(), RecommendActivity.class);
                 startActivity(intentReco);
+            }
+        });
+        bt_home_borrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入贷款列表
+                Intent intentProducts = new Intent(getActivity(), ProductsActivity.class);
+                startActivity(intentProducts);
             }
         });
         iv_home_banner.setOnClickListener(this);
 
         homePresenter.getHomeRecommend();
-        homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
+
+        if (NetworkUtil.checkNetwork(getActivity())) {
+            refreshMsg();
+        }
     }
 
     private void initTabLayout() {
@@ -218,20 +229,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
     @Override
     public void getPersonValue(PersonBean bean) {
-        LogU.t("limit-"+bean.getContent().getPersonalValue().getValuation());
+        LogU.t("limit-" + bean.getContent().getPersonalValue().getValuation());
         ll_get_amount.setVisibility(View.GONE);
         ll_home_allow_limit.setVisibility(View.GONE);
         if (0 != bean.getContent().getPersonalValue().getValuation()) {
             ll_home_allow_limit.setVisibility(View.VISIBLE);
-            tv_home_allow_limit.setText(""+bean.getContent().getPersonalValue().getValuation());
-            bt_home_borrow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //进入贷款列表
-                    Intent intentProducts = new Intent(getActivity(),ProductsActivity.class);
-                    startActivity(intentProducts);
-                }
-            });
+            tv_home_allow_limit.setText("" + bean.getContent().getPersonalValue().getValuation());
+
         } else {
             ll_get_amount.setVisibility(View.VISIBLE);
             rl_home_get_limit.setOnClickListener(new View.OnClickListener() {
@@ -246,17 +250,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
         }
     }
 
-    public void refreshMsg(){
-        if(homePresenter!=null){
+    public void refreshMsg() {
+        if (getActivity() != null && !CommUtil.isNull(getToken()) && homePresenter != null) {
             homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
-
         }
-
     }
 
     @Override
     public void getPersonValueFail(String error) {
-        ToastUtil.showToast(getActivity(), error+"-h");
+        ToastUtil.showToast(getActivity(), error + "-h");
     }
 
     @Override
@@ -298,9 +300,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_home_banner:
-                CommUtil.tcEvent(getActivity(),"banner","焦点图");
+                CommUtil.tcEvent(getActivity(), "banner", "焦点图");
                 break;
         }
     }

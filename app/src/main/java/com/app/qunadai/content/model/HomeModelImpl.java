@@ -78,39 +78,35 @@ public class HomeModelImpl implements HomeContract.Model {
     @Override
     public void requestPersonValue(String token) {
 
-        if(CommUtil.isNull(token)){
-            onReturnDataListener.tokenFail();
-        }else{
-            Observable<PersonBean> request = RxHttp.getInstance().getPersonValue(token);
-            Subscription sub = request.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new RxSubscriber<PersonBean>() {
-                        @Override
-                        public void onStart() {
-                            onReturnDataListener.requestStart();
-                            super.onStart();
-                        }
+        Observable<PersonBean> request = RxHttp.getInstance().getPersonValue(token);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<PersonBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
 
-                        @Override
-                        protected void onError(ApiException ex) {
-                            onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
-                            if(ex.isTokenFail()){
-                                onReturnDataListener.tokenFail();
-                            }
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        if (ex.isTokenFail()) {
+                            onReturnDataListener.tokenFail();
                         }
+                    }
 
-                        @Override
-                        protected void onOk(PersonBean bean) {
-                            onReturnDataListener.getPersonValue(bean);
-                        }
+                    @Override
+                    protected void onOk(PersonBean bean) {
+                        onReturnDataListener.getPersonValue(bean);
+                    }
 
-                        @Override
-                        protected void requestEnd() {
-                            onReturnDataListener.requestEnd();
-                        }
-                    });
-            RxHolder.addSubscription(sub);
-        }
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
 
     }
 }

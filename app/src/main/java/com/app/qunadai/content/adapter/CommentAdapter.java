@@ -21,6 +21,7 @@ import com.app.qunadai.content.presenter.bbs.PostCommentPresenter;
 import com.app.qunadai.content.ui.bbs.ReplyActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventProgress;
+import com.app.qunadai.third.eventbus.EventToken;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
@@ -152,17 +153,27 @@ public class CommentAdapter extends RecyclerView.Adapter {
                 }
             });
 */
-
-            cb_comment_praise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        postCommentPresenter.praiseComment(c.getId(), token);
-                    } else {
-                        postCommentPresenter.cancelPraiseComment(c.getId(), token);
+            if(CommUtil.isNull(token)){
+                cb_comment_praise.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new EventToken());
                     }
-                }
-            });
+                });
+            }else{
+                cb_comment_praise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        if (isChecked) {
+                            postCommentPresenter.praiseComment(c.getId(), token);
+                        } else {
+                            postCommentPresenter.cancelPraiseComment(c.getId(), token);
+                        }
+                    }
+                });
+            }
+
 
 
         }
