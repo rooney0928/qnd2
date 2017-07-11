@@ -103,7 +103,7 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
         String phone = getIntent().getStringExtra("phone");
         String avatar = getIntent().getStringExtra("avatar");
 
-        String imgUrl = RxHttp.ROOT + "/attachments/" + avatar;
+        String imgUrl = RxHttp.ROOT + "attachments/" + avatar;
 
         ImgUtil.loadRound(this, imgUrl, iv_account_avatar);
 
@@ -251,7 +251,7 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
     @Override
     public void uploadAvatar(AvatarBean bean) {
-        String imgUrl = RxHttp.ROOT + "/attachments/" + bean.getContent().getUser().getAvatar();
+        String imgUrl = RxHttp.ROOT + "attachments/" + bean.getContent().getUser().getAvatar();
         ImgUtil.loadRound(this, imgUrl, iv_account_avatar);
         EventBus.getDefault().post(new EventMe());
 

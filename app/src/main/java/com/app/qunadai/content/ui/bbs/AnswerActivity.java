@@ -21,7 +21,7 @@ public class AnswerActivity extends BaseActivity {
 
     @Override
     protected void updateTopViewHideAndShow() {
-
+        setTitleText("帮助");
     }
 
     @Override

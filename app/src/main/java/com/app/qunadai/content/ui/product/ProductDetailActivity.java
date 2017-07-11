@@ -177,7 +177,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         productDetailBean = pdbean;
         ProductDetailBean.ContentBean.ProductBean bean = pdbean.getContent().getProduct();
         //头部
-        String imgUrl = RxHttp.ROOT + "/attachments/" + bean.getIcon();
+        String imgUrl = RxHttp.ROOT + "attachments/" + bean.getIcon();
         ImgUtil.loadImgAvatar(this, imgUrl, iv_detail_avatar);
         tv_detail_name.setText(bean.getName());
         tv_detail_ratesuc.setText("成功率：" + bean.getSucRate());

@@ -1,6 +1,8 @@
 package com.app.qunadai.content.presenter.bbs;
 
 import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.PostBean;
+import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.content.contract.bbs.PostDetailContract;
 import com.app.qunadai.content.model.bbs.PostDetailModelImpl;
@@ -17,6 +19,16 @@ public class PostDetailPresenter implements PostDetailContract.Presenter {
     public PostDetailPresenter(PostDetailContract.View iview) {
         this.view = iview;
         model = new PostDetailModelImpl(new PostDetailModelImpl.OnReturnDataListener() {
+            @Override
+            public void getPostDetail(PostBean bean) {
+                view.getPostDetail(bean);
+            }
+
+            @Override
+            public void getPostDetailFail(String error) {
+                view.getPostDetailFail(error);
+            }
+
             @Override
             public void commentList(CommentList bean) {
                 view.commentList(bean);
@@ -43,6 +55,26 @@ public class PostDetailPresenter implements PostDetailContract.Presenter {
             }
 
             @Override
+            public void praisePost(PraiseBean bean) {
+                view.praisePost(bean);
+            }
+
+            @Override
+            public void praisePostFail(String error) {
+                view.praisePostFail(error);
+            }
+
+            @Override
+            public void cancelPraisePost(PraiseBean bean) {
+                view.cancelPraisePost(bean);
+            }
+
+            @Override
+            public void cancelPraisePostFail(String error) {
+                view.cancelPraisePostFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -65,6 +97,16 @@ public class PostDetailPresenter implements PostDetailContract.Presenter {
     }
 
     @Override
+    public void getPostDetail(String aid, String token) {
+        model.getPostDetail(aid, token);
+    }
+
+    @Override
+    public void getPostDetailNoUser(String aid) {
+        model.getPostDetailNoUser(aid);
+    }
+
+    @Override
     public void getCommentList(String token, String aid, int page, int size) {
         model.getCommentList(token, aid, page, size);
     }
@@ -77,5 +119,15 @@ public class PostDetailPresenter implements PostDetailContract.Presenter {
     @Override
     public void sendComment(String token, String aid, String content) {
         model.sendComment(token, aid, content);
+    }
+
+    @Override
+    public void praisePost(String aid, String token) {
+        model.praisePost(aid, token);
+    }
+
+    @Override
+    public void cancelPraisePost(String aid, String token) {
+        model.cancelPraisePost(aid, token);
     }
 }

@@ -18,8 +18,10 @@ import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.PostBean;
 import com.app.qunadai.bean.bbs.PostListBean;
 import com.app.qunadai.bean.bbs.PostNewBean;
+import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
@@ -188,6 +190,14 @@ public class RxHttp {
         return qndApi.getMyPostList(token, page, size);
     }
 
+    public static Observable<PostBean> getPostDetail(String aid, String token) {
+        return qndApi.getPostDetail(aid, token);
+    }
+
+    public static Observable<PostBean> getPostDetailNoUser(String aid) {
+        return qndApi.getPostDetailNoUser(aid);
+    }
+
     //获取帖子回复列表
     public static Observable<CommentList> getCommentList(String token, String aid, int page, int size) {
         return qndApi.getCommentList(token, aid, page, size);
@@ -203,6 +213,25 @@ public class RxHttp {
         return qndApi.sendComment(aid, token, body);
     }
 
+    //给帖子点赞
+    public static Observable<PraiseBean> praisePost(String aid, String token) {
+        return qndApi.praisePost(aid, token);
+    }
+
+    //给帖子取消点赞
+    public static Observable<PraiseBean> cancelPraisePost(String aid, String token) {
+        return qndApi.cancelPraisePost(aid, token);
+    }
+
+    //给回复点赞
+    public static Observable<PraiseBean> praiseComment(String cid, String token) {
+        return qndApi.praiseComment(cid, token);
+    }
+
+    //给回复取消点赞
+    public static Observable<PraiseBean> cancelPraiseComment(String cid, String token) {
+        return qndApi.cancelPraiseComment(cid, token);
+    }
 
     //me
     //个人页面头像昵称

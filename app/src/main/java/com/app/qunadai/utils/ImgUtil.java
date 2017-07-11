@@ -21,14 +21,17 @@ public class ImgUtil {
     }
 
     public static void loadImgAvatar(Context context, int id, ImageView iv) {
-        Glide.with(context).load(id).error(R.mipmap.moren).into(iv);
+        Glide.with(context).load(id).error(R.mipmap.moren).transform(new GlideCircleTransform(context)).into(iv);
     }
 
     public static void loadImgAvatar(Context context, String url, ImageView iv) {
-        Glide.with(context).load(url).error(R.mipmap.moren).into(iv);
+        Glide.with(context).load(url).error(R.mipmap.moren).transform(new GlideCircleTransform(context)).into(iv);
     }
 
     public static void loadImg(Context context, String url, ImageView iv){
         Glide.with(context).load(url).into(iv);
+    }
+    public static void loadImg(Context context, int id, ImageView iv){
+        Glide.with(context).load(id).into(iv);
     }
 }

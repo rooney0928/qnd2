@@ -197,6 +197,7 @@ public class PostActivity extends BaseActivity implements PostNewContract.View {
                 previewImage(position);
             }
         });
+        adapter.setCanDelete(true);
         gridLayoutManager = new GridLayoutManager(this, 4);
         rv_list.setLayoutManager(gridLayoutManager);
         rv_list.setAdapter(adapter);
@@ -235,7 +236,7 @@ public class PostActivity extends BaseActivity implements PostNewContract.View {
                         .statusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                         .toolBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
                         .title("相册") // Title.
-                        .selectCount(9) // Choose up to a few pictures.
+                        .selectCount(3) // Choose up to a few pictures.
                         .columnCount(p.x >= 720 ? 4 : 3) // 宽度大于720px则显示4列
                         .camera(true) // Have a camera function.
                         .checkedList(mImageList) // Has selected the picture, automatically select.

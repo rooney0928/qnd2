@@ -101,13 +101,13 @@
 
                     <!--正文-->
                     <TextView
+
                         android:id="@+id/tv_post_detail_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:lineSpacingExtra="3dp"
                         android:textColor="@color/text_black"
-                        android:visibility="visible"
                         tools:text="【网红店与黄牛的爱恨纠葛】鲍师傅聘请了不同团队的充场人员假排队至少一个月。有“牛头”一天甚至为鲍师傅提供了200人次。“牛头”们“爆料”：“喜茶的投资很大，第一天一共聘请了300多个人假排队”。“假排队的人员构成很有讲究，有学生、有青年、有白领、有中年人，让人无法看破。”“喜茶做了七天就效果达到了”。
 
 
@@ -132,7 +132,7 @@ SQUARE ENIX与Pokelabo共同开发的『SINoALICE』配信倒数PV
 
                     <!--图片组-->
                     <android.support.v7.widget.RecyclerView
-
+                        android:id="@+id/rv_pics"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
                     <!--点赞，微信，朋友圈-->
@@ -145,11 +145,9 @@ SQUARE ENIX与Pokelabo共同开发的『SINoALICE』配信倒数PV
                         <LinearLayout
                             android:id="@+id/ll_post_detail_praise"
                             android:layout_width="92dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="30dp"
                             android:background="@drawable/bg_half_btn"
-                            android:gravity="center"
-
-                            android:padding="8dp">
+                            android:gravity="center">
 
                             <CheckBox
                                 android:id="@+id/cb_post_detail_praise"
@@ -169,15 +167,15 @@ SQUARE ENIX与Pokelabo共同开发的『SINoALICE』配信倒数PV
                                 android:textColor="@drawable/selector_comment_item_praise_text"/>
                         </LinearLayout>
 
+
                         <LinearLayout
                             android:id="@+id/ll_post_detail_wechat"
                             android:layout_width="92dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="30dp"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
                             android:background="@drawable/bg_half_btn"
-                            android:gravity="center"
-                            android:padding="8dp">
+                            android:gravity="center">
 
                             <ImageView
                                 android:layout_width="16dp"
@@ -194,10 +192,9 @@ SQUARE ENIX与Pokelabo共同开发的『SINoALICE』配信倒数PV
                         <LinearLayout
                             android:id="@+id/ll_post_detail_friend"
                             android:layout_width="92dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="30dp"
                             android:background="@drawable/bg_half_btn"
-                            android:gravity="center"
-                            android:padding="8dp">
+                            android:gravity="center">
 
                             <ImageView
                                 android:layout_width="12dp"

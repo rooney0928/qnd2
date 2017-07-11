@@ -24,11 +24,15 @@ public class PostImgAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<String> images;
     private OnCompatItemClickListener itemClickListener;
-
+    private boolean canDelete;
 
     public PostImgAdapter(Context context, OnCompatItemClickListener itemClickListener) {
         this.context = context;
         this.itemClickListener = itemClickListener;
+    }
+
+    public void setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
     }
 
     public void setImages(List<String> images) {
@@ -69,14 +73,18 @@ public class PostImgAdapter extends RecyclerView.Adapter {
         public void setData() {
             String path = images.get(getAdapterPosition());
             ImgUtil.loadImg(context, path, iv_post_img);
-
-            iv_post_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    images.remove(getAdapterPosition());
-                    notifyDataSetChanged();
-                }
-            });
+            if (canDelete) {
+                iv_post_delete.setVisibility(View.VISIBLE);
+                iv_post_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        images.remove(getAdapterPosition());
+                        notifyDataSetChanged();
+                    }
+                });
+            } else {
+                iv_post_delete.setVisibility(View.GONE);
+            }
 
             iv_post_img.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -41,7 +41,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name=".content.ui.user.RegisterActivity"
             android:screenOrientation="portrait">
@@ -79,6 +78,9 @@
         </activity>
 
         <!--bbs-->
+        <activity
+            android:name=".content.ui.bbs.HelpActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".content.ui.bbs.AnswerActivity"
             android:screenOrientation="portrait">

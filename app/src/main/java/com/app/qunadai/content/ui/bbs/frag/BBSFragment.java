@@ -16,6 +16,7 @@ import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.bbs.BBSHomeContract;
 import com.app.qunadai.content.presenter.bbs.BBSHomePresenter;
+import com.app.qunadai.content.ui.bbs.HelpActivity;
 import com.app.qunadai.content.ui.bbs.PostActivity;
 import com.app.qunadai.content.ui.bbs.TalentActivity;
 import com.app.qunadai.utils.LogU;
@@ -45,6 +46,8 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     RecyclerView rv_list;
     @BindView(R.id.ll_bbs_post)
     LinearLayout ll_bbs_post;
+    @BindView(R.id.ll_bbs_help)
+    LinearLayout ll_bbs_help;
 
     @BindView(R.id.ll_bbs_talent)
     LinearLayout ll_bbs_talent;
@@ -87,6 +90,7 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
 
         ll_bbs_post.setOnClickListener(this);
         ll_bbs_talent.setOnClickListener(this);
+        ll_bbs_help.setOnClickListener(this);
 
         bbsHomePresenter.getPostList(page, PAGE_SIZE);
     }
@@ -142,6 +146,10 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
                 //进入贷款达人
                 Intent intentTalent = new Intent(getActivity(), TalentActivity.class);
                 startActivity(intentTalent);
+                break;
+            case R.id.ll_bbs_help:
+                Intent intentHelp = new Intent(getActivity(), HelpActivity.class);
+                startActivity(intentHelp);
                 break;
         }
     }

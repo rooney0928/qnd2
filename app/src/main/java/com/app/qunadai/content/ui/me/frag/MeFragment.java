@@ -114,7 +114,7 @@ public class MeFragment extends BaseFragment implements MeContract.View {
     @Override
     public void getCurrent(MeBean meBean) {
         localMeBean = meBean;
-        String imgUrl = RxHttp.ROOT + "/attachments/" + meBean.getContent().getUser().getAvatar();
+        String imgUrl = RxHttp.ROOT + "attachments/" + meBean.getContent().getUser().getAvatar();
         ImgUtil.loadRound(getActivity(), imgUrl, iv_me_avatar);
         tv_me_name.setText(meBean.getContent().getUser().getNick());
     }

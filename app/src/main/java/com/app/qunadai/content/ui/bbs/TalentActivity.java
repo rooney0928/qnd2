@@ -14,8 +14,13 @@ import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.bbs.TalentContract;
 import com.app.qunadai.content.presenter.bbs.TalentPresenter;
+import com.app.qunadai.third.eventbus.EventRefresh;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +68,8 @@ public class TalentActivity extends BaseActivity implements TalentContract.View 
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
+
         talentPresenter = new TalentPresenter(this);
         adapter = new PostAdapter(this);
         list = new ArrayList<>();
@@ -167,10 +174,15 @@ public class TalentActivity extends BaseActivity implements TalentContract.View 
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventRefresh event) {
+        page = 0;
+        talentPresenter.getPostList( page, PAGE_SIZE);
 
+    }
     @Override
     public void postList(TalentBean bean) {
-//刷新
+        //刷新
         List<Post> postList = bean.getContent().getArticle().getContent();
         list.clear();
         list = postList;
@@ -179,7 +191,7 @@ public class TalentActivity extends BaseActivity implements TalentContract.View 
 
     @Override
     public void postListMore(TalentBean bean) {
-//加载更多
+        //加载更多
         List<Post> postList = bean.getContent().getArticle().getContent();
         if (postList.size() > 0) {
             list.addAll(postList);
@@ -195,5 +207,12 @@ public class TalentActivity extends BaseActivity implements TalentContract.View 
     @Override
     public void postListFail(String error) {
         ToastUtil.showToast(this, error);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
     }
 }

@@ -18,14 +18,17 @@ import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.bbs.Comment;
 import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.PostBean;
 import com.app.qunadai.bean.bbs.PostListBean;
 import com.app.qunadai.bean.bbs.PostNewBean;
+import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -168,12 +171,26 @@ public interface QndApi {
     @GET("forum/comments/article/list")
     Observable<CommentList> getCommentListNoUser(@Query("aid") String aid, @Query("page") int page, @Query("size") int size);
 
+    @GET("forum/articles/detailForUser/{articleId}")
+    Observable<PostBean> getPostDetail(@Path("articleId") String aid, @Query("access_token") String token);
+
+    @GET("forum/articles/detail/{articleId}")
+    Observable<PostBean> getPostDetailNoUser(@Path("articleId") String aid);
+
     @POST("forum/comments/newComment/{articleId}")
     Observable<SendCommentBean> sendComment(@Path("articleId") String articleId, @Query("access_token") String token, @Body RequestBody body);
 
     @PUT("forum/articles/{articleId}/thumbUps")
-    Observable<SendCommentBean> sendComment(@Path("articleId") String articleId, @Query("access_token") String token);
+    Observable<PraiseBean> praisePost(@Path("articleId") String articleId, @Query("access_token") String token);
 
+    @DELETE("forum/articles/{articleId}/thumbUps")
+    Observable<PraiseBean> cancelPraisePost(@Path("articleId") String articleId, @Query("access_token") String token);
+
+    @PUT("forum/comments/{commentId}/thumbUps")
+    Observable<PraiseBean> praiseComment(@Path("commentId") String commentId, @Query("access_token") String token);
+
+    @DELETE("forum/comments/{commentId}/thumbUps")
+    Observable<PraiseBean> cancelPraiseComment(@Path("commentId") String commentId, @Query("access_token") String token);
 
     //me
     @GET("users/current")
