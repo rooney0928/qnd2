@@ -25,6 +25,7 @@ import com.app.qunadai.content.ui.me.BankCardActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.view.AuthView;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
@@ -32,6 +33,10 @@ import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -115,18 +120,20 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         return null;
     }
 
+    String pid;
+
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         productDetailPresenter = new ProductDetailPresenter(this);
-        String pid = getIntent().getStringExtra("pid");
-        String token = PrefUtil.getString(this, PrefKey.TOKEN, "");
+        pid = getIntent().getStringExtra("pid");
 
 
         if (NetworkUtil.checkNetwork(this)) {
             productDetailPresenter.requestProductDetail(pid);
 
-            if (!CommUtil.isNull(token)) {
-                productDetailPresenter.requestPersonValue(token);
+            if (!CommUtil.isNull(getToken())) {
+                productDetailPresenter.requestPersonValue(getToken());
             }
         }
     }
@@ -453,6 +460,17 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 //        }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventLogin event) {
+        if (NetworkUtil.checkNetwork(this)) {
+            productDetailPresenter.requestProductDetail(pid);
+
+            if (!CommUtil.isNull(getToken())) {
+                productDetailPresenter.requestPersonValue(getToken());
+            }
+        }
+    }
+
     @Override
     public void getPersonValueFail(String error) {
         ToastUtil.showToast(this, error);
@@ -557,5 +575,12 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
                 av.setAuthStatus(AuthView.AUTH_NO);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
     }
 }

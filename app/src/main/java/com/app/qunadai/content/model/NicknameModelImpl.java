@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model;
 
 import com.app.qunadai.bean.AvatarBean;
+import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.http.ApiException;
@@ -30,7 +31,7 @@ public class NicknameModelImpl implements NicknameContract.Model {
     }
 
     public interface OnReturnDataListener extends BaseReturnListener {
-        void uploadNickname(AvatarBean bean);
+        void uploadNickname(NickBean bean);
 
         void uploadNicknameFail(String error);
 
@@ -46,18 +47,18 @@ public class NicknameModelImpl implements NicknameContract.Model {
 
     @Override
     public void uploadNickname(String token, String nickname) {
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("nick", nickname);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
+//        JSONObject obj = new JSONObject();
+//        try {
+//            obj.put("nick", nickname);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
 
-        Observable<AvatarBean> request = RxHttp.uploadNickname(token, body);
+        Observable<NickBean> request = RxHttp.uploadNickname(token, nickname);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxSubscriber<AvatarBean>() {
+                .subscribe(new RxSubscriber<NickBean>() {
                     @Override
                     public void onStart() {
                         onReturnDataListener.requestStart();
@@ -73,7 +74,7 @@ public class NicknameModelImpl implements NicknameContract.Model {
                     }
 
                     @Override
-                    protected void onOk(AvatarBean bean) {
+                    protected void onOk(NickBean bean) {
                         onReturnDataListener.uploadNickname(bean);
                     }
 

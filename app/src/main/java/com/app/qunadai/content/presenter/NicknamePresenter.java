@@ -1,6 +1,7 @@
 package com.app.qunadai.content.presenter;
 
 import com.app.qunadai.bean.AvatarBean;
+import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.content.model.NicknameModelImpl;
 
@@ -21,7 +22,7 @@ public class NicknamePresenter implements NicknameContract.Presenter {
             }
 
             @Override
-            public void uploadNickname(AvatarBean bean) {
+            public void uploadNickname(NickBean bean) {
                 view.uploadNickname(bean);
             }
 

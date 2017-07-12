@@ -99,6 +99,8 @@ public class BBSHomeAdapter extends RecyclerView.Adapter {
 //                iv_post_album.
                 String albumUrl = RxHttp.ROOT + "articlePics/"+p.getPictures().get(0);
                 ImgUtil.loadImg(context,albumUrl, iv_post_album);
+            }else{
+                ImgUtil.loadImg(context,R.mipmap.moren, iv_post_album);
             }
 
             ll_post_item.setOnClickListener(new View.OnClickListener() {

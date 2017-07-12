@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.AvatarBean;
+import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.NicknameContract;
 import com.app.qunadai.content.presenter.NicknamePresenter;
@@ -116,9 +117,10 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
     }
 
     @Override
-    public void uploadNickname(AvatarBean bean) {
+    public void uploadNickname(NickBean bean) {
 
-        EventBus.getDefault().post(new EventMe(bean.getContent().getUser().getNick()));
+        EventBus.getDefault().post(new EventMe());
+        EventBus.getDefault().post(new EventMe(CommUtil.getText(et_nickname_text)));
         //延迟500毫秒关闭swipe
         Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {

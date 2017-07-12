@@ -1,6 +1,7 @@
 package com.app.qunadai.content.contract;
 
 import com.app.qunadai.bean.AvatarBean;
+import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.content.base.BaseModel;
 import com.app.qunadai.content.base.BasePresenter;
 import com.app.qunadai.content.base.BaseView;
@@ -11,7 +12,7 @@ import com.app.qunadai.content.base.BaseView;
 
 public interface NicknameContract {
     interface View extends BaseView {
-        void uploadNickname(AvatarBean bean);
+        void uploadNickname(NickBean bean);
         void uploadNicknameFail(String error);
     }
 

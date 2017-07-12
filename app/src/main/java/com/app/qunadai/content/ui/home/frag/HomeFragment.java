@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,38 +15,34 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.HomeRecommend;
-import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.content.presenter.HomePresenter;
-import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
-import com.app.qunadai.content.ui.user.LoginActivity;
+import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.content.view.FullViewPager;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
-import com.app.qunadai.utils.RxHolder;
 import com.app.qunadai.utils.ToastUtil;
-import com.google.gson.Gson;
-
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import ezy.ui.view.BannerView;
 import rx.Observable;
-import rx.Subscription;
 import rx.functions.Action1;
+
+import static com.app.qunadai.MyApp.context;
 
 /**
  * Created by wayne on 2017/5/8.
@@ -84,6 +79,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
     @BindView(R.id.rl_home_more)
     RelativeLayout rl_home_more;
+
+    @BindView(R.id.banner)
+    BannerView banner;
 
     private HomePresenter homePresenter;
 
@@ -133,11 +131,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
         fragments.add(recommendFragment2);
         fragments.add(recommendFragment3);
 
+        initBanner();
+
         initTabLayout();
         swipe_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
             public void onRefresh() {
+                LogU.t("t-" + getToken());
                 if (isRefresh) {
                     swipe_home.setRefreshing(false);
                     return;
@@ -191,6 +192,59 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
         if (NetworkUtil.checkNetwork(getActivity())) {
             refreshMsg();
+        }
+    }
+
+    private void initBanner() {
+        int[] resIds = new int[]{R.mipmap.banner1, R.mipmap.banner3, R.mipmap.banner2};
+        String[] pids = new String[]{"","1c67213a-eda9-407d-ae73-7849442a9f6c","be9fa4b6-027a-43a5-9fe1-8eb373b13f25"};
+
+        List<BannerItem> list = new ArrayList<>();
+        for (int i = 0; i < resIds.length; i++) {
+            BannerItem item = new BannerItem();
+            item.image = resIds[i];
+            item.pid = pids[i];
+            list.add(item);
+        }
+
+        banner.setViewFactory(new BannerViewFactory());
+        banner.setDataList(list);
+        banner.start();
+    }
+
+    public static class BannerItem {
+        public int image;
+        public String pid;
+
+        @Override
+        public String toString() {
+            return pid;
+        }
+    }
+
+    public static class BannerViewFactory implements BannerView.ViewFactory<BannerItem> {
+        @Override
+        public View create(final BannerItem item, final int position, final ViewGroup container) {
+            ImageView iv = new ImageView(container.getContext());
+//            RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA);
+//            Glide.with(container.getContext().getApplicationContext()).load(item.image).apply(options).into(iv);
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(container.getContext(), ProductDetailActivity.class);
+                    switch (position){
+                        case 1:
+                        case 2:
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("pid",item.pid);
+                            context.startActivity(intent);
+                            break;
+                    }
+
+                }
+            });
+            ImgUtil.loadImg(container.getContext(), item.image, iv);
+            return iv;
         }
     }
 

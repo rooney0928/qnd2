@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="1000"
+                        android:text="2000"
                         android:textColor="@color/mainColor"
                         android:textSize="40sp"/>
                 </LinearLayout>

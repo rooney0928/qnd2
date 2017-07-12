@@ -2,6 +2,7 @@ package com.app.qunadai.content.ui.bbs.frag;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.app.qunadai.content.presenter.bbs.BBSHomePresenter;
 import com.app.qunadai.content.ui.bbs.HelpActivity;
 import com.app.qunadai.content.ui.bbs.PostActivity;
 import com.app.qunadai.content.ui.bbs.TalentActivity;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -41,7 +43,8 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     int page = 0;
     boolean isRefresh;
 
-
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout swipe_layout;
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
     @BindView(R.id.ll_bbs_post)
@@ -75,6 +78,7 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     protected void initBundle(Bundle savedInstanceState) {
 
     }
+
     int lastVisibleItem;
 
     @Override
@@ -112,6 +116,19 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
 
         });
 
+        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (isRefresh) {
+                    return;
+                }
+                page = 0;
+                bbsHomePresenter.getPostList(page, PAGE_SIZE);
+
+            }
+        });
+
+
         ll_bbs_post.setOnClickListener(this);
         ll_bbs_talent.setOnClickListener(this);
         ll_bbs_help.setOnClickListener(this);
@@ -146,6 +163,23 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     @Override
     public void requestEnd() {
         isRefresh = false;
+        if (swipe_layout != null && swipe_layout.isRefreshing()) {
+            //延迟500毫秒关闭swipe
+            Observable.timer(500, TimeUnit.MILLISECONDS).subscribe(
+                    new Action1<Long>() {
+                        @Override
+                        public void call(Long aLong) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    swipe_layout.setRefreshing(false);
+                                }
+                            });
+                        }
+                    }
+            );
+
+        }
     }
 
     @Override
@@ -163,6 +197,10 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
         switch (v.getId()) {
             case R.id.ll_bbs_post:
                 //发帖
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
                 Intent intentPost = new Intent(getActivity(), PostActivity.class);
                 startActivity(intentPost);
                 break;

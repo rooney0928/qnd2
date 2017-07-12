@@ -1,7 +1,6 @@
 package com.app.qunadai.content.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,13 +17,11 @@ import com.app.qunadai.bean.bbs.Comment;
 import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.content.contract.bbs.PostCommentContract;
 import com.app.qunadai.content.presenter.bbs.PostCommentPresenter;
-import com.app.qunadai.content.ui.bbs.ReplyActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventToken;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
-import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.RelativeDateFormat;
@@ -43,19 +40,27 @@ import butterknife.ButterKnife;
  */
 
 public class CommentAdapter extends RecyclerView.Adapter {
+    public static enum ITEM_TYPE {
+        ITEM_TYPE_CONTENT,
+        ITEM_TYPE_LOADMORE
+    }
 
     private Context context;
     private OnCompatItemClickListener itemClickListener;
+    private OnLoadMoreListener loadMoreListener;
 
     private List<Comment> list;
     private String token;
+
+    public interface OnLoadMoreListener {
+        void onLoadMore();
+    }
 
 
     public CommentAdapter(Context context, OnCompatItemClickListener listener) {
         this.context = context;
         this.itemClickListener = listener;
         token = PrefUtil.getString(context, PrefKey.TOKEN, "");
-
     }
 
     public void setList(List<Comment> list) {
@@ -63,26 +68,50 @@ public class CommentAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
+        this.loadMoreListener = loadMoreListener;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if (position < list.size()) {
+            return ITEM_TYPE.ITEM_TYPE_CONTENT.ordinal();
+        } else {
+            return ITEM_TYPE.ITEM_TYPE_LOADMORE.ordinal();
+        }
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (context == null) {
             context = parent.getContext();
         }
-        View view = LayoutInflater.from(context).inflate(R.layout.item_comment, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        RecyclerView.ViewHolder viewHolder;
+
+        if (viewType == ITEM_TYPE.ITEM_TYPE_CONTENT.ordinal()) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_comment, parent, false);
+            viewHolder = new ContentHolder(view);
+        } else {
+            View viewLoad = LayoutInflater.from(context).inflate(R.layout.view_loadmore, parent, false);
+            viewHolder = new LoadMoreHolder(viewLoad);
+        }
 
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder) {
-            ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.setData();
+        if (holder instanceof ContentHolder) {
+            ContentHolder contentHolder = (ContentHolder) holder;
+            contentHolder.setData();
+        }else if(holder instanceof LoadMoreHolder){
+            LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
+            loadMoreHolder.setData();
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements PostCommentContract.View {
+    class ContentHolder extends RecyclerView.ViewHolder implements PostCommentContract.View {
         private PostCommentPresenter postCommentPresenter;
 
         @BindView(R.id.iv_comment_avatar)
@@ -106,7 +135,7 @@ public class CommentAdapter extends RecyclerView.Adapter {
         ReplyAdapter adapter;
         LinearLayoutManager linearLayoutManager;
 
-        public ViewHolder(final View itemView) {
+        public ContentHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             postCommentPresenter = new PostCommentPresenter(this);
@@ -153,14 +182,14 @@ public class CommentAdapter extends RecyclerView.Adapter {
                 }
             });
 */
-            if(CommUtil.isNull(token)){
+            if (CommUtil.isNull(token)) {
                 cb_comment_praise.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         EventBus.getDefault().post(new EventToken());
                     }
                 });
-            }else{
+            } else {
                 cb_comment_praise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -173,7 +202,6 @@ public class CommentAdapter extends RecyclerView.Adapter {
                     }
                 });
             }
-
 
 
         }
@@ -239,8 +267,27 @@ public class CommentAdapter extends RecyclerView.Adapter {
         }
     }
 
+    class LoadMoreHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_load_more)
+        TextView tv_load_more;
+
+        public LoadMoreHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void setData(){
+            tv_load_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadMoreListener.onLoadMore();
+                }
+            });
+        }
+    }
+
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return list == null || list.size() == 0 ? 0 : list.size() + 1;
     }
 }

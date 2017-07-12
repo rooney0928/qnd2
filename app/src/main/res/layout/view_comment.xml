@@ -48,8 +48,9 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="让我也说两句"
-            android:maxLength="38"
+            android:imeActionLabel="发送"
             android:imeOptions="actionSend"
+            android:maxLength="38"
             android:maxLines="1"
             android:paddingLeft="40dp"
             android:text=""
@@ -58,11 +59,13 @@
     </RelativeLayout>
 
 
-
-    <ImageView
-        android:id="@+id/iv_comment_send"
+    <TextView
+        android:id="@+id/tv_comment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingRight="20dp"
-        android:src="@mipmap/ic_comment_x"/>
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:text="发送"
+        android:textColor="@color/mainColor"
+        android:textSize="15sp"/>
 </LinearLayout>

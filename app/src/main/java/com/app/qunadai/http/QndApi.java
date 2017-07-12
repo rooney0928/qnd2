@@ -4,6 +4,7 @@ import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.LoanDetail;
+import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductDetailBean;
 import com.app.qunadai.bean.ProductsBean;
@@ -199,8 +200,8 @@ public interface QndApi {
     @POST("home/avatar")
     Observable<AvatarBean> uploadAvatar(@Query("access_token") String access_token, @Body RequestBody body);
 
-    @PUT("users/current")
-    Observable<AvatarBean> uploadNickname(@Query("access_token") String access_token, @Body RequestBody body);
+    @PUT("users/current/nick")
+    Observable<NickBean> uploadNickname(@Query("access_token") String access_token, @Query("nick") String nickname);
 
     @GET("home/creditinfo")
     Observable<PersonInfo> getPersonInfo(@Query("access_token") String access_token);

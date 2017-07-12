@@ -1,5 +1,7 @@
 package com.app.qunadai.content.ui.bbs;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.ContextCompat;
@@ -10,8 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,8 +37,8 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.bbs.PostDetailContract;
 import com.app.qunadai.content.presenter.bbs.PostDetailPresenter;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.third.eventbus.EventAlbum;
 import com.app.qunadai.third.eventbus.EventProgress;
-import com.app.qunadai.third.eventbus.EventRefresh;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
@@ -43,14 +46,10 @@ import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.RelativeDateFormat;
 import com.app.qunadai.utils.ToastUtil;
-import com.bumptech.glide.util.Util;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.yanzhenjie.album.Album;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,10 +64,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -80,8 +77,8 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
     private static final int ACTIVITY_REQUEST_PREVIEW_PHOTO = 102;
 
 
-    //    @BindView(R.id.swipe_layout)
-//    SwipeRefreshLayout swipe_layout;
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout swipe_layout;
     @BindView(R.id.sv_layout)
     ScrollView sv_layout;
     @BindView(R.id.rv_comment)
@@ -116,8 +113,8 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
     @BindView(R.id.et_comment)
     EditText et_comment;
-    @BindView(R.id.iv_comment_send)
-    ImageView iv_comment_send;
+    @BindView(R.id.tv_comment)
+    TextView tv_comment;
 
     @BindView(R.id.rv_pics)
     RecyclerView rv_pics;
@@ -167,7 +164,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         adapter = new PostImgAdapter(this, new OnCompatItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-//                previewImage(position);
+                previewImage(position);
             }
         });
         gridLayoutManager = new GridLayoutManager(this, 4);
@@ -183,6 +180,24 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                 sv_layout.scrollTo(0, ll_comment_part.getTop() + view.getWidth() * position);
             }
         });
+
+        commentAdapter.setLoadMoreListener(new CommentAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                if (isRefresh) {
+                    return;
+                }
+
+                if (swipe_layout != null) {
+                    swipe_layout.setRefreshing(true);
+                }
+                page++;
+                postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+
+
+            }
+        });
+
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
         rv_comment.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
@@ -194,35 +209,6 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         rv_comment.setNestedScrollingEnabled(false);
         //滚动监听
 //        rv_comment.addOnScrollListener(mOnScrollListener);
-        rv_comment.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView,
-                                             int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 1 == commentAdapter.getItemCount()) {
-//                    swipe_layout.setRefreshing(true);
-                    // 此处在现实项目中，请换成网络请求数据代码，sendRequest .....
-//                    handler.sendEmptyMessageDelayed(0, 3000);
-                    LogU.t("load2");
-                    page++;
-//                    recommendPresenter.getRecommendMore(page, PAGE_SIZE);
-                    if (CommUtil.isNull(token)) {
-                        postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
-                    } else {
-                        postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
-                    }
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-            }
-
-        });
 
         token = PrefUtil.getString(this, PrefKey.TOKEN, "");
 
@@ -235,6 +221,21 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
      * @param position
      */
     private void previewImage(int position) {
+        if (mImageList != null && mImageList.size() > 0) {
+            Intent intentAlbum = new Intent(this, AlbumActivity.class);
+
+            intentAlbum.putStringArrayListExtra("pics", mImageList);
+            intentAlbum.putExtra("position", position);
+            startActivity(intentAlbum);
+
+//            EventAlbum event = new EventAlbum();
+//            event.setPics(mImageList);
+//            event.setPosition(position);
+//            EventBus.getDefault().postSticky(event);
+        }
+
+/*
+
         Album.gallery(this)
                 .statusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .toolBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -244,6 +245,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                 .currentPosition(position) // First display position image of the list.
                 .checkFunction(false) // Anti-election function.
                 .start(ACTIVITY_REQUEST_PREVIEW_PHOTO);
+*/
+
+
     }
 
     boolean isAdmin;
@@ -269,27 +273,20 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         }
 
 
-//        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                page = 0;
-//                if (CommUtil.isNull(token)) {
-//                    postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
-//                } else {
-//                    postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
-//                }
-//            }
-//        });
-        et_comment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                LogU.t(v.toString());
-                return false;
+            public void onRefresh() {
+                page = 0;
+                if (CommUtil.isNull(token)) {
+                    postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
+                } else {
+                    postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+                }
             }
         });
 
 
-        iv_comment_send.setOnClickListener(this);
+        tv_comment.setOnClickListener(this);
     }
 
     /**
@@ -344,7 +341,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                 shareToWX(SendMessageToWX.Req.WXSceneTimeline);
 
                 break;
-            case R.id.iv_comment_send:
+            case R.id.tv_comment:
                 sendComment();
                 break;
         }
@@ -370,11 +367,15 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         }
         WXWebpageObject webpage = new WXWebpageObject();
 //                webpage.webpageUrl = "http://www.bthai.net";
-        webpage.webpageUrl = "https://m.qunadai.com";
+        webpage.webpageUrl = "https://m.qunadai.com/html/raiders/post_details.html?articleId=" + post.getId();
 
         WXMediaMessage msg = new WXMediaMessage(webpage);
         msg.title = CommUtil.getText(tv_post_detail_title);
-        msg.description = CommUtil.getText(tv_post_detail_content);
+        if (CommUtil.getText(tv_post_detail_content).length() >= 80) {
+            msg.description = CommUtil.getText(tv_post_detail_content).substring(0, 79);
+        } else {
+            msg.description = CommUtil.getText(tv_post_detail_content);
+        }
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         msg.thumbData = bmpToByteArray(bmp, true);
 
@@ -438,9 +439,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                             @Override
                             public void run() {
                                 hideLoading();
-//                                if (swipe_layout != null && swipe_layout.isRefreshing()) {
-//                                    swipe_layout.setRefreshing(false);
-//                                }
+                                if (swipe_layout != null && swipe_layout.isRefreshing()) {
+                                    swipe_layout.setRefreshing(false);
+                                }
                                 isRefresh = false;
                             }
                         });
@@ -543,6 +544,11 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
             postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
         }
         et_comment.setText("");
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                    0);
+        }
     }
 
     @Override

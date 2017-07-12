@@ -1,5 +1,6 @@
 package com.app.qunadai.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -36,6 +37,22 @@ public class RelativeDateFormat {
             long seconds = toSeconds(delta);
             return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_CN + ONE_AGO;
         }
+        if (delta < 60L * ONE_MINUTE) {
+            long minutes = toMinutes(delta);
+            return (minutes <= 0 ? 1 : minutes) + ONE_MINUTE_CN + ONE_AGO;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdf.format(date);
+    }
+
+    public static String format2(Date date) {
+        if(date == null)
+            date = new Date();
+        long delta = new Date().getTime() - date.getTime();
+        if (delta < 1L * ONE_MINUTE) {
+            long seconds = toSeconds(delta);
+            return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_CN + ONE_AGO;
+        }
         if (delta < 45L * ONE_MINUTE) {
             long minutes = toMinutes(delta);
             return (minutes <= 0 ? 1 : minutes) + ONE_MINUTE_CN + ONE_AGO;
@@ -64,7 +81,6 @@ public class RelativeDateFormat {
      * @author xiaoming 2016年8月5日
      * @describe    相对于某个时间， 计算时间差
      * @param date
-     * @param ofDate 最后时间
      * @return
      * @returnType String
      */

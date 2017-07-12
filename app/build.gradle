@@ -113,6 +113,8 @@ dependencies {
     compile 'com.zxy.android:tiny:0.0.6'
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    compile 'com.github.czy1121:bannerview:1.0.0'
     //自动更新
     compile 'com.pgyersdk:sdk:2.5.6'
 

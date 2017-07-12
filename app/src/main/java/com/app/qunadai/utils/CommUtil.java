@@ -186,7 +186,7 @@ public class CommUtil {
 
     public static String Bitmap2StrByBase64(Bitmap bit) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bit.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
+        bit.compress(Bitmap.CompressFormat.JPEG, 70, bos);//参数100表示不压缩
         byte[] bytes = bos.toByteArray();
         LogU.t("size==" + bytes.length);
         return Base64.encodeToString(bytes, Base64.DEFAULT);

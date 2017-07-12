@@ -5,6 +5,7 @@ import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.LoanDetail;
+import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductDetailBean;
 import com.app.qunadai.bean.ProductsBean;
@@ -47,8 +48,8 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-    //        public static final String ROOT = "https://mapi.qunadai.com/";
-    public static final String ROOT = "https://mapit.qunadai.com/";
+            public static final String ROOT = "https://mapi.qunadai.com/";
+//    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
 //    public static final String ROOT = "http://192.168.7.165:8080/";
 
@@ -245,8 +246,8 @@ public class RxHttp {
     }
 
     //上传昵称
-    public static Observable<AvatarBean> uploadNickname(String token, RequestBody body) {
-        return qndApi.uploadNickname(token, body);
+    public static Observable<NickBean> uploadNickname(String token, String nickname) {
+        return qndApi.uploadNickname(token, nickname);
     }
 
     //获取真实信息

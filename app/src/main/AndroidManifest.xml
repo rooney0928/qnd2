@@ -105,11 +105,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
-
         <activity
             android:name=".content.ui.bbs.TalentActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".content.ui.bbs.AlbumActivity"
+            android:screenOrientation="portrait"/>
         <!--me-->
         <activity
             android:name=".content.ui.me.PersonInfoActivity"

@@ -228,7 +228,7 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventMe event) {
         if (meFragment != null) {
-            meFragment.setMeMessage(event.getNickname());
+            meFragment.refreshMsg();
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
