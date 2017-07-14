@@ -139,6 +139,7 @@ public class MainActivity extends BaseActivity {
 
                         break;
                     case R.id.rb_nav_bbs:
+                        CommUtil.tcEvent(MainActivity.this,"strategy_list","攻略列表");
                         vp_main.setCurrentItem(2);
                         setTitleBarVisible(true);
                         setTitleText("社区");

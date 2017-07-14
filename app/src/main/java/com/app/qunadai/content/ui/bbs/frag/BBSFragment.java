@@ -206,10 +206,14 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
                 break;
             case R.id.ll_bbs_talent:
                 //进入贷款达人
+                CommUtil.tcEvent(getActivity(),"got_talent","网贷达人");
+
                 Intent intentTalent = new Intent(getActivity(), TalentActivity.class);
                 startActivity(intentTalent);
                 break;
             case R.id.ll_bbs_help:
+                CommUtil.tcEvent(getActivity(),"help_center","帮助中心");
+
                 Intent intentHelp = new Intent(getActivity(), HelpActivity.class);
                 startActivity(intentHelp);
                 break;

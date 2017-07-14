@@ -139,10 +139,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             @Override
             public void onRefresh() {
                 LogU.t("t-" + getToken());
-                if (isRefresh) {
+                if (isRefresh||CommUtil.isNull(getToken())) {
                     swipe_home.setRefreshing(false);
                     return;
                 }
+
+
                 if (NetworkUtil.checkNetwork(getActivity())) {
                     homePresenter.requestPersonValue(PrefUtil.getString(getActivity(), PrefKey.TOKEN, ""));
                     homePresenter.getHomeRecommend();
