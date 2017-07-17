@@ -114,14 +114,12 @@ public class ProductDetailModelImpl implements ProductDetailContract.Model {
     @Override
     public void applyOrder(String token, String amount, String time, String timeType, String productId, String type) {
         JSONObject obj = new JSONObject();
-        JSONObject proObj = new JSONObject();
         try {
             obj.put("loanAmount", amount);
             obj.put("timeLimit", time);
             obj.put("timeLimitType", timeType);
-            proObj.put("id", productId);
-            proObj.put("type", "H5");
-            obj.put("product", proObj);
+            obj.put("id", productId);
+//            obj.put("type", "H5");
         } catch (JSONException e) {
             e.printStackTrace();
         }

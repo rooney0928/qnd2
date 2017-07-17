@@ -142,7 +142,7 @@ public interface QndApi {
     Observable<ProductDetailBean> getLoanDetail(@Path("pid") String pid);
 
 
-    @POST("home/loan/orders")
+    @POST("home/loan/orders/createH5Order")
     Observable<ApplyBean> apply(@Query("access_token") String access_token, @Body RequestBody body);
 
 
