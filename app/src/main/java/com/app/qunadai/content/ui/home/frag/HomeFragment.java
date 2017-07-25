@@ -20,6 +20,7 @@ import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.content.presenter.HomePresenter;
+import com.app.qunadai.content.ui.home.CreditCardActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
@@ -76,6 +77,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     LinearLayout ll_home_speed_loan;
     @BindView(R.id.ll_home_recommend_loan)
     LinearLayout ll_home_recommend_loan;
+    @BindView(R.id.ll_home_credit)
+    LinearLayout ll_home_credit;
 
     @BindView(R.id.rl_home_more)
     RelativeLayout rl_home_more;
@@ -186,6 +189,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
                 //进入贷款列表
                 Intent intentProducts = new Intent(getActivity(), ProductsActivity.class);
                 startActivity(intentProducts);
+            }
+        });
+        ll_home_credit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //办信用卡
+                Intent intentCredit = new Intent(getActivity(), CreditCardActivity.class);
+                startActivity(intentCredit);
+
             }
         });
         iv_home_banner.setOnClickListener(this);

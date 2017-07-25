@@ -4,6 +4,8 @@ import com.app.qunadai.QNDFactory;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.bean.CreditCard;
+import com.app.qunadai.bean.CreditStrategy;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
@@ -48,10 +50,10 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-            public static final String ROOT = "https://mapi.qunadai.com/";
+    //            public static final String ROOT = "https://mapi.qunadai.com/";
 //    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
-//    public static final String ROOT = "http://192.168.7.165:8080/";
+    public static final String ROOT = "http://192.168.7.165:8080/";
 
 
     static QndApi qndApi;
@@ -161,6 +163,18 @@ public class RxHttp {
     public static Observable<ApplyBean> apply(String token, RequestBody body) {
         return qndApi.apply(token, body);
     }
+
+    //credit
+    //攻略列表
+    public static Observable<CreditStrategy> creditStrategy(int page, int size) {
+        return qndApi.creditStrategy(page, size);
+    }
+
+    //银行卡列表
+    public static Observable<CreditCard> creditCardList(String city, int page, int size) {
+        return qndApi.creditCardList(city, page, size);
+    }
+
 
     //limit
     //更新业务状态

@@ -72,7 +72,8 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         //首先判断权限
         AndPermission.with(this)
                 .requestCode(300)
-                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION)
                 .callback(this)
                 .start()
         ;
@@ -92,7 +93,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     private void showSettingDialog() {
         String title = "权限申请";
-        String content = "需要(读写外部存储)权限,以保证程序正常功能的使用\n" +
+        String content = "需要一些权限,以保证程序正常功能的使用\n" +
                 "    请在[设置-应用管理-权限]中开启所需权限..";
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);

@@ -3,6 +3,8 @@ package com.app.qunadai.http;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.bean.CreditCard;
+import com.app.qunadai.bean.CreditStrategy;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
@@ -144,6 +146,14 @@ public interface QndApi {
 
     @POST("home/loan/orders/createH5Order")
     Observable<ApplyBean> apply(@Query("access_token") String access_token, @Body RequestBody body);
+
+    //credit card
+
+    @GET("creditCard/strategies")
+    Observable<CreditStrategy> creditStrategy(@Query("page") int page, @Query("size") int size);
+
+    @GET("bank/pageListByCName")
+    Observable<CreditCard> creditCardList(@Query("cName") String cName, @Query("page") int page, @Query("size") int size);
 
 
     //limit
