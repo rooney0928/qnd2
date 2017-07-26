@@ -250,7 +250,6 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
     @Override
     public void getCreditCardList(CreditCard bean) {
         adapter.setList(bean.getContent().getBanks().getContent());
-
     }
 
     @Override
