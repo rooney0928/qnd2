@@ -21,6 +21,7 @@ import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.bean.bbs.PostBean;
 import com.app.qunadai.bean.bbs.PostListBean;
 import com.app.qunadai.bean.bbs.PostNewBean;
@@ -162,6 +163,12 @@ public class RxHttp {
     //申请贷款，给后台做log
     public static Observable<ApplyBean> apply(String token, RequestBody body) {
         return qndApi.apply(token, body);
+    }
+
+    //信用卡
+    //所有热门城市
+    public static Observable<HotCity> hotCity() {
+        return qndApi.hotCity();
     }
 
     //credit

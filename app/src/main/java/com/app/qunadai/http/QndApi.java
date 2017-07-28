@@ -21,6 +21,7 @@ import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.bbs.Comment;
 import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.bean.bbs.PostBean;
 import com.app.qunadai.bean.bbs.PostListBean;
 import com.app.qunadai.bean.bbs.PostNewBean;
@@ -154,6 +155,10 @@ public interface QndApi {
 
     @GET("bank/pageListByCName")
     Observable<CreditCard> creditCardList(@Query("cName") String cName, @Query("page") int page, @Query("size") int size);
+
+    @GET("global/basicdata/getHotRegionList")
+    Observable<HotCity> hotCity();
+
 
 
     //limit

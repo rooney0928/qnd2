@@ -231,36 +231,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         rl_back.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
-
-//    public void setTitleBarStatus(int status) {
-//        switch (status) {
-//            case TITLE_ON_BACK_ON:
-//                ll_top.setVisibility(View.VISIBLE);
-//                tv_title.setVisibility(View.VISIBLE);
-//                rl_back.setVisibility(View.VISIBLE);
-//                break;
-//            case TITLE_ON_BACK_OFF:
-//                ll_top.setVisibility(View.VISIBLE);
-//                tv_title.setVisibility(View.VISIBLE);
-//                rl_back.setVisibility(View.GONE);
-//                break;
-//
-//            case TITLE_OFF:
-//                ll_top.setVisibility(View.GONE);
-//                break;
-//            case TITLE_ON_RIGHT_ON:
-//                ll_top.setVisibility(View.VISIBLE);
-//                tv_title.setVisibility(View.VISIBLE);
-//                rl_back.setVisibility(View.VISIBLE);
-//                tv_title_right.setVisibility(View.VISIBLE);
-//                break;
-//            default:
-//                ll_top.setVisibility(View.GONE);
-//                break;
-//        }
-//    }
-
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // TODO Auto-generated method stub

@@ -31,6 +31,7 @@
     <color name="icon_bg">#f2f2f2</color>
     <color name="recommend_bg">#FCE9D2</color>
     <color name="text_orange_dark">#F3921E</color>
+    <color name="border_city">#e0dfe4</color>
 
     <!--bbs-->
     <color name="item_info">#b1b1b1</color>

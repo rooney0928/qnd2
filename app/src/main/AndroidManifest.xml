@@ -83,6 +83,10 @@
         <activity
             android:name=".content.ui.home.CreditCardActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".content.ui.home.LocationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
 
 
         <!--bbs-->
@@ -202,9 +206,9 @@
         <!-- 设置key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="35e368d61fc39a1ef550393edaac351b" />
+            android:value="35e368d61fc39a1ef550393edaac351b"/>
         <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService" >
+        <service android:name="com.amap.api.location.APSService">
         </service>
 
     </application>

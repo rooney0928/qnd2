@@ -57,6 +57,8 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
     private AMapLocationClient locationClient;
     private AMapLocationClientOption locationClientOption;
 
+    boolean autoSearch = true;
+
     @Override
     protected void updateTopViewHideAndShow() {
         setTitleText("办信用卡");
@@ -93,6 +95,14 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
                 .callback(this)
                 .start()
         ;
+        showLoading();
+        tv_credit_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentLocation = new Intent(CreditCardActivity.this,LocationActivity.class);
+                startActivity(intentLocation);
+            }
+        });
     }
 
 
@@ -123,7 +133,7 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
      */
     private void startLocation() {
         //根据控件的选择，重新设置定位参数
-//        resetOption();
+        resetOption();
         // 设置定位参数
         locationClient.setLocationOption(locationClientOption);
         // 启动定位
@@ -166,6 +176,47 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
         return mOption;
     }
 
+    // 根据控件的选择，重新设置定位参数
+    private void resetOption() {
+        // 设置是否需要显示地址信息
+        locationClientOption.setNeedAddress(true);
+        /**
+         * 设置是否优先返回GPS定位结果，如果30秒内GPS没有返回定位结果则进行网络定位
+         * 注意：只有在高精度模式下的单次定位有效，其他方式无效
+         */
+        locationClientOption.setGpsFirst(true);
+        // 设置是否开启缓存
+        locationClientOption.setLocationCacheEnable(true);
+        // 设置是否单次定位
+        locationClientOption.setOnceLocation(false);
+        //设置是否等待设备wifi刷新，如果设置为true,会自动变为单次定位，持续定位时不要使用
+        locationClientOption.setOnceLocationLatest(true);
+        //设置是否使用传感器
+        locationClientOption.setSensorEnable(true);
+        //设置是否开启wifi扫描，如果设置为false时同时会停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        /*
+        String strInterval = etInterval.getText().toString();
+        if (!TextUtils.isEmpty(strInterval)) {
+            try{
+                // 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
+                locationOption.setInterval(Long.valueOf(strInterval));
+            }catch(Throwable e){
+                e.printStackTrace();
+            }
+        }
+
+        String strTimeout = etHttpTimeout.getText().toString();
+        if(!TextUtils.isEmpty(strTimeout)){
+            try{
+                // 设置网络请求超时时间
+                locationOption.setHttpTimeOut(Long.valueOf(strTimeout));
+            }catch(Throwable e){
+                e.printStackTrace();
+            }
+        }
+         */
+    }
+
     @PermissionNo(300)
     private void getPermissionNo(List<String> deniedPermissions) {
         // Failure.
@@ -194,12 +245,12 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
 
     @Override
     public void requestStart() {
-
+        showLoading();
     }
 
     @Override
     public void requestEnd() {
-
+        hideLoading();
     }
 
     @Override
