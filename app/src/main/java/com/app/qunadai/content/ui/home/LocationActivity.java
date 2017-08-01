@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui.home;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,8 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
     RecyclerView rv_location;
     @BindView(R.id.ll_hot_part)
     LinearLayout ll_hot_part;
+    @BindView(R.id.tv_loc_search)
+    TextView tv_loc_search;
 
     @BindView(R.id.tv_loc_dialog)
     TextView tv_loc_dialog;
@@ -74,22 +77,12 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
 
         rv_location.setNestedScrollingEnabled(false);
 //        rv_location.addOnScrollListener(new RecyclerViewListener());
+        tv_loc_search.setOnClickListener(this);
     }
 
     @Override
     public void initViewData() {
         sb_loc_index.setTextView(tv_loc_dialog);
-        sb_loc_index.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-            @Override
-            public void onTouchingLetterChanged(String s, int index) {
-                LogU.t(s + "--" + index);
-                if (index > 0) {
-                    moveTo(index - 1);
-                } else {
-                    snsv_location_layout.scrollTo(0, 0);
-                }
-            }
-        });
 
 
         if (NetworkUtil.checkNetwork(this)) {
@@ -103,7 +96,8 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
         int firstItem = linearLayoutManager.findFirstVisibleItemPosition();
 //        int lastItem = linearLayoutManager.findLastVisibleItemPosition();
 
-        int hotH = ll_hot_part.getHeight();
+//        int hotH = ll_hot_part.getHeight();
+        int hotH = rv_location.getTop();
 
         int top = rv_location.getChildAt(n - firstItem).getTop();
 //            rv_location.smoothScrollBy(0, top);
@@ -135,16 +129,17 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
 
     @Override
     public void requestStart() {
-
+        showLoading();
     }
 
     @Override
     public void requestEnd() {
-
+        hideLoading();
     }
 
     @Override
     protected void updateTopViewHideAndShow() {
+        setTitleText("地址选择");
 
     }
 
@@ -204,6 +199,18 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
         list.add(locMap.getZ());
 
         locationAdapter.setList(list);
+
+        sb_loc_index.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+            @Override
+            public void onTouchingLetterChanged(String s, int index) {
+                LogU.t(s + "--" + index);
+                if (index > 0) {
+                    moveTo(index - 1);
+                } else {
+                    snsv_location_layout.scrollTo(0, 0);
+                }
+            }
+        });
     }
 
     @Override
@@ -212,4 +219,14 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
 
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.tv_loc_search:
+                Intent intentSearch = new Intent(this, FindCityActivity.class);
+                startActivity(intentSearch);
+                break;
+        }
+    }
 }

@@ -7,6 +7,7 @@ import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
 import com.app.qunadai.bean.CreditCard;
 import com.app.qunadai.bean.CreditStrategy;
+import com.app.qunadai.bean.FindCity;
 import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
@@ -175,6 +176,11 @@ public class RxHttp {
     //所有城市
     public static Observable<AllCity> allCity() {
         return qndApi.allCity();
+    }
+
+    //寻找城市
+    public static Observable<FindCity> findCity(String city) {
+        return qndApi.findCity(city, 2);
     }
 
     //credit

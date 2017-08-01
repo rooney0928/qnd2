@@ -4,9 +4,9 @@ import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.bean.FindCity;
 import com.app.qunadai.bean.CreditCard;
 import com.app.qunadai.bean.CreditStrategy;
-import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductDetailBean;
@@ -20,7 +20,6 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
-import com.app.qunadai.bean.bbs.Comment;
 import com.app.qunadai.bean.bbs.CommentList;
 import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.bean.bbs.PostBean;
@@ -163,7 +162,8 @@ public interface QndApi {
     @GET("global/basicdata/getAllCityList")
     Observable<AllCity> allCity();
 
-
+    @GET("global/basicdata/getDistrictListByNameAndType")
+    Observable<FindCity> findCity(@Query("name") String cName, @Query("levelType") int type);
 
     //limit
     @FormUrlEncoded
