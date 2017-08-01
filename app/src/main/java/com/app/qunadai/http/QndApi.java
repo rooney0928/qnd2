@@ -1,5 +1,6 @@
 package com.app.qunadai.http;
 
+import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
@@ -158,6 +159,9 @@ public interface QndApi {
 
     @GET("global/basicdata/getHotRegionList")
     Observable<HotCity> hotCity();
+
+    @GET("global/basicdata/getAllCityList")
+    Observable<AllCity> allCity();
 
 
 

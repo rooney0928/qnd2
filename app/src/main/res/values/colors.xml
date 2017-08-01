@@ -9,6 +9,7 @@
     <color name="main_bg">#F6F6F6</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
+    <color name="shadow_bg">#66000000</color>
     <color name="text_black">#333333</color>
     <color name="text_grey_light">#666666</color>
     <color name="title_line">#BFBFBF</color>

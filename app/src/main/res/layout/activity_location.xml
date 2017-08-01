@@ -35,34 +35,64 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_search_part">
 
-        <LinearLayout
+        <com.yanzhenjie.recyclerview.swipe.widget.StickyNestedScrollView
+            android:id="@+id/snsv_location_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!--定位城市-->
+            android:layout_marginRight="18dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="6dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--定位城市-->
+                <LinearLayout
+                    android:id="@+id/ll_hot_part"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="定位城市"
-                    android:textColor="@color/text_grey_light"/>
+                    android:orientation="vertical"
+                    android:padding="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="热门城市"
+                        android:textColor="@color/text_grey_light"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_hot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_lock"
+                    android:id="@+id/rv_location"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
+        </com.yanzhenjie.recyclerview.swipe.widget.StickyNestedScrollView>
 
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/tv_loc_dialog"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30dp"
+            android:visibility="invisible"/>
+
+        <com.app.qunadai.content.view.SideBar
+            android:id="@+id/sb_loc_index"
+            android:layout_width="16dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"/>
+    </FrameLayout>
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.app.qunadai.content.model;
 
+import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.LocationContract;
@@ -30,6 +31,10 @@ public class LocationModelImpl implements LocationContract.Model {
         void getHotCity(HotCity bean);
 
         void getHotCityFail(String error);
+
+        void getAllCity(AllCity bean);
+
+        void getAllCityFail(String error);
 
         void requestStart();
 
@@ -64,6 +69,39 @@ public class LocationModelImpl implements LocationContract.Model {
                     @Override
                     protected void onOk(HotCity bean) {
                         onReturnDataListener.getHotCity(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void getAllCity() {
+        Observable<AllCity> request = RxHttp.getInstance().allCity();
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<AllCity>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getAllCityFail(ex.getDisplayMessage());
+                        if (ex.isTokenFail()) {
+                            onReturnDataListener.tokenFail();
+                        }
+                    }
+
+                    @Override
+                    protected void onOk(AllCity bean) {
+                        onReturnDataListener.getAllCity(bean);
                     }
 
                     @Override

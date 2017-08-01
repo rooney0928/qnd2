@@ -77,12 +77,19 @@ public class ExampleUnitTest {
 
     }
 
+    @Test
+    public void testAlphaSize() throws Exception {
+        String[] alpha = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+                "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        assertEquals(26, alpha.length);
+    }
+
 
     @Test
-    public void getLastVersion(){
+    public void getLastVersion() {
         String version = "4.0.2";
         String last = String.valueOf(version.charAt(version.length() - 1));
-        assertEquals("2",last);
+        assertEquals("2", last);
     }
 
 }

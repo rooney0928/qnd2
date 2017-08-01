@@ -1,5 +1,6 @@
 package com.app.qunadai.content.presenter;
 
+import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.content.contract.LocationContract;
 import com.app.qunadai.content.model.LocationModelImpl;
@@ -27,6 +28,16 @@ public class LocationPresenter implements LocationContract.Presenter {
             }
 
             @Override
+            public void getAllCity(AllCity bean) {
+                view.getAllCity(bean);
+            }
+
+            @Override
+            public void getAllCityFail(String error) {
+                view.getAllCityFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -51,5 +62,10 @@ public class LocationPresenter implements LocationContract.Presenter {
     @Override
     public void getHotCity() {
         model.getHotCity();
+    }
+
+    @Override
+    public void getAllCity() {
+        model.getAllCity();
     }
 }

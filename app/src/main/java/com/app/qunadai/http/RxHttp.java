@@ -1,6 +1,7 @@
 package com.app.qunadai.http;
 
 import com.app.qunadai.QNDFactory;
+import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
@@ -169,6 +170,11 @@ public class RxHttp {
     //所有热门城市
     public static Observable<HotCity> hotCity() {
         return qndApi.hotCity();
+    }
+
+    //所有城市
+    public static Observable<AllCity> allCity() {
+        return qndApi.allCity();
     }
 
     //credit
