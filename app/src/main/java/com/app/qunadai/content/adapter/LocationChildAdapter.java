@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.City;
+import com.app.qunadai.third.eventbus.EventClose;
+import com.app.qunadai.third.eventbus.EventLoc;
 import com.app.qunadai.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -69,12 +73,13 @@ public class LocationChildAdapter extends RecyclerView.Adapter {
         }
 
         public void setData(){
-            City c = list.get(getAdapterPosition());
+            final City c = list.get(getAdapterPosition());
             tv_city_content.setText(c.getName());
             tv_city_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast(context,"111");
+                    EventBus.getDefault().post(new EventLoc(c.getName()));
+                    EventBus.getDefault().post(new EventClose("loc"));
                 }
             });
         }

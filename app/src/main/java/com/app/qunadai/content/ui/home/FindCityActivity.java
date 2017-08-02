@@ -15,7 +15,12 @@ import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.FindCityContract;
 import com.app.qunadai.content.presenter.FindCityPresenter;
+import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -56,6 +61,8 @@ public class FindCityActivity extends BaseActivity implements FindCityContract.V
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
+
         findCityPresenter = new FindCityPresenter(this);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapter = new LocationChildAdapter(this);
@@ -123,6 +130,20 @@ public class FindCityActivity extends BaseActivity implements FindCityContract.V
     @Override
     public void findCityError(String error) {
         ToastUtil.showToast(this, error);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventClose event) {
+        if ("loc".equalsIgnoreCase(event.getPage())) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
 
     }
 }

@@ -18,10 +18,15 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.LocationContract;
 import com.app.qunadai.content.presenter.LocationPresenter;
 import com.app.qunadai.content.view.SideBar;
+import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.widget.StickyNestedScrollView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +65,7 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         locationPresenter = new LocationPresenter(this);
         gridLayoutManager = new GridLayoutManager(this, 4);
         hotCityAdapter = new HotCityAdapter(this);
@@ -228,5 +234,19 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
                 startActivity(intentSearch);
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventClose event) {
+        if ("loc".equalsIgnoreCase(event.getPage())) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
     }
 }

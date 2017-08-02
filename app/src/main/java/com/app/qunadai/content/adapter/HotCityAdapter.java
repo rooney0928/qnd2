@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.City;
+import com.app.qunadai.third.eventbus.EventClose;
+import com.app.qunadai.third.eventbus.EventLoc;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -65,12 +69,13 @@ public class HotCityAdapter extends RecyclerView.Adapter {
         }
 
         public void setData() {
-            City c = list.get(getAdapterPosition());
+            final City c = list.get(getAdapterPosition());
             tv_city.setText(c.getName());
             tv_city.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    EventBus.getDefault().post(new EventLoc(c.getName()));
+                    EventBus.getDefault().post(new EventClose("loc"));
                 }
             });
         }

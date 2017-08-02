@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.app.qunadai"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 22
         versionCode 62
         versionName "4.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
