@@ -4,6 +4,7 @@ import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.FindCity;
 import com.app.qunadai.bean.CreditCard;
 import com.app.qunadai.bean.CreditStrategy;
@@ -164,6 +165,9 @@ public interface QndApi {
 
     @GET("global/basicdata/getDistrictListByNameAndType")
     Observable<FindCity> findCity(@Query("name") String cName, @Query("levelType") int type);
+
+    @GET("banners/available")
+    Observable<BannerBean> getBanner(@Query("bannerType") String bannerType);
 
     //limit
     @FormUrlEncoded

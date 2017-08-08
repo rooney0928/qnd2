@@ -1,6 +1,7 @@
 package com.app.qunadai.content.ui.user;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputType;
@@ -25,6 +26,7 @@ import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.utils.AppManager;
+import com.app.qunadai.utils.CodeUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -81,6 +83,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @BindView(R.id.tv_forget_password)
     TextView tv_forget_password;
 
+    @BindView(R.id.rl_login_sms_pic)
+    RelativeLayout rl_login_sms_pic;
+    @BindView(R.id.et_login_sms_pic)
+    EditText et_login_sms_pic;
+    @BindView(R.id.iv_get_code)
+    ImageView iv_get_code;
+
     //0密码，2验证码
     private int login_type;
     private static final int TYPE_PWD = 0;
@@ -111,6 +120,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void initView() {
         loginPresenter = new LoginPresenter(this);
         rl_login_sms.setVisibility(View.GONE);
+        rl_login_sms_pic.setVisibility(View.GONE);
         time = new TimeCount(60000, 1000);
         bt_style_pwd.setSelected(true);
         login_type = TYPE_PWD;
@@ -258,6 +268,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             @Override
             public void onClick(View v) {
                 //发送登录验证码
+                String code = CodeUtil.getInstance().getCode();
+                String inputCode = CommUtil.getText(et_login_sms_pic);
+                if (!code.equalsIgnoreCase(inputCode)) {
+                    ToastUtil.showToast(LoginActivity.this, "请填写正确的图形验证码");
+                    return;
+                }
+
+
                 if (NetworkUtil.checkNetwork(LoginActivity.this)) {
                     if (isRequest) {
                         ToastUtil.showToast(LoginActivity.this, "请稍后");
@@ -329,6 +347,21 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             bt_login.setEnabled(true);
         }
 
+
+        //图形验证码
+        setPicCode();
+        iv_get_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPicCode();
+
+            }
+        });
+    }
+
+    public void setPicCode() {
+        Bitmap b = CodeUtil.getInstance().createBitmap();
+        iv_get_code.setImageBitmap(b);
     }
 
     private void loginSystem() {
@@ -363,6 +396,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         bt_style_sms.setSelected(false);
         rl_login_pwd.setVisibility(View.GONE);
         rl_login_sms.setVisibility(View.GONE);
+        rl_login_sms_pic.setVisibility(View.GONE);
 
 
         String phone = et_login_phone.getText().toString().trim();
@@ -382,6 +416,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             case TYPE_SMS:
                 bt_style_sms.setSelected(true);
                 rl_login_sms.setVisibility(View.VISIBLE);
+                rl_login_sms_pic.setVisibility(View.VISIBLE);
                 if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(sms)) {
                     bt_login.setEnabled(false);
                 } else {

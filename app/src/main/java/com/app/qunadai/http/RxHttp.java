@@ -5,6 +5,7 @@ import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
+import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.CreditCard;
 import com.app.qunadai.bean.CreditStrategy;
 import com.app.qunadai.bean.FindCity;
@@ -54,9 +55,9 @@ import rx.schedulers.Schedulers;
 public class RxHttp {
 
     //            public static final String ROOT = "https://mapi.qunadai.com/";
-//    public static final String ROOT = "https://mapit.qunadai.com/";
+    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
-    public static final String ROOT = "http://192.168.7.165:8080/";
+//    public static final String ROOT = "http://192.168.7.165:8080/";
 
 
     static QndApi qndApi;
@@ -165,6 +166,11 @@ public class RxHttp {
     //申请贷款，给后台做log
     public static Observable<ApplyBean> apply(String token, RequestBody body) {
         return qndApi.apply(token, body);
+    }
+
+    //首页banner
+    public static Observable<BannerBean> getBanner() {
+        return qndApi.getBanner("APPLICATION");
     }
 
     //信用卡

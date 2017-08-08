@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.Banner;
+import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
@@ -26,6 +28,7 @@ import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.content.view.FullViewPager;
+import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
@@ -134,7 +137,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
         fragments.add(recommendFragment2);
         fragments.add(recommendFragment3);
 
-        initBanner();
+//        initBanner();
 
         initTabLayout();
         swipe_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -206,18 +209,16 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
         if (NetworkUtil.checkNetwork(getActivity())) {
             refreshMsg();
+            homePresenter.getBanner();
         }
     }
 
     private void initBanner() {
-        int[] resIds = new int[]{R.mipmap.banner1, R.mipmap.banner3, R.mipmap.banner2};
-        String[] pids = new String[]{"","1c67213a-eda9-407d-ae73-7849442a9f6c","be9fa4b6-027a-43a5-9fe1-8eb373b13f25"};
+        int[] resIds = new int[]{R.mipmap.banner1};
 
         List<BannerItem> list = new ArrayList<>();
         for (int i = 0; i < resIds.length; i++) {
             BannerItem item = new BannerItem();
-            item.image = resIds[i];
-            item.pid = pids[i];
             list.add(item);
         }
 
@@ -227,8 +228,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     }
 
     public static class BannerItem {
-        public int image;
         public String pid;
+        public String picUrl;
 
         @Override
         public String toString() {
@@ -242,22 +243,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             ImageView iv = new ImageView(container.getContext());
 //            RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA);
 //            Glide.with(container.getContext().getApplicationContext()).load(item.image).apply(options).into(iv);
-            iv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(container.getContext(), ProductDetailActivity.class);
-                    switch (position){
-                        case 1:
-                        case 2:
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("pid",item.pid);
-                            context.startActivity(intent);
-                            break;
-                    }
+            String imgUrl = RxHttp.ROOT + "attachments/" + item.picUrl;
 
-                }
-            });
-            ImgUtil.loadImg(container.getContext(), item.image, iv);
+            LogU.t("banner----"+imgUrl);
+            if(CommUtil.isNull(item.picUrl)){
+                ImgUtil.loadImg(container.getContext(), R.mipmap.banner1, iv);
+
+            }else{
+                ImgUtil.loadImg(container.getContext(), imgUrl, iv);
+            }
             return iv;
         }
     }
@@ -327,6 +321,29 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     @Override
     public void getPersonValueFail(String error) {
         ToastUtil.showToast(getActivity(), error + "-h");
+    }
+
+    @Override
+    public void getBanner(BannerBean bean) {
+        List<Banner> banners = bean.getContent().getAvailableBanners();
+        List<BannerItem> list = new ArrayList<>();
+        for (int i = 0; i < banners.size(); i++) {
+            BannerItem item = new BannerItem();
+            item.picUrl = banners.get(i).getBannerPic();
+            list.add(item);
+        }
+
+        LogU.t("test-size--"+list.size());
+
+        banner.setViewFactory(new BannerViewFactory());
+        banner.setDataList(list);
+        banner.start();
+    }
+
+    @Override
+    public void getBannerFail(String error) {
+        ToastUtil.showToast(getActivity(), error + "-h");
+        initBanner();
     }
 
     @Override

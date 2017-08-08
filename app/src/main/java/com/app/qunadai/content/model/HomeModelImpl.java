@@ -1,5 +1,6 @@
 package com.app.qunadai.content.model;
 
+import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.base.BaseReturnListener;
@@ -34,6 +35,10 @@ public class HomeModelImpl implements HomeContract.Model {
         void getPersonValue(PersonBean bean);
 
         void getPersonValueFail(String error);
+
+        void getBanner(BannerBean bean);
+
+        void getBannerFail(String error);
 
         void requestStart();
 
@@ -108,5 +113,38 @@ public class HomeModelImpl implements HomeContract.Model {
                 });
         RxHolder.addSubscription(sub);
 
+    }
+
+    @Override
+    public void getBanner() {
+        Observable<BannerBean> request = RxHttp.getInstance().getBanner();
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<BannerBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getBannerFail(ex.getDisplayMessage());
+                        if (ex.isTokenFail()) {
+                            onReturnDataListener.tokenFail();
+                        }
+                    }
+
+                    @Override
+                    protected void onOk(BannerBean bean) {
+                        onReturnDataListener.getBanner(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
     }
 }

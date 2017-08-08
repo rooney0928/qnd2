@@ -1,5 +1,6 @@
 package com.app.qunadai.content.contract;
 
+import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.base.BaseModel;
@@ -16,15 +17,20 @@ public interface HomeContract {
         void getHomeRecommendFail(String error);
         void getPersonValue(PersonBean bean);
         void getPersonValueFail(String error);
+        void getBanner(BannerBean bean);
+        void getBannerFail(String error);
     }
 
     interface Presenter extends BasePresenter {
         void getHomeRecommend();
         void requestPersonValue(String token);
+        void getBanner();
     }
 
     interface Model extends BaseModel {
         void getHomeRecommend();
         void requestPersonValue(String token);
+        void getBanner();
+
     }
 }

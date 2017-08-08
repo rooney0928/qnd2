@@ -151,9 +151,9 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
             }
         });
 
-        if (NetworkUtil.checkNetwork(getActivity())) {
-            refreshMsg();
-        }
+//        if (NetworkUtil.checkNetwork(getActivity())) {
+//            refreshMsg();
+//        }
 
     }
 

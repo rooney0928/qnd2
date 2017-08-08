@@ -6,7 +6,7 @@
     android:background="@color/main_bg"
     android:orientation="vertical">
 
-
+    <!--手机号-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:visibility="gone"/>
     </RelativeLayout>
 
-
+    <!--验证码-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,6 +93,53 @@
 
     </RelativeLayout>
 
+    <!--图形验证码-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="图形码"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"/>
+
+
+        <EditText
+            android:id="@+id/et_register_sms_pic"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="66dp"
+            android:background="@null"
+            android:hint="请输入图形验证码"
+            android:inputType="textVisiblePassword"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:enabled="true"
+            android:text="获取验证码"
+            android:textColor="@color/mainColor"
+            android:textSize="12sp"/>
+
+
+    </RelativeLayout>
+
+    <!--密码-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
