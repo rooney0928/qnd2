@@ -24,6 +24,7 @@ import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.third.eventbus.EventToken;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
@@ -124,7 +125,6 @@ public class MainActivity extends BaseActivity {
 
                             if (homeFragment != null) {
                                 homeFragment.refreshMsg();
-
                             }
                         }
                         break;
@@ -159,6 +159,11 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.rb_nav_me:
                         vp_main.setCurrentItem(3);
+                        if (NetworkUtil.checkNetwork(MainActivity.this)) {
+                            if (meFragment != null) {
+                                meFragment.refreshMsg();
+                            }
+                        }
                         break;
                 }
             }
@@ -219,7 +224,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case 1:
                 rb_nav_limit.setChecked(true);
-
+                if (limitFragment != null) {
+                    limitFragment.refreshMsg();
+                }
                 break;
 
         }

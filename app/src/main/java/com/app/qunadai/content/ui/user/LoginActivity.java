@@ -290,6 +290,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                     }
 
                     loginPresenter.requestLoginSms(phone);
+                    et_login_sms_pic.setText("");
+                    setPicCode();
                 }
 
 

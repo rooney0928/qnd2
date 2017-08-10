@@ -153,6 +153,7 @@
             android:name=".content.ui.me.AboutActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".content.ui.me.MyLoanActivity"></activity>
 
 
         <activity

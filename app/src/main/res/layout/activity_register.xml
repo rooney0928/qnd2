@@ -219,7 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="3dp"
-            android:text="去登陆"
+            android:text="去登录"
             android:textColor="@color/mainColor"
             android:textSize="14sp"/>
 

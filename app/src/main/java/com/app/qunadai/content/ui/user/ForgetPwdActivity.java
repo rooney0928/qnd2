@@ -135,6 +135,8 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
                 if(NetworkUtil.checkNetwork(ForgetPwdActivity.this)){
 
                     forgetPresenter.requestForgetSms(phone);
+                    et_forget_sms_pic.setText("");
+                    setPicCode();
                 }
 
             }
