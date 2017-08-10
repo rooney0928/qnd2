@@ -1,6 +1,7 @@
 package com.app.qunadai.content.ui.user;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.RegisterContract;
 import com.app.qunadai.content.presenter.RegisterPresenter;
+import com.app.qunadai.utils.CodeUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -49,6 +51,12 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     ImageView iv_register_phone_clear;
     @BindView(R.id.iv_register_pwd_clear)
     ImageView iv_register_pwd_clear;
+
+
+    @BindView(R.id.iv_get_code)
+    ImageView iv_get_code;
+    @BindView(R.id.et_register_sms_pic)
+    EditText et_register_sms_pic;
 
 
     boolean isRequest;
@@ -106,10 +114,20 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
             @Override
             public void onClick(View v) {
                 if (NetworkUtil.checkNetwork(RegisterActivity.this)) {
+
+                    String code = CodeUtil.getInstance().getCode();
+                    String inputCode = CommUtil.getText(et_register_sms_pic);
+                    if (!code.equalsIgnoreCase(inputCode)) {
+                        ToastUtil.showToast(RegisterActivity.this, "请填写正确的图形验证码");
+                        return;
+                    }
+
                     if (isRequest) {
                         ToastUtil.showToast(RegisterActivity.this, "请稍后");
                         return;
                     }
+
+
                     isRequest = true;
                     String phone = et_register_phone.getText().toString().trim();
                     if (phone.length() == 0) {
@@ -119,6 +137,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                     }
                     //请求发送短信
                     registerPresenter.requestRegisterSms(phone);
+                    et_register_sms_pic.setText("");
+                    setPicCode();
                 }
 
 
@@ -222,6 +242,20 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
             }
         });
+
+        setPicCode();
+        iv_get_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPicCode();
+            }
+        });
+    }
+
+
+    public void setPicCode() {
+        Bitmap b = CodeUtil.getInstance().createBitmap();
+        iv_get_code.setImageBitmap(b);
     }
 
     private void updateBtStatus() {

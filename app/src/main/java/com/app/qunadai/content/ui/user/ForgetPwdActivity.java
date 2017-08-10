@@ -1,6 +1,7 @@
 package com.app.qunadai.content.ui.user;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.ForgetContract;
 import com.app.qunadai.content.presenter.ForgetPresenter;
+import com.app.qunadai.utils.CodeUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
@@ -46,8 +48,16 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
     Button bt_get_sms;
     @BindView(R.id.bt_reset)
     Button bt_reset;
+
+
+    @BindView(R.id.iv_get_code)
+    ImageView iv_get_code;
+    @BindView(R.id.et_forget_sms_pic)
+    EditText et_forget_sms_pic;
+
     boolean isRequest;
     private TimeCount time;
+
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -100,6 +110,16 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
         bt_get_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                String code = CodeUtil.getInstance().getCode();
+                String inputCode = CommUtil.getText(et_forget_sms_pic);
+                if (!code.equalsIgnoreCase(inputCode)) {
+                    ToastUtil.showToast(ForgetPwdActivity.this, "请填写正确的图形验证码");
+                    return;
+                }
+
+
                 if (isRequest) {
                     ToastUtil.showToast(ForgetPwdActivity.this, "请稍后");
                     return;
@@ -115,6 +135,8 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
                 if(NetworkUtil.checkNetwork(ForgetPwdActivity.this)){
 
                     forgetPresenter.requestForgetSms(phone);
+                    et_forget_sms_pic.setText("");
+                    setPicCode();
                 }
 
             }
@@ -216,7 +238,22 @@ public class ForgetPwdActivity extends BaseActivity implements ForgetContract.Vi
 
             }
         });
+
+        setPicCode();
+        iv_get_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPicCode();
+            }
+        });
+
     }
+
+    public void setPicCode() {
+        Bitmap b = CodeUtil.getInstance().createBitmap();
+        iv_get_code.setImageBitmap(b);
+    }
+
     private void updateBtStatus(){
         String phone = et_forget_phone.getText().toString().trim();
         String sms = et_forget_sms.getText().toString().trim();

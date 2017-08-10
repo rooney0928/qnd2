@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.LimitContract;
 import com.app.qunadai.content.presenter.LimitPresenter;
 import com.app.qunadai.content.ui.MainActivity;
+import com.app.qunadai.content.ui.bbs.HelpActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
 import com.app.qunadai.content.ui.me.BankCardActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
@@ -80,6 +82,9 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     Button bt_limit_raise;
     @BindView(R.id.bt_limit_borrow)
     Button bt_limit_borrow;
+
+    @BindView(R.id.iv_loan_question)
+    ImageView iv_loan_question;
 
     private PersonBean localPersonBean;
 
@@ -151,9 +156,17 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
             }
         });
 
-        if (NetworkUtil.checkNetwork(getActivity())) {
-            refreshMsg();
-        }
+        iv_loan_question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentHelp = new Intent(getActivity(), HelpActivity.class);
+                startActivity(intentHelp);
+            }
+        });
+
+//        if (NetworkUtil.checkNetwork(getActivity())) {
+//            refreshMsg();
+//        }
 
     }
 

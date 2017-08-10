@@ -1,9 +1,13 @@
 package com.app.qunadai.http;
 
+import com.app.qunadai.bean.AllCity;
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.AvatarBean;
 import com.app.qunadai.bean.BankcardBean;
-import com.app.qunadai.bean.LoanDetail;
+import com.app.qunadai.bean.BannerBean;
+import com.app.qunadai.bean.FindCity;
+import com.app.qunadai.bean.CreditCard;
+import com.app.qunadai.bean.CreditStrategy;
 import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductDetailBean;
@@ -17,8 +21,8 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
-import com.app.qunadai.bean.bbs.Comment;
 import com.app.qunadai.bean.bbs.CommentList;
+import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.bean.bbs.PostBean;
 import com.app.qunadai.bean.bbs.PostListBean;
 import com.app.qunadai.bean.bbs.PostNewBean;
@@ -145,6 +149,25 @@ public interface QndApi {
     @POST("home/loan/orders/createH5Order")
     Observable<ApplyBean> apply(@Query("access_token") String access_token, @Body RequestBody body);
 
+    //credit card
+
+    @GET("creditCard/strategies")
+    Observable<CreditStrategy> creditStrategy(@Query("page") int page, @Query("size") int size);
+
+    @GET("bank/pageListByCName")
+    Observable<CreditCard> creditCardList(@Query("cName") String cName, @Query("page") int page, @Query("size") int size);
+
+    @GET("global/basicdata/getHotRegionList")
+    Observable<HotCity> hotCity();
+
+    @GET("global/basicdata/getAllCityList")
+    Observable<AllCity> allCity();
+
+    @GET("global/basicdata/getDistrictListByNameAndType")
+    Observable<FindCity> findCity(@Query("name") String cName, @Query("levelType") int type);
+
+    @GET("banners/available")
+    Observable<BannerBean> getBanner(@Query("bannerType") String bannerType);
 
     //limit
     @FormUrlEncoded

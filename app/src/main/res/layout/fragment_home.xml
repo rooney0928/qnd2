@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="3">
 
                     <LinearLayout
                         android:id="@+id/ll_home_speed_loan"
@@ -45,46 +45,24 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/ripple_nav_bg"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="13dp"
-                            android:src="@mipmap/icon_speed_loan"/>
+                            android:src="@mipmap/ic_speed"/>
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="急速贷款"
-                                android:textColor="@color/black"
-                                android:textSize="15dp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
-                                android:text="1小时到账"
-                                android:textColor="@color/text_grey"
-                                android:textSize="14sp"/>
-                        </LinearLayout>
+                            android:layout_marginTop="6dp"
+                            android:text="极速贷款"
+                            android:textColor="@color/text_black"
+                            android:textSize="14sp"/>
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#f3f3f3"/>
 
                     <LinearLayout
                         android:id="@+id/ll_home_recommend_loan"
@@ -92,38 +70,48 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/ripple_nav_bg"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="12dp"
-                            android:src="@mipmap/icon_recommend"/>
+                            android:src="@mipmap/ic_recommend"/>
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginTop="6dp"
+                            android:text="贷款推荐"
+                            android:textColor="@color/text_black"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="贷款推荐"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"/>
+                    <LinearLayout
+                        android:id="@+id/ll_home_credit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/ripple_nav_bg"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
-                                android:text="精准推荐贷款"
-                                android:textColor="@color/text_grey"
-                                android:textSize="14sp"/>
-                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic_bank"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="办信用卡"
+                            android:textColor="@color/text_black"
+                            android:textSize="14sp"/>
                     </LinearLayout>
 
                 </LinearLayout>

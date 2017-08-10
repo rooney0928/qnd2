@@ -13,12 +13,14 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.MeContract;
 import com.app.qunadai.content.presenter.MePresenter;
 import com.app.qunadai.content.ui.me.AccountActivity;
+import com.app.qunadai.content.ui.me.MyLoanActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
 import com.app.qunadai.content.ui.me.SettingActivity;
 import com.app.qunadai.content.ui.user.LoginActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
@@ -96,6 +98,8 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                     return;
                 }
                 CommUtil.tcEvent(getActivity(), "My_loan", "我的贷款");
+                Intent intentLoan = new Intent(getActivity(), MyLoanActivity.class);
+                startActivity(intentLoan);
             }
         });
         rl_setting.setOnClickListener(new View.OnClickListener() {
@@ -118,12 +122,14 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                     intent.putExtra("phone", localMeBean.getContent().getUser().getAccount().getMobileNumber());
                     intent.putExtra("avatar", localMeBean.getContent().getUser().getAvatar());
                     startActivity(intent);
+                } else {
+                    mePresenter.requestCurrent(getToken());
                 }
             }
         });
-        if (NetworkUtil.checkNetwork(getActivity())) {
-            refreshMsg();
-        }
+//        if (NetworkUtil.checkNetwork(getActivity())) {
+//            refreshMsg();
+//        }
 
     }
 
@@ -138,7 +144,11 @@ public class MeFragment extends BaseFragment implements MeContract.View {
         localMeBean = meBean;
         String imgUrl = RxHttp.ROOT + "attachments/" + meBean.getContent().getUser().getAvatar();
         ImgUtil.loadRound(getActivity(), imgUrl, iv_me_avatar);
+
         tv_me_name.setText(meBean.getContent().getUser().getNick());
+        if (CommUtil.isNull(tv_me_name)) {
+            tv_me_name.setText(PrefUtil.getString(getActivity(), PrefKey.PHONE, ""));
+        }
     }
 
     @Override

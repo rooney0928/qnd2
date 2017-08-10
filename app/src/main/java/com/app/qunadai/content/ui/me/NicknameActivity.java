@@ -119,7 +119,7 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
     @Override
     public void uploadNickname(NickBean bean) {
 
-        EventBus.getDefault().post(new EventMe());
+//        EventBus.getDefault().post(new EventMe());
         EventBus.getDefault().post(new EventMe(CommUtil.getText(et_nickname_text)));
         //延迟500毫秒关闭swipe
         Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(

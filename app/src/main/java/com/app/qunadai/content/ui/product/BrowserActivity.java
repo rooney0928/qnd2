@@ -188,10 +188,12 @@ public class BrowserActivity extends BaseActivity {
                 super.onPageFinished(view, url);
                 // mTestHandler.sendEmptyMessage(MSG_OPEN_TEST_URL);
                 mTestHandler.sendEmptyMessageDelayed(MSG_OPEN_TEST_URL, 5000);// 5s?
-                if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 16)
+                if (Build.VERSION.SDK_INT >= 16)
                     changGoForwardButton(view);
                 /* mWebView.showLog("test Log"); */
             }
+
+
         });
 
         mWebView.setWebChromeClient(new WebChromeClient() {
@@ -244,6 +246,15 @@ public class BrowserActivity extends BaseActivity {
                  * 这里写入你自定义的window alert
                  */
                 return super.onJsAlert(null, arg1, arg2, arg3);
+            }
+
+            @Override
+            public void onProgressChanged(WebView webView, int i) {
+                super.onProgressChanged(webView, i);
+                mPageLoadingProgressBar.setProgress(i);
+                if (i >= 100) {
+                    mPageLoadingProgressBar.setProgress(0);
+                }
             }
         });
 

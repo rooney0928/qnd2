@@ -8,8 +8,8 @@ android {
         applicationId "com.app.qunadai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 62
-        versionName "4.2"
+        versionCode 66
+        versionName "4.26"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -106,15 +106,17 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.yanzhenjie:album:1.0.7'
     compile 'com.github.yalantis:ucrop:2.2.1'
-    compile 'com.yanzhenjie:permission:1.0.7'
+    compile 'com.yanzhenjie:permission:1.0.8'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
 
     compile 'com.zxy.android:tiny:0.0.6'
-    compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
+    compile 'com.yanzhenjie:recyclerview-swipe:1.1.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile 'com.github.czy1121:bannerview:1.0.0'
+    //定位
+    compile 'com.amap.api:location:latest.integration'
     //自动更新
     compile 'com.pgyersdk:sdk:2.5.6'
 

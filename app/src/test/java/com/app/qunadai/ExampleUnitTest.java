@@ -5,6 +5,7 @@ import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
@@ -77,12 +78,39 @@ public class ExampleUnitTest {
 
     }
 
+    @Test
+    public void testAlphaSize() throws Exception {
+        String[] alpha = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+                "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        assertEquals(26, alpha.length);
+    }
 
     @Test
-    public void getLastVersion(){
+    public void testJ() {
+        String json = "{'type':'product','id':'663efe9e-3cb3-48cd-98c4-2bd89a255263'}";
+        String json2 = json.replace("\'","\"");
+        String json3 = "{\"type\":\"001\"}";
+
+//        assertEquals("111",json2);
+
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json3);
+//            String type = obj.getString("type");
+
+            assertEquals("product",obj.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @Test
+    public void getLastVersion() {
         String version = "4.0.2";
         String last = String.valueOf(version.charAt(version.length() - 1));
-        assertEquals("2",last);
+        assertEquals("2", last);
     }
 
 }

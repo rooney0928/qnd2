@@ -1,5 +1,6 @@
 package com.app.qunadai.content.presenter;
 
+import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.contract.HomeContract;
@@ -9,7 +10,7 @@ import com.app.qunadai.content.model.HomeModelImpl;
  * Created by wayne on 2017/5/10.
  */
 
-public class HomePresenter implements HomeContract.Presenter{
+public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View view;
     private HomeContract.Model model;
 
@@ -42,6 +43,16 @@ public class HomePresenter implements HomeContract.Presenter{
             }
 
             @Override
+            public void getBanner(BannerBean bean) {
+                view.getBanner(bean);
+            }
+
+            @Override
+            public void getBannerFail(String error) {
+                view.getBannerFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -51,7 +62,6 @@ public class HomePresenter implements HomeContract.Presenter{
                 view.requestEnd();
             }
         });
-
 
 
     }
@@ -69,5 +79,10 @@ public class HomePresenter implements HomeContract.Presenter{
     @Override
     public void requestPersonValue(String token) {
         model.requestPersonValue(token);
+    }
+
+    @Override
+    public void getBanner() {
+        model.getBanner();
     }
 }

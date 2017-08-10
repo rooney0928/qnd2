@@ -292,7 +292,6 @@ public class ProductsActivity extends BaseActivity implements ProductsContract.V
         }
 
 
-
     }
 
 

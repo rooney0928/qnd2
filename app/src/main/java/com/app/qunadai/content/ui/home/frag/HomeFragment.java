@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui.home.frag;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,18 +14,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.qunadai.QNDFactory;
 import com.app.qunadai.R;
+import com.app.qunadai.bean.Banner;
+import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.HomeContract;
 import com.app.qunadai.content.presenter.HomePresenter;
+import com.app.qunadai.content.ui.home.CreditCardActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.home.RecommendActivity;
+import com.app.qunadai.content.ui.me.BankCardActivity;
 import com.app.qunadai.content.ui.me.PersonInfoActivity;
+import com.app.qunadai.content.ui.product.BrowserActivity;
 import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.content.view.FullViewPager;
+import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
@@ -76,6 +84,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     LinearLayout ll_home_speed_loan;
     @BindView(R.id.ll_home_recommend_loan)
     LinearLayout ll_home_recommend_loan;
+    @BindView(R.id.ll_home_credit)
+    LinearLayout ll_home_credit;
 
     @BindView(R.id.rl_home_more)
     RelativeLayout rl_home_more;
@@ -92,6 +102,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
     private List<String> tabTitle;
     boolean isRefresh;
+
 
     public static HomeFragment getInstance() {
         HomeFragment homeFragment = new HomeFragment();
@@ -131,7 +142,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
         fragments.add(recommendFragment2);
         fragments.add(recommendFragment3);
 
-        initBanner();
+//        initBanner();
 
         initTabLayout();
         swipe_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -139,7 +150,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             @Override
             public void onRefresh() {
                 LogU.t("t-" + getToken());
-                if (isRefresh||CommUtil.isNull(getToken())) {
+                if (isRefresh || CommUtil.isNull(getToken())) {
                     swipe_home.setRefreshing(false);
                     return;
                 }
@@ -188,35 +199,43 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
                 startActivity(intentProducts);
             }
         });
+        ll_home_credit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //办信用卡
+                Intent intentCredit = new Intent(getActivity(), CreditCardActivity.class);
+                startActivity(intentCredit);
+
+            }
+        });
         iv_home_banner.setOnClickListener(this);
 
-        homePresenter.getHomeRecommend();
 
         if (NetworkUtil.checkNetwork(getActivity())) {
-            refreshMsg();
+//            refreshMsg();
+            homePresenter.getHomeRecommend();
+
+            homePresenter.getBanner();
         }
     }
 
     private void initBanner() {
-        int[] resIds = new int[]{R.mipmap.banner1, R.mipmap.banner3, R.mipmap.banner2};
-        String[] pids = new String[]{"","1c67213a-eda9-407d-ae73-7849442a9f6c","be9fa4b6-027a-43a5-9fe1-8eb373b13f25"};
+        int[] resIds = new int[]{R.mipmap.banner1};
 
         List<BannerItem> list = new ArrayList<>();
         for (int i = 0; i < resIds.length; i++) {
             BannerItem item = new BannerItem();
-            item.image = resIds[i];
-            item.pid = pids[i];
             list.add(item);
         }
 
-        banner.setViewFactory(new BannerViewFactory());
+        banner.setViewFactory(new BannerViewFactory(getActivity()));
         banner.setDataList(list);
         banner.start();
     }
 
     public static class BannerItem {
-        public int image;
         public String pid;
+        public String picUrl;
 
         @Override
         public String toString() {
@@ -225,27 +244,73 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     }
 
     public static class BannerViewFactory implements BannerView.ViewFactory<BannerItem> {
+        private Context context;
+        private List<Banner> banners;
+
+        public BannerViewFactory(Context context) {
+            this.context = context;
+        }
+
+        public void setBanners(List<Banner> banners) {
+            this.banners = banners;
+        }
+
         @Override
         public View create(final BannerItem item, final int position, final ViewGroup container) {
             ImageView iv = new ImageView(container.getContext());
 //            RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA);
 //            Glide.with(container.getContext().getApplicationContext()).load(item.image).apply(options).into(iv);
-            iv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(container.getContext(), ProductDetailActivity.class);
-                    switch (position){
-                        case 1:
-                        case 2:
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("pid",item.pid);
-                            context.startActivity(intent);
-                            break;
-                    }
+            String imgUrl = RxHttp.ROOT + "attachments/" + item.picUrl;
 
+//            LogU.t("banner----"+imgUrl);
+            if (CommUtil.isNull(item.picUrl)) {
+                ImgUtil.loadImg(container.getContext(), R.mipmap.banner1, iv);
+            } else {
+                ImgUtil.loadImg(container.getContext(), imgUrl, iv);
+            }
+
+            if (banners != null) {
+                final Banner b = banners.get(position);
+
+                if(b.getBannerMode().equals("EXTERNAL")){
+                    iv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, BrowserActivity.class);
+                            intent.putExtra("url", b.getBannerUrl());
+                            intent.putExtra("title",b.getName());
+                            context.startActivity(intent);
+                        }
+                    });
+                }else{
+                    iv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (b.getTargetInfo() != null) {
+                                Banner.TargetInfoBean target = b.getTargetInfo();
+                                switch (target.getType()) {
+                                    case "product":
+                                    case "PRODUCT":
+                                        //单个产品
+                                        Intent intent = new Intent(context, ProductDetailActivity.class);
+                                        intent.putExtra("pid", target.getId());
+                                        context.startActivity(intent);
+                                        break;
+                                    case "products":
+                                    case "PRODUCTS":
+                                    case "productList":
+                                        //多个产品
+                                        Intent intentProducts = new Intent(context, ProductsActivity.class);
+                                        context.startActivity(intentProducts);
+                                        break;
+                                }
+
+                            }
+                        }
+                    });
                 }
-            });
-            ImgUtil.loadImg(container.getContext(), item.image, iv);
+
+            }
             return iv;
         }
     }
@@ -315,6 +380,28 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     @Override
     public void getPersonValueFail(String error) {
         ToastUtil.showToast(getActivity(), error + "-h");
+    }
+
+    @Override
+    public void getBanner(BannerBean bean) {
+        List<Banner> banners = bean.getContent().getAvailableBanners();
+        List<BannerItem> list = new ArrayList<>();
+        for (int i = 0; i < banners.size(); i++) {
+            BannerItem item = new BannerItem();
+            item.picUrl = banners.get(i).getBannerPic();
+            list.add(item);
+        }
+        BannerViewFactory factory = new BannerViewFactory(getActivity());
+        factory.setBanners(banners);
+        banner.setViewFactory(factory);
+        banner.setDataList(list);
+        banner.start();
+    }
+
+    @Override
+    public void getBannerFail(String error) {
+        ToastUtil.showToast(getActivity(), error + "-h");
+        initBanner();
     }
 
     @Override

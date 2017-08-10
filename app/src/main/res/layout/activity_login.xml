@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/main_bg"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,12 +67,12 @@
             android:layout_height="42dp"
             android:background="@null"
             android:hint="请输入手机号"
-            android:text=""
             android:inputType="number"
             android:maxLength="30"
             android:maxLines="1"
             android:paddingLeft="42dp"
             android:paddingRight="42dp"
+            android:text=""
             android:textColor="@color/black"
             android:textColorHint="@color/text_hint"
             android:textSize="14sp"/>
@@ -188,6 +189,51 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
             android:background="@drawable/shape_sms"
+            android:enabled="true"
+            android:text="获取验证码"
+            android:textColor="@color/mainColor"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+    <!--图形验证码-->
+    <RelativeLayout
+        android:id="@+id/rl_login_sms_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/ic_code_pic"/>
+
+        <EditText
+            android:id="@+id/et_login_sms_pic"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@null"
+            android:hint="请输入图形验证码"
+            android:inputType="textVisiblePassword"
+            android:maxLength="4"
+            android:maxLines="1"
+            android:paddingLeft="42dp"
+            android:paddingRight="42dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_hint"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
             android:enabled="true"
             android:text="获取验证码"
             android:textColor="@color/mainColor"
