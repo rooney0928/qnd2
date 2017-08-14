@@ -137,8 +137,6 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                     }
                     //请求发送短信
                     registerPresenter.requestRegisterSms(phone);
-                    et_register_sms_pic.setText("");
-                    setPicCode();
                 }
 
 
