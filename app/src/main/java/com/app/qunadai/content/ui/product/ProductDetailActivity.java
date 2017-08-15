@@ -150,11 +150,14 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
 //                productDetailPresenter.applyOrder(PrefUtil.getString(ProductDetailActivity.this, PrefKey.TOKEN, ""),
 //                        mAmount, mTime, mTimeType, mPid, "H5");
+
+                //
+                /*
                 if (av_bankcard.getStatus() != AuthView.AUTH_YES || av_realinfo.getStatus() != AuthView.AUTH_YES) {
                     ToastUtil.showToast(ProductDetailActivity.this, "请完善认证后提交");
                     return;
                 }
-
+*/
                 //在这里提交
                 if (productDetailBean != null) {
                     String mAmount = CommUtil.getText(et_detail_amount);

@@ -147,7 +147,7 @@ public class PostActivity extends BaseActivity implements PostNewContract.View {
                     postNewPresenter.postNew(token, title, content, base64);
                 }
             });
-        }else{
+        } else {
             String token = PrefUtil.getString(PostActivity.this, PrefKey.TOKEN, "");
             postNewPresenter.postNew(token, title, content, new String[]{});
         }

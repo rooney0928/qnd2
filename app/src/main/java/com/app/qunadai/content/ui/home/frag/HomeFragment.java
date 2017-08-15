@@ -227,7 +227,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             BannerItem item = new BannerItem();
             list.add(item);
         }
-
         banner.setViewFactory(new BannerViewFactory(getActivity()));
         banner.setDataList(list);
         banner.start();

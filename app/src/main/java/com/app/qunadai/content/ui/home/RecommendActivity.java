@@ -73,7 +73,7 @@ public class RecommendActivity extends BaseActivity implements RecommendContract
         list = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapter = new LoanAdapter(this);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.dp8);
         rv_list.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_list.setLayoutManager(linearLayoutManager);
         rv_list.setAdapter(adapter);
