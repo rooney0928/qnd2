@@ -52,7 +52,7 @@ public class RecommendFragment extends BaseFragment {
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
 //        rv_recommend.setLayoutManager(linearLayoutManager);
 //        rv_recommend.setAdapter(adapter);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.dp8);
         rv_recommend.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_recommend.setLayoutManager(linearLayoutManager);
         rv_recommend.setNestedScrollingEnabled(false);
