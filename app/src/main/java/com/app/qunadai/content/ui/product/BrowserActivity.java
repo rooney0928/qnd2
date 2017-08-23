@@ -101,7 +101,7 @@ public class BrowserActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
 //				mIntentUrl = new URL(intent.getData().toString());
-            webUrl = getIntent().getExtras().getString("url");
+                webUrl = getIntent().getExtras().getString("url");
             setTitleText(getIntent().getStringExtra("title"));
 
         }

@@ -30,6 +30,8 @@ public class LimitModelImpl implements LimitContract.Model {
 
         void getPersonValueFail(String error);
 
+        void getStatus(StatusBean bean);
+
         void requestStart();
 
         void requestEnd();
@@ -92,7 +94,7 @@ public class LimitModelImpl implements LimitContract.Model {
 
                     @Override
                     protected void onOk(StatusBean bean) {
-
+                        onReturnDataListener.getStatus(bean);
                     }
 
                     @Override

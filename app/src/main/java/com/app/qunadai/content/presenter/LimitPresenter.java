@@ -1,6 +1,7 @@
 package com.app.qunadai.content.presenter;
 
 import com.app.qunadai.bean.PersonBean;
+import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.content.contract.LimitContract;
 import com.app.qunadai.content.model.HomeModelImpl;
 import com.app.qunadai.content.model.LimitModelImpl;
@@ -30,6 +31,11 @@ public class LimitPresenter implements LimitContract.Presenter {
             @Override
             public void getPersonValueFail(String error) {
                 view.getPersonValueFail(error);
+            }
+
+            @Override
+            public void getStatus(StatusBean bean) {
+                view.getStatus(bean);
             }
 
             @Override
