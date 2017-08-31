@@ -3,6 +3,7 @@ package com.app.qunadai.content.ui.limit.frag;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.MyApp;
+import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.LimitContract;
 import com.app.qunadai.content.presenter.LimitPresenter;
@@ -168,6 +170,26 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 //            refreshMsg();
 //        }
 
+        tv_limit_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doubleClick();
+            }
+        });
+    }
+
+    long[] mHits = new long[5];
+    private final static int N_CLAP_TIME = 2*1000;
+    private void doubleClick(){
+        // 实现左移
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        // 将最后一个位置更新为距离开机的时间，如果最后一个时间和最开始时间小于2000，即n击
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        if ( N_CLAP_TIME >= (mHits[mHits.length - 1] - mHits[0])  ) {
+            // 在这里写退出代码
+            // ......
+            ToastUtil.showToastLong(getContext(),json);
+        }
     }
 
     @Override
@@ -250,6 +272,12 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     @Override
     public void getPersonValueFail(String error) {
         ToastUtil.showToast(getActivity(), error);
+    }
+
+    @Override
+    public void getStatus(StatusBean bean) {
+        limitPresenter.requestPersonValue(getToken());
+
     }
 
     @Override
@@ -396,6 +424,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     }
 
+    String json;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -407,6 +437,7 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                 case ReqKey.REQ_MOXIE:
                     Bundle b = data.getExtras();              //data为B中回传的Intent
                     String result = b.getString("result");    //result即为回传的值(JSON格式)
+                    json = result;
 
                     if (TextUtils.isEmpty(result)) {
                         ToastUtil.showToast(getActivity(), "没有进行导入操作!");
@@ -417,6 +448,8 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
                             int code = jsonObject.getInt("code");
                             String taskType = jsonObject.getString("taskType");
+
+
                             switch (code) {
                                 case -1:
                                     ToastUtil.showToast(getActivity(), "没有进行导入操作!");
@@ -464,6 +497,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         String phone = PrefUtil.getString(getActivity(), PrefKey.PHONE, "");
         String token = PrefUtil.getString(getActivity(), PrefKey.TOKEN, "");
         limitPresenter.updateStatus(phone, taskType, token);
-        limitPresenter.requestPersonValue(token);
+
     }
 }
