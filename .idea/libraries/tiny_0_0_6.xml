@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="tiny-0.0.6">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/2101e9791c1ae6d36b63525c2b048cdcdde85f9f/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/2101e9791c1ae6d36b63525c2b048cdcdde85f9f/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/4a24b506651c2c57ff9001d1f66feeeb468c88e6/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/4a24b506651c2c57ff9001d1f66feeeb468c88e6/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

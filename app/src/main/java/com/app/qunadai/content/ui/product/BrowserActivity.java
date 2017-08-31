@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -46,6 +47,8 @@ import com.tencent.smtt.utils.TbsLog;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BrowserActivity extends BaseActivity {
     /**
@@ -532,10 +535,19 @@ public class BrowserActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (mTestHandler != null)
-            mTestHandler.removeCallbacksAndMessages(null);
-        if (mWebView != null)
-            mWebView.destroy();
+        if(mWebView != null) {
+            mWebView.getSettings().setBuiltInZoomControls(true);
+            mWebView.setVisibility(View.GONE);
+            long timeout = ViewConfiguration.getZoomControlsTimeout();//timeout ==3000
+//            Log.i("time==",timeout+"");
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    mWebView.destroy();
+                }
+            }, timeout);
+        }
         super.onDestroy();
     }
 
@@ -567,6 +579,8 @@ public class BrowserActivity extends BaseActivity {
             super.handleMessage(msg);
         }
     };
+
+
 
     @Override
     public void updateView(Object serverData) {

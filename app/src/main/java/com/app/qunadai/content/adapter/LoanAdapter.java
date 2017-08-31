@@ -139,11 +139,26 @@ public class LoanAdapter extends RecyclerView.Adapter {
 
             tv_loan_name.setText(detail.getName());
             tv_loan_amount.setText(detail.getMaxAmount() + "");
-            tv_loan_slogan.setText(detail.getDescribe());
-            tv_loan_rate.setText("月费率 " + detail.getRate());
+            tv_loan_slogan.setText( detail.getLoanTime());
+            String timeType = "";
+            switch (detail.getRateStatus()) {
+                case "MONTH":
+                    timeType = "月";
+                    break;
+                case "WEEK":
+                    timeType = "周";
+                    break;
+                case "DAY":
+                    timeType = "天";
+                    break;
+                default:
+                    timeType = "期";
+                    break;
+            }
+            tv_loan_rate.setText("费率 " + detail.getRate() + "/" + timeType);
 
-            String period = detail.getMinTerm() + "-" + detail.getMaxTerm() + detail.getTermUnit();
-            tv_loan_period.setText("贷款期限 " + period);
+//            String period = detail.getMinTerm() + "-" + detail.getMaxTerm() + detail.getTermUnit();
+            tv_loan_period.setText("贷款期限 " + detail.getTerm());
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
