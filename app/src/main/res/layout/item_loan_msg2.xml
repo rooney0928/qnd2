@@ -114,7 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:maxLines="1"
-                        android:text="月费率0.8%"
+                        android:textSize="13sp"
+                        android:text="费率0.8%"
                         android:textColor="@color/text_grey_light"/>
 
                     <TextView
