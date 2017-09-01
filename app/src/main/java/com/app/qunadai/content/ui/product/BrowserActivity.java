@@ -535,19 +535,24 @@ public class BrowserActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if(mWebView != null) {
-            mWebView.getSettings().setBuiltInZoomControls(true);
-            mWebView.setVisibility(View.GONE);
-            long timeout = ViewConfiguration.getZoomControlsTimeout();//timeout ==3000
-//            Log.i("time==",timeout+"");
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    mWebView.destroy();
-                }
-            }, timeout);
-        }
+        if (mTestHandler != null)
+            mTestHandler.removeCallbacksAndMessages(null);
+        if (mWebView != null)
+            mWebView.destroy();
+
+//        if(mWebView != null) {
+//            mWebView.getSettings().setBuiltInZoomControls(true);
+//            mWebView.setVisibility(View.GONE);
+//            long timeout = ViewConfiguration.getZoomControlsTimeout();//timeout ==3000
+////            Log.i("time==",timeout+"");
+//            new Timer().schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    // TODO Auto-generated method stub
+//                    mWebView.destroy();
+//                }
+//            }, timeout);
+//        }
         super.onDestroy();
     }
 

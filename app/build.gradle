@@ -8,8 +8,8 @@ android {
         applicationId "com.app.qunadai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 78
-        versionName "4.2.10"
+        versionCode 82
+        versionName "4.2.12"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
