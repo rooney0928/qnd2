@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
@@ -8,8 +7,8 @@ android {
         applicationId "com.app.qunadai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 82
-        versionName "4.2.12"
+        versionCode 78
+        versionName "4.2.10"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -68,7 +67,6 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 repositories{
@@ -79,19 +77,20 @@ repositories{
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-//    compile files('libs/*.jar')
+    //    compile files('libs/*.jar')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
+
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     //retrofit
     compile 'io.reactivex:rxjava:1.2.4'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -109,7 +108,6 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.0.8'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
-
     compile 'com.zxy.android:tiny:0.0.6'
     compile 'com.yanzhenjie:recyclerview-swipe:1.1.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
@@ -119,5 +117,4 @@ dependencies {
     compile 'com.amap.api:location:latest.integration'
     //自动更新
     compile 'com.pgyersdk:sdk:2.5.6'
-
 }

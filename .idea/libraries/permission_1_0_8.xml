@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="permission-1.0.8">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/19be814da47dce490f9fd940a857368272615794/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/19be814da47dce490f9fd940a857368272615794/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/2e4bb6067ceda5f792a5cf0d7b513577e1b77a72/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/2e4bb6067ceda5f792a5cf0d7b513577e1b77a72/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
