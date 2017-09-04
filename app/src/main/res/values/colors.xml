@@ -67,4 +67,6 @@
     <color name="area">#c3c3c3</color>
     <color name="v5_login_text">#4a4a4a</color>
     <color name="v5_login_title_sub">#D2D2D2</color>
+    <color name="v5_login_resms">#D2B790</color>
+    <color name="v5_login_resms_dis">#B6B6B6</color>
 </resources>

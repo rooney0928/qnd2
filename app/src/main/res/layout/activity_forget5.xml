@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="注册"
+                android:text="忘记密码"
                 android:textColor="@color/v5_login_text"
                 android:textSize="34sp"/>
 
@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:lines="2"
                 android:maxLines="2"
                 android:text="我们向18605024628发送了一个6位数的验证码。请在消息框中输入。"
                 android:textColor="@color/v5_login_title_sub"/>
@@ -74,7 +75,6 @@
             android:textColor="@drawable/selector_login5_resms"
             android:textSize="16sp"/>
     </LinearLayout>
-
 
 
     <TextView

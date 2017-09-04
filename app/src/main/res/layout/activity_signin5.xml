@@ -21,30 +21,38 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="注册"
+                android:text="注册/登录"
                 android:textColor="@color/v5_login_text"
                 android:textSize="34sp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:maxLines="2"
-                android:text="我们向18605024628发送了一个6位数的验证码。请在消息框中输入。"
-                android:textColor="@color/v5_login_title_sub"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_signup_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
-                <include layout="@layout/view_comm_pwd"/>
+                <include layout="@layout/view_comm_phone"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/icon_bg"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <include layout="@layout/view_comm_pwd2"/>
 
             </RelativeLayout>
 
@@ -64,25 +72,37 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginTop="12dp"
-            android:text="重新获取"
-            android:textColor="@drawable/selector_login5_resms"
-            android:textSize="16sp"/>
     </LinearLayout>
 
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
-        android:text="注册即代表我同意去哪贷服务协议"
-        android:textColor="@color/v5_login_title_sub"/>
+        android:gravity="center_vertical"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码"
+            android:textColor="@color/v5_login_title_sub"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/gap"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="注册即代表我同意去哪贷服务协议"
+            android:textColor="@color/v5_login_title_sub"/>
+    </LinearLayout>
 </RelativeLayout>

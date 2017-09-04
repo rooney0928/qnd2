@@ -10,15 +10,20 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@mipmap/ic5_login_lock"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:background="@null"
-            android:inputType="number"
+            android:inputType="textPassword"
             android:text="15000982323"
             android:textColor="@color/v5_login_text"
-            android:textSize="16sp"/>
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <CheckBox
@@ -27,20 +32,8 @@
         android:layout_height="22dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/checkbox_login"
+        android:background="@drawable/checkbox_eye5"
         android:button="@null"
-        android:checked="false"
-        android:enabled="false"
-        android:visibility="gone"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:text="59s"
-        android:textColor="@color/v5_login_title_sub"
-        android:textSize="16sp"/>
-
+        android:checked="false"/>
 
 </RelativeLayout>
