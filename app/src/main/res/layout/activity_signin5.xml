@@ -105,4 +105,5 @@
             android:text="注册即代表我同意去哪贷服务协议"
             android:textColor="@color/v5_login_title_sub"/>
     </LinearLayout>
+
 </RelativeLayout>

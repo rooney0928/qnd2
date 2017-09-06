@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_nav_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+        <!--头像，名字，星星-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/tv_comment_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="Lushana"/>
+
+
+            </LinearLayout>
+
+            <com.willy.ratingbar.ScaleRatingBar
+                xmlns:rb="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/simpleRatingBar5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                rb:clearRatingEnabled="false"
+                rb:drawableEmpty="@mipmap/ic5_empty_star"
+                rb:drawableFilled="@mipmap/ic5_star"
+                rb:numStars="5"
+                rb:rating="3"
+                rb:starHeight="20dp"
+                rb:starWidth="16dp"
+                rb:stepSize="1"
+                rb:touchable="false">
+            </com.willy.ratingbar.ScaleRatingBar>
+        </RelativeLayout>
+
+        <!--评论框-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="42dp"
+            android:background="@drawable/shape_comment"
+            android:padding="12dp"
+            android:text="不，到钱手续简单复杂，到钱块"
+            android:textColor="@color/v5_explore_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="6dp"
+            android:text="2017.8.26  14:49:59"
+            android:textColor="@color/text_grey"
+            android:textSize="10sp"/>
+
+    </LinearLayout>
+</RelativeLayout>

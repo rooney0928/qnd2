@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+        <!--标题-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="花旗银行"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+        <!--打分模块-->
+        <com.willy.ratingbar.ScaleRatingBar
+            xmlns:rb="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/simpleRatingBar5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            rb:clearRatingEnabled="false"
+            rb:drawableEmpty="@mipmap/ic5_empty_star"
+            rb:drawableFilled="@mipmap/ic5_star"
+            rb:numStars="5"
+            rb:rating="3"
+            rb:starHeight="36dp"
+            rb:starWidth="40dp"
+            rb:stepSize="1"
+            rb:touchable="true">
+        </com.willy.ratingbar.ScaleRatingBar>
+
+        <!--评论模块-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_add_comment"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="142dp"
+                android:gravity="clip_vertical"
+                android:hint="请输入您的评论"
+                android:lineSpacingExtra="3dp"
+                android:padding="18dp"
+                android:text="这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论"
+                android:textColorHint="@color/v5_gray"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/shape_comment_submit"
+            android:paddingBottom="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:text="提交"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

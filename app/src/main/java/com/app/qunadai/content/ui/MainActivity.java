@@ -47,8 +47,8 @@ public class MainActivity extends BaseActivity {
     RadioGroup rg_nav_group;
     @BindView(R.id.rb_nav_home)
     RadioButton rb_nav_home;
-    @BindView(R.id.rb_nav_limit)
-    RadioButton rb_nav_limit;
+//    @BindView(R.id.rb_nav_limit)
+//    RadioButton rb_nav_limit;
     @BindView(R.id.rb_nav_bbs)
     RadioButton rb_nav_bbs;
     @BindView(R.id.rb_nav_me)
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity {
     private Handler handler = new Handler();
 
     private HomeFragment homeFragment;
-    private LimitFragment limitFragment;
+//    private LimitFragment limitFragment;
     private BBSFragment bbsFragment;
     //    private HelpFragment helpFragment;
     private MeFragment meFragment;
@@ -85,13 +85,13 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         EventBus.getDefault().register(this);
         homeFragment = HomeFragment.getInstance();
-        limitFragment = LimitFragment.getInstance();
+//        limitFragment = LimitFragment.getInstance();
 //        helpFragment = HelpFragment.getInstance();
         bbsFragment = BBSFragment.getInstance();
         meFragment = MeFragment.getInstance();
 
         fragments.add(homeFragment);
-        fragments.add(limitFragment);
+//        fragments.add(limitFragment);
 //        fragments.add(helpFragment);
         fragments.add(bbsFragment);
         fragments.add(meFragment);
@@ -128,19 +128,9 @@ public class MainActivity extends BaseActivity {
                             }
                         }
                         break;
-                    case R.id.rb_nav_limit:
-                        vp_main.setCurrentItem(1);
-
-                        if (NetworkUtil.checkNetwork(MainActivity.this)) {
-                            if (limitFragment != null) {
-                                limitFragment.refreshMsg();
-                            }
-                        }
-
-                        break;
                     case R.id.rb_nav_bbs:
                         CommUtil.tcEvent(MainActivity.this,"strategy_list","攻略列表");
-                        vp_main.setCurrentItem(2);
+                        vp_main.setCurrentItem(1);
                         setTitleBarVisible(true);
                         setTitleText("社区");
                         setTitleRightText("我的帖子");
@@ -158,7 +148,7 @@ public class MainActivity extends BaseActivity {
                         });
                         break;
                     case R.id.rb_nav_me:
-                        vp_main.setCurrentItem(3);
+                        vp_main.setCurrentItem(2);
                         if (NetworkUtil.checkNetwork(MainActivity.this)) {
                             if (meFragment != null) {
                                 meFragment.refreshMsg();
@@ -194,9 +184,7 @@ public class MainActivity extends BaseActivity {
         switch (requestCode) {
             case ReqKey.REQ_MOXIE:
             case ReqKey.REQ_BANK_INFO:
-                if (limitFragment != null) {
-                    limitFragment.onActivityResult(requestCode, resultCode, data);
-                }
+
                 break;
 //            case ReqKey.REQ_QUIT_SYSTEM:
 //                if(resultCode==RESULT_OK){
@@ -214,22 +202,6 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventTurn event) {
-        clearTitleBar();
-        switch (event.getPage()) {
-            case 0:
-                break;
-            case 1:
-                rb_nav_limit.setChecked(true);
-                if (limitFragment != null) {
-                    limitFragment.refreshMsg();
-                }
-                break;
-
-        }
     }
 
 
@@ -251,9 +223,6 @@ public class MainActivity extends BaseActivity {
     public void onMessageEvent(EventLogin event) {
         if (homeFragment != null) {
             homeFragment.refreshMsg();
-        }
-        if (limitFragment != null) {
-            limitFragment.refreshMsg();
         }
         if (meFragment != null) {
             meFragment.refreshMsg();

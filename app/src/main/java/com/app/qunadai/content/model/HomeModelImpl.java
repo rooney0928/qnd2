@@ -97,7 +97,7 @@ public class HomeModelImpl implements HomeContract.Model {
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
                         if (ex.isTokenFail()) {
-                            onReturnDataListener.tokenFail();
+//                            onReturnDataListener.tokenFail();
                         }
                     }
 
@@ -131,7 +131,7 @@ public class HomeModelImpl implements HomeContract.Model {
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getBannerFail(ex.getDisplayMessage());
                         if (ex.isTokenFail()) {
-                            onReturnDataListener.tokenFail();
+//                            onReturnDataListener.tokenFail();
                         }
                     }
 

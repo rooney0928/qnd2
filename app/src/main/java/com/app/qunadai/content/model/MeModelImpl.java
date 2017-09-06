@@ -56,7 +56,7 @@ public class MeModelImpl implements MeContract.Model {
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getCurrentFail(ex.getDisplayMessage());
                         if(ex.isTokenFail()){
-                            onReturnDataListener.tokenFail();
+//                            onReturnDataListener.tokenFail();
                         }
                     }
 

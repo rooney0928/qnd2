@@ -21,6 +21,7 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.bbs.CommentList;
 import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.bean.bbs.PostBean;
@@ -30,6 +31,7 @@ import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
+import com.app.qunadai.bean.v5.Floors;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -169,6 +171,12 @@ public interface QndApi {
     @GET("banners/available")
     Observable<BannerBean> getBanner(@Query("bannerType") String bannerType);
 
+
+//    v5---start
+    @GET("home/floor/getHomeFloors")
+    Observable<BaseBean<Floors>> getHomeFloor();
+
+
     //limit
     @FormUrlEncoded
     @POST("home/personalvalue/updateStatus")
@@ -237,6 +245,9 @@ public interface QndApi {
 
     @POST("home/requirement")
     Observable<BankcardBean> setBankcardInfo(@Query("access_token") String access_token, @Body RequestBody body);
+
+
+
 
 
 }
