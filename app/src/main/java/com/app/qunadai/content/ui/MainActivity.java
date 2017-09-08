@@ -14,13 +14,16 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.ui.bbs.PostMyActivity;
 import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.bbs.frag.HelpFragment;
+import com.app.qunadai.content.ui.home.frag.Home5Fragment;
 import com.app.qunadai.content.ui.home.frag.HomeFragment;
 import com.app.qunadai.content.ui.limit.frag.LimitFragment;
+import com.app.qunadai.content.ui.me.frag.Me5Fragment;
 import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventMe;
+import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventToken;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
@@ -47,7 +50,7 @@ public class MainActivity extends BaseActivity {
     RadioGroup rg_nav_group;
     @BindView(R.id.rb_nav_home)
     RadioButton rb_nav_home;
-//    @BindView(R.id.rb_nav_limit)
+    //    @BindView(R.id.rb_nav_limit)
 //    RadioButton rb_nav_limit;
     @BindView(R.id.rb_nav_bbs)
     RadioButton rb_nav_bbs;
@@ -55,11 +58,12 @@ public class MainActivity extends BaseActivity {
     RadioButton rb_nav_me;
     private Handler handler = new Handler();
 
-    private HomeFragment homeFragment;
-//    private LimitFragment limitFragment;
+    //    private HomeFragment homeFragment;
+    private Home5Fragment home5Fragment;
+    //    private LimitFragment limitFragment;
     private BBSFragment bbsFragment;
     //    private HelpFragment helpFragment;
-    private MeFragment meFragment;
+    private Me5Fragment me5Fragment;
 
     private List<Fragment> fragments = new ArrayList<>();
 
@@ -84,17 +88,18 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-        homeFragment = HomeFragment.getInstance();
+        home5Fragment = Home5Fragment.getInstance();
+//        homeFragment = HomeFragment.getInstance();
 //        limitFragment = LimitFragment.getInstance();
 //        helpFragment = HelpFragment.getInstance();
         bbsFragment = BBSFragment.getInstance();
-        meFragment = MeFragment.getInstance();
+        me5Fragment = Me5Fragment.getInstance();
 
-        fragments.add(homeFragment);
+        fragments.add(home5Fragment);
 //        fragments.add(limitFragment);
 //        fragments.add(helpFragment);
         fragments.add(bbsFragment);
-        fragments.add(meFragment);
+        fragments.add(me5Fragment);
 
 //        Point p = CommUtil.getSize(this);
 //        LogU.t("width-" + p.x);
@@ -123,13 +128,10 @@ public class MainActivity extends BaseActivity {
                         vp_main.setCurrentItem(0);
                         if (NetworkUtil.checkNetwork(MainActivity.this)) {
 
-                            if (homeFragment != null) {
-                                homeFragment.refreshMsg();
-                            }
                         }
                         break;
                     case R.id.rb_nav_bbs:
-                        CommUtil.tcEvent(MainActivity.this,"strategy_list","攻略列表");
+                        CommUtil.tcEvent(MainActivity.this, "strategy_list", "攻略列表");
                         vp_main.setCurrentItem(1);
                         setTitleBarVisible(true);
                         setTitleText("社区");
@@ -148,17 +150,23 @@ public class MainActivity extends BaseActivity {
                         });
                         break;
                     case R.id.rb_nav_me:
+                        if(CommUtil.isNull(getToken())){
+                            exeLogin();
+                            return;
+                        }
                         vp_main.setCurrentItem(2);
+                        setTitleBarVisible(true);
+                        setTitleText("我的");
                         if (NetworkUtil.checkNetwork(MainActivity.this)) {
-                            if (meFragment != null) {
-                                meFragment.refreshMsg();
-                            }
+//                            if (meFragment != null) {
+//                                meFragment.refreshMsg();
+//                            }
                         }
                         break;
                 }
             }
         });
-        vp_main.setOffscreenPageLimit(4);
+        vp_main.setOffscreenPageLimit(3);
         rb_nav_home.setChecked(true);
 
     }
@@ -179,26 +187,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case ReqKey.REQ_MOXIE:
-            case ReqKey.REQ_BANK_INFO:
-
-                break;
-//            case ReqKey.REQ_QUIT_SYSTEM:
-//                if(resultCode==RESULT_OK){
-//                    finish();
-//                    System.exit(0);
-//                }
-//                break;
-
-        }
-
-//        ReqKey.REQ_QUIT_SYSTEM
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
@@ -207,10 +195,11 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventMe event) {
-        if (meFragment != null) {
-            meFragment.refreshMsg();
-        }
+//        if (meFragment != null) {
+//            meFragment.refreshMsg();
+//        }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventToken event) {
         if (CommUtil.isNull(getToken())) {
@@ -221,12 +210,9 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventLogin event) {
-        if (homeFragment != null) {
-            homeFragment.refreshMsg();
-        }
-        if (meFragment != null) {
-            meFragment.refreshMsg();
-        }
+//        if (meFragment != null) {
+//            meFragment.refreshMsg();
+//        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -258,4 +244,17 @@ public class MainActivity extends BaseActivity {
     public void requestEnd() {
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventProgress event) {
+//        if (meFragment != null) {
+//            meFragment.setMeMessage(event.getNickname());
+//        }
+        if (event.isShow()) {
+            showLoading();
+        } else {
+            hideLoading();
+        }
+    }
+
 }

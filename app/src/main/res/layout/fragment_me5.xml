@@ -71,7 +71,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic5_view"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic5_calendar"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic5_share"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -190,7 +190,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic5_message"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -224,7 +224,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic5_set"/>
 
             <TextView
                 android:layout_width="wrap_content"

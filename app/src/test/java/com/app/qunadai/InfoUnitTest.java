@@ -20,7 +20,14 @@ public class InfoUnitTest {
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(id);
         boolean result = m.matches();
-        assertEquals(true,result);
+        assertEquals(true, result);
+
+    }
+
+    @Test
+    public void testNull() throws Exception {
+        boolean result = null == null;
+        assertEquals(false, result);
 
     }
 }

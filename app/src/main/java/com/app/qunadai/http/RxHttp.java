@@ -23,6 +23,7 @@ import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.bbs.CommentList;
 import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.bean.bbs.PostBean;
@@ -32,6 +33,8 @@ import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
+import com.app.qunadai.bean.v5.Floors;
+import com.app.qunadai.bean.v5.Products;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -55,9 +58,9 @@ import rx.schedulers.Schedulers;
 public class RxHttp {
 
 //                public static final String ROOT = "https://mapi.qunadai.com/";
-    public static final String ROOT = "https://mapit.qunadai.com/";
+//    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
-//    public static final String ROOT = "http://192.168.7.165:8080/";
+    public static final String ROOT = "http://192.168.7.165:8080/";
 
 
     static QndApi qndApi;
@@ -198,6 +201,14 @@ public class RxHttp {
     //银行卡列表
     public static Observable<CreditCard> creditCardList(String city, int page, int size) {
         return qndApi.creditCardList(city, page, size);
+    }
+
+    //v5
+    public static Observable<BaseBean<Floors>> getHomeFloors() {
+        return qndApi.getHomeFloor();
+    }
+    public static Observable<BaseBean<Products>> getHomeProducts() {
+        return qndApi.getHomeProducts();
     }
 
 

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.OnCompatItemClickListener;
 import com.app.qunadai.content.ui.user.LoginActivity;
+import com.app.qunadai.content.ui.user.SignInActivity;
 import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
@@ -259,7 +260,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void exeLogin() {
         PrefUtil.removeItem(this, PrefKey.TOKEN);
-        Intent intentLogin = new Intent(this, LoginActivity.class);
+        Intent intentLogin = new Intent(this, SignInActivity.class);
         startActivity(intentLogin);
     }
 

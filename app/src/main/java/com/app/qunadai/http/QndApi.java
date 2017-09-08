@@ -32,6 +32,7 @@ import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.Floors;
+import com.app.qunadai.bean.v5.Products;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -126,7 +127,7 @@ public interface QndApi {
     @GET("home/personalvalue")
     Observable<PersonBean> getPersonValue(@Query("access_token") String access_token);
 
-    @GET("loan/products/getHomeData")
+    @GET("loan/products/getHomeFloors")
     Observable<HomeRecommend> getHomeRecommend();
 
     @FormUrlEncoded
@@ -175,6 +176,9 @@ public interface QndApi {
 //    v5---start
     @GET("home/floor/getHomeFloors")
     Observable<BaseBean<Floors>> getHomeFloor();
+
+    @GET("loan/products/home")
+    Observable<BaseBean<Products>> getHomeProducts();
 
 
     //limit
