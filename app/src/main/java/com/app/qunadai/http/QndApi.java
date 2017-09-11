@@ -32,6 +32,7 @@ import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.Floors;
+import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.Products;
 
 import okhttp3.RequestBody;
@@ -119,9 +120,19 @@ public interface QndApi {
 
     @FormUrlEncoded
     @POST("token")
+    Observable<Token> loginByPwd(@Field("filter") String filter,
+                                 @Field("mobileNumber") String mobileNumber,
+                                 @Field("sha1password") String pwd,
+                                 @Field("imei") String imei);
+
+    @FormUrlEncoded
+    @POST("token")
     Observable<Token> loginBySms(@Field("filter") String filter,
                                  @Field("mobileNumber") String mobileNumber,
                                  @Field("smsCode") String sms);
+
+    @GET("users/signup/mobile")
+    Observable<BaseBean<IsExist>> checkMobile(@Query("mobileNumber") String mobileNumber);
 
     //home
     @GET("home/personalvalue")
@@ -173,7 +184,7 @@ public interface QndApi {
     Observable<BannerBean> getBanner(@Query("bannerType") String bannerType);
 
 
-//    v5---start
+    //    v5---start
     @GET("home/floor/getHomeFloors")
     Observable<BaseBean<Floors>> getHomeFloor();
 
@@ -249,9 +260,6 @@ public interface QndApi {
 
     @POST("home/requirement")
     Observable<BankcardBean> setBankcardInfo(@Query("access_token") String access_token, @Body RequestBody body);
-
-
-
 
 
 }

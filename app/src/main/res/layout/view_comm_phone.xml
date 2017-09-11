@@ -23,18 +23,20 @@
             android:textSize="16sp"/>
 
         <EditText
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@null"
-            android:inputType="number"
+            android:inputType="phone"
+            android:maxLength="11"
             android:text="15000982323"
             android:textColor="@color/v5_login_text"
             android:textSize="16sp"/>
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/cb_pwd_hide"
+        android:id="@+id/cb_phone_right"
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_alignParentRight="true"

@@ -34,6 +34,7 @@ import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.Floors;
+import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.Products;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -57,7 +58,7 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-//                public static final String ROOT = "https://mapi.qunadai.com/";
+    //                public static final String ROOT = "https://mapi.qunadai.com/";
 //    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
     public static final String ROOT = "http://192.168.7.165:8080/";
@@ -134,9 +135,19 @@ public class RxHttp {
         return qndApi.loginByPwd("password", phone, pwd);
     }
 
+    //登录by密码imei
+    public static Observable<Token> loginByPwd(String phone, String pwd, String imei) {
+        return qndApi.loginByPwd("password", phone, pwd, imei);
+    }
+
     //登录by短信
     public static Observable<Token> loginBySms(String phone, String sms) {
         return qndApi.loginBySms("sms", phone, sms);
+    }
+
+    //检测手机有无注册
+    public static Observable<BaseBean<IsExist>> checkMobile(String phone) {
+        return qndApi.checkMobile(phone);
     }
 
     //home
@@ -207,6 +218,7 @@ public class RxHttp {
     public static Observable<BaseBean<Floors>> getHomeFloors() {
         return qndApi.getHomeFloor();
     }
+
     public static Observable<BaseBean<Products>> getHomeProducts() {
         return qndApi.getHomeProducts();
     }

@@ -19,13 +19,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
-import com.app.qunadai.content.adapter.OnCompatItemClickListener;
-import com.app.qunadai.content.ui.user.LoginActivity;
-import com.app.qunadai.content.ui.user.SignInActivity;
+import com.app.qunadai.content.ui.user.SignActivity;
 import com.app.qunadai.utils.AppManager;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
-import com.app.qunadai.utils.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,6 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         setContentView(root);
+
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         AppManager.add(this);
@@ -260,8 +259,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void exeLogin() {
         PrefUtil.removeItem(this, PrefKey.TOKEN);
-        Intent intentLogin = new Intent(this, SignInActivity.class);
+        Intent intentLogin = new Intent(this, SignActivity.class);
         startActivity(intentLogin);
+//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_off_bottom);
     }
 
 

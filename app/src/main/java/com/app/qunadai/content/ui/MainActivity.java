@@ -67,6 +67,8 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> fragments = new ArrayList<>();
 
+    private int index = 0;
+
     @Override
     protected void updateTopViewHideAndShow() {
 //        setTitleBarStatus(TITLE_OFF);
@@ -126,11 +128,12 @@ public class MainActivity extends BaseActivity {
                 switch (checkedId) {
                     case R.id.rb_nav_home:
                         vp_main.setCurrentItem(0);
-                        if (NetworkUtil.checkNetwork(MainActivity.this)) {
 
-                        }
+                        index = 0;
+
                         break;
                     case R.id.rb_nav_bbs:
+
                         CommUtil.tcEvent(MainActivity.this, "strategy_list", "攻略列表");
                         vp_main.setCurrentItem(1);
                         setTitleBarVisible(true);
@@ -142,26 +145,30 @@ public class MainActivity extends BaseActivity {
                                 //进入我的帖子
                                 if (CommUtil.isNull(getToken())) {
                                     exeLogin();
+                                    vp_main.setCurrentItem(0);
                                     return;
                                 }
                                 Intent intentMyPost = new Intent(MainActivity.this, PostMyActivity.class);
                                 startActivity(intentMyPost);
                             }
                         });
+                        index = 1;
+
                         break;
                     case R.id.rb_nav_me:
-                        if(CommUtil.isNull(getToken())){
+
+                        if (CommUtil.isNull(getToken())) {
                             exeLogin();
+                            vp_main.setCurrentItem(index);
+                            setCheckBox(index);
                             return;
                         }
                         vp_main.setCurrentItem(2);
                         setTitleBarVisible(true);
                         setTitleText("我的");
-                        if (NetworkUtil.checkNetwork(MainActivity.this)) {
-//                            if (meFragment != null) {
-//                                meFragment.refreshMsg();
-//                            }
-                        }
+
+                        index = 2;
+
                         break;
                 }
             }
@@ -169,6 +176,20 @@ public class MainActivity extends BaseActivity {
         vp_main.setOffscreenPageLimit(3);
         rb_nav_home.setChecked(true);
 
+    }
+
+    public void setCheckBox(int index) {
+        switch (index) {
+            case 0:
+                rb_nav_home.setChecked(true);
+                break;
+            case 1:
+                rb_nav_bbs.setChecked(true);
+                break;
+            case 2:
+                rb_nav_me.setChecked(true);
+                break;
+        }
     }
 
     private long mPressedTime = 0;

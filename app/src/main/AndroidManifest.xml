@@ -157,15 +157,9 @@
 
         <!--v5-->
         <activity
-            android:name=".content.ui.user.SignInActivity"
-            android:screenOrientation="portrait">
 
-        </activity>
-        <activity
-            android:name=".content.ui.user.SignUpActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:name=".content.ui.user.SignActivity"
+            android:screenOrientation="portrait"></activity>
 
 
         <activity

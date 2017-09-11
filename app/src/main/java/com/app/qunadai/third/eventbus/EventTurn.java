@@ -6,9 +6,15 @@ package com.app.qunadai.third.eventbus;
 
 public class EventTurn {
     private int page;
+    private String type;
 
     public EventTurn(int page) {
         this.page = page;
+    }
+
+    public EventTurn(int page, String type) {
+        this.page = page;
+        this.type = type;
     }
 
     public int getPage() {
@@ -17,5 +23,13 @@ public class EventTurn {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

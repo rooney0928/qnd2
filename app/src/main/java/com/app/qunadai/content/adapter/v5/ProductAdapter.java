@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.grantland.widget.AutofitTextView;
 
 /**
  * Created by wayne on 2017/9/8.
@@ -68,13 +69,13 @@ public class ProductAdapter extends RecyclerView.Adapter {
         @BindView(R.id.srb_product_star)
         ScaleRatingBar srb_product_star;
         @BindView(R.id.tv_product_amount)
-        TextView tv_product_amount;
+        AutofitTextView tv_product_amount;
         @BindView(R.id.tv_product_fast)
-        TextView tv_product_fast;
+        AutofitTextView tv_product_fast;
         @BindView(R.id.tv_product_rate)
-        TextView tv_product_rate;
+        AutofitTextView tv_product_rate;
         @BindView(R.id.tv_product_period)
-        TextView tv_product_period;
+        AutofitTextView tv_product_period;
 
         public ProductHolder(View itemView) {
             super(itemView);
@@ -88,7 +89,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
             ImgUtil.loadImg(context, imgUrl, iv_product_header);
             tv_product_name.setText(p.getName());
             tv_product_amount.setText(p.getAmount() + "");
-            tv_product_fast.setText(p.getLoanTime() + "放款");
+            tv_product_fast.setText(p.getLoanTime() + "小时放款");
             String unit = "";
             switch (p.getRateStatus()) {
                 case "MONTH":

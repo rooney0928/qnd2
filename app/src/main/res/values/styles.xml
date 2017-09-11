@@ -9,6 +9,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Slide" parent="BaseAppTheme">
+
+    </style>
+
     <style name="customTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">#31B7C1</item>
         <item name="tabIndicatorHeight">2dp</item>
