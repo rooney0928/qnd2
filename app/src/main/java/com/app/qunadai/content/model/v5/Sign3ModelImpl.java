@@ -1,8 +1,9 @@
-package com.app.qunadai.content.model;
+package com.app.qunadai.content.model.v5;
 
+import com.app.qunadai.bean.RegBean;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.base.BaseBean;
-import com.app.qunadai.content.contract.SplashContract;
+import com.app.qunadai.content.contract.v5.Sign3Contract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.http.RxSubscriber;
@@ -14,22 +15,21 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by wayne on 2017/5/15.
+ * Created by wayne on 2017/9/12.
  */
 
-public class SplashModelImpl implements SplashContract.Model {
-
+public class Sign3ModelImpl implements Sign3Contract.Model {
     private OnReturnDataListener onReturnDataListener;
 
-    public SplashModelImpl(OnReturnDataListener onReturnDataListener) {
+    public Sign3ModelImpl(OnReturnDataListener onReturnDataListener) {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
-        void loginDone(BaseBean<Token> token);
+    public interface OnReturnDataListener{
 
-        void loginFail(String error);
+        void registerDone(BaseBean<Token> bean);
 
+        void registerFail(String error);
 
         void requestStart();
 
@@ -42,8 +42,8 @@ public class SplashModelImpl implements SplashContract.Model {
     }
 
     @Override
-    public void loginByPwd(String phone, String pwd) {
-        Observable<BaseBean<Token>> request = RxHttp.getInstance().loginByPwd(phone, pwd);
+    public void register(String phone, String sms, String pwd) {
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().register5(phone, sms, pwd);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<BaseBean<Token>>() {
@@ -55,12 +55,14 @@ public class SplashModelImpl implements SplashContract.Model {
 
                     @Override
                     protected void onError(ApiException ex) {
-                        onReturnDataListener.loginFail(ex.getDisplayMessage());
+//                        onReturnDataListener.getRegisterSmsFail(ex.getMessage());
+                        onReturnDataListener.registerFail(ex.getDisplayMessage());
                     }
 
                     @Override
-                    protected void onOk(BaseBean<Token> token) {
-                        onReturnDataListener.loginDone(token);
+                    protected void onOk(BaseBean<Token> bean) {
+//                        onReturnDataListener.getRegisterSms(bean.getDetail());
+                        onReturnDataListener.registerDone(bean);
                     }
 
                     @Override

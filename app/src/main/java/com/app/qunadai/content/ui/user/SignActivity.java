@@ -156,6 +156,9 @@ public class SignActivity extends BaseActivity {
                     }
                     break;
                 case 2:
+                    if(step3PwdFragment!=null){
+                        step3PwdFragment.setData();
+                    }
                     break;
             }
         }

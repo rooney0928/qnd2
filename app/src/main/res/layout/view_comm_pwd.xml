@@ -12,10 +12,11 @@
 
 
         <EditText
+            android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:text="15000982323"
+            android:text=""
             android:textColor="@color/v5_login_text"
             android:inputType="textPassword"
             android:textSize="16sp"/>

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.LoginContract;
 import com.app.qunadai.content.presenter.LoginPresenter;
@@ -452,7 +453,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void loginDone(Token token) {
+    public void loginDone(BaseBean<Token> token) {
         ToastUtil.showToastLong(this, "恭喜您，登录成功");
 //        EventBus.getDefault().post(new EventClose("main"));
 

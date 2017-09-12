@@ -135,9 +135,20 @@ public interface QndApi {
                                  @Query("smsActivateCode") String sms,
                                  @Query("sha1password") String pwd);
 
+    /**
+     * 注册
+     *
+     * @return
+     */
+    @PUT("users/activate")
+    Observable<BaseBean<Token>> register5(@Query("filter") String filter,
+                                 @Query("mobileNumber") String mobileNumber,
+                                 @Query("smsActivateCode") String sms,
+                                 @Query("sha1password") String pwd);
+
     @FormUrlEncoded
     @POST("token")
-    Observable<Token> loginByPwd(@Field("filter") String filter,
+    Observable<BaseBean<Token>> loginByPwd(@Field("filter") String filter,
                                  @Field("mobileNumber") String mobileNumber,
                                  @Field("sha1password") String pwd);
 
@@ -150,7 +161,7 @@ public interface QndApi {
 
     @FormUrlEncoded
     @POST("token")
-    Observable<Token> loginBySms(@Field("filter") String filter,
+    Observable<BaseBean<Token>> loginBySms(@Field("filter") String filter,
                                  @Field("mobileNumber") String mobileNumber,
                                  @Field("smsCode") String sms);
 

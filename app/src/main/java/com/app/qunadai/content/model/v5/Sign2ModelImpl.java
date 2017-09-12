@@ -38,7 +38,7 @@ public class Sign2ModelImpl implements Sign2Contract.Model {
 
         void getLoginSmsFail(String error);
 
-        void loginDone(Token token);
+        void loginDone(BaseBean<Token> token);
 
         void loginFail(String error);
 
@@ -119,10 +119,10 @@ public class Sign2ModelImpl implements Sign2Contract.Model {
 
     @Override
     public void loginBySms(String phone, String sms) {
-        Observable<Token> request = RxHttp.getInstance().loginBySms(phone, sms);
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().loginBySms(phone, sms);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxSubscriber<Token>() {
+                .subscribe(new RxSubscriber<BaseBean<Token>>() {
                     @Override
                     public void onStart() {
                         onReturnDataListener.requestStart();
@@ -135,7 +135,7 @@ public class Sign2ModelImpl implements Sign2Contract.Model {
                     }
 
                     @Override
-                    protected void onOk(Token token) {
+                    protected void onOk(BaseBean<Token> token) {
                         onReturnDataListener.loginDone(token);
 
                     }

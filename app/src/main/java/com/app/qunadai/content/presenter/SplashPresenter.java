@@ -1,6 +1,7 @@
 package com.app.qunadai.content.presenter;
 
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.content.contract.SplashContract;
 import com.app.qunadai.content.model.SplashModelImpl;
 
@@ -16,7 +17,7 @@ public class SplashPresenter implements SplashContract.Presenter {
         this.view = iview;
         model = new SplashModelImpl(new SplashModelImpl.OnReturnDataListener() {
             @Override
-            public void loginDone(Token token) {
+            public void loginDone(BaseBean<Token> token) {
                 view.loginDone(token);
             }
 

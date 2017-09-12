@@ -43,7 +43,7 @@ public class Sign2Presenter implements Sign2Contract.Presenter {
             }
 
             @Override
-            public void loginDone(Token token) {
+            public void loginDone(BaseBean<Token> token) {
                 view.loginDone(token);
 
             }

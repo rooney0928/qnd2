@@ -17,6 +17,7 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Sign2Contract;
 import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.presenter.v5.Sign2Presenter;
+import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.PrefKey;
@@ -116,11 +117,13 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
     @Override
     public void requestStart() {
+        EventBus.getDefault().post(new EventProgress(true, "sign"));
 
     }
 
     @Override
     public void requestEnd() {
+        EventBus.getDefault().post(new EventProgress(false, "sign"));
 
     }
 
@@ -166,7 +169,8 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
                 if (smsType.equalsIgnoreCase("reg")) {
                     //注册的提交
-
+                    PrefUtil.putString(getActivity(), PrefKey.TEMP_CODE, CommUtil.getText(et_code));
+                    EventBus.getDefault().post(new EventTurn(2, "sign"));
                 } else if (smsType.equalsIgnoreCase("login")) {
                     //短信登录的提交
                     sign2Presenter.loginBySms(phone, CommUtil.getText(et_code));
@@ -207,7 +211,7 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
     }
 
     @Override
-    public void loginDone(Token token) {
+    public void loginDone(BaseBean<Token> token) {
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();
     }

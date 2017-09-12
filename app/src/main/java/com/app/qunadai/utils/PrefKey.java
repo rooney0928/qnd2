@@ -16,6 +16,8 @@ public class PrefKey {
     //v5
     public static final String SMS_TYPE = "sms_type";
     public static final String TEMP_PHONE = "temp_phone";
+    public static final String TEMP_CODE = "temp_code";
     public static final String TEMP_SHA_CODE = "temp_code_sha";
+
 
 }

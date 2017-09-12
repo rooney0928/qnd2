@@ -23,7 +23,7 @@ public interface Sign2Contract {
 
         void getLoginSmsFail(String error);
 
-        void loginDone(Token token);
+        void loginDone(BaseBean<Token> token);
 
         void loginFail(String error);
 

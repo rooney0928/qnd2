@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.SplashContract;
 import com.app.qunadai.content.presenter.SplashPresenter;
@@ -216,7 +217,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     }
 
     @Override
-    public void loginDone(Token token) {
+    public void loginDone(BaseBean<Token> token) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

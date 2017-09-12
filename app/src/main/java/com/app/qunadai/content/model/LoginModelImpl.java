@@ -3,6 +3,7 @@ package com.app.qunadai.content.model;
 import com.app.qunadai.bean.HomeRecommend;
 import com.app.qunadai.bean.Message;
 import com.app.qunadai.bean.Token;
+import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.LoginContract;
 import com.app.qunadai.http.ApiException;
@@ -31,7 +32,7 @@ public class LoginModelImpl implements LoginContract.Model {
 
         void getLoginSmsFail(String error);
 
-        void loginDone(Token token);
+        void loginDone(BaseBean<Token> token);
 
         void loginFail(String error);
 
@@ -79,10 +80,10 @@ public class LoginModelImpl implements LoginContract.Model {
 
     @Override
     public void loginByPwd(String phone, String pwd) {
-        Observable<Token> request = RxHttp.getInstance().loginByPwd(phone, pwd);
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().loginByPwd(phone, pwd);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxSubscriber<Token>() {
+                .subscribe(new RxSubscriber<BaseBean<Token>>() {
                     @Override
                     public void onStart() {
                         onReturnDataListener.requestStart();
@@ -95,7 +96,7 @@ public class LoginModelImpl implements LoginContract.Model {
                     }
 
                     @Override
-                    protected void onOk(Token token) {
+                    protected void onOk(BaseBean<Token> token) {
                         onReturnDataListener.loginDone(token);
 
                     }
@@ -111,10 +112,10 @@ public class LoginModelImpl implements LoginContract.Model {
 
     @Override
     public void loginBySms(String phone, String sms) {
-        Observable<Token> request = RxHttp.getInstance().loginBySms(phone, sms);
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().loginBySms(phone, sms);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxSubscriber<Token>() {
+                .subscribe(new RxSubscriber<BaseBean<Token>>() {
                     @Override
                     public void onStart() {
                         onReturnDataListener.requestStart();
@@ -127,7 +128,7 @@ public class LoginModelImpl implements LoginContract.Model {
                     }
 
                     @Override
-                    protected void onOk(Token token) {
+                    protected void onOk(BaseBean<Token> token) {
                         onReturnDataListener.loginDone(token);
 
                     }

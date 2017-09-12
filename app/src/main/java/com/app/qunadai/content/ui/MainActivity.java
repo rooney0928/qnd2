@@ -13,23 +13,15 @@ import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.ui.bbs.PostMyActivity;
 import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
-import com.app.qunadai.content.ui.bbs.frag.HelpFragment;
 import com.app.qunadai.content.ui.home.frag.Home5Fragment;
-import com.app.qunadai.content.ui.home.frag.HomeFragment;
-import com.app.qunadai.content.ui.limit.frag.LimitFragment;
 import com.app.qunadai.content.ui.me.frag.Me5Fragment;
-import com.app.qunadai.content.ui.me.frag.MeFragment;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventToken;
-import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
-import com.app.qunadai.utils.LogU;
-import com.app.qunadai.utils.NetworkUtil;
-import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -103,18 +95,11 @@ public class MainActivity extends BaseActivity {
         fragments.add(bbsFragment);
         fragments.add(me5Fragment);
 
-//        Point p = CommUtil.getSize(this);
-//        LogU.t("width-" + p.x);
-//        LogU.t("height-" + p.y);
     }
 
 
     @Override
     public void initViewData() {
-//        LogU.t("???"+rb_nav_home);
-        /**/
-//        CrashReport.testANRCrash();
-//        CrashReport.testJavaCrash();
         vp_main.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), fragments));
 
 
