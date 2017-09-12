@@ -38,6 +38,10 @@ public class Sign2ModelImpl implements Sign2Contract.Model {
 
         void getLoginSmsFail(String error);
 
+        void getForgetSms(BaseBean<SmsBean> bean);
+
+        void getForgetSmsFail(String error);
+
         void loginDone(BaseBean<Token> token);
 
         void loginFail(String error);
@@ -108,6 +112,36 @@ public class Sign2ModelImpl implements Sign2Contract.Model {
                         onReturnDataListener.getLoginSms(bean);
                     }
 
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void sendForgetSms(String phone) {
+        Observable<BaseBean<SmsBean>> request = RxHttp.getInstance().getForgetSms5(phone);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<BaseBean<SmsBean>>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getForgetSmsFail(ex.getDisplayMessage());
+                    }
+
+                    @Override
+                    protected void onOk(BaseBean<SmsBean> bean) {
+                        onReturnDataListener.getForgetSms(bean);
+                    }
 
                     @Override
                     protected void requestEnd() {

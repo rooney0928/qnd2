@@ -43,6 +43,16 @@ public class Sign2Presenter implements Sign2Contract.Presenter {
             }
 
             @Override
+            public void getForgetSms(BaseBean<SmsBean> bean) {
+                view.getForgetSms(bean);
+            }
+
+            @Override
+            public void getForgetSmsFail(String error) {
+                view.getForgetSmsFail(error);
+            }
+
+            @Override
             public void loginDone(BaseBean<Token> token) {
                 view.loginDone(token);
 
@@ -79,6 +89,11 @@ public class Sign2Presenter implements Sign2Contract.Presenter {
     @Override
     public void sendLoginSms(String phone) {
         model.sendLoginSms(phone);
+    }
+
+    @Override
+    public void sendForgetSms(String phone) {
+        model.sendForgetSms(phone);
     }
 
     @Override

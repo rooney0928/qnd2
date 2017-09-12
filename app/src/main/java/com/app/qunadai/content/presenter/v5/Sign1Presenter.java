@@ -31,7 +31,7 @@ public class Sign1Presenter implements Sign1Contract.Presenter {
             }
 
             @Override
-            public void loginDone(Token token) {
+            public void loginDone(BaseBean<Token> token) {
                 view.loginDone(token);
             }
 
@@ -58,6 +58,16 @@ public class Sign1Presenter implements Sign1Contract.Presenter {
             @Override
             public void getLoginSmsFail(String error) {
                 view.getLoginSmsFail(error);
+            }
+
+            @Override
+            public void getForgetSms(BaseBean<SmsBean> bean) {
+                view.getForgetSms(bean);
+            }
+
+            @Override
+            public void getForgetSmsFail(String error) {
+                view.getForgetSmsFail(error);
             }
 
             @Override
@@ -95,5 +105,10 @@ public class Sign1Presenter implements Sign1Contract.Presenter {
     @Override
     public void sendLoginSms(String phone) {
         model.sendLoginSms(phone);
+    }
+
+    @Override
+    public void sendForgetSms(String phone) {
+        model.sendForgetSms(phone);
     }
 }

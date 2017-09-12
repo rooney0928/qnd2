@@ -36,7 +36,7 @@ public class Sign1ModelImpl implements Sign1Contract.Model {
 
         void checkPhoneFail(String error);
 
-        void loginDone(Token token);
+        void loginDone(BaseBean<Token> token);
 
         void loginFail(String error);
 
@@ -47,6 +47,10 @@ public class Sign1ModelImpl implements Sign1Contract.Model {
         void getLoginSms(BaseBean<SmsBean> bean);
 
         void getLoginSmsFail(String error);
+
+        void getForgetSms(BaseBean<SmsBean> bean);
+
+        void getForgetSmsFail(String error);
 
         void requestStart();
 
@@ -93,10 +97,10 @@ public class Sign1ModelImpl implements Sign1Contract.Model {
 
     @Override
     public void loginByPwd(String phone, String pwd, String imei) {
-        Observable<Token> request = RxHttp.getInstance().loginByPwd(phone, pwd, imei);
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().loginByPwd(phone, pwd, imei);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxSubscriber<Token>() {
+                .subscribe(new RxSubscriber<BaseBean<Token>>() {
                     @Override
                     public void onStart() {
                         onReturnDataListener.requestStart();
@@ -112,7 +116,7 @@ public class Sign1ModelImpl implements Sign1Contract.Model {
                     }
 
                     @Override
-                    protected void onOk(Token bean) {
+                    protected void onOk(BaseBean<Token> bean) {
                         onReturnDataListener.loginDone(bean);
                     }
 
@@ -180,6 +184,36 @@ public class Sign1ModelImpl implements Sign1Contract.Model {
                         onReturnDataListener.getLoginSms(bean);
                     }
 
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void sendForgetSms(String phone) {
+        Observable<BaseBean<SmsBean>> request = RxHttp.getInstance().getForgetSms5(phone);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<BaseBean<SmsBean>>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getForgetSmsFail(ex.getDisplayMessage());
+                    }
+
+                    @Override
+                    protected void onOk(BaseBean<SmsBean> bean) {
+                        onReturnDataListener.getForgetSms(bean);
+                    }
 
                     @Override
                     protected void requestEnd() {

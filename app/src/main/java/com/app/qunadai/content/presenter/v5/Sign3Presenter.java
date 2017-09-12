@@ -28,6 +28,16 @@ public class Sign3Presenter implements Sign3Contract.Presenter {
             }
 
             @Override
+            public void resetDone(BaseBean<Token> bean) {
+                view.resetDone(bean);
+            }
+
+            @Override
+            public void resetFail(String error) {
+                view.resetFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -46,6 +56,11 @@ public class Sign3Presenter implements Sign3Contract.Presenter {
 
     @Override
     public void register(String phone, String sms, String pwd) {
-        model.register(phone,sms,pwd);
+        model.register(phone, sms, pwd);
+    }
+
+    @Override
+    public void reset(String phone, String sms, String pwd) {
+        model.reset(phone, sms, pwd);
     }
 }

@@ -23,6 +23,10 @@ public interface Sign2Contract {
 
         void getLoginSmsFail(String error);
 
+        void getForgetSms(BaseBean<SmsBean> bean);
+
+        void getForgetSmsFail(String error);
+
         void loginDone(BaseBean<Token> token);
 
         void loginFail(String error);
@@ -35,6 +39,8 @@ public interface Sign2Contract {
 
         void sendLoginSms(String phone);
 
+        void sendForgetSms(String phone);
+
         void loginBySms(String phone, String sms);
 
     }
@@ -44,6 +50,8 @@ public interface Sign2Contract {
         void sendRegSms(String phone);
 
         void sendLoginSms(String phone);
+
+        void sendForgetSms(String phone);
 
         void loginBySms(String phone, String sms);
 

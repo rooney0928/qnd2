@@ -1,6 +1,7 @@
 package com.app.qunadai.content.contract.v5;
 
 import com.app.qunadai.bean.BannerBean;
+import com.app.qunadai.bean.Message;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.Floors;
@@ -25,12 +26,15 @@ public interface Sign1Contract {
 
         void getRegisterSmsFail(String error);
 
+        void getForgetSms(BaseBean<SmsBean> bean);
+
+        void getForgetSmsFail(String error);
+
         void getLoginSms(BaseBean<SmsBean> bean);
 
         void getLoginSmsFail(String error);
 
-
-        void loginDone(Token token);
+        void loginDone(BaseBean<Token> bean);
 
         void loginFail(String error);
 
@@ -45,6 +49,8 @@ public interface Sign1Contract {
 
         void sendLoginSms(String phone);
 
+        void sendForgetSms(String phone);
+
     }
 
     interface Model extends BaseModel {
@@ -55,6 +61,8 @@ public interface Sign1Contract {
         void sendRegSms(String phone);
 
         void sendLoginSms(String phone);
+
+        void sendForgetSms(String phone);
 
     }
 }

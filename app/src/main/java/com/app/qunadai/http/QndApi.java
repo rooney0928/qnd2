@@ -111,6 +111,17 @@ public interface QndApi {
     Observable<Message> getForgetSms(@Field("filter") String filter
             , @Field("c") String c
             , @Field("mobileNumber") String mobileNumber);
+    /**
+     * 获取忘记短信验证码5
+     *
+     * @param mobileNumber
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("users")
+    Observable<BaseBean<SmsBean>> getForgetSms5(@Field("filter") String filter
+            , @Field("c") String c
+            , @Field("mobileNumber") String mobileNumber);
 
     /**
      * 重置密码
@@ -119,6 +130,17 @@ public interface QndApi {
      */
     @PUT("users")
     Observable<ResetBean> reset(@Query("filter") String filter,
+                                @Query("c") String c,
+                                @Query("mobileNumber") String mobileNumber,
+                                @Query("verifiCode") String sms,
+                                @Query("newsha1password") String pwd);
+    /**
+     * 重置密码
+     *
+     * @return
+     */
+    @PUT("users")
+    Observable<BaseBean<Token>> reset5(@Query("filter") String filter,
                                 @Query("c") String c,
                                 @Query("mobileNumber") String mobileNumber,
                                 @Query("verifiCode") String sms,
@@ -154,7 +176,7 @@ public interface QndApi {
 
     @FormUrlEncoded
     @POST("token")
-    Observable<Token> loginByPwd(@Field("filter") String filter,
+    Observable<BaseBean<Token>> loginByPwd(@Field("filter") String filter,
                                  @Field("mobileNumber") String mobileNumber,
                                  @Field("sha1password") String pwd,
                                  @Field("imei") String imei);

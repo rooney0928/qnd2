@@ -45,6 +45,7 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
 
     String phone;
     String smsCode;
+    String smsType;
 
     public static Step3PwdFragment getInstance() {
         Step3PwdFragment step3PwdFragment = new Step3PwdFragment();
@@ -104,6 +105,8 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
     public void setData() {
         phone = PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, "");
         smsCode = PrefUtil.getString(getActivity(), PrefKey.TEMP_CODE, "");
+        smsType = PrefUtil.getString(getActivity(), PrefKey.SMS_TYPE, "");
+
     }
 
 
@@ -121,19 +124,39 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
                     ToastUtil.showToast(getActivity(), "密码长度不合适");
                     break;
                 }
-                sign3Presenter.register(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)));
+                if (smsType.equalsIgnoreCase("reg")) {
+                    sign3Presenter.register(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)));
+                } else if (smsType.equalsIgnoreCase("forget")) {
+                    sign3Presenter.reset(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)));
+                }
                 break;
         }
     }
 
     @Override
     public void registerDone(BaseBean<Token> bean) {
+        PrefUtil.putString(getActivity(), PrefKey.TOKEN, bean.getContent().getAccess_token());
+
         ToastUtil.showToast(getActivity(), "恭喜您！注册成功！");
         getActivity().finish();
     }
 
     @Override
     public void registerFail(String error) {
+        ToastUtil.showToast(getActivity(), error);
+
+    }
+
+    @Override
+    public void resetDone(BaseBean<Token> bean) {
+        PrefUtil.putString(getActivity(), PrefKey.TOKEN, bean.getContent().getAccess_token());
+
+        ToastUtil.showToast(getActivity(), "恭喜您！重置成功！");
+        getActivity().finish();
+    }
+
+    @Override
+    public void resetFail(String error) {
         ToastUtil.showToast(getActivity(), error);
 
     }

@@ -25,11 +25,15 @@ public class Sign3ModelImpl implements Sign3Contract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener{
+    public interface OnReturnDataListener {
 
         void registerDone(BaseBean<Token> bean);
 
         void registerFail(String error);
+
+        void resetDone(BaseBean<Token> bean);
+
+        void resetFail(String error);
 
         void requestStart();
 
@@ -63,6 +67,36 @@ public class Sign3ModelImpl implements Sign3Contract.Model {
                     protected void onOk(BaseBean<Token> bean) {
 //                        onReturnDataListener.getRegisterSms(bean.getDetail());
                         onReturnDataListener.registerDone(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void reset(String phone, String sms, String pwd) {
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().reset5(phone, sms, pwd);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<BaseBean<Token>>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.resetFail(ex.getMessage());
+                    }
+
+                    @Override
+                    protected void onOk(BaseBean<Token> bean) {
+                        onReturnDataListener.resetDone(bean);
                     }
 
                     @Override

@@ -129,6 +129,10 @@ public class RxHttp {
     public static Observable<Message> getForgetSms(String phone) {
         return qndApi.getForgetSms("mobileNumber", "sms", phone);
     }
+    //忘记密码短信5
+    public static Observable<BaseBean<SmsBean>> getForgetSms5(String phone) {
+        return qndApi.getForgetSms5("mobileNumber", "sms", phone);
+    }
 
     //注册
     public static Observable<RegBean> register(String phone, String sms, String pwd) {
@@ -143,6 +147,10 @@ public class RxHttp {
     public static Observable<ResetBean> reset(String phone, String sms, String pwd) {
         return qndApi.reset("mobileNumber", "pwd", phone, sms, pwd);
     }
+    //重置密码
+    public static Observable<BaseBean<Token>> reset5(String phone, String sms, String pwd) {
+        return qndApi.reset5("mobileNumber", "pwd", phone, sms, pwd);
+    }
 
     //登录by密码
     public static Observable<BaseBean<Token>> loginByPwd(String phone, String pwd) {
@@ -150,7 +158,7 @@ public class RxHttp {
     }
 
     //登录by密码imei
-    public static Observable<Token> loginByPwd(String phone, String pwd, String imei) {
+    public static Observable<BaseBean<Token>> loginByPwd(String phone, String pwd, String imei) {
         return qndApi.loginByPwd("password", phone, pwd, imei);
     }
 

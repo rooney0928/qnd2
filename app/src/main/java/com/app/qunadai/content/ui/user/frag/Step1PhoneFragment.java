@@ -42,6 +42,9 @@ import static com.app.qunadai.MyApp.context;
  */
 
 public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.View, View.OnClickListener, FragmentBackPressed {
+    private static final int TYPE_LOGIN_SMS = 10;
+    private static final int TYPE_LOGIN_PwD = 20;
+    private static final int TYPE_FORGET = 30;
 
     private Sign1Presenter sign1Presenter;
 
@@ -55,8 +58,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
     @BindView(R.id.tv_code_signin)
     TextView tv_code_signin;
-    @BindView(R.id.tv_forget_password)
-    TextView tv_forget_password;
+    @BindView(R.id.tv_forget_pwd)
+    TextView tv_forget_pwd;
 
     @BindView(R.id.tv_submit)
     TextView tv_submit;
@@ -86,8 +89,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     protected void initData() {
         sign1Presenter = new Sign1Presenter(this);
         tv_submit.setOnClickListener(this);
+        tv_forget_pwd.setOnClickListener(this);
         tv_code_signin.setOnClickListener(this);
-
 
 
         et_phone.addTextChangedListener(new TextWatcher() {
@@ -100,10 +103,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 11) {
                     cb_phone_right.setChecked(true);
-                    tv_code_signin.setEnabled(true);
                 } else {
                     cb_phone_right.setChecked(false);
-                    tv_code_signin.setEnabled(false);
                 }
             }
 
@@ -174,6 +175,22 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     }
 
     @Override
+    public void getForgetSms(BaseBean<SmsBean> bean) {
+        PrefUtil.putString(getActivity(), PrefKey.SMS_TYPE, "forget");
+        PrefUtil.putString(getActivity(), PrefKey.TEMP_PHONE, CommUtil.getText(et_phone));
+        PrefUtil.putString(getActivity(), PrefKey.TEMP_SHA_CODE, bean.getContent().getVc());
+
+        ToastUtil.showToast(getActivity(), "短信已发送");
+
+        EventBus.getDefault().post(new EventTurn(1, "sign"));
+    }
+
+    @Override
+    public void getForgetSmsFail(String error) {
+
+    }
+
+    @Override
     public void getLoginSms(BaseBean<SmsBean> bean) {
         PrefUtil.putString(getActivity(), PrefKey.SMS_TYPE, "login");
         PrefUtil.putString(getActivity(), PrefKey.TEMP_PHONE, CommUtil.getText(et_phone));
@@ -192,7 +209,9 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     }
 
     @Override
-    public void loginDone(Token token) {
+    public void loginDone(BaseBean<Token> token) {
+        PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
+
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();
     }
@@ -211,9 +230,10 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
                 if (ll_pwd.getVisibility() == View.GONE) {
                     //无密码模式
                     if (CommUtil.getText(et_phone).length() < 11) {
-                        ToastUtil.showToast(getActivity(), "手机号码格式不正确");
+                        ToastUtil.showToast(getActivity(), "手机号格式不正确");
                         return;
                     }
+
                     sign1Presenter.checkPhone(CommUtil.getText(et_phone));
                 } else {
                     //有密码模式,去登录
@@ -233,12 +253,20 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
                 break;
             case R.id.tv_code_signin:
                 if (CommUtil.isNull(et_phone) || CommUtil.getText(et_phone).length() != 11) {
-                    ToastUtil.showToast(getActivity(), "用户名格式不正确");
+                    ToastUtil.showToast(getActivity(), "手机号格式不正确");
                     return;
                 }
 
                 sign1Presenter.sendLoginSms(CommUtil.getText(et_phone));
 
+
+                break;
+            case R.id.tv_forget_pwd:
+                if (CommUtil.isNull(et_phone) || CommUtil.getText(et_phone).length() != 11) {
+                    ToastUtil.showToast(getActivity(), "手机号格式不正确");
+                    return;
+                }
+                sign1Presenter.sendForgetSms(CommUtil.getText(et_phone));
 
                 break;
         }

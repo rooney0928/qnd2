@@ -157,6 +157,8 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
                     sign2Presenter.sendRegSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));
                 } else if (smsType.equalsIgnoreCase("login")) {
                     sign2Presenter.sendLoginSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));
+                }else if(smsType.equalsIgnoreCase("forget")){
+                    sign2Presenter.sendForgetSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));
                 }
 
 
@@ -174,6 +176,9 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
                 } else if (smsType.equalsIgnoreCase("login")) {
                     //短信登录的提交
                     sign2Presenter.loginBySms(phone, CommUtil.getText(et_code));
+                }else if(smsType.equalsIgnoreCase("forget")){
+                    PrefUtil.putString(getActivity(), PrefKey.TEMP_CODE, CommUtil.getText(et_code));
+                    EventBus.getDefault().post(new EventTurn(2, "sign"));
                 }
                 break;
         }
@@ -211,7 +216,24 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
     }
 
     @Override
+    public void getForgetSms(BaseBean<SmsBean> bean) {
+        shaCode = bean.getContent().getVc();
+
+        ToastUtil.showToast(getActivity(), "短信已发送");
+        timeCount.ready();
+        timeCount.start();
+    }
+
+    @Override
+    public void getForgetSmsFail(String error) {
+        ToastUtil.showToast(getActivity(), error);
+
+    }
+
+    @Override
     public void loginDone(BaseBean<Token> token) {
+
+        PrefUtil.putString(getActivity(),PrefKey.TOKEN,token.getContent().getAccess_token());
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();
     }
