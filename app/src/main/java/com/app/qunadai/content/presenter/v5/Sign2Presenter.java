@@ -5,40 +5,22 @@ import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.SmsBean;
 import com.app.qunadai.content.contract.v5.Sign1Contract;
+import com.app.qunadai.content.contract.v5.Sign2Contract;
 import com.app.qunadai.content.model.v5.Sign1ModelImpl;
-import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.content.model.v5.Sign2ModelImpl;
 
 /**
  * Created by wayne on 2017/9/11.
  */
 
-public class Sign1Presenter implements Sign1Contract.Presenter {
+public class Sign2Presenter implements Sign2Contract.Presenter {
 
-    private Sign1Contract.View view;
-    private Sign1Contract.Model model;
+    private Sign2Contract.View view;
+    private Sign2Contract.Model model;
 
-    public Sign1Presenter(Sign1Contract.View iview) {
+    public Sign2Presenter(Sign2Contract.View iview) {
         this.view = iview;
-        model = new Sign1ModelImpl(new Sign1ModelImpl.OnReturnDataListener() {
-            @Override
-            public void checkPhone(BaseBean<IsExist> bean) {
-                view.checkPhone(bean);
-            }
-
-            @Override
-            public void checkPhoneFail(String error) {
-                view.checkPhoneFail(error);
-            }
-
-            @Override
-            public void loginDone(Token token) {
-                view.loginDone(token);
-            }
-
-            @Override
-            public void loginFail(String error) {
-                view.loginFail(error);
-            }
+        model = new Sign2ModelImpl(new Sign2ModelImpl.OnReturnDataListener() {
 
             @Override
             public void getRegisterSms(BaseBean<SmsBean> bean) {
@@ -61,6 +43,17 @@ public class Sign1Presenter implements Sign1Contract.Presenter {
             }
 
             @Override
+            public void loginDone(Token token) {
+                view.loginDone(token);
+
+            }
+
+            @Override
+            public void loginFail(String error) {
+                view.loginFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -77,15 +70,6 @@ public class Sign1Presenter implements Sign1Contract.Presenter {
 
     }
 
-    @Override
-    public void checkPhone(String phone) {
-        model.checkPhone(phone);
-    }
-
-    @Override
-    public void loginByPwd(String phone, String pwd, String imei) {
-        model.loginByPwd(phone, pwd, imei);
-    }
 
     @Override
     public void sendRegSms(String phone) {
@@ -95,5 +79,10 @@ public class Sign1Presenter implements Sign1Contract.Presenter {
     @Override
     public void sendLoginSms(String phone) {
         model.sendLoginSms(phone);
+    }
+
+    @Override
+    public void loginBySms(String phone, String sms) {
+        model.loginBySms(phone, sms);
     }
 }

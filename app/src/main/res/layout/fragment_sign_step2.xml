@@ -20,16 +20,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="输入6位验证码"
+                android:text="输入4位验证码"
                 android:textColor="@color/v5_login_text"
                 android:textSize="34sp"/>
 
             <TextView
+                android:id="@+id/tv_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:maxLines="2"
-                android:text="我们向18605024628发送了一个6位数的验证码。请在消息框中输入。"
+                android:text=""
                 android:textColor="@color/v5_login_title_sub"/>
         </LinearLayout>
 
@@ -52,10 +53,14 @@
                 android:layout_marginBottom="20dp"
                 android:background="@color/icon_bg"/>
 
-            <Button
+            <TextView
+                android:id="@+id/tv_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_submit5_style"
+                android:gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
                 android:text="下一步"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
@@ -68,6 +73,7 @@
 
 
             <TextView
+                android:id="@+id/tv_send_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

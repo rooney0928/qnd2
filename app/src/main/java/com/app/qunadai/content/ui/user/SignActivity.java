@@ -14,6 +14,7 @@ import android.view.Window;
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.ui.user.frag.Step1PhoneFragment;
 import com.app.qunadai.content.ui.user.frag.Step2CodeFragment;
 import com.app.qunadai.content.ui.user.frag.Step3PwdFragment;
@@ -146,6 +147,26 @@ public class SignActivity extends BaseActivity {
     public void onMessageEvent(EventTurn event) {
         if (event.getType().equalsIgnoreCase("sign")) {
             vp_sign.setCurrentItem(event.getPage());
+            switch (event.getPage()) {
+                case 0:
+                    break;
+                case 1:
+                    if (step2CodeFragment != null) {
+                        step2CodeFragment.startTimer();
+                    }
+                    break;
+                case 2:
+                    break;
+            }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        int currentItem = vp_sign.getCurrentItem();
+        FragmentBackPressed fragment = (FragmentBackPressed) fragments
+                .get(currentItem);
+        fragment.onBackPressed();
+    }
+
 }

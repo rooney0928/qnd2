@@ -36,6 +36,7 @@ import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.Products;
+import com.app.qunadai.bean.v5.SmsBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -109,10 +110,19 @@ public class RxHttp {
     public static Observable<Message> getLoginSms(String phone) {
         return qndApi.getLoginSms(phone);
     }
+    //登录短信5
+    public static Observable<BaseBean<SmsBean>> getLogin5Sms(String phone) {
+        return qndApi.getLogin5Sms(phone);
+    }
 
     //注册短信
     public static Observable<Message> getRegisterSms(String phone) {
         return qndApi.getRegisterSms(phone);
+    }
+
+    //注册短信5
+    public static Observable<BaseBean<SmsBean>> getRegSms(String phone) {
+        return qndApi.getRegSms(phone);
     }
 
     //忘记密码短信

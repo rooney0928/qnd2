@@ -12,17 +12,19 @@
 
 
         <EditText
+            android:id="@+id/et_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
             android:inputType="number"
-            android:text="15000982323"
+            android:maxLength="4"
+            android:text=""
             android:textColor="@color/v5_login_text"
             android:textSize="16sp"/>
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/cb_pwd_hide"
+        android:id="@+id/cb_code_right"
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_alignParentRight="true"
@@ -34,11 +36,12 @@
         android:visibility="gone"/>
 
     <TextView
+        android:id="@+id/tv_code_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="59s"
+        android:text=""
         android:textColor="@color/v5_login_title_sub"
         android:textSize="16sp"/>
 

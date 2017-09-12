@@ -34,6 +34,7 @@ import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.Products;
+import com.app.qunadai.bean.v5.SmsBean;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -68,6 +69,16 @@ public interface QndApi {
     Observable<Message> getLoginSms(@Field("mobileNumber") String mobileNumber);
 
     /**
+     * 获取登录短信验证码5
+     *
+     * @param mobileNumber
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("token/sms")
+    Observable<BaseBean<SmsBean>> getLogin5Sms(@Field("mobileNumber") String mobileNumber);
+
+    /**
      * 获取注册短信验证码
      *
      * @param mobileNumber
@@ -78,7 +89,19 @@ public interface QndApi {
     Observable<Message> getRegisterSms(@Field("mobileNumber") String mobileNumber);
 
     /**
-     * 获取注册短信验证码
+     * 获取注册短信验证码5
+     *
+     * @param mobileNumber
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("users/signup")
+    Observable<BaseBean<SmsBean>> getRegSms(@Field("mobileNumber") String mobileNumber);
+
+
+
+    /**
+     * 获取忘记短信验证码
      *
      * @param mobileNumber
      * @return

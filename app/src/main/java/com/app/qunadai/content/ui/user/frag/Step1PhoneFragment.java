@@ -2,6 +2,7 @@ package com.app.qunadai.content.ui.user.frag;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,16 +17,21 @@ import com.app.qunadai.R;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.IsExist;
+import com.app.qunadai.bean.v5.SmsBean;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Sign1Contract;
+import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.presenter.v5.Sign1Presenter;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.PrefKey;
+import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
+
 
 import butterknife.BindView;
 
@@ -35,9 +41,11 @@ import static com.app.qunadai.MyApp.context;
  * Created by wayne on 2017/9/11.
  */
 
-public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.View, View.OnClickListener {
+public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.View, View.OnClickListener, FragmentBackPressed {
 
     private Sign1Presenter sign1Presenter;
+
+
     @BindView(R.id.et_phone)
     EditText et_phone;
     @BindView(R.id.et_pwd)
@@ -78,13 +86,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     protected void initData() {
         sign1Presenter = new Sign1Presenter(this);
         tv_submit.setOnClickListener(this);
+        tv_code_signin.setOnClickListener(this);
 
-        cb_phone_right.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        });
 
 
         et_phone.addTextChangedListener(new TextWatcher() {
@@ -142,10 +145,9 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
             ll_pwd.setVisibility(View.VISIBLE);
 
         } else {
-            //账号不存在
+            //账号不存在，发送短信
             LogU.t("not exist");
-            EventBus.getDefault().post(new EventTurn(1, "sign"));
-
+            sign1Presenter.sendRegSms(CommUtil.getText(et_phone));
         }
     }
 
@@ -155,7 +157,43 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     }
 
     @Override
+    public void getRegisterSms(BaseBean<SmsBean> msg) {
+        PrefUtil.putString(getActivity(), PrefKey.SMS_TYPE, "reg");
+        PrefUtil.putString(getActivity(), PrefKey.TEMP_PHONE, CommUtil.getText(et_phone));
+        PrefUtil.putString(getActivity(), PrefKey.TEMP_SHA_CODE, msg.getContent().getVc());
+
+        ToastUtil.showToast(getActivity(), "短信已发送");
+        EventBus.getDefault().post(new EventTurn(1, "sign"));
+
+    }
+
+    @Override
+    public void getRegisterSmsFail(String error) {
+        ToastUtil.showToast(getActivity(), error);
+
+    }
+
+    @Override
+    public void getLoginSms(BaseBean<SmsBean> bean) {
+        PrefUtil.putString(getActivity(), PrefKey.SMS_TYPE, "login");
+        PrefUtil.putString(getActivity(), PrefKey.TEMP_PHONE, CommUtil.getText(et_phone));
+        PrefUtil.putString(getActivity(), PrefKey.TEMP_SHA_CODE, bean.getContent().getVc());
+
+
+        ToastUtil.showToast(getActivity(), "短信已发送");
+
+        EventBus.getDefault().post(new EventTurn(1, "sign"));
+    }
+
+    @Override
+    public void getLoginSmsFail(String error) {
+        ToastUtil.showToast(getActivity(), error);
+
+    }
+
+    @Override
     public void loginDone(Token token) {
+        ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();
     }
 
@@ -193,6 +231,21 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
 
                 break;
+            case R.id.tv_code_signin:
+                if (CommUtil.isNull(et_phone) || CommUtil.getText(et_phone).length() != 11) {
+                    ToastUtil.showToast(getActivity(), "用户名格式不正确");
+                    return;
+                }
+
+                sign1Presenter.sendLoginSms(CommUtil.getText(et_phone));
+
+
+                break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        getActivity().finish();
     }
 }
