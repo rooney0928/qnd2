@@ -1,7 +1,9 @@
 package com.app.qunadai.content.ui.user.frag;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -31,6 +33,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import rx.Observable;
 import rx.functions.Action1;
+
+import static com.app.qunadai.MyApp.context;
 
 /**
  * Created by wayne on 2017/9/11.
@@ -157,7 +161,7 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
                     sign2Presenter.sendRegSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));
                 } else if (smsType.equalsIgnoreCase("login")) {
                     sign2Presenter.sendLoginSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));
-                }else if(smsType.equalsIgnoreCase("forget")){
+                } else if (smsType.equalsIgnoreCase("forget")) {
                     sign2Presenter.sendForgetSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));
                 }
 
@@ -175,8 +179,10 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
                     EventBus.getDefault().post(new EventTurn(2, "sign"));
                 } else if (smsType.equalsIgnoreCase("login")) {
                     //短信登录的提交
-                    sign2Presenter.loginBySms(phone, CommUtil.getText(et_code));
-                }else if(smsType.equalsIgnoreCase("forget")){
+                    TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                    String imei = tm.getDeviceId();
+                    sign2Presenter.loginBySms(phone, CommUtil.getText(et_code), imei);
+                } else if (smsType.equalsIgnoreCase("forget")) {
                     PrefUtil.putString(getActivity(), PrefKey.TEMP_CODE, CommUtil.getText(et_code));
                     EventBus.getDefault().post(new EventTurn(2, "sign"));
                 }
@@ -233,7 +239,7 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
     @Override
     public void loginDone(BaseBean<Token> token) {
 
-        PrefUtil.putString(getActivity(),PrefKey.TOKEN,token.getContent().getAccess_token());
+        PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();
     }

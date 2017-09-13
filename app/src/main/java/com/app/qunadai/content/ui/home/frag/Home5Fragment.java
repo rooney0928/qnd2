@@ -1,7 +1,9 @@
 package com.app.qunadai.content.ui.home.frag;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +32,7 @@ import com.app.qunadai.content.view.FullRecyclerView;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -96,7 +99,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
         rv_pros.setNestedScrollingEnabled(false);
 
 
-        rv_floors.addItemDecoration(new SpaceItemDecoration(spacingInPixels8));
+//        rv_floors.addItemDecoration(new SpaceItemDecoration(spacingInPixels8));
         rv_floors.setNestedScrollingEnabled(false);
 
         rv_floors.setLayoutManager(linearLayoutManager);
@@ -116,6 +119,42 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
                 home5Presenter.getHomeProducts();
             }
         });
+
+
+        final IntentFilter filter = new IntentFilter();
+        // 屏幕灭屏广播
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        // 屏幕亮屏广播
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        // 屏幕解锁广播
+//        filter.addAction(Intent.ACTION_USER_PRESENT);
+        // 当长按电源键弹出“关机”对话或者锁屏时系统会发出这个广播
+        // example：有时候会用到系统对话框，权限可能很高，会覆盖在锁屏界面或者“关机”对话框之上，
+        // 所以监听这个广播，当收到时就隐藏自己的对话，如点击pad右下角部分弹出的对话框
+//        filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+
+
+        BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(final Context context, final Intent intent) {
+//                LogU.t("onReceive");
+                String action = intent.getAction();
+
+                if (Intent.ACTION_SCREEN_ON.equals(action)) {
+//                    LogU.t("screen on");
+                    if (banner != null) {
+                        banner.setIsAuto(true);
+                    }
+                } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+//                    LogU.t("screen off");
+                    if (banner != null) {
+                        banner.setIsAuto(false);
+                    }
+                }
+            }
+        };
+//        LogU.t("registerReceiver");
+        getActivity().registerReceiver(mBatInfoReceiver, filter);
     }
 
     @Override
@@ -207,6 +246,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
         banner.setDataList(list);
         banner.start();
     }
+
     public static class BannerItem {
         public String pid;
         public String picUrl;
@@ -247,17 +287,17 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
             if (banners != null) {
                 final Banner b = banners.get(position);
 
-                if(b.getBannerMode().equals("EXTERNAL")){
+                if (b.getBannerMode().equals("EXTERNAL")) {
                     iv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(context, BrowserActivity.class);
                             intent.putExtra("url", b.getBannerUrl());
-                            intent.putExtra("title",b.getName());
+                            intent.putExtra("title", b.getName());
                             context.startActivity(intent);
                         }
                     });
-                }else{
+                } else {
                     iv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

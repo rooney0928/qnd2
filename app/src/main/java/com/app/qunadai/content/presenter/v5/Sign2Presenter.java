@@ -97,7 +97,7 @@ public class Sign2Presenter implements Sign2Contract.Presenter {
     }
 
     @Override
-    public void loginBySms(String phone, String sms) {
-        model.loginBySms(phone, sms);
+    public void loginBySms(String phone, String sms, String imei) {
+        model.loginBySms(phone, sms, imei);
     }
 }

@@ -99,7 +99,6 @@ public interface QndApi {
     Observable<BaseBean<SmsBean>> getRegSms(@Field("mobileNumber") String mobileNumber);
 
 
-
     /**
      * 获取忘记短信验证码
      *
@@ -111,6 +110,7 @@ public interface QndApi {
     Observable<Message> getForgetSms(@Field("filter") String filter
             , @Field("c") String c
             , @Field("mobileNumber") String mobileNumber);
+
     /**
      * 获取忘记短信验证码5
      *
@@ -134,6 +134,7 @@ public interface QndApi {
                                 @Query("mobileNumber") String mobileNumber,
                                 @Query("verifiCode") String sms,
                                 @Query("newsha1password") String pwd);
+
     /**
      * 重置密码
      *
@@ -141,10 +142,10 @@ public interface QndApi {
      */
     @PUT("users")
     Observable<BaseBean<Token>> reset5(@Query("filter") String filter,
-                                @Query("c") String c,
-                                @Query("mobileNumber") String mobileNumber,
-                                @Query("verifiCode") String sms,
-                                @Query("newsha1password") String pwd);
+                                       @Query("c") String c,
+                                       @Query("mobileNumber") String mobileNumber,
+                                       @Query("verifiCode") String sms,
+                                       @Query("newsha1password") String pwd);
 
     /**
      * 注册
@@ -164,28 +165,29 @@ public interface QndApi {
      */
     @PUT("users/activate")
     Observable<BaseBean<Token>> register5(@Query("filter") String filter,
-                                 @Query("mobileNumber") String mobileNumber,
-                                 @Query("smsActivateCode") String sms,
-                                 @Query("sha1password") String pwd);
+                                          @Query("mobileNumber") String mobileNumber,
+                                          @Query("smsActivateCode") String sms,
+                                          @Query("sha1password") String pwd);
 
     @FormUrlEncoded
     @POST("token")
     Observable<BaseBean<Token>> loginByPwd(@Field("filter") String filter,
-                                 @Field("mobileNumber") String mobileNumber,
-                                 @Field("sha1password") String pwd);
+                                           @Field("mobileNumber") String mobileNumber,
+                                           @Field("sha1password") String pwd);
 
     @FormUrlEncoded
     @POST("token")
     Observable<BaseBean<Token>> loginByPwd(@Field("filter") String filter,
-                                 @Field("mobileNumber") String mobileNumber,
-                                 @Field("sha1password") String pwd,
-                                 @Field("imei") String imei);
+                                           @Field("mobileNumber") String mobileNumber,
+                                           @Field("sha1password") String pwd,
+                                           @Field("imei") String imei);
 
     @FormUrlEncoded
     @POST("token")
     Observable<BaseBean<Token>> loginBySms(@Field("filter") String filter,
-                                 @Field("mobileNumber") String mobileNumber,
-                                 @Field("smsCode") String sms);
+                                           @Field("mobileNumber") String mobileNumber,
+                                           @Field("smsCode") String sms,
+                                           @Field("imei") String imei);
 
     @GET("users/signup/mobile")
     Observable<BaseBean<IsExist>> checkMobile(@Query("mobileNumber") String mobileNumber);

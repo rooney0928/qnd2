@@ -74,7 +74,9 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         AndPermission.with(this)
                 .requestCode(300)
 
-                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION)
+                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.ACCESS_COARSE_LOCATION)
                 .callback(this)
                 .start()
         ;
@@ -205,7 +207,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 //                                }
 
 
-                                Intent intentMain = new Intent(SplashActivity.this,MainActivity.class);
+                                Intent intentMain = new Intent(SplashActivity.this, MainActivity.class);
                                 startActivity(intentMain);
                                 finish();
 

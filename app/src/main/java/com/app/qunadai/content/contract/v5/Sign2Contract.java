@@ -41,7 +41,7 @@ public interface Sign2Contract {
 
         void sendForgetSms(String phone);
 
-        void loginBySms(String phone, String sms);
+        void loginBySms(String phone, String sms,String imei);
 
     }
 
@@ -53,7 +53,7 @@ public interface Sign2Contract {
 
         void sendForgetSms(String phone);
 
-        void loginBySms(String phone, String sms);
+        void loginBySms(String phone, String sms,String imei);
 
     }
 }

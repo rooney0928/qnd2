@@ -152,8 +152,8 @@ public class Sign2ModelImpl implements Sign2Contract.Model {
     }
 
     @Override
-    public void loginBySms(String phone, String sms) {
-        Observable<BaseBean<Token>> request = RxHttp.getInstance().loginBySms(phone, sms);
+    public void loginBySms(String phone, String sms, String imei) {
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().loginBySms(phone, sms, imei);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<BaseBean<Token>>() {
