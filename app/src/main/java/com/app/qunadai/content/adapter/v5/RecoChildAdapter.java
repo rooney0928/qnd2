@@ -1,6 +1,7 @@
 package com.app.qunadai.content.adapter.v5;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.v5.RoomBean;
+import com.app.qunadai.content.ui.product.Product5DetailActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
 
@@ -64,10 +66,21 @@ public class RecoChildAdapter extends RecyclerView.Adapter {
         }
 
         public void setData() {
-            RoomBean bean = list.get(getAdapterPosition());
+            final RoomBean bean = list.get(getAdapterPosition());
+
             String imgUrl = RxHttp.ROOT + "attachments/" + bean.getContentImg();
 
+
             ImgUtil.loadImg(context, imgUrl, iv_reco_pic);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    ToastUtil.showToast(context, p.getId());
+                    Intent intentDetail = new Intent(context, Product5DetailActivity.class);
+                    intentDetail.putExtra("pid", bean.getContentMappingId());
+                    context.startActivity(intentDetail);
+                }
+            });
         }
 
     }

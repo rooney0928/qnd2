@@ -24,7 +24,7 @@ import butterknife.BindView;
  * Created by wayne on 2017/9/15.
  */
 
-public class ExploreActivity extends BaseActivity implements ExploreContract.View{
+public class ExploreActivity extends BaseActivity implements ExploreContract.View {
 
     private ExplorePresenter explorePresenter;
     @BindView(R.id.swipe_layout)
@@ -67,7 +67,7 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
 
         explorePresenter = new ExplorePresenter(this);
         adapter = new ExploreAdapter(this);
-        linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.dp8);
         rv_list.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_list.setAdapter(adapter);
@@ -75,6 +75,13 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
 
 
         explorePresenter.getExplore(getToken());
+        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                explorePresenter.getExplore(getToken());
+
+            }
+        });
     }
 
     @Override
@@ -98,7 +105,7 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
 
     @Override
     public void requestEnd() {
-        if(swipe_layout!=null&&swipe_layout.isRefreshing()){
+        if (swipe_layout != null && swipe_layout.isRefreshing()) {
             swipe_layout.setRefreshing(false);
         }
     }

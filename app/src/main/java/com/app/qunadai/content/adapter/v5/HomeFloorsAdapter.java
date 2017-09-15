@@ -141,6 +141,11 @@ public class HomeFloorsAdapter extends RecyclerView.Adapter {
             String imgUrl = RxHttp.ROOT + "attachments/" + roomBean.getContentImg();
 
             ImgUtil.loadImg(context, imgUrl, iv_home_banner_item);
+
+//            bean.
+            if(bean.getFloorContents().size()>0){
+//                bean.getFloorContents().get(0)
+            }
         }
     }
 

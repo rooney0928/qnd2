@@ -218,6 +218,10 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
     @Override
     public void getProduct5Detail(BaseBean<Product5DetailBean> bean) {
+        if(!bean.getCode().equals("000")){
+            ToastUtil.showToast(this,bean.getMsg());
+            return;
+        }
         p = bean.getContent().getProduct();
         setTitleText(p.getName());
 
@@ -237,7 +241,23 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         }
 
         tv_detail_period.setText(p.getMaxTerm() + p.getTermUnit());
-        tv_detail_rate.setText(p.getMinRate() + "%/" + p.getTermUnit());
+
+        String unit = "";
+        switch (p.getRateStatus()) {
+            case "MONTH":
+                unit = "月";
+                break;
+            case "WEEK":
+                unit = "周";
+                break;
+            case "DAY":
+                unit = "天";
+                break;
+            default:
+                unit = "期";
+                break;
+        }
+        tv_detail_rate.setText(p.getMinRate() + "%/" +unit);
 
 
         tv_detail_loan_time.setText(p.getLoanTime() + getUnit(p.getLoanTimeUnit()));

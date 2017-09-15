@@ -171,7 +171,9 @@
         <activity
             android:name=".content.ui.me.ExploreActivity"
             android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name=".content.ui.me.AuthActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="com.yanzhenjie.album.AlbumActivity"

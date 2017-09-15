@@ -141,13 +141,17 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <com.app.qunadai.content.view.FullRecyclerView
-                    android:id="@+id/rv_floors"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+                    <com.app.qunadai.content.view.FullRecyclerView
+                        android:id="@+id/rv_floors"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                </com.app.qunadai.content.view.FullRecyclerView>
+                    </com.app.qunadai.content.view.FullRecyclerView>
+                </RelativeLayout>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"

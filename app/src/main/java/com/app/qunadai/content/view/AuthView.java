@@ -81,7 +81,6 @@ public class AuthView extends RelativeLayout {
 
         switch (status) {
             case AUTH_NO:
-
                 iv_auth_status.setImageResource(R.mipmap.icon_unauth);
                 break;
             case AUTH_YES:

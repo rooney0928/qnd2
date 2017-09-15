@@ -148,6 +148,9 @@ public class MainActivity extends BaseActivity {
                             setCheckBox(index);
                             return;
                         }
+                        if (me5Fragment != null) {
+                            me5Fragment.requestUserData();
+                        }
                         vp_main.setCurrentItem(2);
                         setTitleBarVisible(true);
                         setTitleText("我的");

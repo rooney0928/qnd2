@@ -85,10 +85,6 @@ public class AddCommentActivity extends BaseActivity implements AddCommentContra
                     ToastUtil.showToast(this, "评分不能为空");
                     return;
                 }
-                if (CommUtil.getText(et_add_content).length() == 0) {
-                    ToastUtil.showToast(this, "评论不能为空");
-                    return;
-                }
                 addCommentPresenter.addComment(p.getId(), getToken(),
                                             (int) srb_add_star.getRating(),
                                             CommUtil.getText(et_add_content));

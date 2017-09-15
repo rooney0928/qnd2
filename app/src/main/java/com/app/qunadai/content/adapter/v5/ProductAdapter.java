@@ -91,8 +91,24 @@ public class ProductAdapter extends RecyclerView.Adapter {
 
             ImgUtil.loadImg(context, imgUrl, iv_product_header);
             tv_product_name.setText(p.getName());
-            tv_product_amount.setText(p.getAmount() + "");
-            tv_product_fast.setText(p.getLoanTime() + "小时放款");
+            tv_product_amount.setText(p.getMaxAmount() + "");
+            String loanUnit = "";
+            switch (p.getLoanTimeUnit()) {
+                case "SECONDS":
+                case "SECOND":
+                    loanUnit = "秒";
+                    break;
+                case "MINUTES":
+                case "MINUTE":
+                    loanUnit = "分钟";
+                    break;
+                case "HOURS":
+                case "HOUR":
+                    loanUnit = "小时";
+                    break;
+            }
+
+            tv_product_fast.setText(p.getLoanTime() + loanUnit + "放款");
             String unit = "";
             switch (p.getRateStatus()) {
                 case "MONTH":
@@ -108,8 +124,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
                     unit = "期";
                     break;
             }
-            tv_product_rate.setText(unit + "费率" + p.getRate());
-            tv_product_period.setText("贷款期限" + p.getTerm());
+            tv_product_rate.setText(unit + "费率" + p.getMinRate()+"%");
+            tv_product_period.setText("贷款期限" + p.getMaxTerm() + p.getTermUnit());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

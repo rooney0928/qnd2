@@ -277,7 +277,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
     @Override
     public void getStatus(StatusBean bean) {
         limitPresenter.requestPersonValue(getToken());
-
     }
 
     @Override
@@ -328,23 +327,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 //            mxParam.setQuitDisable(true); //设置导入过程中，触发返回键或者点击actionbar的返回按钮的时候，不执行魔蝎的默认行为
 
 
-//            MxParam.PARAM_FUNCTION_MAIL（或MxParam.PARAM_FUNCTION_EMAIL）：邮箱导入
-//            MxParam.PARAM_FUNCTION_ONLINEBANK：网银导入
-//            MxParam.PARAM_FUNCTION_CARRIER：运营商
-//            MxParam.PARAM_FUNCTION_QQ：QQ验证
-//            MxParam.PARAM_FUNCTION_ALIPAY：支付宝
-//            MxParam.PARAM_FUNCTION_TAOBAO：淘宝
-//            MxParam.PARAM_FUNCTION_JINGDONG：京东
-//            MxParam.PARAM_FUNCTION_CHSI：学信网
-//            MxParam.PARAM_FUNCTION_FUND：公积金
-//            MxParam.PARAM_FUNCTION_ZHENGXIN：征信
-//            MxParam.PARAM_FUNCTION_INSURANCE：保险
-//            MxParam.PARAM_FUNCTION_MAIMAI：脉脉
-//            MxParam.PARAM_FUNCTION_ZHIXINGCOURT：法院被执行人查询
-//            MxParam.PARAM_FUNCTION_SHIXINCOURT：法院失信人查询
-//            MxParam.PARAM_FUNCTION_LINKEDIN：领英
-//            MxParam.PARAM_FUNCTION_TAX：个税
-//            MxParam.PARAM_FUNCTION_SECURITY：社保
 
             switch (v.getId()) {
 
@@ -497,6 +479,5 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
         String phone = PrefUtil.getString(getActivity(), PrefKey.PHONE, "");
         String token = PrefUtil.getString(getActivity(), PrefKey.TOKEN, "");
         limitPresenter.updateStatus(phone, taskType, token);
-
     }
 }

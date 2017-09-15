@@ -24,6 +24,7 @@ import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.presenter.v5.Sign1Presenter;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
+import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
@@ -102,7 +103,7 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 11) {
-                    cb_phone_right.setChecked(true);
+                    cb_phone_right.setChecked(CheckUtil.isMobile(CommUtil.getText(et_phone)));
                 } else {
                     cb_phone_right.setChecked(false);
                 }
@@ -211,6 +212,7 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     @Override
     public void loginDone(BaseBean<Token> token) {
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
+        PrefUtil.putString(getActivity(), PrefKey.PHONE, CommUtil.getText(et_phone));
 
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();
@@ -229,7 +231,7 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 //                ll_pwd.setVisibility(ll_pwd.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
                 if (ll_pwd.getVisibility() == View.GONE) {
                     //无密码模式
-                    if (CommUtil.getText(et_phone).length() < 11) {
+                    if (CommUtil.getText(et_phone).length() < 11|| !CheckUtil.isMobile(CommUtil.getText(et_phone))) {
                         ToastUtil.showToast(getActivity(), "手机号格式不正确");
                         return;
                     }
@@ -241,6 +243,11 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
                         ToastUtil.showToast(getActivity(), "用户名或密码为空");
                         return;
                     }
+                    if (CommUtil.getText(et_phone).length() < 11|| !CheckUtil.isMobile(CommUtil.getText(et_phone))) {
+                        ToastUtil.showToast(getActivity(), "手机号格式不正确");
+                        return;
+                    }
+
                     String phone = et_phone.getText().toString().trim();
                     String pwd = et_pwd.getText().toString().trim();
                     TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);

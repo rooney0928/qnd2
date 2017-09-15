@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:av="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:fitsSystemWindows="true"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_limit_borrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/ll_quota_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@mipmap/quota_bg2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:text="预估额度(元)"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_limit_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="2000"
+                        android:textColor="@color/mainColor"
+                        android:textSize="40sp"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#f6f6f6"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_bankcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_bank_auth"
+                av:mName="银行卡验证"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_realinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_real_info"
+                av:mName="真实信息填写"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_ebank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_ebank"
+                av:mName="网银"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_carrier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_carrier"
+                av:mName="运营商"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_alipay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_alipay"
+                av:mName="支付宝"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_email"
+                av:mName="邮箱"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_fund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_fund"
+                av:mName="公积金"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_taobao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_taobao"
+                av:mName="淘宝"
+                av:mStatus="no"/>
+
+            <View style="@style/line_15dp"/>
+
+            <com.app.qunadai.content.view.AuthView
+                android:id="@+id/av_credit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_nav_bg"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                av:mLogo="@mipmap/icon_zhengxin"
+                av:mName="征信"
+                av:mStatus="no"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_loan_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp"
+            android:src="@mipmap/icon_question"/>
+    </RelativeLayout>
+
+
+</ScrollView>

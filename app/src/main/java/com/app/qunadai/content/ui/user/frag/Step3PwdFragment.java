@@ -19,6 +19,7 @@ import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.presenter.v5.Sign3Presenter;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
+import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
@@ -124,6 +125,11 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
                     ToastUtil.showToast(getActivity(), "密码长度不合适");
                     break;
                 }
+                if (!CheckUtil.isPassword(CommUtil.getText(et_pwd))) {
+                    ToastUtil.showToast(getActivity(), "密码格式不合适");
+                    break;
+                }
+
                 if (smsType.equalsIgnoreCase("reg")) {
                     sign3Presenter.register(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)));
                 } else if (smsType.equalsIgnoreCase("forget")) {

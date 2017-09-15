@@ -170,6 +170,7 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
             case R.id.tv_submit:
                 if (!CommUtil.shaEncrypt(CommUtil.getText(et_code)).equalsIgnoreCase(shaCode)) {
                     ToastUtil.showToast(getActivity(), "验证码错误");
+                    return;
                 }
 
 
@@ -240,6 +241,8 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
     public void loginDone(BaseBean<Token> token) {
 
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
+        PrefUtil.putString(getActivity(), PrefKey.PHONE, phone);
+
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();
     }
