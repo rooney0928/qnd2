@@ -60,6 +60,7 @@ public class FilterProductsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        int index = getIntent().getIntExtra("index",0);
         for (String title : mTitles) {
             mTabEntities.add(new TabEntity(title));
         }
@@ -106,6 +107,8 @@ public class FilterProductsActivity extends BaseActivity {
 
             }
         });
+
+        vp_pros.setCurrentItem(index);
     }
 
     @Override

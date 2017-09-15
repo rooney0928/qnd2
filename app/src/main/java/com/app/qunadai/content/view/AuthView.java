@@ -23,14 +23,12 @@ public class AuthView extends RelativeLayout {
     ImageView iv_auth_logo;
     @BindView(R.id.tv_auth_name)
     TextView tv_auth_name;
-    @BindView(R.id.tv_auth_desc)
-    TextView tv_auth_desc;
     @BindView(R.id.iv_auth_status)
     ImageView iv_auth_status;
 
     private int logoId;
     private String name;
-    private String desc;
+//    private String desc;
     private int status;
 
     public static final int AUTH_ERROR = -1;
@@ -59,7 +57,7 @@ public class AuthView extends RelativeLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.authView);
         logoId = ta.getResourceId(R.styleable.authView_mLogo, -1);
         name = ta.getString(R.styleable.authView_mName);
-        desc = ta.getString(R.styleable.authView_mDesc);
+//        desc = ta.getString(R.styleable.authView_mDesc);
         status = ta.getInteger(R.styleable.authView_mStatus, -1);
 
         if (status < 0 || status > 2) {
@@ -70,7 +68,7 @@ public class AuthView extends RelativeLayout {
         }
 
         tv_auth_name.setText(name);
-        tv_auth_desc.setText(desc);
+//        tv_auth_desc.setText(desc);
 
         setAuthStatus(status);
     }

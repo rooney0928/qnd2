@@ -177,25 +177,35 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         };
 //        LogU.t("registerReceiver");
         getActivity().registerReceiver(mBatInfoReceiver, filter);
+
+
+        LogU.t("token:"+getToken());
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
+
         switch (v.getId()) {
             case R.id.ll_home_fast_loan:
-                Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
-                startActivity(intent);
+                intent.putExtra("index",0);
                 break;
             case R.id.ll_home_low_rate:
+                intent.putExtra("index",1);
 
                 break;
             case R.id.ll_home_high_limit:
+                intent.putExtra("index",2);
 
                 break;
             case R.id.ll_home_long_term:
+                intent.putExtra("index",3);
 
                 break;
         }
+
+        startActivity(intent);
+
     }
 
 

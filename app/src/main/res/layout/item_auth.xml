@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/ripple_nav_bg"
-    android:layout_height="wrap_content">
+    android:layout_height="42dp">
 
     <ImageView
         android:id="@+id/iv_auth_logo"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="13dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/icon_alipay" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,19 +28,12 @@
             android:textColor="@color/black"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tv_auth_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="可提升1000-5000额度"
-            android:textColor="@color/text_grey" />
     </LinearLayout>
 
 
     <ImageView
         android:id="@+id/iv_auth_status"
-        android:src="@mipmap/icon_unauth"
+        android:src="@mipmap/icon_authing"
         android:layout_marginRight="6dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"

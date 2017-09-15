@@ -90,6 +90,10 @@ public class ExceptionEngine {
             ex = new ApiException(e, ERROR.NETWORD_ERROR);
             ex.setDisplayMessage("连接超时");  //均视为网络错误
             return ex;
+        } else if (e instanceof NullPointerException) {
+            ex = new ApiException(e, ERROR.UNKNOWN);
+            ex.setDisplayMessage("找不到对象错误");          //未知错误
+            return ex;
         } else {
             ex = new ApiException(e, ERROR.UNKNOWN);
             ex.setDisplayMessage("未知错误");          //未知错误

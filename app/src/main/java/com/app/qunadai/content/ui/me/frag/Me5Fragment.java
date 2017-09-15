@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.base.BaseFragment;
+import com.app.qunadai.content.ui.me.ExploreActivity;
 import com.app.qunadai.content.ui.me.SettingActivity;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ReqKey;
 
@@ -106,7 +108,12 @@ public class Me5Fragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.ll_me_explore:
-
+                if (CommUtil.isNull(getToken())){
+                    exeLogin();
+                    return;
+                }
+                Intent intentExplore = new Intent(getActivity(), ExploreActivity.class);
+                startActivity(intentExplore);
                 break;
             case R.id.ll_me_calendar:
 
@@ -118,8 +125,8 @@ public class Me5Fragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.ll_me_setting:
-                Intent intent = new Intent(getActivity(), SettingActivity.class);
-                startActivityForResult(intent, ReqKey.REQ_QUIT_SYSTEM);
+                Intent intentSet = new Intent(getActivity(), SettingActivity.class);
+                startActivityForResult(intentSet, ReqKey.REQ_QUIT_SYSTEM);
                 break;
         }
     }

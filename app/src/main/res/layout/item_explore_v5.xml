@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_explore_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/ripple_nav_bg"
@@ -19,11 +19,13 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_explore_avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
+                android:id="@+id/tv_explore_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -31,6 +33,7 @@
                 android:textSize="18sp"/>
 
             <TextView
+                android:id="@+id/tv_explore_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -60,6 +63,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_explore_limit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10000"
@@ -87,6 +91,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_explore_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
@@ -94,6 +99,7 @@
                     android:textColor="@color/v5_explore_gray"/>
 
                 <TextView
+                    android:id="@+id/tv_explore_period"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -107,12 +113,12 @@
                 android:layout_weight="1"
                 android:gravity="right">
 
-                <Button
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginRight="12dp"
-                    android:background="@drawable/ripple_golden_key"
-                    android:elevation="20px"
+                    android:background="@drawable/shape_explore_view"
+                    android:gravity="center"
                     android:paddingLeft="18dp"
                     android:paddingRight="18dp"
                     android:text="查看"

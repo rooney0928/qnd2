@@ -296,9 +296,10 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
                         exeLogin();
                     } else {
                         Intent intent = new Intent(CreditCardActivity.this, BrowserActivity.class);
-                        String root = "http://192.168.11.129:7777/";
-                        String url = root + "html/creditCard/ccStrategy/ccStrategy.html?articleId=" + strategy.getId()
+//                        String root = "http://192.168.11.129:7777/";
+                        String url = RxHttp.ROOT + "html/creditCard/ccStrategy/ccStrategy.html?articleId=" + strategy.getId()
                                 + "&token=" + getToken();
+
                         intent.putExtra("url", url);
                         intent.putExtra("title", strategy.getTitle());
                         startActivity(intent);

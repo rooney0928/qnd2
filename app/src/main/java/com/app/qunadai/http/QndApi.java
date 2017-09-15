@@ -33,9 +33,9 @@ import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.AddComment;
 import com.app.qunadai.bean.v5.Floors;
+import com.app.qunadai.bean.v5.ExploreBean;
 import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.ProComments;
-import com.app.qunadai.bean.v5.Product;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
 import com.app.qunadai.bean.v5.ProductsFilter;
@@ -341,6 +341,11 @@ public interface QndApi {
 
     @POST("home/requirement")
     Observable<BankcardBean> setBankcardInfo(@Query("access_token") String access_token, @Body RequestBody body);
+
+
+    //v5
+    @GET("user/browsinghistory/current/all")
+    Observable<BaseBean<ExploreBean>> getExplore(@Query("access_token") String access_token);
 
 
 }

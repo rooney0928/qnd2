@@ -4,7 +4,6 @@
     <declare-styleable name="authView">
         <attr name="mLogo" format="reference" />
         <attr name="mName" format="string" />
-        <attr name="mDesc" format="string" />
         <attr name="mStatus" format="enum">
             <enum name="ing" value="2" />
             <enum name="yes" value="1" />

@@ -150,8 +150,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
         });
 
-        product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
         product5DetailPresenter.getProduct5Detail(pid);
+        product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
 
 
     }
@@ -229,7 +229,12 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         double comments = (double) p.getTotalCommentNumber();
         long star = Math.round(stars / comments);
 
-        srb_detail_score.setRating(star);
+        if (star == 0) {
+            srb_detail_score.setRating(1);
+        } else {
+            srb_detail_score.setRating(star);
+
+        }
 
         tv_detail_period.setText(p.getMaxTerm() + p.getTermUnit());
         tv_detail_rate.setText(p.getMinRate() + "%/" + p.getTermUnit());
@@ -285,11 +290,11 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     }
 
     public String getUnit(String unit) {
-        if (unit.equalsIgnoreCase("SECONDS")) {
+        if (unit.equalsIgnoreCase("SECONDS") || unit.equalsIgnoreCase("SECOND")) {
             return "秒";
-        } else if (unit.equalsIgnoreCase("MINUTES")) {
+        } else if (unit.equalsIgnoreCase("MINUTES") || unit.equalsIgnoreCase("MINUTE")) {
             return "分钟";
-        } else if (unit.equalsIgnoreCase("HOURS")) {
+        } else if (unit.equalsIgnoreCase("HOURS") || unit.equalsIgnoreCase("HOUR")) {
             return "小时";
         } else {
             return "";

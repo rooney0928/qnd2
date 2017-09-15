@@ -324,7 +324,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="@string/increase500_1000"
                 av:mLogo="@mipmap/icon_bank_auth"
                 av:mName="银行卡验证"
                 av:mStatus="no"/>
@@ -342,7 +341,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="@string/increase500_1000"
                 av:mLogo="@mipmap/icon_real_info"
                 av:mName="真实信息填写"
                 av:mStatus="no"/>

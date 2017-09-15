@@ -180,7 +180,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="最高可提升1万额度"
                 av:mLogo="@mipmap/icon_bank_auth"
                 av:mName="银行卡验证"
                 av:mStatus="no"/>
@@ -194,7 +193,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="可提升100额度"
                 av:mLogo="@mipmap/icon_real_info"
                 av:mName="真实信息填写"
                 av:mStatus="no"/>
@@ -208,7 +206,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="提高审核通过率"
                 av:mLogo="@mipmap/icon_ebank"
                 av:mName="网银"
                 av:mStatus="no"/>
@@ -222,7 +219,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="降低8%费率"
                 av:mLogo="@mipmap/icon_carrier"
                 av:mName="运营商"
                 av:mStatus="no"/>
@@ -236,7 +232,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="降低6%费率"
                 av:mLogo="@mipmap/icon_alipay"
                 av:mName="支付宝"
                 av:mStatus="no"/>
@@ -250,7 +245,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="可提升2000额度"
                 av:mLogo="@mipmap/icon_email"
                 av:mName="邮箱"
                 av:mStatus="no"/>
@@ -264,7 +258,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="可提升3000额度"
                 av:mLogo="@mipmap/icon_fund"
                 av:mName="公积金"
                 av:mStatus="no"/>
@@ -278,7 +271,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="提升放款速度"
                 av:mLogo="@mipmap/icon_taobao"
                 av:mName="淘宝"
                 av:mStatus="no"/>
@@ -292,7 +284,6 @@
                 android:background="@drawable/ripple_nav_bg"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                av:mDesc="最高可提升10000额度"
                 av:mLogo="@mipmap/icon_zhengxin"
                 av:mName="征信"
                 av:mStatus="no"/>

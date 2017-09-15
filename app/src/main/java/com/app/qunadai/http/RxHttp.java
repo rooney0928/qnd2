@@ -34,6 +34,7 @@ import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.AddComment;
+import com.app.qunadai.bean.v5.ExploreBean;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.ProComments;
@@ -65,9 +66,9 @@ import rx.schedulers.Schedulers;
 public class RxHttp {
 
     //                public static final String ROOT = "https://mapi.qunadai.com/";
-//    public static final String ROOT = "https://mapit.qunadai.com/";
+    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
-    public static final String ROOT = "http://192.168.7.165:8080/";
+//    public static final String ROOT = "http://192.168.7.165:8080/";
 
 
     static QndApi qndApi;
@@ -229,7 +230,7 @@ public class RxHttp {
     }
 
     //5.0版本产品添加评论
-    public static Observable<BaseBean<AddComment>> addComment(String pid, String token,RequestBody body) {
+    public static Observable<BaseBean<AddComment>> addComment(String pid, String token, RequestBody body) {
         return qndApi.addComment(pid, token, body);
     }
 
@@ -382,5 +383,12 @@ public class RxHttp {
     public static Observable<BankcardBean> setBankcard(String token, RequestBody body) {
         return qndApi.setBankcardInfo(token, body);
     }
+
+    //v5
+    //获取浏览记录
+    public static Observable<BaseBean<ExploreBean>> getExplore(String token){
+        return qndApi.getExplore(token);
+    }
+
 
 }
