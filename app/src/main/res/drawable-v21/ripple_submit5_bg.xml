@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/v5_login_title_sub">
+
+    <item android:drawable="@color/v5_price" />
+
+</ripple>

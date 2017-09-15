@@ -18,11 +18,13 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_add_avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
+                android:id="@+id/tv_add_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
@@ -33,7 +35,7 @@
         <!--打分模块-->
         <com.willy.ratingbar.ScaleRatingBar
             xmlns:rb="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/simpleRatingBar5"
+            android:id="@+id/srb_add_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -43,7 +45,7 @@
             rb:drawableEmpty="@mipmap/ic5_empty_star"
             rb:drawableFilled="@mipmap/ic5_star"
             rb:numStars="5"
-            rb:rating="3"
+            rb:rating="0"
             rb:starHeight="36dp"
             rb:starWidth="40dp"
             rb:stepSize="1"
@@ -57,18 +59,22 @@
             android:background="@drawable/shape_add_comment"
             android:gravity="center_horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_add_content"
+                android:layout_width="match_parent"
                 android:layout_height="142dp"
+                android:background="@null"
                 android:gravity="clip_vertical"
                 android:hint="请输入您的评论"
                 android:lineSpacingExtra="3dp"
                 android:padding="18dp"
-                android:text="这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论这是我的评论"
-                android:textColorHint="@color/v5_gray"/>
+                android:text=""
+                android:textColorHint="@color/v5_gray"
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_add_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

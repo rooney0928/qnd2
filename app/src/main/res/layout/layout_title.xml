@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--标题栏-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_top"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,14 +13,14 @@
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:orientation="vertical"
-        android:paddingLeft="12dp">
+        android:orientation="vertical">
         <!--返回键-->
         <RelativeLayout
             android:id="@+id/rl_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="12dp">
 
             <ImageView
                 android:id="@+id/iv_back"
@@ -48,6 +49,7 @@
             android:layout_centerVertical="true"
             android:visibility="gone">
 
+
             <TextView
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
@@ -68,50 +70,19 @@
                 android:layout_toRightOf="@+id/tv_location"/>
         </RelativeLayout>
         <!--搜索地址-->
-        <RelativeLayout
-            android:id="@+id/rl_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/ctl_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp75"
-            android:visibility="gone">
+            android:layout_toRightOf="@+id/rl_back"
+            tl:tl_iconVisible="false"
+            tl:tl_indicator_width="42dp"
+            tl:tl_textBold="SELECT"
+            tl:tl_textSelectColor="@color/black5"
+            tl:tl_textUnselectColor="@color/text_grey"
+            tl:tl_indicator_color="@color/black5"/>
 
-            <ImageView
-                android:id="@+id/iv_search_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"/>
-
-            <TextView
-                android:id="@+id/tv_tenant_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="45dp"
-                android:text="查询商户"
-                android:textColor="#9b9b9b"
-                android:textSize="@dimen/sp14"/>
-
-            <ImageView
-                android:id="@+id/iv_tenant_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp40"
-                android:visibility="gone"/>
-        </RelativeLayout>
 
         <!--标题-->
         <TextView
@@ -119,8 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="标题栏"
-            android:textColor="@color/mainColor"
+            android:text=""
+            android:textColor="@color/black"
             android:textSize="@dimen/sp19"/>
         <!--左按键-->
         <TextView
@@ -147,15 +118,15 @@
             android:textSize="@dimen/sp16"/>
 
         <ImageView
-            android:layout_marginTop="2dp"
             android:id="@+id/iv_title_img_right"
             android:layout_width="wrap_content"
-            android:src="@mipmap/ic_send"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginTop="2dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
+            android:src="@mipmap/ic_send"
             android:visibility="gone"/>
 
     </RelativeLayout>

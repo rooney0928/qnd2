@@ -65,6 +65,7 @@
 
     <!--v5-->
     <color name="comment_bg">#f2f2f2</color>
+    <color name="black5">#1F2226</color>
 
     <color name="area">#c3c3c3</color>
     <color name="v5_login_text">#4a4a4a</color>

@@ -2,6 +2,7 @@ package com.app.qunadai;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,5 +30,15 @@ public class InfoUnitTest {
         boolean result = null == null;
         assertEquals(false, result);
 
+    }
+
+    @Test
+    public void test45() throws Exception {
+
+        int stars = 10;
+        int comments = 4;
+
+        double star = new BigDecimal(2.5).setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
+        assertEquals(3, star, 0);
     }
 }

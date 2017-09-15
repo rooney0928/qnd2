@@ -24,6 +24,12 @@ import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +68,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     TextView tv_title_right;
     @BindView(R.id.iv_title_img_right)
     ImageView iv_title_img_right;
+    @BindView(R.id.ctl_tab)
+    CommonTabLayout ctl_tab;
 
     @BindView(R.id.ll_root)
     LinearLayout ll_root;
@@ -227,9 +235,31 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         iv_title_img_right.setVisibility(View.VISIBLE);
     }
 
+    public void setTitleTextVisible(boolean isShow) {
+        tv_title.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
     public void setBackVisible(boolean isShow) {
         rl_back.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
+
+    //tab设置
+    public void setTabTitle(ArrayList<CustomTabEntity> mTabEntities) {
+        ctl_tab.setTabData(mTabEntities);
+    }
+
+    public void setTabListener(OnTabSelectListener listener) {
+        ctl_tab.setOnTabSelectListener(listener);
+    }
+
+    public void setTabCurrentItem(int curr) {
+        ctl_tab.setCurrentTab(curr);
+    }
+
+    public void setTabsVisible(boolean show) {
+        ctl_tab.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

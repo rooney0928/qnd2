@@ -157,8 +157,16 @@
 
         <!--v5-->
         <activity
-
             android:name=".content.ui.user.SignActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".content.ui.home.FilterProductsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".content.ui.product.Product5DetailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".content.ui.home.AddCommentActivity"
             android:screenOrientation="portrait"></activity>
 
 

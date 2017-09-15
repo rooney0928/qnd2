@@ -33,22 +33,19 @@
                 android:text="花旗银行"
                 android:textSize="14sp"/>
 
-            <com.willy.ratingbar.ScaleRatingBar
-                xmlns:rb="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/srb_product_star"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                rb:clearRatingEnabled="false"
-                rb:drawableEmpty="@mipmap/ic5_empty_star"
-                rb:drawableFilled="@mipmap/ic5_star"
-                rb:numStars="5"
-                rb:rating="3"
-                rb:starHeight="30dp"
-                rb:starWidth="24dp"
-                rb:stepSize="1"
-                rb:touchable="false">
-            </com.willy.ratingbar.ScaleRatingBar>
+                android:layout_gravity="center_vertical"
+                android:gravity="right|center_vertical">
+
+                <ImageView
+                    android:id="@+id/iv_product_star"
+                    android:layout_width="90dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/ic_star1"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <View

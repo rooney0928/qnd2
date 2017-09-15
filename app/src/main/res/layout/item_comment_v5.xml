@@ -22,6 +22,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_comment_avatar"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@mipmap/ic_launcher"/>
@@ -36,27 +37,17 @@
 
             </LinearLayout>
 
-            <com.willy.ratingbar.ScaleRatingBar
-                xmlns:rb="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/simpleRatingBar5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/iv_product_star"
+                android:layout_width="90dp"
+                android:layout_height="24dp"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                rb:clearRatingEnabled="false"
-                rb:drawableEmpty="@mipmap/ic5_empty_star"
-                rb:drawableFilled="@mipmap/ic5_star"
-                rb:numStars="5"
-                rb:rating="3"
-                rb:starHeight="20dp"
-                rb:starWidth="16dp"
-                rb:stepSize="1"
-                rb:touchable="false">
-            </com.willy.ratingbar.ScaleRatingBar>
+                android:src="@mipmap/ic_star1"/>
         </RelativeLayout>
 
         <!--评论框-->
         <TextView
+            android:id="@+id/tv_comment_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="42dp"
@@ -67,6 +58,7 @@
             android:textColor="@color/v5_explore_gray"/>
 
         <TextView
+            android:id="@+id/tv_comment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="42dp"

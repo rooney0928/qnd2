@@ -31,9 +31,14 @@ import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
+import com.app.qunadai.bean.v5.AddComment;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
+import com.app.qunadai.bean.v5.ProComments;
+import com.app.qunadai.bean.v5.Product;
+import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
+import com.app.qunadai.bean.v5.ProductsFilter;
 import com.app.qunadai.bean.v5.SmsBean;
 
 import okhttp3.RequestBody;
@@ -220,6 +225,24 @@ public interface QndApi {
 
     @POST("home/loan/orders/createH5Order")
     Observable<ApplyBean> apply(@Query("access_token") String access_token, @Body RequestBody body);
+
+    @GET("loan/products/{vdoing}/page")
+    Observable<BaseBean<ProductsFilter>> getProductFilter(@Path("vdoing") String vdoing,
+                                                          @Query("page") int page,
+                                                          @Query("size") int size);
+
+    @GET("loan/products/{pid}")
+    Observable<BaseBean<Product5DetailBean>> getProduct5Detail(@Path("pid") String pid);
+
+    @GET("loan/products/{productId}/comments")
+    Observable<BaseBean<ProComments>> getProduct5Comments(@Path("productId") String productId,
+                                                          @Query("page") int page,
+                                                          @Query("size") int size);
+
+    @POST("loan/products/{productId}/newcomment")
+    Observable<BaseBean<AddComment>> addComment(@Path("productId") String productId,
+                                                @Query("access_token") String access_token,
+                                                @Body RequestBody body);
 
     //credit card
 

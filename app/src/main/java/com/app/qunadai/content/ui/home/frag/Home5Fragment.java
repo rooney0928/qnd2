@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.Banner;
@@ -25,6 +26,7 @@ import com.app.qunadai.content.adapter.v5.ProductAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Home5Contract;
 import com.app.qunadai.content.presenter.v5.Home5Presenter;
+import com.app.qunadai.content.ui.home.FilterProductsActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.product.BrowserActivity;
 import com.app.qunadai.content.ui.product.ProductDetailActivity;
@@ -47,7 +49,7 @@ import ezy.ui.view.BannerView;
  * Created by wayne on 2017/9/7.
  */
 
-public class Home5Fragment extends BaseFragment implements Home5Contract.View {
+public class Home5Fragment extends BaseFragment implements Home5Contract.View, View.OnClickListener {
 
     private Home5Presenter home5Presenter;
 
@@ -61,6 +63,15 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
     RecyclerView rv_pros;
     @BindView(R.id.swipe_home)
     SwipeRefreshLayout swipe_home;
+
+    @BindView(R.id.ll_home_fast_loan)
+    LinearLayout ll_home_fast_loan;
+    @BindView(R.id.ll_home_low_rate)
+    LinearLayout ll_home_low_rate;
+    @BindView(R.id.ll_home_high_limit)
+    LinearLayout ll_home_high_limit;
+    @BindView(R.id.ll_home_long_term)
+    LinearLayout ll_home_long_term;
 
     List<Floors.FloorsBean> floors;
     List<Product> products;
@@ -80,6 +91,12 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
     @Override
     protected void initBundle(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    protected View createRootView() {
+        View root = View.inflate(getActivity(), R.layout.fragment_home5, null);
+        return root;
     }
 
     @Override
@@ -104,6 +121,11 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
 
         rv_floors.setLayoutManager(linearLayoutManager);
         rv_floors.setAdapter(adapter);
+
+        ll_home_fast_loan.setOnClickListener(this);
+        ll_home_low_rate.setOnClickListener(this);
+        ll_home_high_limit.setOnClickListener(this);
+        ll_home_long_term.setOnClickListener(this);
 
 
         if (NetworkUtil.checkNetwork(getActivity())) {
@@ -158,10 +180,24 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
     }
 
     @Override
-    protected View createRootView() {
-        View root = View.inflate(getActivity(), R.layout.fragment_home5, null);
-        return root;
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_home_fast_loan:
+                Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_home_low_rate:
+
+                break;
+            case R.id.ll_home_high_limit:
+
+                break;
+            case R.id.ll_home_long_term:
+
+                break;
+        }
     }
+
 
     @Override
     public void updateView(Object serverData) {
@@ -212,7 +248,6 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
         banner.setVisibility(View.GONE);
 //
         ToastUtil.showToast(getActivity(), error + "-h");
-//        initBanner();
     }
 
     @Override
@@ -232,20 +267,6 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View {
         productAdapter.setList(products);
     }
 
-    private void initBanner() {
-        iv_home_banner.setVisibility(View.GONE);
-        banner.setVisibility(View.VISIBLE);
-        int[] resIds = new int[]{R.mipmap.banner1};
-
-        List<BannerItem> list = new ArrayList<>();
-        for (int i = 0; i < resIds.length; i++) {
-            BannerItem item = new BannerItem();
-            list.add(item);
-        }
-        banner.setViewFactory(new BannerViewFactory(getActivity()));
-        banner.setDataList(list);
-        banner.start();
-    }
 
     public static class BannerItem {
         public String pid;

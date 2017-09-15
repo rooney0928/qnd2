@@ -33,9 +33,14 @@ import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
+import com.app.qunadai.bean.v5.AddComment;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
+import com.app.qunadai.bean.v5.ProComments;
+import com.app.qunadai.bean.v5.Product;
+import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
+import com.app.qunadai.bean.v5.ProductsFilter;
 import com.app.qunadai.bean.v5.SmsBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -206,6 +211,26 @@ public class RxHttp {
     //申请贷款，给后台做log
     public static Observable<ApplyBean> apply(String token, RequestBody body) {
         return qndApi.apply(token, body);
+    }
+
+    //5.0版本产品列表，带筛选
+    public static Observable<BaseBean<ProductsFilter>> getProductsFilter(String properties, int page, int size) {
+        return qndApi.getProductFilter(properties, page, size);
+    }
+
+    //5.0版本产品详细
+    public static Observable<BaseBean<Product5DetailBean>> getProducts5Detail(String pid) {
+        return qndApi.getProduct5Detail(pid);
+    }
+
+    //5.0版本产品评论
+    public static Observable<BaseBean<ProComments>> getProductComments(String pid, int page, int size) {
+        return qndApi.getProduct5Comments(pid, page, size);
+    }
+
+    //5.0版本产品添加评论
+    public static Observable<BaseBean<AddComment>> addComment(String pid, String token,RequestBody body) {
+        return qndApi.addComment(pid, token, body);
     }
 
     //首页banner
