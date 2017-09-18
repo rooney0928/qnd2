@@ -1,7 +1,9 @@
 package com.app.qunadai.content.ui.user.frag;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -78,8 +80,26 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
                 et_pwd.setInputType(isChecked ? show : hide);
             }
         });
+        et_pwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tv_submit.setEnabled(s.length()>=6);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         tv_submit.setOnClickListener(this);
     }
+
 
     @Override
     public void updateView(Object serverData) {
@@ -127,6 +147,12 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
                 }
                 if (!CheckUtil.isPassword(CommUtil.getText(et_pwd))) {
                     ToastUtil.showToast(getActivity(), "密码格式不合适");
+                    break;
+                }
+                if (!CheckUtil.hasAlpha(CommUtil.getText(et_pwd)) ||
+                        !CheckUtil.hasDigital(CommUtil.getText(et_pwd))
+                        ) {
+                    ToastUtil.showToast(getActivity(), "密码格式需包含数字及字母");
                     break;
                 }
 

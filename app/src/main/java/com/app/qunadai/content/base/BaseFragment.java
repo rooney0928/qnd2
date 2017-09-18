@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.app.qunadai.content.ui.user.LoginActivity;
+import com.app.qunadai.content.ui.user.SignActivity;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 
@@ -89,7 +90,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public void tokenFail() {
-        Intent intentLogin = new Intent(getActivity(), LoginActivity.class);
+        Intent intentLogin = new Intent(getActivity(), SignActivity.class);
         startActivity(intentLogin);
     }
 
@@ -99,7 +100,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     public void exeLogin() {
         PrefUtil.removeItem(getActivity(), PrefKey.TOKEN);
-        Intent intentLogin = new Intent(getActivity(), LoginActivity.class);
+        Intent intentLogin = new Intent(getActivity(), SignActivity.class);
         startActivity(intentLogin);
     }
 

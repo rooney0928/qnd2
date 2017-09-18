@@ -28,6 +28,16 @@ public class ExplorePresenter implements ExploreContract.Presenter {
             }
 
             @Override
+            public void clearExplore(BaseBean bean) {
+                view.clearExplore(bean);
+            }
+
+            @Override
+            public void clearExploreFail(String error) {
+                view.clearExploreFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -52,5 +62,10 @@ public class ExplorePresenter implements ExploreContract.Presenter {
     @Override
     public void getExplore(String token) {
         model.getExplore(token);
+    }
+
+    @Override
+    public void clearExplore(String token) {
+        model.clearExplore(token);
     }
 }

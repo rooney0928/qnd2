@@ -54,8 +54,8 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
     }
 
     @Override
-    public void getProduct5Detail(String pid) {
-        Observable<BaseBean<Product5DetailBean>> request = RxHttp.getInstance().getProducts5Detail(pid);
+    public void getProduct5Detail(String pid, String token) {
+        Observable<BaseBean<Product5DetailBean>> request = RxHttp.getInstance().getProducts5Detail(pid,token);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<BaseBean<Product5DetailBean>>() {
@@ -124,10 +124,10 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
     }
 
     @Override
-    public void applyOrder(String token,String productId) {
+    public void applyOrder(String token, String productId) {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("id", productId);
+            obj.put("productId", productId);
 //            obj.put("type", "H5");
         } catch (JSONException e) {
             e.printStackTrace();

@@ -220,8 +220,8 @@ public class RxHttp {
     }
 
     //5.0版本产品详细
-    public static Observable<BaseBean<Product5DetailBean>> getProducts5Detail(String pid) {
-        return qndApi.getProduct5Detail(pid);
+    public static Observable<BaseBean<Product5DetailBean>> getProducts5Detail(String pid, String token) {
+        return qndApi.getProduct5Detail(pid, token);
     }
 
     //5.0版本产品评论
@@ -386,8 +386,13 @@ public class RxHttp {
 
     //v5
     //获取浏览记录
-    public static Observable<BaseBean<ExploreBean>> getExplore(String token){
+    public static Observable<BaseBean<ExploreBean>> getExplore(String token) {
         return qndApi.getExplore(token);
+    }
+
+    //获取浏览记录
+    public static Observable<BaseBean> clearExplore(String token) {
+        return qndApi.clearExplore(token);
     }
 
 

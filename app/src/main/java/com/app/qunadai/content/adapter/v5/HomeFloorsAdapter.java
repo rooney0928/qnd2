@@ -1,6 +1,7 @@
 package com.app.qunadai.content.adapter.v5;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +13,16 @@ import android.widget.ImageView;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.RoomBean;
+import com.app.qunadai.content.ui.bbs.PostDetailActivity;
+import com.app.qunadai.content.ui.home.CreditCardActivity;
+import com.app.qunadai.content.ui.home.FilterProductsActivity;
+import com.app.qunadai.content.ui.product.BrowserActivity;
+import com.app.qunadai.content.ui.product.Product5DetailActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -136,16 +145,74 @@ public class HomeFloorsAdapter extends RecyclerView.Adapter {
 
         public void setData() {
             Floors.FloorsBean bean = list.get(getAdapterPosition());
-            RoomBean roomBean = bean.getFloorContents().get(0);
+            final RoomBean roomBean = bean.getFloorContents().get(0);
 //            iv_home_banner_item.setImageResource(R.mipmap.ex_pkq);
             String imgUrl = RxHttp.ROOT + "attachments/" + roomBean.getContentImg();
 
             ImgUtil.loadImg(context, imgUrl, iv_home_banner_item);
+            iv_home_banner_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (roomBean.getBannerMode()) {
+                        case "EXTERNAL":
+                            Intent intent = new Intent(context, BrowserActivity.class);
+                            intent.putExtra("url", roomBean.getContentUrl());
+                            intent.putExtra("title", "");
+                            context.startActivity(intent);
+                            break;
+                        case "INTERNAL":
 
-//            bean.
-            if(bean.getFloorContents().size()>0){
-//                bean.getFloorContents().get(0)
-            }
+                            break;
+                        case "PARAMETER":
+                            try {
+                                JSONObject obj = new JSONObject(roomBean.getContentUrl());
+                                String type = obj.getString("type");
+                                if (type.equalsIgnoreCase("productListType")) {
+                                    //进入列表
+                                    String prop = obj.getString("parameter");
+                                    Intent intentPros = new Intent(context, FilterProductsActivity.class);
+
+                                    switch (prop) {
+                                        case "loanTime":
+                                            intentPros.putExtra("index", 0);
+                                            break;
+                                        case "minRate":
+                                            intentPros.putExtra("index", 1);
+                                            break;
+                                        case "maxAmount":
+                                            intentPros.putExtra("index", 2);
+                                            break;
+                                        case "maxTerm":
+                                            intentPros.putExtra("index", 3);
+                                            break;
+                                    }
+                                    context.startActivity(intentPros);
+
+                                }else if(type.equalsIgnoreCase("productDetailType")){
+                                    //进入产品详情
+                                    String proId = obj.getString("parameter");
+                                    Intent intentDetail = new Intent(context, Product5DetailActivity.class);
+                                    intentDetail.putExtra("pid", proId);
+                                    context.startActivity(intentDetail);
+                                }else if(type.equalsIgnoreCase("creditCardListType")){
+                                    //进入信用卡列表
+                                    Intent intentCredit = new Intent(context, CreditCardActivity.class);
+                                    context.startActivity(intentCredit);
+                                }else if(type.equalsIgnoreCase("articleDetailType")){
+                                    //进入帖子详情
+                                    String postid = obj.getString("parameter");
+                                    Intent intentDetail = new Intent(context, PostDetailActivity.class);
+                                    intentDetail.putExtra("postid", postid);
+                                    context.startActivity(intentDetail);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                    }
+                }
+            });
+
         }
     }
 

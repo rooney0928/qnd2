@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:text=""
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:textColor="@color/v5_login_text"
             android:inputType="textPassword"
             android:textSize="16sp"/>

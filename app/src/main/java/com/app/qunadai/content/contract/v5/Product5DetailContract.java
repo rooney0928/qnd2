@@ -22,14 +22,14 @@ public interface Product5DetailContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getProduct5Detail(String pid);
+        void getProduct5Detail(String pid,String token);
         void getProduct5Comments(String pid,int page,int size);
         void applyOrder(String token,String productId);
 
     }
 
     interface Model extends BaseModel {
-        void getProduct5Detail(String pid);
+        void getProduct5Detail(String pid,String token);
         void getProduct5Comments(String pid,int page,int size);
         void applyOrder(String token,String productId);
 

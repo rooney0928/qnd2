@@ -124,7 +124,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
                     unit = "期";
                     break;
             }
-            tv_product_rate.setText(unit + "费率" + p.getMinRate()+"%");
+            tv_product_rate.setText(unit + "费率" + p.getMinRate() + "%");
             tv_product_period.setText("贷款期限" + p.getMaxTerm() + p.getTermUnit());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,10 +144,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             switch (star) {
                 case 0:
                 case 1:
-                    ImgUtil.loadImg(context, R.mipmap.ic_star1, iv_product_star);
-                    break;
                 case 2:
-                    ImgUtil.loadImg(context, R.mipmap.ic_star2, iv_product_star);
+                    iv_product_star.setVisibility(View.GONE);
                     break;
                 case 3:
                     ImgUtil.loadImg(context, R.mipmap.ic_star3, iv_product_star);

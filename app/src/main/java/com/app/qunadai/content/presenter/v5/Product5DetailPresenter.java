@@ -5,6 +5,7 @@ import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.content.contract.v5.Product5DetailContract;
 import com.app.qunadai.content.model.v5.Product5DetailModelImpl;
+import com.app.qunadai.utils.CommUtil;
 
 /**
  * Created by wayne on 2017/9/14.
@@ -60,8 +61,8 @@ public class Product5DetailPresenter implements Product5DetailContract.Presenter
     }
 
     @Override
-    public void getProduct5Detail(String pid) {
-        model.getProduct5Detail(pid);
+    public void getProduct5Detail(String pid, String token) {
+        model.getProduct5Detail(pid, CommUtil.isNull(token) ? null : token);
     }
 
     @Override
@@ -71,6 +72,6 @@ public class Product5DetailPresenter implements Product5DetailContract.Presenter
 
     @Override
     public void applyOrder(String token, String productId) {
-        model.applyOrder(token,productId);
+        model.applyOrder(token, productId);
     }
 }

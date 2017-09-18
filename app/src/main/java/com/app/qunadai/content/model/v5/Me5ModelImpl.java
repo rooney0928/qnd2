@@ -1,6 +1,7 @@
 package com.app.qunadai.content.model.v5;
 
 import com.app.qunadai.bean.MeBean;
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.MeContract;
 import com.app.qunadai.content.contract.v5.Me5Contract;
@@ -27,6 +28,10 @@ public class Me5ModelImpl implements Me5Contract.Model {
     }
 
     public interface OnReturnDataListener extends BaseReturnListener {
+        void getPersonValue(PersonBean bean);
+
+        void getPersonValueFail(String error);
+
         void getCurrent(MeBean bean);
 
         void getCurrentFail(String error);
@@ -56,7 +61,7 @@ public class Me5ModelImpl implements Me5Contract.Model {
                     @Override
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getCurrentFail(ex.getDisplayMessage());
-                        if(ex.isTokenFail()){
+                        if (ex.isTokenFail()) {
 //                            onReturnDataListener.tokenFail();
                         }
                     }
@@ -64,6 +69,39 @@ public class Me5ModelImpl implements Me5Contract.Model {
                     @Override
                     protected void onOk(MeBean bean) {
                         onReturnDataListener.getCurrent(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void requestPersonValue(String token) {
+        Observable<PersonBean> request = RxHttp.getInstance().getPersonValue(token);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<PersonBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        if (ex.isTokenFail()) {
+                            onReturnDataListener.tokenFail();
+                        }
+                    }
+
+                    @Override
+                    protected void onOk(PersonBean bean) {
+                        onReturnDataListener.getPersonValue(bean);
                     }
 
                     @Override

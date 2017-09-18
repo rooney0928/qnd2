@@ -93,7 +93,7 @@ public class ExploreAdapter extends RecyclerView.Adapter {
 
             tv_explore_name.setText(bean.getProductVO().getName());
             tv_explore_date.setText(sdf.format(new Date(bean.getBrowsingTime())));
-            tv_explore_limit.setText(bean.getProductVO().getAmount());
+            tv_explore_limit.setText(bean.getProductVO().getMaxAmount()+"");
             tv_explore_rate.setText("最低利率" + bean.getProductVO().getMinRate() + "/" + bean.getProductVO().getTermUnit());
             tv_explore_period.setText("贷款期限" + bean.getProductVO().getMaxTerm() + bean.getProductVO().getTermUnit());
 

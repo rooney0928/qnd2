@@ -118,11 +118,45 @@ public class CheckUtil {
     public static boolean isIPAddr(String ipAddr) {
         return Pattern.matches(REGEX_IP_ADDR, ipAddr);
     }
+    /**
+     * 校验有否字母
+     *
+     * @param content
+     * @return
+     */
+    public static boolean hasAlpha(String content) {
 
-    public static boolean isMobileNO(String mobiles) {
-        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
-        Matcher m = p.matcher(mobiles);
-        System.out.println(m.matches() + "---");
-        return m.matches();
+        boolean flag = false;
+
+        Pattern p = Pattern.compile(".*[a-zA-Z]+.*");
+
+        Matcher m = p.matcher(content);
+
+        if (m.matches())
+
+            flag = true;
+
+        return flag;
+    }
+
+    /**
+     * 校验有否数字
+     *
+     * @param content
+     * @return
+     */
+    public static boolean hasDigital(String content) {
+
+        boolean flag = false;
+
+        Pattern p = Pattern.compile(".*[0-9]+.*");
+
+        Matcher m = p.matcher(content);
+
+        if (m.matches())
+
+            flag = true;
+
+        return flag;
     }
 }

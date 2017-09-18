@@ -232,7 +232,7 @@ public interface QndApi {
                                                           @Query("size") int size);
 
     @GET("loan/products/{pid}")
-    Observable<BaseBean<Product5DetailBean>> getProduct5Detail(@Path("pid") String pid);
+    Observable<BaseBean<Product5DetailBean>> getProduct5Detail(@Path("pid") String pid, @Query("access_token") String token);
 
     @GET("loan/products/{productId}/comments")
     Observable<BaseBean<ProComments>> getProduct5Comments(@Path("productId") String productId,
@@ -347,5 +347,7 @@ public interface QndApi {
     @GET("user/browsinghistory/current/all")
     Observable<BaseBean<ExploreBean>> getExplore(@Query("access_token") String access_token);
 
+    @PUT("user/browsinghistory/current/all")
+    Observable<BaseBean> clearExplore(@Query("access_token") String access_token);
 
 }

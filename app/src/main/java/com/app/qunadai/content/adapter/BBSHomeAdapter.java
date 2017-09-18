@@ -107,7 +107,7 @@ public class BBSHomeAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intentDetail = new Intent(context, PostDetailActivity.class);
-                    intentDetail.putExtra("post", p);
+                    intentDetail.putExtra("postid", p.getId());
                     intentDetail.putExtra("admin",true);
                     context.startActivity(intentDetail);
                 }

@@ -150,7 +150,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
         });
 
-        product5DetailPresenter.getProduct5Detail(pid);
+        product5DetailPresenter.getProduct5Detail(pid, getToken());
         product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
 
 
@@ -218,8 +218,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
     @Override
     public void getProduct5Detail(BaseBean<Product5DetailBean> bean) {
-        if(!bean.getCode().equals("000")){
-            ToastUtil.showToast(this,bean.getMsg());
+        if (!bean.getCode().equals("000")) {
+            ToastUtil.showToast(this, bean.getMsg());
             return;
         }
         p = bean.getContent().getProduct();
@@ -228,16 +228,17 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         String imgUrl = RxHttp.ROOT + "attachments/" + p.getIcon();
         ImgUtil.loadImgAvatar(this, imgUrl, iv_detail_avatar);
         tv_detail_name.setText(p.getName());
+        tv_detail_limit.setText(p.getMaxAmount() + "");
 
         double stars = (double) p.getTotalStarNumber();
         double comments = (double) p.getTotalCommentNumber();
         long star = Math.round(stars / comments);
 
-        if (star == 0) {
-            srb_detail_score.setRating(1);
+        if (star < 3) {
+            srb_detail_score.setVisibility(View.GONE);
         } else {
+            srb_detail_score.setVisibility(View.VISIBLE);
             srb_detail_score.setRating(star);
-
         }
 
         tv_detail_period.setText(p.getMaxTerm() + p.getTermUnit());
@@ -257,7 +258,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                 unit = "期";
                 break;
         }
-        tv_detail_rate.setText(p.getMinRate() + "%/" +unit);
+        tv_detail_rate.setText(p.getMinRate() + "%/" + unit);
 
 
         tv_detail_loan_time.setText(p.getLoanTime() + getUnit(p.getLoanTimeUnit()));

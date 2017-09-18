@@ -23,6 +23,24 @@ public class RoomBean {
     private String contentMappingId;
     private String contentName;
     private String contentImg;
+    private String bannerMode;
+    private String contentUrl;
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
+    }
+
+    public String getBannerMode() {
+        return bannerMode;
+    }
+
+    public void setBannerMode(String bannerMode) {
+        this.bannerMode = bannerMode;
+    }
 
     public String getId() {
         return id;

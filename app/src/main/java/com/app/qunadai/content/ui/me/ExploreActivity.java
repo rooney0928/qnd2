@@ -1,6 +1,8 @@
 package com.app.qunadai.content.ui.me;
 
+import android.content.DialogInterface;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -45,9 +47,31 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
             @Override
             public void onClick(View v) {
                 //调用删除记录接口
+                showClearDialog();
+            }
+        });
+    }
+
+    private void showClearDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("是否确认清除");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+//                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+//                startActivity(intent);
+                explorePresenter.clearExplore(getToken());
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
             }
         });
+        builder.show();
     }
 
     @Override
@@ -123,6 +147,21 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
 
     @Override
     public void getExploreFail(String error) {
+        ToastUtil.showToast(this, error);
+
+    }
+
+    @Override
+    public void clearExplore(BaseBean bean) {
+        if (bean.getCode().equals("000")) {
+            ToastUtil.showToast(this, "恭喜您！清除成功");
+        }
+        adapter.setList(new ArrayList<ExploreBean.UserBrowsingHistoryListBean>());
+
+    }
+
+    @Override
+    public void clearExploreFail(String error) {
         ToastUtil.showToast(this, error);
 
     }

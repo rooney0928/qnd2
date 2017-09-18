@@ -126,7 +126,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
     CommentAdapter commentAdapter;
     LinearLayoutManager linearLayoutManager;
-    private Post post;
+    private String postid;
 
 
     List<Comment> list;
@@ -197,7 +197,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                     swipe_layout.setRefreshing(true);
                 }
                 page++;
-                postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+                postDetailPresenter.getCommentList(token, postid, page, PAGE_SIZE);
 
 
             }
@@ -261,7 +261,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
     @Override
     public void initViewData() {
-        post = (Post) getIntent().getSerializableExtra("post");
+        postid = getIntent().getStringExtra("postid");
         isAdmin = getIntent().getBooleanExtra("admin", false);
         if (isAdmin) {
             tv_post_detail_username.setText("去哪贷");
@@ -272,11 +272,11 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         ll_post_detail_friend.setOnClickListener(this);
 
         if (CommUtil.isNull(token)) {
-            postDetailPresenter.getPostDetailNoUser(post.getId());
-            postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
+            postDetailPresenter.getPostDetailNoUser(postid);
+            postDetailPresenter.getCommentListNoUser(postid, page, PAGE_SIZE);
         } else {
-            postDetailPresenter.getPostDetail(post.getId(), token);
-            postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+            postDetailPresenter.getPostDetail(postid, token);
+            postDetailPresenter.getCommentList(token, postid, page, PAGE_SIZE);
         }
 
 
@@ -285,9 +285,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
             public void onRefresh() {
                 page = 0;
                 if (CommUtil.isNull(token)) {
-                    postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
+                    postDetailPresenter.getCommentListNoUser(postid, page, PAGE_SIZE);
                 } else {
-                    postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+                    postDetailPresenter.getCommentList(token, postid, page, PAGE_SIZE);
                 }
             }
         });
@@ -310,9 +310,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                     page++;
 //                    postMyPresenter.getPostList(token, page, PAGE_SIZE);
                     if (CommUtil.isNull(token)) {
-                        postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
+                        postDetailPresenter.getCommentListNoUser(postid, page, PAGE_SIZE);
                     } else {
-                        postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+                        postDetailPresenter.getCommentList(token, postid, page, PAGE_SIZE);
                     }
                 }
             }
@@ -335,10 +335,10 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
                 if (isPraise) {
                     //当前是点赞，给他取消
-                    postDetailPresenter.cancelPraisePost(post.getId(), token);
+                    postDetailPresenter.cancelPraisePost(postid, token);
                 } else {
                     //当前没赞，反手给他一记赞
-                    postDetailPresenter.praisePost(post.getId(), token);
+                    postDetailPresenter.praisePost(postid, token);
                 }
                 break;
             case R.id.ll_post_detail_wechat:
@@ -363,7 +363,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
                 ToastUtil.showToast(this, "内容不能为空");
                 return;
             }
-            postDetailPresenter.sendComment(token, post.getId(), content);
+            postDetailPresenter.sendComment(token, postid, content);
         }
     }
 
@@ -374,7 +374,7 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
         }
         WXWebpageObject webpage = new WXWebpageObject();
 //                webpage.webpageUrl = "http://www.bthai.net";
-        webpage.webpageUrl = "https://m.qunadai.com/html/raiders/post_details.html?articleId=" + post.getId();
+        webpage.webpageUrl = "https://m.qunadai.com/html/raiders/post_details.html?articleId=" + postid;
 
         WXMediaMessage msg = new WXMediaMessage(webpage);
         msg.title = CommUtil.getText(tv_post_detail_title);
@@ -466,7 +466,6 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
 
 
         Post tpost = bean.getContent().getArticle();
-        post = tpost;
         tv_post_detail_title.setText(tpost.getTitle());
         if (!isAdmin) {
             tv_post_detail_username.setText(tpost.getUserNick());
@@ -546,9 +545,9 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
     public void sendComment(SendCommentBean bean) {
         page = 0;
         if (CommUtil.isNull(token)) {
-            postDetailPresenter.getCommentListNoUser(post.getId(), page, PAGE_SIZE);
+            postDetailPresenter.getCommentListNoUser(postid, page, PAGE_SIZE);
         } else {
-            postDetailPresenter.getCommentList(token, post.getId(), page, PAGE_SIZE);
+            postDetailPresenter.getCommentList(token, postid, page, PAGE_SIZE);
         }
         et_comment.setText("");
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

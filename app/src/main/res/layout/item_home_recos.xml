@@ -5,8 +5,19 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
+    <TextView
+        android:id="@+id/tv_recos_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="6dp"
+        android:text="特别推荐"
+        android:textColor="@color/black5"
+        android:textSize="18sp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_recos_title"></android.support.v7.widget.RecyclerView>
 </RelativeLayout>

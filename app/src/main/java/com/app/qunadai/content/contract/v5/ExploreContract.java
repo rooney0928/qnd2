@@ -15,15 +15,19 @@ public interface ExploreContract {
     interface View extends BaseView {
         void getExplore(BaseBean<ExploreBean> bean);
         void getExploreFail(String error);
+
+        void clearExplore(BaseBean bean);
+        void clearExploreFail(String error);
     }
 
     interface Presenter extends BasePresenter {
         void getExplore(String token);
+        void clearExplore(String token);
 
     }
 
     interface Model extends BaseModel {
         void getExplore(String token);
-
+        void clearExplore(String token);
     }
 }

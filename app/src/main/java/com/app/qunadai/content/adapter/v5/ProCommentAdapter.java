@@ -12,6 +12,8 @@ import com.app.qunadai.R;
 import com.app.qunadai.bean.v5.ProComment;
 import com.app.qunadai.content.adapter.CommentAdapter;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.utils.CheckUtil;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.RelativeDateFormat;
 
@@ -94,8 +96,20 @@ public class ProCommentAdapter extends RecyclerView.Adapter {
             ProComment pc = list.get(getAdapterPosition());
             String imgUrl = RxHttp.ROOT + "attachments/" + pc.getUseravatar();
             ImgUtil.loadImgAvatar(context, imgUrl, iv_comment_avatar);
-            tv_comment_username.setText(pc.getUsernick());
-            tv_comment_content.setText(pc.getContent());
+            if (CheckUtil.isMobile(pc.getUsernick())) {
+                StringBuilder sb = new StringBuilder(pc.getUsernick());
+                String username = sb.replace(3, pc.getUsernick().length() - 4, "****").toString();
+                tv_comment_username.setText(username);
+            } else {
+                tv_comment_username.setText(pc.getUsernick());
+            }
+
+            if (CommUtil.isNull(pc.getContent())) {
+                tv_comment_content.setVisibility(View.GONE);
+            } else {
+                tv_comment_content.setText(pc.getContent());
+
+            }
             tv_comment_time.setText(RelativeDateFormat.format(new Date(pc.getCreatedTime())));
 
             switch (pc.getStars()) {

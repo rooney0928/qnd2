@@ -32,6 +32,10 @@ public class ExploreModelImpl implements ExploreContract.Model {
 
         void getExploreFail(String error);
 
+        void clearExplore(BaseBean bean);
+
+        void clearExploreFail(String error);
+
         void requestStart();
 
         void requestEnd();
@@ -64,6 +68,39 @@ public class ExploreModelImpl implements ExploreContract.Model {
                     @Override
                     protected void onOk(BaseBean<ExploreBean> bean) {
                         onReturnDataListener.getExplore(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void clearExplore(String token) {
+        Observable<BaseBean> request = RxHttp.getInstance().clearExplore(token);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<BaseBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.clearExploreFail(ex.getDisplayMessage());
+                        if (ex.isTokenFail()) {
+                            onReturnDataListener.tokenFail();
+                        }
+                    }
+
+                    @Override
+                    protected void onOk(BaseBean bean) {
+                        onReturnDataListener.clearExplore(bean);
                     }
 
                     @Override

@@ -1,6 +1,7 @@
 package com.app.qunadai.content.presenter.v5;
 
 import com.app.qunadai.bean.MeBean;
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.contract.v5.Me5Contract;
 import com.app.qunadai.content.model.v5.Me5ModelImpl;
 
@@ -20,6 +21,16 @@ public class Me5Presenter implements Me5Contract.Presenter {
             @Override
             public void tokenFail() {
                 view.tokenFail();
+            }
+
+            @Override
+            public void getPersonValue(PersonBean bean) {
+                view.getPersonValue(bean);
+            }
+
+            @Override
+            public void getPersonValueFail(String error) {
+                view.getPersonValueFail(error);
             }
 
             @Override
@@ -52,5 +63,10 @@ public class Me5Presenter implements Me5Contract.Presenter {
     @Override
     public void requestCurrent(String token) {
         model.requestCurrent(token);
+    }
+
+    @Override
+    public void requestPersonValue(String token) {
+        model.requestPersonValue(token);
     }
 }

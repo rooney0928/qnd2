@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
@@ -44,8 +45,12 @@ import static com.app.qunadai.MyApp.context;
 
 public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.View, View.OnClickListener, FragmentBackPressed {
     private static final int TYPE_LOGIN_SMS = 10;
-    private static final int TYPE_LOGIN_PwD = 20;
+    private static final int TYPE_LOGIN_PWD = 20;
     private static final int TYPE_FORGET = 30;
+
+    private static final int CHECK_REG = 12;
+    private static final int CHECK_SMS = 14;
+    private static final int CHECK_FORGET = 16;
 
     private Sign1Presenter sign1Presenter;
 
@@ -56,6 +61,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     EditText et_pwd;
     @BindView(R.id.cb_phone_right)
     CheckBox cb_phone_right;
+    @BindView(R.id.cb_pwd_hide)
+    CheckBox cb_pwd_hide;
 
     @BindView(R.id.tv_code_signin)
     TextView tv_code_signin;
@@ -67,6 +74,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
     @BindView(R.id.ll_pwd)
     LinearLayout ll_pwd;
+
+    int checkType;
 
     public static Step1PhoneFragment getInstance() {
         Step1PhoneFragment step1PhoneFragment = new Step1PhoneFragment();
@@ -92,6 +101,14 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
         tv_submit.setOnClickListener(this);
         tv_forget_pwd.setOnClickListener(this);
         tv_code_signin.setOnClickListener(this);
+        cb_pwd_hide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int show = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+                int hide = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                et_pwd.setInputType(isChecked ? show : hide);
+            }
+        });
 
 
         et_phone.addTextChangedListener(new TextWatcher() {
@@ -102,11 +119,11 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 11) {
-                    cb_phone_right.setChecked(CheckUtil.isMobile(CommUtil.getText(et_phone)));
-                } else {
-                    cb_phone_right.setChecked(false);
+                if (CommUtil.getText(et_phone).length() < 11) {
+                    ll_pwd.setVisibility(View.GONE);
                 }
+                cb_phone_right.setChecked(CheckUtil.isMobile(CommUtil.getText(et_phone)));
+                tv_submit.setEnabled(CheckUtil.isMobile(CommUtil.getText(et_phone)));
             }
 
             @Override
@@ -114,6 +131,9 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
             }
         });
+
+        tv_submit.setEnabled(CheckUtil.isMobile(CommUtil.getText(et_phone)));
+
     }
 
     @Override
@@ -144,12 +164,31 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
         if (bean.getContent().isResult()) {
             //账号存在
             LogU.t("exist");
-            ll_pwd.setVisibility(View.VISIBLE);
 
+            switch (checkType) {
+                case CHECK_REG:
+                    ll_pwd.setVisibility(View.VISIBLE);
+                    break;
+                case CHECK_SMS:
+                    sign1Presenter.sendLoginSms(CommUtil.getText(et_phone));
+
+                    break;
+                case CHECK_FORGET:
+                    sign1Presenter.sendForgetSms(CommUtil.getText(et_phone));
+
+                    break;
+            }
         } else {
             //账号不存在，发送短信
             LogU.t("not exist");
-            sign1Presenter.sendRegSms(CommUtil.getText(et_phone));
+            switch (checkType){
+                case CHECK_REG:
+                    sign1Presenter.sendRegSms(CommUtil.getText(et_phone));
+                    break;
+                default:
+                    ToastUtil.showToast(getActivity(),"该账号不存在");
+                    break;
+            }
         }
     }
 
@@ -231,11 +270,12 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 //                ll_pwd.setVisibility(ll_pwd.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
                 if (ll_pwd.getVisibility() == View.GONE) {
                     //无密码模式
-                    if (CommUtil.getText(et_phone).length() < 11|| !CheckUtil.isMobile(CommUtil.getText(et_phone))) {
+                    if (CommUtil.getText(et_phone).length() < 11 || !CheckUtil.isMobile(CommUtil.getText(et_phone))) {
                         ToastUtil.showToast(getActivity(), "手机号格式不正确");
                         return;
                     }
 
+                    checkType = CHECK_REG;
                     sign1Presenter.checkPhone(CommUtil.getText(et_phone));
                 } else {
                     //有密码模式,去登录
@@ -243,7 +283,7 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
                         ToastUtil.showToast(getActivity(), "用户名或密码为空");
                         return;
                     }
-                    if (CommUtil.getText(et_phone).length() < 11|| !CheckUtil.isMobile(CommUtil.getText(et_phone))) {
+                    if (CommUtil.getText(et_phone).length() < 11 || !CheckUtil.isMobile(CommUtil.getText(et_phone))) {
                         ToastUtil.showToast(getActivity(), "手机号格式不正确");
                         return;
                     }
@@ -264,8 +304,9 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
                     return;
                 }
 
-                sign1Presenter.sendLoginSms(CommUtil.getText(et_phone));
-
+//                sign1Presenter.sendLoginSms(CommUtil.getText(et_phone));
+                checkType = CHECK_SMS;
+                sign1Presenter.checkPhone(CommUtil.getText(et_phone));
 
                 break;
             case R.id.tv_forget_pwd:
@@ -273,7 +314,10 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
                     ToastUtil.showToast(getActivity(), "手机号格式不正确");
                     return;
                 }
-                sign1Presenter.sendForgetSms(CommUtil.getText(et_phone));
+//                sign1Presenter.sendForgetSms(CommUtil.getText(et_phone));
+
+                checkType = CHECK_FORGET;
+                sign1Presenter.checkPhone(CommUtil.getText(et_phone));
 
                 break;
         }
