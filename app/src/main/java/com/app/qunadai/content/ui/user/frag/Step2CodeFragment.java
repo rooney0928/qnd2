@@ -92,10 +92,19 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                testCode();
-                if (timeCount != null) {
-                    timeCount.onFinish();
+                if(s.length()==4){
+                    boolean result = CommUtil.shaEncrypt(CommUtil.getText(et_code)).equalsIgnoreCase(shaCode);
+                    if(result){
+                        tv_code_time.setVisibility(View.GONE);
+                        cb_code_right.setVisibility(View.VISIBLE);
+                    }
                 }
+
+
+                testCode();
+//                if (timeCount != null) {
+//                    timeCount.onFinish();
+//                }
             }
 
             @Override
@@ -142,8 +151,13 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
         et_code.setText("");
 
 
+
         tv_subtitle.setText("我们向" + phone + "发送了一个4位数的验证码。请在消息框中输入");
         timeCount.start();
+
+        tv_code_time.setVisibility(View.VISIBLE);
+        cb_code_right.setVisibility(View.GONE);
+        tv_send_code.setEnabled(false);
     }
 
     @Override
@@ -278,18 +292,18 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
         public void onFinish() {
             // 计时完毕时触发
             testCode();
+            tv_send_code.setEnabled(true);
+
         }
     }
 
     private void testCode() {
-        tv_code_time.setVisibility(View.GONE);
-        cb_code_right.setVisibility(View.VISIBLE);
+
 
         String inputCode = CommUtil.getText(et_code);
 
         cb_code_right.setChecked(CommUtil.shaEncrypt(inputCode).equalsIgnoreCase(shaCode));
         tv_submit.setEnabled(CommUtil.shaEncrypt(inputCode).equalsIgnoreCase(shaCode));
-        tv_send_code.setEnabled(true);
 
     }
 

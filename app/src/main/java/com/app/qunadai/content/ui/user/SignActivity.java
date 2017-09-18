@@ -154,6 +154,7 @@ public class SignActivity extends BaseActivity {
                     if (step2CodeFragment != null) {
                         step2CodeFragment.startTimer();
                     }
+                    
                     break;
                 case 2:
                     if(step3PwdFragment!=null){
