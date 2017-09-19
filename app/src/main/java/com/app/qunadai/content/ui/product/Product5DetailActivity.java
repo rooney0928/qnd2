@@ -289,6 +289,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         list.clear();
         list = tempList;
         adapter.setList(list);
+        adapter.setTotalComment(bean.getContent().getComments().getTotalElements());
         linearLayoutManager.scrollToPosition(0);
     }
 
@@ -299,6 +300,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         if (tempList.size() > 0) {
             list.addAll(tempList);
             adapter.setList(list);
+            adapter.setTotalComment(bean.getContent().getComments().getTotalElements());
+
         } else {
             if (page > 0) {
                 page--;

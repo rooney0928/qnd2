@@ -40,6 +40,7 @@ public class ProCommentAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<ProComment> list;
     private OnLoadMoreListener loadMoreListener;
+    private int totalComment;
 
 
     public ProCommentAdapter(Context context) {
@@ -49,6 +50,10 @@ public class ProCommentAdapter extends RecyclerView.Adapter {
     public void setList(List<ProComment> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    public void setTotalComment(int totalComment) {
+        this.totalComment = totalComment;
     }
 
     public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
@@ -111,7 +116,11 @@ public class ProCommentAdapter extends RecyclerView.Adapter {
 
             }
             tv_comment_time.setText(RelativeDateFormat.format(new Date(pc.getCreatedTime())));
-
+            if (totalComment < 3) {
+                iv_product_star.setVisibility(View.GONE);
+            } else {
+                iv_product_star.setVisibility(View.VISIBLE);
+            }
             switch (pc.getStars()) {
                 case 0:
                 case 1:
