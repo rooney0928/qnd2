@@ -15,6 +15,7 @@ import com.app.qunadai.content.adapter.LoanAdapter;
 import com.app.qunadai.content.ui.product.Product5DetailActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.ImgUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ToastUtil;
 import com.willy.ratingbar.ScaleRatingBar;
 
@@ -140,7 +141,9 @@ public class ProductAdapter extends RecyclerView.Adapter {
             double stars = (double) p.getTotalStarNumber();
             double comments = (double) p.getTotalCommentNumber();
             long star1 = Math.round(stars / comments);
+            LogU.t(p.getName()+"---"+star1);
             int star = (int) star1;
+            iv_product_star.setVisibility(View.VISIBLE);
             switch (star) {
                 case 0:
                 case 1:

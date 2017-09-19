@@ -20,6 +20,7 @@ import com.app.qunadai.content.presenter.bbs.BBSHomePresenter;
 import com.app.qunadai.content.ui.bbs.HelpActivity;
 import com.app.qunadai.content.ui.bbs.PostActivity;
 import com.app.qunadai.content.ui.bbs.TalentActivity;
+import com.app.qunadai.content.ui.home.CreditCardActivity;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ToastUtil;
@@ -51,6 +52,8 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     LinearLayout ll_bbs_post;
     @BindView(R.id.ll_bbs_help)
     LinearLayout ll_bbs_help;
+    @BindView(R.id.ll_bbs_credit)
+    LinearLayout ll_bbs_credit;
 
     @BindView(R.id.ll_bbs_talent)
     LinearLayout ll_bbs_talent;
@@ -128,7 +131,7 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
             }
         });
 
-
+        ll_bbs_credit.setOnClickListener(this);
         ll_bbs_post.setOnClickListener(this);
         ll_bbs_talent.setOnClickListener(this);
         ll_bbs_help.setOnClickListener(this);
@@ -195,6 +198,12 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ll_bbs_credit:
+                //办信用卡
+                Intent intentCredit = new Intent(getActivity(), CreditCardActivity.class);
+                startActivity(intentCredit);
+                break;
+
             case R.id.ll_bbs_post:
                 //发帖
                 if (CommUtil.isNull(getToken())) {

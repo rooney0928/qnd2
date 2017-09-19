@@ -12,9 +12,6 @@
 
 
     <!--bbs-->
-    <string name="increase500_1000">可提升500-1000额度</string>
-    <string name="increase1k_5k">可提升1000-5000额度</string>
-    <string name="undecided">待定</string>
 
     <!--me-->
 </resources>

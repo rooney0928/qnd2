@@ -291,11 +291,16 @@
                         android:src="@mipmap/ic5_comments"/>
                 </RelativeLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_comment"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"/>
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"/>
+                </RelativeLayout>
 
             </LinearLayout>
         </LinearLayout>

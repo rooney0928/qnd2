@@ -165,6 +165,9 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rl_back://返回
+                this.finish();
+                break;
             case R.id.iv_detail_add:
                 if (p != null) {
                     if (CommUtil.isNull(getToken())) {

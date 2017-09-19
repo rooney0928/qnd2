@@ -205,6 +205,9 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
                 // 将ClipData内容放到系统剪贴板里。
                 cm.setPrimaryClip(mClipData);
                 ToastUtil.showToast(getActivity(), "已复制到剪切板");
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
             }
         });
         tv_me_cancel.setOnClickListener(new View.OnClickListener() {
