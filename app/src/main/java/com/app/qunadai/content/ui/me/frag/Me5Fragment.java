@@ -236,16 +236,22 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
 
         if (CheckUtil.isMobile(meBean.getContent().getUser().getNick())) {
             StringBuilder sb = new StringBuilder(meBean.getContent().getUser().getNick());
-//            String username = sb.replace(2, meBean.getContent().getUser().getNick().length() - 2, "*******").toString();
             String username = sb.replace(3, meBean.getContent().getUser().getNick().length() - 4, "****").toString();
 
             tv_me_name.setText(username);
         } else {
             tv_me_name.setText(meBean.getContent().getUser().getNick());
         }
+
         if (CommUtil.isNull(tv_me_name)) {
-            tv_me_name.setText(PrefUtil.getString(getActivity(), PrefKey.PHONE, ""));
+//            tv_me_name.setText(PrefUtil.getString(getActivity(), PrefKey.PHONE, ""));
+            String name = PrefUtil.getString(getActivity(), PrefKey.PHONE, "");
+            StringBuilder sb = new StringBuilder(name);
+            String username = sb.replace(3, name.length() - 4, "****").toString();
+            tv_me_name.setText(username);
         }
+
+
     }
 
     private void shareToWX(int WXChannel) {

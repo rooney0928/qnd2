@@ -141,7 +141,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
             double stars = (double) p.getTotalStarNumber();
             double comments = (double) p.getTotalCommentNumber();
             long star1 = Math.round(stars / comments);
-            LogU.t(p.getName() + "---" + star1);
+//            LogU.t(p.getName() + "---" + star1);
             int star = (int) star1;
             iv_product_star.setVisibility(View.VISIBLE);
             switch (star) {

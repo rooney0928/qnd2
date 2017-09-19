@@ -75,6 +75,9 @@ public class CheckUtil {
      * @return 校验通过返回true，否则返回false
      */
     public static boolean isMobile(String mobile) {
+        if (mobile == null) {
+            return false;
+        }
         return Pattern.matches(REGEX_MOBILE, mobile);
     }
 
@@ -118,6 +121,7 @@ public class CheckUtil {
     public static boolean isIPAddr(String ipAddr) {
         return Pattern.matches(REGEX_IP_ADDR, ipAddr);
     }
+
     /**
      * 校验有否字母
      *
