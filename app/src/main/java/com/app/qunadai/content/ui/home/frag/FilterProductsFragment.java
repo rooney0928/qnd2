@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.base.BaseBean;
@@ -15,6 +16,7 @@ import com.app.qunadai.content.adapter.v5.ProductAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.ProductsFilterContract;
 import com.app.qunadai.content.presenter.v5.ProductsFilterPresenter;
+import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
@@ -33,7 +35,6 @@ public class FilterProductsFragment extends BaseFragment implements ProductsFilt
     private static final int PAGE_SIZE = 10;
     int page = 0;
     String type;
-
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
     @BindView(R.id.swipe_layout)
@@ -46,10 +47,12 @@ public class FilterProductsFragment extends BaseFragment implements ProductsFilt
     int lastVisibleItem;
 
 
-    public static FilterProductsFragment getInstance(String type) {
+
+    public static FilterProductsFragment getInstance(String type, int banner) {
         FilterProductsFragment filterProductsFragment = new FilterProductsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
+        bundle.putInt("banner", banner);
         filterProductsFragment.setArguments(bundle);
         return filterProductsFragment;
     }
@@ -60,10 +63,12 @@ public class FilterProductsFragment extends BaseFragment implements ProductsFilt
 //        type = savedInstanceState.getString("type");
         Bundle args = getArguments();
         type = args.getString("type");
+//        banner = args.getInt("banner");
     }
 
     @Override
     protected void initData() {
+//        ImgUtil.loadImg(getActivity(), banner, iv_banner_title);
         productsFilterPresenter = new ProductsFilterPresenter(this);
         adapter = new ProductAdapter(getActivity());
         list = new ArrayList<>();

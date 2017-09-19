@@ -302,6 +302,15 @@
                         android:layout_marginTop="1dp"/>
                 </RelativeLayout>
 
+                <ImageView
+                    android:id="@+id/iv_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@mipmap/empty_review"/>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

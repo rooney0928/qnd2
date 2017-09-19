@@ -292,6 +292,8 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
         public void onFinish() {
             // 计时完毕时触发
             testCode();
+            tv_code_time.setVisibility(View.GONE);
+            cb_code_right.setVisibility(View.VISIBLE);
             tv_send_code.setEnabled(true);
 
         }

@@ -60,14 +60,14 @@ public class FilterProductsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        int index = getIntent().getIntExtra("index",0);
+        int index = getIntent().getIntExtra("index", 0);
         for (String title : mTitles) {
             mTabEntities.add(new TabEntity(title));
         }
-        filterProductsFragment1 = FilterProductsFragment.getInstance("loanTime");
-        filterProductsFragment2 = FilterProductsFragment.getInstance("minRate");
-        filterProductsFragment3 = FilterProductsFragment.getInstance("maxAmount");
-        filterProductsFragment4 = FilterProductsFragment.getInstance("maxTerm");
+        filterProductsFragment1 = FilterProductsFragment.getInstance("loanTime", R.mipmap.banner_fast);
+        filterProductsFragment2 = FilterProductsFragment.getInstance("minRate", R.mipmap.banner_low);
+        filterProductsFragment3 = FilterProductsFragment.getInstance("maxAmount", R.mipmap.banner_high);
+        filterProductsFragment4 = FilterProductsFragment.getInstance("maxTerm", R.mipmap.banner_period);
 
         fragments.add(filterProductsFragment1);
         fragments.add(filterProductsFragment2);

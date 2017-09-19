@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -74,6 +75,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     ImageView iv_detail_add;
     @BindView(R.id.rv_comment)
     RecyclerView rv_comment;
+    @BindView(R.id.iv_empty)
+    ImageView iv_empty;
 
     @BindView(R.id.bt_submit)
     Button bt_submit;
@@ -231,18 +234,24 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         String imgUrl = RxHttp.ROOT + "attachments/" + p.getIcon();
         ImgUtil.loadImgAvatar(this, imgUrl, iv_detail_avatar);
         tv_detail_name.setText(p.getName());
-        tv_detail_limit.setText(p.getMaxAmount() + "");
+
+        DecimalFormat dfdot = new DecimalFormat("#,###");
+        tv_detail_limit.setText(dfdot.format(p.getMaxAmount()) + "");
 
         double stars = (double) p.getTotalStarNumber();
         double comments = (double) p.getTotalCommentNumber();
         long star = Math.round(stars / comments);
 
-        if (star < 3) {
+        if (star <= 3) {
             srb_detail_score.setVisibility(View.GONE);
+            srb_detail_score.setRating(star);
+
         } else {
             srb_detail_score.setVisibility(View.VISIBLE);
             srb_detail_score.setRating(star);
         }
+        srb_detail_score.setVisibility(p.getTotalCommentNumber() <= 3 ? View.GONE : View.VISIBLE);
+
 
         tv_detail_period.setText(p.getMaxTerm() + p.getTermUnit());
 
@@ -291,6 +300,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         adapter.setList(list);
         adapter.setTotalComment(bean.getContent().getComments().getTotalElements());
         linearLayoutManager.scrollToPosition(0);
+
+        setEmpty();
     }
 
     @Override
@@ -307,6 +318,15 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                 page--;
             }
             ToastUtil.showToast(this, "没有更多数据");
+        }
+        setEmpty();
+    }
+
+    public void setEmpty() {
+        if (list.size() > 0) {
+            iv_empty.setVisibility(View.GONE);
+        } else {
+            iv_empty.setVisibility(View.VISIBLE);
         }
     }
 

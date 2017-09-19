@@ -141,14 +141,21 @@ public class ProductAdapter extends RecyclerView.Adapter {
             double stars = (double) p.getTotalStarNumber();
             double comments = (double) p.getTotalCommentNumber();
             long star1 = Math.round(stars / comments);
-            LogU.t(p.getName()+"---"+star1);
+            LogU.t(p.getName() + "---" + star1);
             int star = (int) star1;
             iv_product_star.setVisibility(View.VISIBLE);
             switch (star) {
                 case 0:
+                    ImgUtil.loadImg(context, R.mipmap.ic_star1, iv_product_star);
+
+                    break;
                 case 1:
+                    ImgUtil.loadImg(context, R.mipmap.ic_star1, iv_product_star);
+
+                    break;
                 case 2:
-                    iv_product_star.setVisibility(View.GONE);
+                    ImgUtil.loadImg(context, R.mipmap.ic_star2, iv_product_star);
+
                     break;
                 case 3:
                     ImgUtil.loadImg(context, R.mipmap.ic_star3, iv_product_star);
@@ -160,6 +167,11 @@ public class ProductAdapter extends RecyclerView.Adapter {
                     ImgUtil.loadImg(context, R.mipmap.ic_star5, iv_product_star);
                     break;
             }
+            if (star <= 3) {
+                iv_product_star.setVisibility(View.GONE);
+            }
+            iv_product_star.setVisibility(p.getTotalCommentNumber() <= 3 ? View.GONE : View.VISIBLE);
+
         }
     }
 

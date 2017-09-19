@@ -13,8 +13,10 @@ import com.app.qunadai.bean.v5.Product;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.v5.AddCommentContract;
 import com.app.qunadai.content.presenter.v5.AddCommentPresenter;
+import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventAddComment;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ToastUtil;
 import com.willy.ratingbar.BaseRatingBar;
@@ -66,7 +68,9 @@ public class AddCommentActivity extends BaseActivity implements AddCommentContra
         p = (Product) getIntent().getSerializableExtra("product");
         addCommentPresenter = new AddCommentPresenter(this);
 
-
+        tv_add_name.setText(p.getName());
+        String imgUrl = RxHttp.ROOT + "attachments/" + p.getIcon();
+        ImgUtil.loadImgAvatar(this, imgUrl, iv_add_avatar);
         tv_add_submit.setOnClickListener(this);
     }
 
