@@ -314,7 +314,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             } else {
                 ImgUtil.loadImg(container.getContext(), imgUrl, iv);
             }
-
+/*
             if (banners != null) {
                 final Banner b = banners.get(position);
 
@@ -357,6 +357,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
                 }
 
             }
+            */
             return iv;
         }
 
