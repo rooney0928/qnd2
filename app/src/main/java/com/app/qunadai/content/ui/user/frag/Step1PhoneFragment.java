@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,7 +55,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
     private Sign1Presenter sign1Presenter;
 
-
+    @BindView(R.id.iv_login_back)
+    ImageView iv_login_back;
     @BindView(R.id.et_phone)
     EditText et_phone;
     @BindView(R.id.et_pwd)
@@ -101,6 +103,7 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
         tv_submit.setOnClickListener(this);
         tv_forget_pwd.setOnClickListener(this);
         tv_code_signin.setOnClickListener(this);
+        iv_login_back.setOnClickListener(this);
         cb_pwd_hide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -266,6 +269,9 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_login_back:
+                getActivity().finish();
+                break;
             case R.id.tv_submit:
 //                ll_pwd.setVisibility(ll_pwd.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
                 if (ll_pwd.getVisibility() == View.GONE) {

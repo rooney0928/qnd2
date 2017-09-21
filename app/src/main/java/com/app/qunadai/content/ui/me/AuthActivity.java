@@ -105,6 +105,8 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
         });
 
         authPresenter.requestPersonValue(getToken());
+
+
     }
 
     @Override
@@ -202,6 +204,8 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
             }
 
 
+        }else if(v.getId()==R.id.rl_back){
+            finish();
         }
 
     }

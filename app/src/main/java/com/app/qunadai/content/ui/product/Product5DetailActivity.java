@@ -27,6 +27,8 @@ import com.app.qunadai.third.eventbus.EventAddComment;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.NetworkUtil;
+import com.app.qunadai.utils.PrefKey;
+import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
 import com.willy.ratingbar.ScaleRatingBar;
 
@@ -188,11 +190,13 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                     if (CommUtil.isNull(getToken())) {
                         exeLogin();
                     } else {
-                        product5DetailPresenter.applyOrder(getToken(), pid);
-                        Intent intent = new Intent(Product5DetailActivity.this, BrowserActivity.class);
-                        intent.putExtra("url", p.getUrl());
-                        intent.putExtra("title", p.getName());
-                        startActivity(intent);
+                        if (p != null) {
+                            product5DetailPresenter.applyOrder(getToken(), pid);
+                            Intent intent = new Intent(Product5DetailActivity.this, BrowserActivity.class);
+                            intent.putExtra("url", p.getUrl());
+                            intent.putExtra("title", p.getName());
+                            startActivity(intent);
+                        }
                     }
                 }
                 break;
@@ -354,6 +358,12 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
     }
 
+    @Override
+    public void tokenFail() {
+        super.tokenFail();
+        PrefUtil.removeItem(this, PrefKey.TOKEN);
+
+    }
 
     @Override
     protected void onDestroy() {

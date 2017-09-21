@@ -25,6 +25,7 @@ import com.app.qunadai.content.ui.me.AuthActivity;
 import com.app.qunadai.content.ui.me.ExploreActivity;
 import com.app.qunadai.content.ui.me.SettingActivity;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
@@ -36,6 +37,8 @@ import com.app.qunadai.utils.ToastUtil;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.ByteArrayOutputStream;
 
@@ -319,5 +322,12 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     public void getPersonValueFail(String error) {
         ToastUtil.showToast(getActivity(), error);
 
+    }
+
+    @Override
+    public void tokenFail() {
+        PrefUtil.removeItem(getActivity(), PrefKey.TOKEN);
+        EventBus.getDefault().post(new EventTurn(0,"main"));
+        super.tokenFail();
     }
 }

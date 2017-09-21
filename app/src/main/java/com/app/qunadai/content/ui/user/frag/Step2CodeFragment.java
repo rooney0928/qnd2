@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
@@ -46,6 +47,8 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
     @BindView(R.id.tv_subtitle)
     TextView tv_subtitle;
 
+    @BindView(R.id.iv_login_back)
+    ImageView iv_login_back;
     @BindView(R.id.et_code)
     EditText et_code;
     @BindView(R.id.cb_code_right)
@@ -114,6 +117,7 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
         });
         tv_send_code.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
+        iv_login_back.setOnClickListener(this);
     }
 
     @Override
@@ -168,6 +172,9 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_login_back:
+                EventBus.getDefault().post(new EventTurn(0, "sign"));
+                break;
             case R.id.tv_send_code:
                 if (smsType.equalsIgnoreCase("reg")) {
                     sign2Presenter.sendRegSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));

@@ -19,6 +19,11 @@ public class Product5DetailPresenter implements Product5DetailContract.Presenter
         this.view = iview;
         model = new Product5DetailModelImpl(new Product5DetailModelImpl.OnReturnDataListener() {
             @Override
+            public void tokenFail() {
+                view.tokenFail();
+            }
+
+            @Override
             public void getProduct5Detail(BaseBean<Product5DetailBean> bean) {
                 view.getProduct5Detail(bean);
             }

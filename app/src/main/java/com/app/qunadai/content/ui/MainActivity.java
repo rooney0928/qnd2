@@ -21,6 +21,7 @@ import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventToken;
+import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ToastUtil;
 
@@ -231,6 +232,14 @@ public class MainActivity extends BaseActivity {
 //        }
         if ("main".equalsIgnoreCase(event.getPage())) {
             finish();
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventTurn event){
+        if(event.getType().equalsIgnoreCase("main")){
+
+            vp_main.setCurrentItem(event.getPage());
+            setCheckBox(event.getPage());
         }
     }
 

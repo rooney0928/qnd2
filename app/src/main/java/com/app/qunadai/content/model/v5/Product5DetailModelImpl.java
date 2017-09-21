@@ -4,6 +4,7 @@ import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product5DetailBean;
+import com.app.qunadai.content.base.BaseReturnListener;
 import com.app.qunadai.content.contract.v5.Product5DetailContract;
 import com.app.qunadai.http.ApiException;
 import com.app.qunadai.http.RxHttp;
@@ -31,7 +32,7 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener {
+    public interface OnReturnDataListener extends BaseReturnListener{
 
         void getProduct5Detail(BaseBean<Product5DetailBean> bean);
 
@@ -69,7 +70,7 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
                     protected void onError(ApiException ex) {
                         onReturnDataListener.getProduct5DetailFail(ex.getDisplayMessage());
                         if (ex.isTokenFail()) {
-//                            onReturnDataListener.tokenFail();
+                            onReturnDataListener.tokenFail();
                         }
                     }
 

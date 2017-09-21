@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
@@ -39,6 +40,9 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
 
 
     private Sign3Presenter sign3Presenter;
+
+    @BindView(R.id.iv_login_back)
+    ImageView iv_login_back;
     @BindView(R.id.cb_pwd_hide)
     CheckBox cb_pwd_hide;
     @BindView(R.id.et_pwd)
@@ -98,6 +102,7 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
         });
 
         tv_submit.setOnClickListener(this);
+        iv_login_back.setOnClickListener(this);
     }
 
 
@@ -139,6 +144,9 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_login_back:
+                EventBus.getDefault().post(new EventTurn(1, "sign"));
+                break;
             case R.id.tv_submit:
                 int len = CommUtil.getText(et_pwd).length();
                 if (len > 16 || len < 6) {

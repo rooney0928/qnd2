@@ -3,19 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fefffe"
-    android:padding="24dp">
+    android:background="#fefffe">
+
+    <ImageView
+        android:id="@+id/iv_login_back"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="36dp"
+        android:src="@mipmap/icon_login_close"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_below="@+id/iv_login_back"
+        android:layout_margin="24dp"
         android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
+            android:layout_marginTop="12dp"
             android:orientation="vertical">
 
             <TextView
@@ -79,9 +89,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_submit5_style"
+                android:enabled="false"
                 android:gravity="center"
                 android:paddingBottom="12dp"
-                android:enabled="false"
                 android:paddingTop="12dp"
                 android:text="下一步"
                 android:textColor="@color/white"
