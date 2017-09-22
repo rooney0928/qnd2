@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
     android:background="@color/transparent"
-    card_view:cardElevation="12dp">
+    card_view:cardElevation="6dp">
 
     <ImageView
         android:id="@+id/iv_reco_pic"

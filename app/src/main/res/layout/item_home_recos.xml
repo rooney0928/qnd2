@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_margin="6dp"
+        android:paddingTop="12dp"
         android:text="特别推荐"
         android:textColor="@color/black5"
         android:textSize="18sp"/>

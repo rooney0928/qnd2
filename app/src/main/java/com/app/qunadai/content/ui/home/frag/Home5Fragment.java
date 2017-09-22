@@ -112,7 +112,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
         rv_pros.setAdapter(productAdapter);
         rv_pros.setLayoutManager(linearLayoutManager2);
-        rv_pros.addItemDecoration(new SpaceItemDecoration(spacingInPixels1));
+        rv_pros.addItemDecoration(new SpaceItemDecoration(spacingInPixels8));
         rv_pros.setNestedScrollingEnabled(false);
 
 

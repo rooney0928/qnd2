@@ -75,7 +75,7 @@ public class FilterProductsFragment extends BaseFragment implements ProductsFilt
 
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.dp1);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.dp8);
         rv_list.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_list.setLayoutManager(linearLayoutManager);
         rv_list.setNestedScrollingEnabled(false);

@@ -85,7 +85,7 @@
                     android:layout_marginTop="6dp"
                     android:text="1000.00"
                     android:textColor="@color/v5_price"
-                    android:textSize="26sp"/>
+                    android:textSize="32sp"/>
             </LinearLayout>
 
             <!--期限，额度，最快-->
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:text="36个月"
                         android:textColor="@color/v5_golden"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:text="0.5%/月"
                         android:textColor="@color/v5_golden"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:text="3分钟"
                         android:textColor="@color/v5_golden"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -304,11 +304,11 @@
 
                 <ImageView
                     android:id="@+id/iv_empty"
-                    android:layout_width="wrap_content"
+                    android:layout_width="72dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
                     android:src="@mipmap/empty_review"/>
 
             </LinearLayout>

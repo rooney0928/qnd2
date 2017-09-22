@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
     android:background="@color/transparent"
-    card_view:cardElevation="6dp">
+    card_view:cardElevation="3dp">
 
     <ImageView
         android:id="@+id/iv_pro_pic"

@@ -12,9 +12,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="108dp"
+            android:layout_height="118dp"
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp">
 
             <LinearLayout
                 android:id="@+id/ll_bbs_credit"
@@ -36,6 +38,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginRight="10dp"
+
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -71,10 +75,10 @@
         </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:layout_marginTop="12dp"
             android:id="@+id/swipe_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list"

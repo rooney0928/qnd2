@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="#f2f2f2">
 
     <ImageView
         android:id="@+id/iv_home_banner_item"
         android:layout_width="match_parent"
         android:layout_height="108dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         tools:src="@mipmap/test_bg"/>
 </RelativeLayout>
