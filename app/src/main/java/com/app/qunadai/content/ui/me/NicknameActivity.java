@@ -121,6 +121,8 @@ public class NicknameActivity extends BaseActivity implements NicknameContract.V
 
 //        EventBus.getDefault().post(new EventMe());
         EventBus.getDefault().post(new EventMe(CommUtil.getText(et_nickname_text)));
+//        EventBus.getDefault().post(new EventMe());
+
         //延迟500毫秒关闭swipe
         Observable.timer(200, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {

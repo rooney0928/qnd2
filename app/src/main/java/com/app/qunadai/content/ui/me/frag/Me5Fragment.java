@@ -21,6 +21,7 @@ import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Me5Contract;
 import com.app.qunadai.content.presenter.v5.Me5Presenter;
+import com.app.qunadai.content.ui.me.AccountActivity;
 import com.app.qunadai.content.ui.me.AuthActivity;
 import com.app.qunadai.content.ui.me.ExploreActivity;
 import com.app.qunadai.content.ui.me.SettingActivity;
@@ -60,6 +61,8 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     @BindView(R.id.tv_me_name)
     TextView tv_me_name;
 
+    @BindView(R.id.ll_me_account)
+    LinearLayout ll_me_account;
     @BindView(R.id.ll_me_explore)
     LinearLayout ll_me_explore;
     @BindView(R.id.ll_me_calendar)
@@ -95,6 +98,7 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     protected void initData() {
         me5Presenter = new Me5Presenter(this);
 
+        ll_me_account.setOnClickListener(this);
         tv_me_limit.setOnClickListener(this);
         ll_me_explore.setOnClickListener(this);
         ll_me_calendar.setOnClickListener(this);
@@ -139,6 +143,15 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ll_me_account:
+                if (meBean != null) {
+                    Intent intent = new Intent(getActivity(), AccountActivity.class);
+                    intent.putExtra("nickname", meBean.getContent().getUser().getNick());
+                    intent.putExtra("phone", meBean.getContent().getUser().getAccount().getMobileNumber());
+                    intent.putExtra("avatar", meBean.getContent().getUser().getAvatar());
+                    startActivity(intent);
+                }
+                break;
 
             case R.id.ll_me_explore:
                 if (CommUtil.isNull(getToken())) {
@@ -232,18 +245,21 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
         me5Presenter.requestPersonValue(getToken());
     }
 
+    MeBean meBean;
+
     @Override
-    public void getCurrent(MeBean meBean) {
-        String imgUrl = RxHttp.ROOT + "attachments/" + meBean.getContent().getUser().getAvatar();
+    public void getCurrent(MeBean bean) {
+        meBean = bean;
+        String imgUrl = RxHttp.ROOT + "attachments/" + bean.getContent().getUser().getAvatar();
         ImgUtil.loadRound(getActivity(), imgUrl, iv_me_avatar);
 
-        if (CheckUtil.isMobile(meBean.getContent().getUser().getNick())) {
-            StringBuilder sb = new StringBuilder(meBean.getContent().getUser().getNick());
-            String username = sb.replace(3, meBean.getContent().getUser().getNick().length() - 4, "****").toString();
+        if (CheckUtil.isMobile(bean.getContent().getUser().getNick())) {
+            StringBuilder sb = new StringBuilder(bean.getContent().getUser().getNick());
+            String username = sb.replace(3, bean.getContent().getUser().getNick().length() - 4, "****").toString();
 
             tv_me_name.setText(username);
         } else {
-            tv_me_name.setText(meBean.getContent().getUser().getNick());
+            tv_me_name.setText(bean.getContent().getUser().getNick());
         }
 
         if (CommUtil.isNull(tv_me_name)) {
@@ -327,7 +343,7 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     @Override
     public void tokenFail() {
         PrefUtil.removeItem(getActivity(), PrefKey.TOKEN);
-        EventBus.getDefault().post(new EventTurn(0,"main"));
+        EventBus.getDefault().post(new EventTurn(0, "main"));
         super.tokenFail();
     }
 }

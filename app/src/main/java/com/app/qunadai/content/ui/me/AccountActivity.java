@@ -253,7 +253,7 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
     public void uploadAvatar(AvatarBean bean) {
         String imgUrl = RxHttp.ROOT + "attachments/" + bean.getContent().getUser().getAvatar();
         ImgUtil.loadRound(this, imgUrl, iv_account_avatar);
-//        EventBus.getDefault().post(new EventMe());
+        EventBus.getDefault().post(new EventMe());
 
     }
 

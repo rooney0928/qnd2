@@ -1,9 +1,11 @@
 package com.app.qunadai.content.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,6 +17,7 @@ import com.app.qunadai.content.ui.bbs.PostMyActivity;
 import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.home.frag.Home5Fragment;
 import com.app.qunadai.content.ui.me.frag.Me5Fragment;
+import com.app.qunadai.content.ui.user.SplashActivity;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventLogin;
@@ -22,8 +25,12 @@ import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventToken;
 import com.app.qunadai.third.eventbus.EventTurn;
+import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ToastUtil;
+import com.pgyersdk.javabean.AppBean;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -96,6 +103,60 @@ public class MainActivity extends BaseActivity {
         fragments.add(bbsFragment);
         fragments.add(me5Fragment);
 
+    }
+    AlertDialog dialog;
+
+    /**
+     * 检测有否升级
+     */
+    public void update() {
+        PgyUpdateManager.register(this, "qunadai", new UpdateManagerListener() {
+            @Override
+            public void onNoUpdateAvailable() {
+//                loginDelay();
+            }
+
+            @Override
+            public void onUpdateAvailable(String s) {
+                // 将新版本信息封装到AppBean中
+                final AppBean appBean = getAppBeanFromString(s);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("更新");
+                builder.setMessage(appBean.getReleaseNote());
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startDownloadTask(MainActivity.this, appBean.getDownloadURL());
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkNeedUpdate(appBean.getVersionName());
+                    }
+                });
+                dialog = builder.show();
+                dialog.setCancelable(false);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        checkNeedUpdate(appBean.getVersionName());
+                    }
+                });
+            }
+
+        });
+    }
+
+    public void checkNeedUpdate(String version) {
+        String last = String.valueOf(version.charAt(version.length() - 1));
+        int i = Integer.parseInt(last);
+        if (i % 2 == 0) {
+            //余2为0则强制更新,此时关闭
+            AppManager.finishProgram();
+        } else {
+//            loginDelay();
+        }
     }
 
 
@@ -205,9 +266,9 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventMe event) {
-//        if (meFragment != null) {
-//            meFragment.refreshMsg();
-//        }
+        if (me5Fragment != null) {
+            me5Fragment.requestUserData();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

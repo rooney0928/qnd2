@@ -85,7 +85,8 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     @PermissionYes(300)
     private void getPermissionYes(List<String> grantedPermissions) {
         // Successfully.
-        update();
+//        update();
+        loginDelay();
     }
 
     @PermissionNo(300)
@@ -165,7 +166,6 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
                 });
             }
 
-
         });
     }
 
@@ -186,12 +186,12 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     }
 
     public void loginDelay() {
-        phone = PrefUtil.getString(this, PrefKey.PHONE, "");
+//        phone = PrefUtil.getString(this, PrefKey.PHONE, "");
 //        pwdEncode = PrefUtil.getString(this, PrefKey.PWD_ENCODE, "");
-        pwd = PrefUtil.getString(this, PrefKey.PWD, "");
-        autoLogin = PrefUtil.getBoolean(this, PrefKey.AUTO_LOGIN, false);
+//        pwd = PrefUtil.getString(this, PrefKey.PWD, "");
+//        autoLogin = PrefUtil.getBoolean(this, PrefKey.AUTO_LOGIN, false);
         //延迟3000毫秒进入首页
-        Observable.timer(3000, TimeUnit.MILLISECONDS).subscribe(
+        Observable.timer(1500, TimeUnit.MILLISECONDS).subscribe(
                 new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
