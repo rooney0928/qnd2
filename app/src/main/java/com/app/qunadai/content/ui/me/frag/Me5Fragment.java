@@ -1,11 +1,14 @@
 package com.app.qunadai.content.ui.me.frag;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.telephony.TelephonyManager;
@@ -149,7 +152,13 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
                     intent.putExtra("nickname", meBean.getContent().getUser().getNick());
                     intent.putExtra("phone", meBean.getContent().getUser().getAccount().getMobileNumber());
                     intent.putExtra("avatar", meBean.getContent().getUser().getAvatar());
-                    startActivity(intent);
+//                    Activity mainActivity = getActivity();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), iv_me_avatar, "share_avatar").toBundle());
+                    } else {
+                        startActivity(intent);
+                    }
+
                 }
                 break;
 

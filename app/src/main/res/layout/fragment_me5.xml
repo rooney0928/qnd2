@@ -23,6 +23,7 @@
 
             <ImageView
                 android:id="@+id/iv_me_avatar"
+                android:transitionName="share_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher"/>

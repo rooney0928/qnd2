@@ -35,7 +35,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
-                android:src="@mipmap/icon_default_avatar"/>
+                android:src="@mipmap/icon_default_avatar"
+                android:transitionName="share_avatar"/>
         </RelativeLayout>
 
         <View
