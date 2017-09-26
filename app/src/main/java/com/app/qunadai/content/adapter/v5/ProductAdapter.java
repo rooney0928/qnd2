@@ -1,7 +1,10 @@
 package com.app.qunadai.content.adapter.v5;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +93,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
             final Product p = list.get(getAdapterPosition());
             String imgUrl = RxHttp.ROOT + "attachments/" + p.getIcon();
 
-            ImgUtil.loadImg(context, imgUrl, iv_product_header);
+            ImgUtil.loadImgAvatar(context, imgUrl, iv_product_header);
             tv_product_name.setText(p.getName());
             tv_product_amount.setText(p.getMaxAmount() + "");
             String loanUnit = "";
@@ -133,7 +136,15 @@ public class ProductAdapter extends RecyclerView.Adapter {
 //                    ToastUtil.showToast(context, p.getId());
                     Intent intentDetail = new Intent(context, Product5DetailActivity.class);
                     intentDetail.putExtra("pid", p.getId());
-                    context.startActivity(intentDetail);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Activity activity = (Activity) context;
+                        context.startActivity(intentDetail, ActivityOptions.makeSceneTransitionAnimation(activity, iv_product_header, "item_avatar").toBundle());
+                    } else {
+//                        startActivity(intent);
+                        context.startActivity(intentDetail);
+
+                    }
                 }
             });
 

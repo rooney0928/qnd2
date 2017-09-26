@@ -23,7 +23,9 @@
                 android:id="@+id/iv_product_header"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:transitionName="item_avatar"
                 android:src="@mipmap/ic_launcher"/>
+
 
             <TextView
                 android:id="@+id/tv_product_name"
