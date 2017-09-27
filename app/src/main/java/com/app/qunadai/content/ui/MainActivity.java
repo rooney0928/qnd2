@@ -103,10 +103,12 @@ public class MainActivity extends BaseActivity {
         fragments.add(bbsFragment);
         fragments.add(me5Fragment);
 
+        update();
+
     }
     AlertDialog dialog;
 
-    /**
+    /*
      * 检测有否升级
      */
     public void update() {
@@ -154,8 +156,6 @@ public class MainActivity extends BaseActivity {
         if (i % 2 == 0) {
             //余2为0则强制更新,此时关闭
             AppManager.finishProgram();
-        } else {
-//            loginDelay();
         }
     }
 

@@ -7,8 +7,8 @@ android {
         applicationId "com.app.qunadai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 90
-        versionName "5.0"
+        versionCode 100
+        versionName "5.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -104,7 +104,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.yanzhenjie:album:1.0.7'
     compile 'com.github.yalantis:ucrop:2.2.1'
-    compile 'com.yanzhenjie:permission:1.0.8'
+    compile 'com.yanzhenjie:permission:1.1.0'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.zxy.android:tiny:0.0.6'

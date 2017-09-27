@@ -25,6 +25,7 @@ import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.PermissionNo;
 import com.yanzhenjie.permission.PermissionYes;
 
@@ -69,14 +70,19 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     @Override
     protected void initView() {
         splashPresenter = new SplashPresenter(this);
+//        Permission.
+
+
 
         //首先判断权限
         AndPermission.with(this)
-                .requestCode(300)
 
-                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_PHONE_STATE,
-                            Manifest.permission.ACCESS_COARSE_LOCATION)
+                .requestCode(300)
+                .permission(Permission.STORAGE,Permission.PHONE,Permission.LOCATION)
+//                .permission(
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.READ_PHONE_STATE,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION)
                 .callback(this)
                 .start()
         ;

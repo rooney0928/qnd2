@@ -6,315 +6,322 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg">
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bt_submit">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!--产品名-->
+            android:layout_height="match_parent"
+            >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <ImageView
-                    android:id="@+id/iv_detail_avatar"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:transitionName="item_avatar"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_detail_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="新浪有借无还"/>
-
-                    <com.willy.ratingbar.ScaleRatingBar
-                        xmlns:rb="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/srb_detail_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        rb:clearRatingEnabled="false"
-                        rb:drawableEmpty="@mipmap/ic5_empty_star"
-                        rb:drawableFilled="@mipmap/ic5_star"
-                        rb:numStars="5"
-                        rb:rating="3"
-                        rb:starHeight="20dp"
-                        rb:starWidth="16dp"
-                        rb:stepSize="1"
-                        rb:touchable="false">
-                    </com.willy.ratingbar.ScaleRatingBar>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!--额度-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="18dp"
-                android:paddingTop="18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="预估额度"
-                    android:textColor="@color/v5_gray"/>
-
-                <TextView
-                    android:id="@+id/tv_detail_limit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="1000.00"
-                    android:textColor="@color/v5_price"
-                    android:textSize="32sp"/>
-            </LinearLayout>
-
-            <!--期限，额度，最快-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingBottom="32dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_detail_period"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="36个月"
-                        android:textColor="@color/v5_golden"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="最长期限"
-                        android:textColor="@color/v5_gray"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/gap"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_detail_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0.5%/月"
-                        android:textColor="@color/v5_golden"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="最低利率"
-                        android:textColor="@color/v5_gray"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/gap"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_detail_loan_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3分钟"
-                        android:textColor="@color/v5_golden"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="最快放款"
-                        android:textColor="@color/v5_gray"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!--信息-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="12dp"
-                    android:text="放款信息"/>
-
+                <!--产品名-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:padding="12dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="9dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="通过率:"
-                            android:textColor="@color/text_grey"/>
-
-                        <TextView
-                            android:id="@+id/tv_detail_suc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            tools:text="90%"/>
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_detail_avatar"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:transitionName="item_avatar"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="9dp"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_detail_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="贷款成功:"
-                            android:textColor="@color/text_grey"/>
+                            tools:text="新浪有借无还"/>
 
-                        <TextView
-                            android:id="@+id/tv_detail_person"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            tools:text="3600人"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
+                        <com.willy.ratingbar.ScaleRatingBar
+                            xmlns:rb="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/srb_detail_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="平均放款金额:"
-                            android:textColor="@color/text_grey"/>
+                            rb:clearRatingEnabled="false"
+                            rb:drawableEmpty="@mipmap/ic5_empty_star"
+                            rb:drawableFilled="@mipmap/ic5_star"
+                            rb:numStars="5"
+                            rb:rating="3"
+                            rb:starHeight="20dp"
+                            rb:starWidth="16dp"
+                            rb:stepSize="1"
+                            rb:touchable="false">
+                        </com.willy.ratingbar.ScaleRatingBar>
 
-                        <TextView
-                            android:id="@+id/tv_detail_average"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            tools:text="10000元"/>
                     </LinearLayout>
-
 
                 </LinearLayout>
-            </LinearLayout>
-            <!--评论-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
 
-                <RelativeLayout
+                <!--额度-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingBottom="18dp"
+                    android:paddingTop="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预估额度"
+                        android:textColor="@color/v5_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_detail_limit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="1000.00"
+                        android:textColor="@color/v5_price"
+                        android:textSize="32sp"/>
+                </LinearLayout>
+
+                <!--期限，额度，最快-->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:paddingBottom="32dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_detail_period"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="36个月"
+                            android:textColor="@color/v5_golden"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="最长期限"
+                            android:textColor="@color/v5_gray"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/gap"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_detail_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.5%/月"
+                            android:textColor="@color/v5_golden"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="最低利率"
+                            android:textColor="@color/v5_gray"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/gap"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_detail_loan_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3分钟"
+                            android:textColor="@color/v5_golden"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="最快放款"
+                            android:textColor="@color/v5_gray"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--信息-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="用户评论"
-                        android:textSize="18sp"/>
-
-                    <ImageView
-                        android:id="@+id/iv_detail_add"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/ic5_comments"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"/>
-                </RelativeLayout>
+                        android:background="@color/white"
+                        android:padding="12dp"
+                        android:text="放款信息"/>
 
-                <ImageView
-                    android:id="@+id/iv_empty"
-                    android:layout_width="72dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="9dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="通过率:"
+                                android:textColor="@color/text_grey"/>
+
+                            <TextView
+                                android:id="@+id/tv_detail_suc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                tools:text="90%"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="9dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="贷款成功:"
+                                android:textColor="@color/text_grey"/>
+
+                            <TextView
+                                android:id="@+id/tv_detail_person"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                tools:text="3600人"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="平均放款金额:"
+                                android:textColor="@color/text_grey"/>
+
+                            <TextView
+                                android:id="@+id/tv_detail_average"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                tools:text="10000元"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+                <!--评论-->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@mipmap/empty_review"/>
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="用户评论"
+                            android:textSize="18sp"/>
+
+                        <ImageView
+                            android:id="@+id/iv_detail_add"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/ic5_comments"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"/>
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_empty"
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@mipmap/empty_review"/>
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
         android:id="@+id/bt_submit"

@@ -2,6 +2,7 @@ package com.app.qunadai.content.ui.product;
 
 import android.content.Intent;
 import android.icu.math.BigDecimal;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -52,7 +53,8 @@ import rx.functions.Action1;
 public class Product5DetailActivity extends BaseActivity implements Product5DetailContract.View {
 
     private Product5DetailPresenter product5DetailPresenter;
-
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout swipe_layout;
     @BindView(R.id.iv_detail_avatar)
     ImageView iv_detail_avatar;
     @BindView(R.id.tv_detail_name)
@@ -128,7 +130,21 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         rv_comment.setItemAnimator(new DefaultItemAnimator());
         rv_comment.setAdapter(adapter);
 
-        //        adapter.setLoadMoreListener();
+        swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 0;
+                product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
+            }
+        });
+        adapter.setLoadMoreListener(new ProCommentAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                page++;
+                product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
+            }
+        });
+        /*
         rv_comment.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -143,7 +159,6 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                     page++;
                     product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
 
-
                 }
             }
 
@@ -154,7 +169,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
             }
 
         });
-
+*/
         product5DetailPresenter.getProduct5Detail(pid, getToken());
         product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
 
@@ -222,6 +237,9 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     @Override
     public void requestEnd() {
         hideLoading();
+        if (swipe_layout != null && swipe_layout.isRefreshing()) {
+            swipe_layout.setRefreshing(false);
+        }
     }
 
     Product p;

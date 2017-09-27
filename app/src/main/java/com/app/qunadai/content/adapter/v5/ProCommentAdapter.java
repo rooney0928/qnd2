@@ -61,12 +61,30 @@ public class ProCommentAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (position < list.size()) {
+            return ITEM_TYPE.ITEM_TYPE_CONTENT.ordinal();
+        } else {
+            return ITEM_TYPE.ITEM_TYPE_LOAD_MORE.ordinal();
+        }
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (context == null) {
             context = parent.getContext();
         }
-        View view = LayoutInflater.from(context).inflate(R.layout.item_comment_v5, parent, false);
-        ContentHolder viewHolder = new ContentHolder(view);
+
+
+        RecyclerView.ViewHolder viewHolder;
+
+        if (viewType == ITEM_TYPE.ITEM_TYPE_CONTENT.ordinal()) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_comment_v5, parent, false);
+            viewHolder = new ContentHolder(view);
+        } else {
+            View viewLoad = LayoutInflater.from(context).inflate(R.layout.view_loadmore, parent, false);
+            viewHolder = new LoadMoreHolder(viewLoad);
+        }
 
         return viewHolder;
     }
@@ -76,6 +94,9 @@ public class ProCommentAdapter extends RecyclerView.Adapter {
         if (holder instanceof ContentHolder) {
             ContentHolder contentHolder = (ContentHolder) holder;
             contentHolder.setData();
+        }else if(holder instanceof LoadMoreHolder){
+            LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
+            loadMoreHolder.setData();
         }
     }
 
@@ -165,6 +186,6 @@ public class ProCommentAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return list == null || list.size() == 0 ? 0 : list.size() + 1;
     }
 }

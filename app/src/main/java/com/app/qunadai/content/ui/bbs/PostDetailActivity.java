@@ -135,7 +135,6 @@ public class PostDetailActivity extends BaseActivity implements PostDetailContra
     boolean isRefresh;
     private static final int PAGE_SIZE = 10;
     int page = 0;
-    int lastVisibleItem;
 
     GridLayoutManager gridLayoutManager;
     PostImgAdapter adapter;
