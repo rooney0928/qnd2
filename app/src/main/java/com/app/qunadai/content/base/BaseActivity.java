@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.content.receiver.NetworkChangeReceiver;
 import com.app.qunadai.content.ui.user.SignActivity;
 import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.LogU;
@@ -38,7 +39,8 @@ import butterknife.ButterKnife;
  * Created by wayne on 2017/1/4.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, BaseView {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, BaseView,NetworkChangeReceiver.NetEvent{
+    public static NetworkChangeReceiver.NetEvent netEvent;
 
     public static final int TITLE_ON_BACK_OFF = 0;
     public static final int TITLE_ON_BACK_ON = 2;
@@ -109,6 +111,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         AppManager.add(this);
         initContentView();
+        netEvent = this;
     }
 
     public void setNotification() {
@@ -146,6 +149,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //    private void initRootData() {
 //
 //    }
+
+
+    @Override
+    public void onNetChange(boolean available) {
+
+        LogU.t("ava--"+available);
+    }
 
     /**
      * 控制标题栏view
