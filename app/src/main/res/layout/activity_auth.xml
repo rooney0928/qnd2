@@ -49,7 +49,6 @@
                         android:textSize="14sp"/>
 
                     <TextView
-                        android:id="@+id/tv_limit_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -73,13 +72,13 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_horizontal"
                     app:back_color="#CADAF2"
-                    app:back_width="2dp"
-                    app:current_value="1"
+                    app:back_width="5dp"
+                    app:current_value="0"
                     app:front_color1="#3C6FE7"
                     app:front_width="10dp"
                     app:is_need_content="true"
                     app:is_need_title="true"
-                    app:max_value="10"
+                    app:max_value="9"
                     app:string_title="预估额度"
                     app:total_engle="270" />
 
@@ -90,6 +89,7 @@
                     android:background="@color/main_bg">
 
                     <TextView
+                        android:id="@+id/tv_limit_money"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"

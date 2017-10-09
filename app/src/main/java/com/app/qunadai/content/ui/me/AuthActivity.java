@@ -343,8 +343,6 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
 
         //银行卡验证
         setBindStatus(av_bankcard, bean.getContent().getPersonalValue().getBankStatus());
-
-
         //真实信息
         setBindStatus(av_realinfo, bean.getContent().getPersonalValue().getRealInfoStatus());
         //网银
@@ -374,6 +372,40 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
                 PrefUtil.putBoolean(this, PrefKey.BANK_CHECKED, false);
                 break;
         }
+        bar1.setCurrentValues(countAuthCount());
+    }
+
+    public int countAuthCount(){
+        int curr = 0;
+        if (av_bankcard.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_realinfo.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_ebank.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_carrier.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_alipay.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_email.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_fund.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_taobao.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+        if (av_credit.getStatus()==AuthView.AUTH_YES){
+            curr++;
+        }
+
+        return curr;
     }
 
     @Override

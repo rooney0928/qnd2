@@ -18,7 +18,8 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("/Users/wayne/Documents/dev/Signature/keystore")
+            storeFile file("E:\\Signature\\keystore")
+
             storePassword "a123456"
             keyAlias "china"
             keyPassword "a123456"
