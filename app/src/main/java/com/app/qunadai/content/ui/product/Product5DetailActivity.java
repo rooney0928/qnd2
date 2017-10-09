@@ -278,19 +278,19 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         DecimalFormat dfdot = new DecimalFormat("#,###");
         tv_detail_limit.setText(dfdot.format(p.getMaxAmount()) + "");
 
-        double stars = (double) p.getTotalStarNumber();
-        double comments = (double) p.getTotalCommentNumber();
-        long star = Math.round(stars / comments);
-
-        if (star <= 3) {
-            srb_detail_score.setVisibility(View.GONE);
-            srb_detail_score.setRating(star);
-
-        } else {
-            srb_detail_score.setVisibility(View.VISIBLE);
-            srb_detail_score.setRating(star);
-        }
-        srb_detail_score.setVisibility(p.getTotalCommentNumber() <= 3 ? View.GONE : View.VISIBLE);
+//        double stars = (double) p.getTotalStarNumber();
+//        double comments = (double) p.getTotalCommentNumber();
+//        long star = Math.round(stars / comments);
+//
+//        if (star <= 3) {
+//            srb_detail_score.setVisibility(View.GONE);
+//            srb_detail_score.setRating(star);
+//
+//        } else {
+//            srb_detail_score.setVisibility(View.VISIBLE);
+//            srb_detail_score.setRating(star);
+//        }
+//        srb_detail_score.setVisibility(p.getTotalCommentNumber() <= 3 ? View.GONE : View.VISIBLE);
 
 
         tv_detail_period.setText(p.getMaxTerm() + p.getTermUnit());

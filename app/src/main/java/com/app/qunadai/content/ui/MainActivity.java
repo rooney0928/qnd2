@@ -6,13 +6,20 @@ import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.dialog.UpdateDialog;
 import com.app.qunadai.content.ui.bbs.PostMyActivity;
 import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.home.frag.Home5Fragment;
@@ -27,6 +34,7 @@ import com.app.qunadai.third.eventbus.EventToken;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.ToastUtil;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -103,9 +111,13 @@ public class MainActivity extends BaseActivity {
         fragments.add(bbsFragment);
         fragments.add(me5Fragment);
 
+
+        //检查更新
         update();
 
     }
+
+
     AlertDialog dialog;
 
     /*
@@ -116,33 +128,83 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onNoUpdateAvailable() {
 //                loginDelay();
+//                update5();
+
             }
 
             @Override
             public void onUpdateAvailable(String s) {
                 // 将新版本信息封装到AppBean中
+//                final AppBean appBean = getAppBeanFromString(s);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                builder.setTitle("更新");
+//                builder.setMessage(appBean.getReleaseNote());
+//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        startDownloadTask(MainActivity.this, appBean.getDownloadURL());
+//                    }
+//                });
+//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        checkNeedUpdate(appBean.getVersionName());
+//                    }
+//                });
+//                dialog = builder.show();
+//                dialog.setCancelable(false);
+//                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                    @Override
+//                    public void onCancel(DialogInterface dialog) {
+//                        checkNeedUpdate(appBean.getVersionName());
+//                    }
+//                });
+
                 final AppBean appBean = getAppBeanFromString(s);
+
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("更新");
-                builder.setMessage(appBean.getReleaseNote());
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                View view = View.inflate(MainActivity.this, R.layout.update_dialog, null);
+                final ImageView iv_update_title = (ImageView) view.findViewById(R.id.iv_update_title);
+                TextView tv_update_cancel = (TextView) view.findViewById(R.id.tv_update_cancel);
+                TextView tv_update_submit = (TextView) view.findViewById(R.id.tv_update_submit);
+                tv_update_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startDownloadTask(MainActivity.this, appBean.getDownloadURL());
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View view) {
                         checkNeedUpdate(appBean.getVersionName());
                     }
                 });
-                dialog = builder.show();
-                dialog.setCancelable(false);
-                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                tv_update_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startDownloadTask(MainActivity.this, appBean.getDownloadURL());
+
+                    }
+                });
+
+                builder.setView(view);
+
+
+                updateDialog = builder.show();
+                updateDialog.setCancelable(false);
+                updateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-                        checkNeedUpdate(appBean.getVersionName());
+//                checkNeedUpdate(appBean.getVersionName());
+                    }
+                });
+
+                ViewTreeObserver viewTreeObserver = iv_update_title.getViewTreeObserver();
+                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        iv_update_title.getViewTreeObserver()
+                                .removeOnGlobalLayoutListener(this);
+                        Window dialogWindow = updateDialog.getWindow();
+                        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+                        p.width = iv_update_title.getWidth(); // 宽度
+                        LogU.t("width---" + p.width);
+                        dialogWindow.setAttributes(p);
                     }
                 });
             }
@@ -150,12 +212,30 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    AlertDialog updateDialog;
+
+
+    public void update5() {
+//        UpdateDialog updateDialog = new UpdateDialog();
+//        updateDialog.show(getSupportFragmentManager(), "updateDialog");
+
+
+//        dialogWindow.setAttributes(p);
+
+
+    }
+
+
     public void checkNeedUpdate(String version) {
         String last = String.valueOf(version.charAt(version.length() - 1));
         int i = Integer.parseInt(last);
         if (i % 2 == 0) {
             //余2为0则强制更新,此时关闭
             AppManager.finishProgram();
+        } else {
+            if (updateDialog != null && updateDialog.isShowing()) {
+                updateDialog.dismiss();
+            }
         }
     }
 
@@ -295,9 +375,10 @@ public class MainActivity extends BaseActivity {
             finish();
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventTurn event){
-        if(event.getType().equalsIgnoreCase("main")){
+    public void onMessageEvent(EventTurn event) {
+        if (event.getType().equalsIgnoreCase("main")) {
 
             vp_main.setCurrentItem(event.getPage());
             setCheckBox(event.getPage());

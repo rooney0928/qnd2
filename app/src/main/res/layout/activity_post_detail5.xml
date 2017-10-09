@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,8 +13,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,7 +33,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@mipmap/ic_launcher"
-                        android:transitionName="item_avatar"/>
+                        android:transitionName="item_avatar" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -47,13 +45,13 @@
                             android:id="@+id/tv_detail_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="新浪有借无还"/>
+                            tools:text="新浪有借无还" />
 
-                        <com.willy.ratingbar.ScaleRatingBar
-                            xmlns:rb="http://schemas.android.com/apk/res-auto"
+                        <com.willy.ratingbar.ScaleRatingBar xmlns:rb="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/srb_detail_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             rb:clearRatingEnabled="false"
                             rb:drawableEmpty="@mipmap/ic5_empty_star"
                             rb:drawableFilled="@mipmap/ic5_star"
@@ -62,8 +60,7 @@
                             rb:starHeight="20dp"
                             rb:starWidth="16dp"
                             rb:stepSize="1"
-                            rb:touchable="false">
-                        </com.willy.ratingbar.ScaleRatingBar>
+                            rb:touchable="false"></com.willy.ratingbar.ScaleRatingBar>
 
                     </LinearLayout>
 
@@ -83,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="预估额度"
-                        android:textColor="@color/v5_gray"/>
+                        android:textColor="@color/v5_gray" />
 
                     <TextView
                         android:id="@+id/tv_detail_limit"
@@ -92,7 +89,7 @@
                         android:layout_marginTop="6dp"
                         android:text="1000.00"
                         android:textColor="@color/v5_price"
-                        android:textSize="32sp"/>
+                        android:textSize="32sp" />
                 </LinearLayout>
 
                 <!--期限，额度，最快-->
@@ -116,20 +113,20 @@
                             android:layout_height="wrap_content"
                             android:text="36个月"
                             android:textColor="@color/v5_golden"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="最长期限"
-                            android:textColor="@color/v5_gray"/>
+                            android:textColor="@color/v5_gray" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/gap"/>
+                        android:background="@color/gap" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -144,20 +141,20 @@
                             android:layout_height="wrap_content"
                             android:text="0.5%/月"
                             android:textColor="@color/v5_golden"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="最低利率"
-                            android:textColor="@color/v5_gray"/>
+                            android:textColor="@color/v5_gray" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/gap"/>
+                        android:background="@color/gap" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -172,14 +169,14 @@
                             android:layout_height="wrap_content"
                             android:text="3分钟"
                             android:textColor="@color/v5_golden"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="最快放款"
-                            android:textColor="@color/v5_gray"/>
+                            android:textColor="@color/v5_gray" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -196,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:padding="12dp"
-                        android:text="放款信息"/>
+                        android:text="放款信息" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -216,14 +213,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="通过率:"
-                                android:textColor="@color/text_grey"/>
+                                android:textColor="@color/text_grey" />
 
                             <TextView
                                 android:id="@+id/tv_detail_suc"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
-                                tools:text="90%"/>
+                                tools:text="90%" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -236,14 +233,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="贷款成功:"
-                                android:textColor="@color/text_grey"/>
+                                android:textColor="@color/text_grey" />
 
                             <TextView
                                 android:id="@+id/tv_detail_person"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
-                                tools:text="3600人"/>
+                                tools:text="3600人" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -255,14 +252,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="平均放款金额:"
-                                android:textColor="@color/text_grey"/>
+                                android:textColor="@color/text_grey" />
 
                             <TextView
                                 android:id="@+id/tv_detail_average"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
-                                tools:text="10000元"/>
+                                tools:text="10000元" />
                         </LinearLayout>
 
 
@@ -287,7 +284,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="用户评论"
-                            android:textSize="18sp"/>
+                            android:textSize="18sp" />
 
                         <ImageView
                             android:id="@+id/iv_detail_add"
@@ -295,7 +292,7 @@
                             android:layout_height="24dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:src="@mipmap/ic5_comments"/>
+                            android:src="@mipmap/ic5_comments" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -306,7 +303,7 @@
                             android:id="@+id/rv_comment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"/>
+                            android:layout_marginTop="1dp" />
                     </RelativeLayout>
 
                     <ImageView
@@ -316,7 +313,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="20dp"
-                        android:src="@mipmap/empty_review"/>
+                        android:src="@mipmap/empty_review" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -333,5 +330,5 @@
         android:gravity="center"
         android:text="立即申请"
         android:textColor="@color/white"
-        android:textSize="14dp"/>
+        android:textSize="14dp" />
 </RelativeLayout>

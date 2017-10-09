@@ -2,14 +2,18 @@ package com.app.qunadai.content.ui.home.frag;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -26,17 +30,22 @@ import com.app.qunadai.content.adapter.v5.ProductAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Home5Contract;
 import com.app.qunadai.content.presenter.v5.Home5Presenter;
+import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.FilterProductsActivity;
 import com.app.qunadai.content.ui.home.ProductsActivity;
 import com.app.qunadai.content.ui.product.BrowserActivity;
 import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.content.view.FullRecyclerView;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
+import com.pgyersdk.javabean.AppBean;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
 
 
 import java.util.ArrayList;
@@ -192,7 +201,13 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             lp.setMargins(0, statusBarHeight1, 0, 0);
             banner.setLayoutParams(lp);
         }
+
+
+
     }
+
+
+
 
     @Override
     public void onClick(View v) {
