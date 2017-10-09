@@ -29,6 +29,7 @@ import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -184,12 +185,12 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
         } else {
             //账号不存在，发送短信
             LogU.t("not exist");
-            switch (checkType){
+            switch (checkType) {
                 case CHECK_REG:
                     sign1Presenter.sendRegSms(CommUtil.getText(et_phone));
                     break;
                 default:
-                    ToastUtil.showToast(getActivity(),"该账号不存在");
+                    ToastUtil.showToast(getActivity(), "该账号不存在");
                     break;
             }
         }
@@ -274,6 +275,10 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
                 break;
             case R.id.tv_submit:
 //                ll_pwd.setVisibility(ll_pwd.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+                if (!NetworkUtil.checkNetwork(getActivity())) {
+                    return;
+                }
+
                 if (ll_pwd.getVisibility() == View.GONE) {
                     //无密码模式
                     if (CommUtil.getText(et_phone).length() < 11 || !CheckUtil.isMobile(CommUtil.getText(et_phone))) {
@@ -305,6 +310,10 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
                 break;
             case R.id.tv_code_signin:
+                if (!NetworkUtil.checkNetwork(getActivity())) {
+                    return;
+                }
+
                 if (CommUtil.isNull(et_phone) || CommUtil.getText(et_phone).length() != 11) {
                     ToastUtil.showToast(getActivity(), "手机号格式不正确");
                     return;
@@ -316,6 +325,10 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
                 break;
             case R.id.tv_forget_pwd:
+                if (!NetworkUtil.checkNetwork(getActivity())) {
+                    return;
+                }
+
                 if (CommUtil.isNull(et_phone) || CommUtil.getText(et_phone).length() != 11) {
                     ToastUtil.showToast(getActivity(), "手机号格式不正确");
                     return;

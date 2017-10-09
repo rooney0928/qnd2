@@ -19,15 +19,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.receiver.NetworkChangeReceiver;
 import com.app.qunadai.content.ui.user.SignActivity;
 import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.kennyc.view.MultiStateView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +42,7 @@ import butterknife.ButterKnife;
  * Created by wayne on 2017/1/4.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, BaseView,NetworkChangeReceiver.NetEvent{
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, BaseView, NetworkChangeReceiver.NetEvent {
     public static NetworkChangeReceiver.NetEvent netEvent;
 
     public static final int TITLE_ON_BACK_OFF = 0;
@@ -47,6 +50,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public static final int TITLE_OFF = 4;
     public static final int TITLE_ON_RIGHT_ON = 6;
 
+    private OnReLinkListener onReLinkListener;
+
+    @BindView(R.id.multiStateView)
+    MultiStateView multiStateView;
 
     /**
      * activity 底部布局的容器 默认状态显示
@@ -75,6 +82,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @BindView(R.id.ll_root)
     LinearLayout ll_root;
+
+    @BindView(R.id.tv_offline_submit)
+    TextView tv_offline_submit;
 
 
     View root;
@@ -139,23 +149,48 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         //设置参数 监听
 //        initRootData();
         rl_back.setOnClickListener(this);
+
+        multiStateView.getView(MultiStateView.VIEW_STATE_ERROR).findViewById(R.id.tv_offline_submit)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (NetworkUtil.checkNetwork(BaseActivity.this)) {
+                            if (onReLinkListener != null) {
+                                multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+                                onReLinkListener.doNewRequest();
+                            }
+                        }
+                    }
+                });
         initView();
         initViewData();
+
+
     }
 
-//    /**
-//     * 设置数据 监听
-//     */
-//    private void initRootData() {
-//
-//    }
 
+    public void setOnReLinkListener(OnReLinkListener onReLinkListener) {
+        this.onReLinkListener = onReLinkListener;
+    }
+
+
+    public void setViewOffline() {
+        multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+    }
+
+    public void setViewContent() {
+        multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+    }
+
+    public int getPageStatus() {
+        return multiStateView.getViewState();
+    }
 
     @Override
     public void onNetChange(boolean available) {
-
-        LogU.t("ava--"+available);
+        LogU.t("ava--" + available);
     }
+
 
     /**
      * 控制标题栏view
@@ -301,7 +336,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         PrefUtil.removeItem(this, PrefKey.TOKEN);
         Intent intentLogin = new Intent(this, SignActivity.class);
         startActivity(intentLogin);
-//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_off_bottom);
+        overridePendingTransition(R.anim.slice_in_bottom, R.anim.slice_no);
     }
 
 

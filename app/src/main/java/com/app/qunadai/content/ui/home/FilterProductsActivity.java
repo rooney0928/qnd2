@@ -8,12 +8,20 @@ import android.widget.RelativeLayout;
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.ui.home.frag.FilterProductsFragment;
+import com.app.qunadai.third.eventbus.EventLogin;
+import com.app.qunadai.third.eventbus.EventOffline;
 import com.app.qunadai.third.tablayout.TabEntity;
 import com.app.qunadai.utils.LogU;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.kennyc.view.MultiStateView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +68,7 @@ public class FilterProductsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         int index = getIntent().getIntExtra("index", 0);
         for (String title : mTitles) {
             mTabEntities.add(new TabEntity(title));
@@ -84,6 +93,10 @@ public class FilterProductsActivity extends BaseActivity {
             public void onTabSelect(int position) {
 //                LogU.t("sel---"+position);
                 vp_pros.setCurrentItem(position);
+                FilterProductsFragment productsFragment = (FilterProductsFragment) fragments.get(position);
+                if (productsFragment.list != null && productsFragment.list.size() == 0) {
+                    productsFragment.refresh();
+                }
             }
 
             @Override
@@ -109,6 +122,29 @@ public class FilterProductsActivity extends BaseActivity {
         });
 
         vp_pros.setCurrentItem(index);
+
+        setOnReLinkListener(new OnReLinkListener() {
+            @Override
+            public void doNewRequest() {
+                switch (vp_pros.getCurrentItem()) {
+                    case 0:
+                        filterProductsFragment1.refresh();
+                        break;
+                    case 1:
+                        filterProductsFragment2.refresh();
+
+                        break;
+                    case 2:
+                        filterProductsFragment3.refresh();
+
+                        break;
+                    case 3:
+                        filterProductsFragment4.refresh();
+
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -136,5 +172,19 @@ public class FilterProductsActivity extends BaseActivity {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventOffline event) {
+        if (event.getType().equalsIgnoreCase("filterPro")) {
+            if (getPageStatus() != MultiStateView.VIEW_STATE_ERROR) {
+                setViewOffline();
+            }
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
+    }
 }

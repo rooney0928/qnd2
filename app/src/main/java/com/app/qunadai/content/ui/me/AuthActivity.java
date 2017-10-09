@@ -24,6 +24,7 @@ import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ReqKey;
 import com.app.qunadai.utils.ToastUtil;
 import com.moxie.client.model.MxParam;
+import com.shinelw.library.ColorArcProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,9 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
     AuthView av_taobao;
     @BindView(R.id.av_credit)
     AuthView av_credit;
+
+    @BindView(R.id.bar1)
+    ColorArcProgressBar bar1;
 
     @BindView(R.id.tv_limit_money)
     TextView tv_limit_money;
@@ -106,6 +110,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
 
         authPresenter.requestPersonValue(getToken());
 
+        bar1.setCurrentValues(5);
 
     }
 

@@ -16,10 +16,14 @@ import com.app.qunadai.content.adapter.v5.ProductAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.ProductsFilterContract;
 import com.app.qunadai.content.presenter.v5.ProductsFilterPresenter;
+import com.app.qunadai.third.eventbus.EventOffline;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +47,7 @@ public class FilterProductsFragment extends BaseFragment implements ProductsFilt
     ProductAdapter adapter;
     LinearLayoutManager linearLayoutManager;
 
-    List<Product> list;
+    public List<Product> list;
     int lastVisibleItem;
 
 
@@ -114,9 +118,19 @@ public class FilterProductsFragment extends BaseFragment implements ProductsFilt
             }
 
         });
-        productsFilterPresenter.getProducts(type, 0, PAGE_SIZE);
+
+        if(NetworkUtil.checkNetwork(getActivity())){
+            productsFilterPresenter.getProducts(type, page, PAGE_SIZE);
+        }else{
+            EventBus.getDefault().post(new EventOffline("filterPro"));
+        }
 
 
+    }
+
+    public void refresh(){
+        page = 0;
+        productsFilterPresenter.getProducts(type, page, PAGE_SIZE);
     }
 
     @Override

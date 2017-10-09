@@ -23,6 +23,7 @@ import com.app.qunadai.content.presenter.v5.Sign2Presenter;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -176,6 +177,10 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
                 EventBus.getDefault().post(new EventTurn(0, "sign"));
                 break;
             case R.id.tv_send_code:
+                if (!NetworkUtil.checkNetwork(getActivity())) {
+                    return;
+                }
+
                 if (smsType.equalsIgnoreCase("reg")) {
                     sign2Presenter.sendRegSms(PrefUtil.getString(getActivity(), PrefKey.TEMP_PHONE, ""));
                 } else if (smsType.equalsIgnoreCase("login")) {
@@ -187,6 +192,10 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
                 break;
             case R.id.tv_submit:
+                if (!NetworkUtil.checkNetwork(getActivity())) {
+                    return;
+                }
+
                 if (!CommUtil.shaEncrypt(CommUtil.getText(et_code)).equalsIgnoreCase(shaCode)) {
                     ToastUtil.showToast(getActivity(), "验证码错误");
                     return;
@@ -289,9 +298,11 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
         @Override
         public void onTick(long millisUntilFinished) {
+            //防止8999，7998类似毫秒值
+            int time = (int) (Math.round((double) millisUntilFinished / 1000) - 1);
             // 计时过程显示
             if (tv_code_time != null) {
-                tv_code_time.setText(millisUntilFinished / 1000 + "s");
+                tv_code_time.setText(time + "s");
             }
         }
 

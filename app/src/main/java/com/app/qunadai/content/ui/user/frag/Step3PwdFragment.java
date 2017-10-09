@@ -24,6 +24,7 @@ import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
@@ -148,6 +149,10 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
                 EventBus.getDefault().post(new EventTurn(1, "sign"));
                 break;
             case R.id.tv_submit:
+                if (!NetworkUtil.checkNetwork(getActivity())) {
+                    return;
+                }
+
                 int len = CommUtil.getText(et_pwd).length();
                 if (len > 16 || len < 6) {
                     ToastUtil.showToast(getActivity(), "密码长度不合适");

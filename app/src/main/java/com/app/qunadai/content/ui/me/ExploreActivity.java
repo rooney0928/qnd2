@@ -14,7 +14,9 @@ import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.adapter.v5.ExploreAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.v5.ExploreContract;
+import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.presenter.v5.ExplorePresenter;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
             @Override
             public void onClick(View v) {
                 //调用删除记录接口
+
                 showClearDialog();
             }
         });
@@ -62,7 +65,9 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
 
 //                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
 //                startActivity(intent);
-                explorePresenter.clearExplore(getToken());
+                if (NetworkUtil.checkNetwork(ExploreActivity.this)) {
+                    explorePresenter.clearExplore(getToken());
+                }
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -98,14 +103,31 @@ public class ExploreActivity extends BaseActivity implements ExploreContract.Vie
         rv_list.setLayoutManager(linearLayoutManager);
 
 
-        explorePresenter.getExplore(getToken());
         swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                explorePresenter.getExplore(getToken());
+                requestExplore();
 
             }
         });
+        requestExplore();
+
+
+        setOnReLinkListener(new OnReLinkListener() {
+            @Override
+            public void doNewRequest() {
+                explorePresenter.getExplore(getToken());
+            }
+        });
+    }
+
+    public void requestExplore() {
+        if (NetworkUtil.checkNetwork(ExploreActivity.this)) {
+            explorePresenter.getExplore(getToken());
+        } else {
+            setViewOffline();
+        }
+
     }
 
     @Override

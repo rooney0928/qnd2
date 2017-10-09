@@ -21,6 +21,7 @@ import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.adapter.v5.ProCommentAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.v5.Product5DetailContract;
+import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.presenter.v5.Product5DetailPresenter;
 import com.app.qunadai.content.ui.home.AddCommentActivity;
 import com.app.qunadai.http.RxHttp;
@@ -133,8 +134,13 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                page = 0;
-                product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
+                if (NetworkUtil.checkNetwork(Product5DetailActivity.this)) {
+                    page = 0;
+                    product5DetailPresenter.getProduct5Detail(pid, getToken());
+                    product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
+                } else {
+                    setViewOffline();
+                }
             }
         });
         adapter.setLoadMoreListener(new ProCommentAdapter.OnLoadMoreListener() {
@@ -170,10 +176,22 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
         });
 */
-        product5DetailPresenter.getProduct5Detail(pid, getToken());
-        product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
 
+        if (NetworkUtil.checkNetwork(this)) {
+            product5DetailPresenter.getProduct5Detail(pid, getToken());
+            product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
+        } else {
+            setViewOffline();
+        }
 
+        setOnReLinkListener(new OnReLinkListener() {
+            @Override
+            public void doNewRequest() {
+                page = 0;
+                product5DetailPresenter.getProduct5Detail(pid, getToken());
+                product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
+            }
+        });
     }
 
     @Override

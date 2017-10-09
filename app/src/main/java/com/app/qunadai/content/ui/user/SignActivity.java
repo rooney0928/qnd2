@@ -173,4 +173,10 @@ public class SignActivity extends BaseActivity {
         fragment.onBackPressed();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slice_no, R.anim.slice_out_bottom);
+
+    }
 }

@@ -19,6 +19,7 @@ import com.app.qunadai.content.adapter.CreditCardAdapter;
 import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.CreditCardContract;
+import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.presenter.CreditCardPresenter;
 import com.app.qunadai.content.ui.product.BrowserActivity;
 import com.app.qunadai.http.RxHttp;
@@ -111,6 +112,14 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
                 startActivity(intentLocation);
             }
         });
+
+        setOnReLinkListener(new OnReLinkListener() {
+            @Override
+            public void doNewRequest() {
+
+            }
+        });
+
     }
 
 
@@ -250,7 +259,6 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
         if (NetworkUtil.checkNetwork(this)) {
             creditCardPresenter.getStrategy(0, 500);
         }
-
     }
 
     @Override

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:id="@+id/ll_root"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_title"></include>
 
@@ -24,11 +26,23 @@
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"></FrameLayout>
         <!--中间布局-->
-        <FrameLayout
-            android:id="@+id/fl_center_base"
+        <com.kennyc.view.MultiStateView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/multiStateView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/fl_bottom_base"></FrameLayout>
+            android:layout_above="@id/fl_bottom_base"
+            app:msv_errorView="@layout/error_view"
+            app:msv_viewState="content">
+
+            <FrameLayout
+                android:id="@+id/fl_center_base"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></FrameLayout>
+
+        </com.kennyc.view.MultiStateView>
+
     </RelativeLayout>
 
 
