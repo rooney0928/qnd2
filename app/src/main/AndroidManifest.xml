@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.app.qunadai">
+    package="com.app.qunadai">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
 
     <application
@@ -34,125 +34,104 @@
             android:name=".content.ui.user.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <!--user-->
         <activity
             android:name=".content.ui.user.LoginActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.user.RegisterActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.user.ForgetPwdActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <!--home-->
         <activity
             android:name=".content.ui.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.home.ProductsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.home.RecommendActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.product.ProductDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.product.H5WebActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.product.BrowserActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden">
-        </activity>
+            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
         <activity
             android:name=".content.ui.home.CreditCardActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.home.LocationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.home.FindCityActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan"/>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <!--bbs-->
         <activity
             android:name=".content.ui.bbs.HelpActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.bbs.AnswerActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.bbs.PostActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.bbs.PostMyActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.bbs.PostDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.bbs.ReplyActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.bbs.TalentActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.bbs.AlbumActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!--me-->
         <activity
             android:name=".content.ui.me.PersonInfoActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.me.BankCardActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.me.AccountActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.me.NicknameActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.me.SettingActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.me.AboutActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".content.ui.me.MyLoanActivity"></activity>
 
         <!--v5-->
@@ -164,6 +143,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.product.Product5DetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.home.AddCommentActivity"
@@ -174,22 +154,24 @@
         <activity
             android:name=".content.ui.me.AuthActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".content.ui.product.RepliesActivity"
+            android:screenOrientation="portrait"></activity>
+
 
         <activity
             android:name="com.yanzhenjie.album.AlbumActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|stateHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
 
         <!--moxie-->
-        <activity android:name=".third.moxie.WebViewActivity">
-        </activity>
-        <activity android:name="com.moxie.client.MainActivity">
-        </activity>
+        <activity android:name=".third.moxie.WebViewActivity"></activity>
+        <activity android:name="com.moxie.client.MainActivity"></activity>
 
 
         <provider
@@ -199,7 +181,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <!--监听网络状态
@@ -215,31 +197,30 @@
             android:name="com.talkingdata.sdk.TDAntiCheatingService"
             android:process="com.talkingdata.sdk.TDAntiCheatingService">  <!--用户质量评估Service可以配置在主进程或者单独进程-->
             <intent-filter>
-                <action android:name="com.talkingdata.sdk.TDAntiCheatingService"/>
+                <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="TD_APP_ID"
-            android:value="6139BCBE350B4F508F2AD0413014B8BC"/>
+            android:value="6139BCBE350B4F508F2AD0413014B8BC" />
         <meta-data
             android:name="TD_CHANNEL_ID"
-            android:value="${UMENG_CHANNEL_VALUE}"/>
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="56aecffe67e58e68ac00017b"/>
+            android:value="56aecffe67e58e68ac00017b" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}"/>
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <!-- 设置key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="35e368d61fc39a1ef550393edaac351b"/>
+            android:value="35e368d61fc39a1ef550393edaac351b" />
         <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService">
-        </service>
+        <service android:name="com.amap.api.location.APSService"></service>
 
     </application>
 

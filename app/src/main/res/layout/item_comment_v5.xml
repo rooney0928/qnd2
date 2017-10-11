@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_comment_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_nav_bg">
+    android:background="@drawable/ripple_nav_bg"
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:orientation="vertical">
         <!--头像，名字，星星-->
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,14 +26,15 @@
                     android:id="@+id/iv_comment_avatar"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@mipmap/ic_launcher"
+                    android:transitionName="share_comment_avatar" />
 
                 <TextView
                     android:id="@+id/tv_comment_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="Lushana"/>
+                    android:text="Lushana" />
 
 
             </LinearLayout>
@@ -42,7 +44,8 @@
                 android:layout_width="90dp"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/ic_star1"/>
+                android:src="@mipmap/ic_star1"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <!--评论框-->
@@ -54,8 +57,8 @@
             android:layout_marginRight="42dp"
             android:background="@drawable/shape_comment"
             android:padding="12dp"
-            android:text="不，到钱手续简单复杂，到钱块"
-            android:textColor="@color/v5_explore_gray"/>
+            android:textColor="@color/v5_gray_dark"
+            tools:text="新浪有借不借，手续简单，出钱快也简单" />
 
         <TextView
             android:id="@+id/tv_comment_time"
@@ -65,7 +68,72 @@
             android:layout_marginTop="6dp"
             android:text="2017.8.26  14:49:59"
             android:textColor="@color/text_grey"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
+        <LinearLayout
+            android:id="@+id/ll_last_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_last_nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="136****6263:"
+                    android:textColor="@color/black5"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_last_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="提交申请后多长时间能放款?需要提交哪些材料才鞥替吉奥"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_last_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="2017.8.26  14:49:59"
+                        android:textColor="@color/text_grey"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_comment_reply_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:paddingRight="12dp"
+                android:text="共10条回复>"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="回复"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
 </RelativeLayout>

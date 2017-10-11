@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_detail_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg">
@@ -12,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bt_submit">
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -295,11 +294,9 @@
                             android:layout_centerVertical="true"
                             android:src="@mipmap/ic5_comments" />
                     </RelativeLayout>
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_comment"
                             android:layout_width="match_parent"
@@ -319,7 +316,7 @@
 
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
@@ -333,9 +330,4 @@
         android:text="立即申请"
         android:textColor="@color/white"
         android:textSize="14dp" />
-
-    <include
-        android:id="@+id/view_input"
-        layout="@layout/input_layout"
-        android:visibility="gone" />
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -13,11 +13,12 @@
         android:src="@mipmap/update_bg" />
 
     <TextView
+        android:id="@+id/tv_update_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
-        android:text="1.feafewfew\n2.43r43t34t34"
+        android:text=""
         android:textColor="@color/black5" />
 
     <View

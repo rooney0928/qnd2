@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="@color/v5_explore_gray"
+                        android:textColor="@color/v5_gray_dark"
                         android:textSize="16dp"
                         tools:text="【网红店与黄牛的爱恨纠葛】鲍师傅聘请了不同团队的充场人员假排队至少一个月。有“牛头”一天甚至为鲍师傅提供了200人次。“牛头”们“爆料”：“喜茶的投资很大，第一天一共聘请了300多个人假排队”。“假排队的人员构成很有讲究，有学生、有青年、有白领、有中年人，让人无法看破。”“喜茶做了七天就效果达到了”。
 

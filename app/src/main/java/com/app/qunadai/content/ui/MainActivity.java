@@ -2,6 +2,7 @@ package com.app.qunadai.content.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -119,6 +120,7 @@ public class MainActivity extends BaseActivity {
 
 
     AlertDialog dialog;
+    AlertDialog updateDialog;
 
     /*
      * 检测有否升级
@@ -129,7 +131,6 @@ public class MainActivity extends BaseActivity {
             public void onNoUpdateAvailable() {
 //                loginDelay();
 //                update5();
-
             }
 
             @Override
@@ -168,6 +169,9 @@ public class MainActivity extends BaseActivity {
                 final ImageView iv_update_title = (ImageView) view.findViewById(R.id.iv_update_title);
                 TextView tv_update_cancel = (TextView) view.findViewById(R.id.tv_update_cancel);
                 TextView tv_update_submit = (TextView) view.findViewById(R.id.tv_update_submit);
+                TextView tv_update_desc = (TextView) view.findViewById(R.id.tv_update_desc);
+                tv_update_desc.setText(appBean.getReleaseNote());
+
                 tv_update_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -190,39 +194,19 @@ public class MainActivity extends BaseActivity {
                 updateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-//                checkNeedUpdate(appBean.getVersionName());
+                        checkNeedUpdate(appBean.getVersionName());
                     }
                 });
 
-                ViewTreeObserver viewTreeObserver = iv_update_title.getViewTreeObserver();
-                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        iv_update_title.getViewTreeObserver()
-                                .removeOnGlobalLayoutListener(this);
-                        Window dialogWindow = updateDialog.getWindow();
-                        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-                        p.width = iv_update_title.getWidth(); // 宽度
-                        LogU.t("width---" + p.width);
-                        dialogWindow.setAttributes(p);
-                    }
-                });
+                Window dialogWindow = updateDialog.getWindow();
+                Point point = CommUtil.getSize(MainActivity.this);
+                WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+//                p.height = (int) (point.y * 0.8); // 高度设置为屏幕的0.6，根据实际情况调整
+                p.width = (int) (point.x * 0.7); // 宽度设置为屏幕的0.65，根据实际情况调整
+                dialogWindow.setAttributes(p);
             }
 
         });
-    }
-
-    AlertDialog updateDialog;
-
-
-    public void update5() {
-//        UpdateDialog updateDialog = new UpdateDialog();
-//        updateDialog.show(getSupportFragmentManager(), "updateDialog");
-
-
-//        dialogWindow.setAttributes(p);
-
-
     }
 
 

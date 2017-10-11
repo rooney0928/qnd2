@@ -193,6 +193,5 @@ public class FilterProductsFragment extends BaseFragment implements ProductsFilt
     @Override
     public void getProductsFail(String error) {
         ToastUtil.showToast(getActivity(), error);
-
     }
 }

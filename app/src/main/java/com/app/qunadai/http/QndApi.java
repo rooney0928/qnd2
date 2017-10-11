@@ -39,6 +39,7 @@ import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
 import com.app.qunadai.bean.v5.ProductsFilter;
+import com.app.qunadai.bean.v5.Replies;
 import com.app.qunadai.bean.v5.SmsBean;
 
 import okhttp3.RequestBody;
@@ -243,6 +244,11 @@ public interface QndApi {
     Observable<BaseBean<AddComment>> addComment(@Path("productId") String productId,
                                                 @Query("access_token") String access_token,
                                                 @Body RequestBody body);
+
+    @GET("loan/products/comments/{cid}/replies")
+    Observable<BaseBean<Replies>> getRepliesByComment(@Path("cid") String cid,
+                                                      @Query("page") int page,
+                                                      @Query("size") int size);
 
     //credit card
 

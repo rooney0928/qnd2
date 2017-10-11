@@ -1,14 +1,21 @@
 package com.app.qunadai.content.ui.product;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.icu.math.BigDecimal;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
@@ -28,6 +35,7 @@ import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventAddComment;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
@@ -41,6 +49,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -51,7 +61,7 @@ import rx.functions.Action1;
  * Created by wayne on 2017/9/14.
  */
 
-public class Product5DetailActivity extends BaseActivity implements Product5DetailContract.View {
+public class Product5DetailActivity extends BaseActivity implements Product5DetailContract.View, View.OnLayoutChangeListener {
 
     private Product5DetailPresenter product5DetailPresenter;
     @BindView(R.id.swipe_layout)
@@ -85,6 +95,14 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
     @BindView(R.id.bt_submit)
     Button bt_submit;
+    @BindView(R.id.view_input)
+    View view_input;
+    @BindView(R.id.rl_detail_layout)
+    RelativeLayout rl_detail_layout;
+    @BindView(R.id.et_reply_content)
+    EditText et_reply_content;
+    @BindView(R.id.ll_input_layout)
+    LinearLayout ll_input_layout;
 
     private ProCommentAdapter adapter;
     LinearLayoutManager linearLayoutManager;
@@ -96,6 +114,14 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
     List<ProComment> list;
     String pid;
+
+
+    //屏幕高度
+    private int screenHeight = 0;
+    //软件盘弹起后所占高度阀值
+    private int keyHeight = 0;
+
+//    InputMethodManager inputMethodManager;
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -117,6 +143,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     protected void initView() {
         EventBus.getDefault().register(this);
         product5DetailPresenter = new Product5DetailPresenter(this);
+//        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         adapter = new ProCommentAdapter(this);
         pid = getIntent().getStringExtra("pid");
@@ -142,7 +169,9 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                     setViewOffline();
                 }
             }
+
         });
+
         adapter.setLoadMoreListener(new ProCommentAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -150,7 +179,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                 product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
             }
         });
-        /*
+
         rv_comment.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -175,8 +204,57 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
             }
 
         });
-*/
 
+
+        //获取屏幕高度
+        screenHeight = CommUtil.getSize(this).y;
+        //阀值设置为屏幕高度的1/3
+        keyHeight = screenHeight/3;
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //添加layout大小发生改变监听器
+        rl_detail_layout.addOnLayoutChangeListener(this);
+    }
+
+
+
+    public void openKeyboard() {
+        getWindow().getDecorView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    et_reply_content.requestFocus();
+                    imm.showSoftInput(et_reply_content, 0);
+                }
+            }
+        }, 100);
+    }
+
+    @Override
+    public void initViewData() {
+        bt_submit.setOnClickListener(this);
+        iv_detail_add.setOnClickListener(this);
+//        controlKeyboardLayout(rl_detail_layout, ll_input_layout);
+
+        adapter.setOnClickReplyListener(new ProCommentAdapter.OnClickReplyListener() {
+            @Override
+            public void replyComment(int position) {
+                view_input.setVisibility(View.VISIBLE);
+                bt_submit.setVisibility(View.GONE);
+
+                et_reply_content.setHint("回复 " + position);
+                et_reply_content.setFocusable(true);
+//                inputMethodManager.showSoftInput(et_reply_content,InputMethodManager.SHOW_FORCED);
+                openKeyboard();
+            }
+        });
         if (NetworkUtil.checkNetwork(this)) {
             product5DetailPresenter.getProduct5Detail(pid, getToken());
             product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
@@ -192,12 +270,78 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                 product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
             }
         });
+
+
+        rl_detail_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                rl_detail_layout.getWindowVisibleDisplayFrame(rect);
+                int rootInvisibleHeight = rl_detail_layout.getRootView().getHeight() - rect.bottom;
+//                Log.d(TAG, "lin.getRootView().getHeight()=" + lin.getRootView().getHeight() + ",rect.bottom=" + rect.bottom + ",rootInvisibleHeight=" + rootInvisibleHeight);
+                if (rootInvisibleHeight <= 100) {
+                    //软键盘隐藏啦
+//                    txt.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            txt.setVisibility(View.VISIBLE);
+//                        }
+//                    },100);
+                    LogU.t("hide");
+                    bt_submit.setVisibility(View.VISIBLE);
+                    view_input.setVisibility(View.GONE);
+                } else {
+                    ////软键盘弹出啦
+//                    txt.setVisibility(View.GONE);
+                    LogU.t("show");
+                    bt_submit.setVisibility(View.GONE);
+                    view_input.setVisibility(View.VISIBLE);
+                }
+
+
+
+            }
+        });
     }
 
-    @Override
-    public void initViewData() {
-        bt_submit.setOnClickListener(this);
-        iv_detail_add.setOnClickListener(this);
+
+    /**
+     * 解决在页面底部置输入框，输入法弹出遮挡部分输入框的问题
+     *
+     * @param root       页面根元素
+     * @param editLayout 被软键盘遮挡的输入框
+     */
+    public static void controlKeyboardLayout(final View root,
+                                             final View editLayout) {
+        // TODO Auto-generated method stub
+        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @Override
+            public void onGlobalLayout() {
+                // TODO Auto-generated method stub
+                Rect rect = new Rect();
+                //获取root在窗体的可视区域
+                root.getWindowVisibleDisplayFrame(rect);
+                //获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+                int rootInVisibleHeigh = root.getRootView().getHeight() - rect.bottom;
+                //若不可视区域高度大于100，则键盘显示
+                if (rootInVisibleHeigh > 100) {
+//                    Log.v("hjb", "不可视区域高度大于100，则键盘显示");
+                    int[] location = new int[2];
+                    //获取editLayout在窗体的坐标
+                    editLayout.getLocationInWindow(location);
+                    //计算root滚动高度，使editLayout在可见区域
+                    int srollHeight = (location[1] + editLayout.getHeight()) - rect.bottom;
+                    root.scrollTo(0, srollHeight);
+                } else {
+                    //键盘隐藏
+//                    Log.v("hjb", "不可视区域高度小于100，则键盘隐藏");
+                    root.scrollTo(0, 0);
+                }
+
+
+            }
+        });
     }
 
     @Override
@@ -255,9 +399,11 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     @Override
     public void requestEnd() {
         hideLoading();
+
         if (swipe_layout != null && swipe_layout.isRefreshing()) {
             swipe_layout.setRefreshing(false);
         }
+
     }
 
     Product p;
@@ -406,5 +552,22 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         super.onDestroy();
         EventBus.getDefault().unregister(this);
 
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right,
+                               int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
+        if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > keyHeight)){
+
+//            Toast.makeText(MainActivity.this, "监听到软键盘弹起...", Toast.LENGTH_SHORT).show();
+            LogU.t("监听到软键盘弹起");
+
+        }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > keyHeight)){
+
+//            Toast.makeText(MainActivity.this, "监听到软件盘关闭...", Toast.LENGTH_SHORT).show();
+            LogU.t("监听到软键盘关闭");
+
+        }
     }
 }

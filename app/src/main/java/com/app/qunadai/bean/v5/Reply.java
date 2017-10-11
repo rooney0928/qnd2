@@ -3,36 +3,34 @@ package com.app.qunadai.bean.v5;
 import java.io.Serializable;
 
 /**
- * Created by wayne on 2017/9/14.
+ * Created by wayne on 2017/10/10.
  */
 
-public class ProComment implements Serializable {
-
+public class Reply implements Serializable{
 
     /**
-     * id : 055cde1a-5e7e-4702-b331-bcdc05d82f53
+     * id : 5e3be48f-a4f5-11e7-a4a7-00163e1a1ccc
      * createdTime : 1505789101000
      * updatedTime : 1505789101000
      * productId : 3d77f0bc-5c91-43ae-b337-323a319f30dd
-     * userId : cb6b6eaf-d023-4c32-8261-d9ace9ab433d
+     * commentId : 055cde1a-5e7e-4702-b331-bcdc05d82f53
+     * userId : ae6b0df0-1db0-49f9-b1f9-d3af053f65f6
      * useravatar : 6e60a833-a287-43e2-a246-3c72f9d49a74
-     * usernick : 17301746631
-     * content : 讲真真的还不错呢
-     * latestReply : {"id":"5e3be48f-a4f5-11e7-a4a7-00163e1a1ccc","createdTime":1505789101000,"updatedTime":1505789101000,"productId":"3d77f0bc-5c91-43ae-b337-323a319f30dd","commentId":"055cde1a-5e7e-4702-b331-bcdc05d82f53","userId":"ae6b0df0-1db0-49f9-b1f9-d3af053f65f6","useravatar":"6e60a833-a287-43e2-a246-3c72f9d49a74","usernick":"汝等小儿，可敢杀我","content":"哈哈一级回复","replyNumber":0}
-     * replyNumber : 6
+     * usernick : 汝等小儿，可敢杀我
+     * content : 哈哈一级回复
+     * replyNumber : 0
      */
 
     private String id;
     private long createdTime;
     private long updatedTime;
     private String productId;
+    private String commentId;
     private String userId;
     private String useravatar;
     private String usernick;
     private String content;
-    private Reply latestReply;
     private int replyNumber;
-
 
     public String getId() {
         return id;
@@ -64,6 +62,14 @@ public class ProComment implements Serializable {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
     }
 
     public String getUserId() {
@@ -98,31 +104,11 @@ public class ProComment implements Serializable {
         this.content = content;
     }
 
-    public Reply getLatestReply() {
-        return latestReply;
-    }
-
-    public void setLatestReply(Reply latestReply) {
-        this.latestReply = latestReply;
-    }
-
     public int getReplyNumber() {
         return replyNumber;
     }
 
     public void setReplyNumber(int replyNumber) {
         this.replyNumber = replyNumber;
-    }
-
-    @Override
-    public Object clone() {
-        ProComment comment = null;
-        try {
-
-            comment = (ProComment) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return comment;
     }
 }

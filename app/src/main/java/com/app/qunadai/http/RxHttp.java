@@ -42,6 +42,7 @@ import com.app.qunadai.bean.v5.Product;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
 import com.app.qunadai.bean.v5.ProductsFilter;
+import com.app.qunadai.bean.v5.Replies;
 import com.app.qunadai.bean.v5.SmsBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -65,7 +66,7 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-//                    public static final String ROOT = "https://mapi.qunadai.com/";
+    //                    public static final String ROOT = "https://mapi.qunadai.com/";
     public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
 //    public static final String ROOT = "http://192.168.7.165:8080/";
@@ -232,6 +233,11 @@ public class RxHttp {
     //5.0版本产品添加评论
     public static Observable<BaseBean<AddComment>> addComment(String pid, String token, RequestBody body) {
         return qndApi.addComment(pid, token, body);
+    }
+
+    //5.0版本产品查询评论下的二级回复
+    public static Observable<BaseBean<Replies>> getRepliesByComment(String cid, int page, int size) {
+        return qndApi.getRepliesByComment(cid, page, size);
     }
 
     //首页banner

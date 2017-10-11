@@ -190,9 +190,9 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
         LogU.t("token:"+getToken());
 
-
+/**
         int statusBarHeight1 = -1;
-//获取status_bar_height资源的ID
+        //获取status_bar_height资源的ID
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             //根据资源ID获取响应的尺寸值
@@ -201,7 +201,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             lp.setMargins(0, statusBarHeight1, 0, 0);
             banner.setLayoutParams(lp);
         }
-
+*/
 
 
     }
