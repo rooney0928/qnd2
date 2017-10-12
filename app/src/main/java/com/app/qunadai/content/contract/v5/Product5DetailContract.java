@@ -1,6 +1,7 @@
 package com.app.qunadai.content.contract.v5;
 
 import com.app.qunadai.bean.base.BaseBean;
+import com.app.qunadai.bean.v5.NewReply;
 import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.ProductsFilter;
@@ -19,19 +20,22 @@ public interface Product5DetailContract {
         void getProduct5Comments(BaseBean<ProComments> bean);
         void getProduct5CommentsMore(BaseBean<ProComments> bean);
         void getProduct5CommentsFail(String error);
+
+        void sendNewReply(BaseBean<NewReply> bean);
+        void sendNewReplyFail(String error);
     }
 
     interface Presenter extends BasePresenter {
         void getProduct5Detail(String pid,String token);
         void getProduct5Comments(String pid,int page,int size);
         void applyOrder(String token,String productId);
-
+        void sendNewReply(String token,String cid,String content);
     }
 
     interface Model extends BaseModel {
         void getProduct5Detail(String pid,String token);
         void getProduct5Comments(String pid,int page,int size);
         void applyOrder(String token,String productId);
-
+        void sendNewReply(String token,String cid,String content);
     }
 }

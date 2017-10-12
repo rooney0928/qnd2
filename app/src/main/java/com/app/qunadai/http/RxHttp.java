@@ -37,6 +37,7 @@ import com.app.qunadai.bean.v5.AddComment;
 import com.app.qunadai.bean.v5.ExploreBean;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
+import com.app.qunadai.bean.v5.NewReply;
 import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product;
 import com.app.qunadai.bean.v5.Product5DetailBean;
@@ -238,6 +239,11 @@ public class RxHttp {
     //5.0版本产品查询评论下的二级回复
     public static Observable<BaseBean<Replies>> getRepliesByComment(String cid, int page, int size) {
         return qndApi.getRepliesByComment(cid, page, size);
+    }
+
+    //5.0版本产品二级回复
+    public static Observable<BaseBean<NewReply>> sendNewReply(String cid, String token, RequestBody body) {
+        return qndApi.sendNewReply(cid, token, body);
     }
 
     //首页banner

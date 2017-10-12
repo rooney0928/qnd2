@@ -35,6 +35,7 @@ import com.app.qunadai.bean.v5.AddComment;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.ExploreBean;
 import com.app.qunadai.bean.v5.IsExist;
+import com.app.qunadai.bean.v5.NewReply;
 import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
@@ -249,6 +250,10 @@ public interface QndApi {
     Observable<BaseBean<Replies>> getRepliesByComment(@Path("cid") String cid,
                                                       @Query("page") int page,
                                                       @Query("size") int size);
+
+    @POST("loan/products/comments/{id}")
+    Observable<BaseBean<NewReply>> sendNewReply(@Path("id") String cid, @Query("access_token") String access_token, @Body RequestBody body);
+
 
     //credit card
 

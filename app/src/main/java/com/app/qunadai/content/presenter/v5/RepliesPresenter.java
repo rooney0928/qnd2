@@ -1,6 +1,7 @@
 package com.app.qunadai.content.presenter.v5;
 
 import com.app.qunadai.bean.base.BaseBean;
+import com.app.qunadai.bean.v5.NewReply;
 import com.app.qunadai.bean.v5.Replies;
 import com.app.qunadai.content.contract.v5.RepliesContract;
 import com.app.qunadai.content.model.v5.RepliesModelImpl;
@@ -32,6 +33,16 @@ public class RepliesPresenter implements RepliesContract.Presenter {
             }
 
             @Override
+            public void sendNewReply(BaseBean<NewReply> bean) {
+                view.sendNewReply(bean);
+            }
+
+            @Override
+            public void sendNewReplyFail(String error) {
+                view.sendNewReplyFail(error);
+            }
+
+            @Override
             public void requestStart() {
                 view.requestStart();
             }
@@ -51,5 +62,10 @@ public class RepliesPresenter implements RepliesContract.Presenter {
     @Override
     public void getReplies(String cid, int page, int size) {
         model.getReplies(cid, page, size);
+    }
+
+    @Override
+    public void sendNewReply(String token, String cid, String content) {
+        model.sendNewReply(token,cid,content);
     }
 }

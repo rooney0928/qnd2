@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.base.BaseBean;
+import com.app.qunadai.bean.v5.NewReply;
 import com.app.qunadai.bean.v5.ProComment;
 import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product;
@@ -28,11 +29,13 @@ import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.adapter.v5.ProCommentAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.v5.Product5DetailContract;
+import com.app.qunadai.content.inter.OnKeyBoardChangeListener;
 import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.presenter.v5.Product5DetailPresenter;
 import com.app.qunadai.content.ui.home.AddCommentActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventAddComment;
+import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
@@ -61,7 +64,7 @@ import rx.functions.Action1;
  * Created by wayne on 2017/9/14.
  */
 
-public class Product5DetailActivity extends BaseActivity implements Product5DetailContract.View, View.OnLayoutChangeListener {
+public class Product5DetailActivity extends BaseActivity implements Product5DetailContract.View {
 
     private Product5DetailPresenter product5DetailPresenter;
     @BindView(R.id.swipe_layout)
@@ -103,6 +106,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     EditText et_reply_content;
     @BindView(R.id.ll_input_layout)
     LinearLayout ll_input_layout;
+    @BindView(R.id.iv_reply_send)
+    ImageView iv_reply_send;
 
     private ProCommentAdapter adapter;
     LinearLayoutManager linearLayoutManager;
@@ -114,6 +119,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
     List<ProComment> list;
     String pid;
+    //当前评论id
+    String cid;
 
 
     //屏幕高度
@@ -161,6 +168,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
+
                 if (NetworkUtil.checkNetwork(Product5DetailActivity.this)) {
                     page = 0;
                     product5DetailPresenter.getProduct5Detail(pid, getToken());
@@ -209,50 +218,58 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         //获取屏幕高度
         screenHeight = CommUtil.getSize(this).y;
         //阀值设置为屏幕高度的1/3
-        keyHeight = screenHeight/3;
+        keyHeight = screenHeight / 3;
 
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //添加layout大小发生改变监听器
-        rl_detail_layout.addOnLayoutChangeListener(this);
-    }
-
-
-
-    public void openKeyboard() {
-        getWindow().getDecorView().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    et_reply_content.requestFocus();
-                    imm.showSoftInput(et_reply_content, 0);
-                }
-            }
-        }, 100);
-    }
 
     @Override
     public void initViewData() {
         bt_submit.setOnClickListener(this);
         iv_detail_add.setOnClickListener(this);
-//        controlKeyboardLayout(rl_detail_layout, ll_input_layout);
+        iv_reply_send.setOnClickListener(this);
+
+        controlKeyboardLayout(rl_detail_layout, ll_input_layout, new OnKeyBoardChangeListener() {
+            @Override
+            public void keyBoardChange(boolean isShow) {
+                if (isShow) {
+                    bt_submit.setVisibility(View.GONE);
+                    view_input.setVisibility(View.VISIBLE);
+                } else {
+                    bt_submit.setVisibility(View.VISIBLE);
+                    view_input.setVisibility(View.GONE);
+                }
+            }
+        });
 
         adapter.setOnClickReplyListener(new ProCommentAdapter.OnClickReplyListener() {
             @Override
             public void replyComment(int position) {
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
+
+
                 view_input.setVisibility(View.VISIBLE);
                 bt_submit.setVisibility(View.GONE);
+                ProComment pc = list.get(position);
+                if (CheckUtil.isMobile(pc.getUsernick())) {
+                    StringBuilder sb = new StringBuilder(pc.getUsernick());
+                    String username = sb.replace(3, pc.getUsernick().length() - 4, "****").toString();
+//                    tv_comment_username.setText(username);
+                    et_reply_content.setHint("回复 " + username);
 
-                et_reply_content.setHint("回复 " + position);
+                } else {
+                    et_reply_content.setHint("回复 " + pc.getUsernick());
+                }
+                cid = pc.getId();
+
+                et_reply_content.setText("");
                 et_reply_content.setFocusable(true);
 //                inputMethodManager.showSoftInput(et_reply_content,InputMethodManager.SHOW_FORCED);
-                openKeyboard();
+                openKeyboard(et_reply_content);
             }
         });
         if (NetworkUtil.checkNetwork(this)) {
@@ -271,37 +288,39 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
             }
         });
 
-
-        rl_detail_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Rect rect = new Rect();
-                rl_detail_layout.getWindowVisibleDisplayFrame(rect);
-                int rootInvisibleHeight = rl_detail_layout.getRootView().getHeight() - rect.bottom;
+/**
+ rl_detail_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+@Override public void onGlobalLayout() {
+Rect rect = new Rect();
+rl_detail_layout.getWindowVisibleDisplayFrame(rect);
+int rootInvisibleHeight = rl_detail_layout.getRootView().getHeight() - rect.bottom;
 //                Log.d(TAG, "lin.getRootView().getHeight()=" + lin.getRootView().getHeight() + ",rect.bottom=" + rect.bottom + ",rootInvisibleHeight=" + rootInvisibleHeight);
-                if (rootInvisibleHeight <= 100) {
-                    //软键盘隐藏啦
+if (rootInvisibleHeight <= 100) {
+//软键盘隐藏啦
 //                    txt.postDelayed(new Runnable() {
 //                        @Override
 //                        public void run() {
 //                            txt.setVisibility(View.VISIBLE);
 //                        }
 //                    },100);
-                    LogU.t("hide");
-                    bt_submit.setVisibility(View.VISIBLE);
-                    view_input.setVisibility(View.GONE);
-                } else {
-                    ////软键盘弹出啦
+LogU.t("hide");
+bt_submit.setVisibility(View.VISIBLE);
+view_input.setVisibility(View.GONE);
+} else {
+////软键盘弹出啦
 //                    txt.setVisibility(View.GONE);
-                    LogU.t("show");
-                    bt_submit.setVisibility(View.GONE);
-                    view_input.setVisibility(View.VISIBLE);
-                }
+LogU.t("show");
+bt_submit.setVisibility(View.GONE);
+view_input.setVisibility(View.VISIBLE);
+}
 
 
 
-            }
-        });
+}
+
+
+});
+ */
     }
 
 
@@ -312,7 +331,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
      * @param editLayout 被软键盘遮挡的输入框
      */
     public static void controlKeyboardLayout(final View root,
-                                             final View editLayout) {
+                                             final View editLayout, final OnKeyBoardChangeListener onKeyBoardChangeListener) {
         // TODO Auto-generated method stub
         root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -332,11 +351,14 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                     editLayout.getLocationInWindow(location);
                     //计算root滚动高度，使editLayout在可见区域
                     int srollHeight = (location[1] + editLayout.getHeight()) - rect.bottom;
+                    onKeyBoardChangeListener.keyBoardChange(true);
                     root.scrollTo(0, srollHeight);
                 } else {
                     //键盘隐藏
 //                    Log.v("hjb", "不可视区域高度小于100，则键盘隐藏");
+                    onKeyBoardChangeListener.keyBoardChange(false);
                     root.scrollTo(0, 0);
+
                 }
 
 
@@ -344,11 +366,21 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         });
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_back://返回
                 this.finish();
+                break;
+            case R.id.iv_reply_send:
+                //发帖
+                if (CommUtil.getText(et_reply_content).length() < 6) {
+                    ToastUtil.showToast(this, "评论内容不能少于6个字符");
+                    return;
+                }
+
+                product5DetailPresenter.sendNewReply(cid, getToken(), CommUtil.getText(et_reply_content));
                 break;
             case R.id.iv_detail_add:
                 if (p != null) {
@@ -522,6 +554,20 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
     }
 
+    @Override
+    public void sendNewReply(BaseBean<NewReply> bean) {
+        ToastUtil.showToast(this,"恭喜您!回复成功!");
+        page = 0;
+        product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
+
+        hideKeyboard(et_reply_content);
+    }
+
+    @Override
+    public void sendNewReplyFail(String error) {
+        ToastUtil.showToast(this, error);
+    }
+
     public String getUnit(String unit) {
         if (unit.equalsIgnoreCase("SECONDS") || unit.equalsIgnoreCase("SECOND")) {
             return "秒";
@@ -554,20 +600,4 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
     }
 
-    @Override
-    public void onLayoutChange(View v, int left, int top, int right,
-                               int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
-        if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > keyHeight)){
-
-//            Toast.makeText(MainActivity.this, "监听到软键盘弹起...", Toast.LENGTH_SHORT).show();
-            LogU.t("监听到软键盘弹起");
-
-        }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > keyHeight)){
-
-//            Toast.makeText(MainActivity.this, "监听到软件盘关闭...", Toast.LENGTH_SHORT).show();
-            LogU.t("监听到软键盘关闭");
-
-        }
-    }
 }

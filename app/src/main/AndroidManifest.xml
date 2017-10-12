@@ -156,6 +156,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.product.RepliesActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"></activity>
 
 

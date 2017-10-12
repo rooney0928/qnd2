@@ -313,6 +313,19 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return super.onTouchEvent(event);
     }
 
+    public void openKeyboard(final View view) {
+        getWindow().getDecorView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    view.requestFocus();
+                    imm.showSoftInput(view, 0);
+                }
+            }
+        }, 100);
+    }
+
     /**
      * 点击其他地方隐藏键盘
      *
@@ -323,6 +336,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
                 manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
+        }
+    }
+
+    public void hideKeyboard(View view) {
+        if (manager != null) {
+            manager.hideSoftInputFromWindow(view.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 

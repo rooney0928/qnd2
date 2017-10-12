@@ -2,6 +2,7 @@ package com.app.qunadai.content.model.v5;
 
 import com.app.qunadai.bean.ApplyBean;
 import com.app.qunadai.bean.base.BaseBean;
+import com.app.qunadai.bean.v5.NewReply;
 import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.content.base.BaseReturnListener;
@@ -32,7 +33,7 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
         this.onReturnDataListener = onReturnDataListener;
     }
 
-    public interface OnReturnDataListener extends BaseReturnListener{
+    public interface OnReturnDataListener extends BaseReturnListener {
 
         void getProduct5Detail(BaseBean<Product5DetailBean> bean);
 
@@ -43,6 +44,10 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
         void getProduct5CommentsMore(BaseBean<ProComments> bean);
 
         void getProduct5CommentsFail(String error);
+
+        void sendNewReply(BaseBean<NewReply> bean);
+
+        void sendNewReplyFail(String error);
 
         void requestStart();
 
@@ -56,7 +61,7 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
 
     @Override
     public void getProduct5Detail(String pid, String token) {
-        Observable<BaseBean<Product5DetailBean>> request = RxHttp.getInstance().getProducts5Detail(pid,token);
+        Observable<BaseBean<Product5DetailBean>> request = RxHttp.getInstance().getProducts5Detail(pid, token);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<BaseBean<Product5DetailBean>>() {
@@ -152,6 +157,46 @@ public class Product5DetailModelImpl implements Product5DetailContract.Model {
 
                     @Override
                     protected void onOk(ApplyBean bean) {
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void sendNewReply(String cid, String token, String content) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("content", content);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), obj.toString());
+
+
+        Observable<BaseBean<NewReply>> request = RxHttp.getInstance().sendNewReply(cid, token, body);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<BaseBean<NewReply>>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.sendNewReplyFail(ex.getDisplayMessage());
+                    }
+
+                    @Override
+                    protected void onOk(BaseBean<NewReply> bean) {
+                        onReturnDataListener.sendNewReply(bean);
                     }
 
                     @Override

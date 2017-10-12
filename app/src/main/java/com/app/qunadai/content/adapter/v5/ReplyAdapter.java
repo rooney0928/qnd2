@@ -38,6 +38,12 @@ public class ReplyAdapter extends RecyclerView.Adapter {
 
     private List<Reply> list;
     private ProComment proComment;
+    private OnClickReplyListener onClickReplyListener;
+
+
+    public interface OnClickReplyListener {
+        void replyComment(int position);
+    }
 
     public ReplyAdapter(Context context) {
         this.context = context;
@@ -53,6 +59,9 @@ public class ReplyAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void setOnClickReplyListener(OnClickReplyListener onClickReplyListener) {
+        this.onClickReplyListener = onClickReplyListener;
+    }
 
     public enum ITEM_TYPE {
         ITEM_TYPE_TITLE,
@@ -135,6 +144,14 @@ public class ReplyAdapter extends RecyclerView.Adapter {
 
                 }
                 tv_title_time.setText(RelativeDateFormat.format(new Date(proComment.getCreatedTime())));
+                rl_reply_title.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onClickReplyListener != null) {
+                            onClickReplyListener.replyComment(getAdapterPosition());
+                        }
+                    }
+                });
             }
         }
     }
@@ -166,12 +183,12 @@ public class ReplyAdapter extends RecyclerView.Adapter {
             }
 
             List<Span> span = new ArrayList<>();
-            span.add(new Span.Builder(nickname+"：")
-                    .foregroundColor(ContextCompat.getColor(context,R.color.black5))
+            span.add(new Span.Builder(nickname + "：")
+                    .foregroundColor(ContextCompat.getColor(context, R.color.black5))
                     .build()
             );
             span.add(new Span.Builder(rp.getContent())
-                    .foregroundColor(ContextCompat.getColor(context,R.color.text_grey))
+                    .foregroundColor(ContextCompat.getColor(context, R.color.text_grey))
                     .build()
             );
 

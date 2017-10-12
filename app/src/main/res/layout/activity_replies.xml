@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_reply_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,5 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
+    <include
+        android:id="@+id/view_input"
+        layout="@layout/input_layout"
+        android:visibility="gone" />
 </RelativeLayout>
