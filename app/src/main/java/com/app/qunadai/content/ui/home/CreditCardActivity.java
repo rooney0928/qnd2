@@ -113,12 +113,6 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
             }
         });
 
-        setOnReLinkListener(new OnReLinkListener() {
-            @Override
-            public void doNewRequest() {
-
-            }
-        });
 
     }
 
@@ -258,7 +252,17 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
     public void initViewData() {
         if (NetworkUtil.checkNetwork(this)) {
             creditCardPresenter.getStrategy(0, 500);
+        }else {
+            setViewOffline();
         }
+        setOnReLinkListener(new OnReLinkListener() {
+            @Override
+            public void doNewRequest() {
+                creditCardPresenter.getStrategy(0, 500);
+
+            }
+        });
+
     }
 
     @Override

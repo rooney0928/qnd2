@@ -13,6 +13,7 @@ import com.app.qunadai.content.adapter.PostAdapter;
 import com.app.qunadai.content.adapter.decoration.SpaceItemDecoration;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.bbs.TalentContract;
+import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.presenter.bbs.TalentPresenter;
 import com.app.qunadai.third.eventbus.EventRefresh;
 import com.app.qunadai.utils.CommUtil;
@@ -121,6 +122,22 @@ public class TalentActivity extends BaseActivity implements TalentContract.View 
             page = 0;
             talentPresenter.getPostList(page, PAGE_SIZE);
         }
+
+
+        if (NetworkUtil.checkNetwork(this)) {
+            page = 0;
+            talentPresenter.getPostList(page, PAGE_SIZE);
+        } else {
+            setViewOffline();
+        }
+
+        setOnReLinkListener(new OnReLinkListener() {
+            @Override
+            public void doNewRequest() {
+                page = 0;
+                talentPresenter.getPostList(page, PAGE_SIZE);
+            }
+        });
     }
 
     @Override

@@ -110,7 +110,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
 
     @Override
     protected void initData() {
-        CommUtil.tcEvent(getActivity(), "worth_page", "身价着陆页");
         limitPresenter = new LimitPresenter(this);
 
         av_bankcard.setOnClickListener(this);

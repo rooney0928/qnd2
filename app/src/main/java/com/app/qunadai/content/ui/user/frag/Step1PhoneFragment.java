@@ -254,6 +254,7 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
     @Override
     public void loginDone(BaseBean<Token> token) {
+        CommUtil.tcEvent(getActivity(),"password login","完成密码登录");
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
         PrefUtil.putString(getActivity(), PrefKey.PHONE, CommUtil.getText(et_phone));
 
@@ -263,6 +264,8 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
     @Override
     public void loginFail(String error) {
+        CommUtil.tcEvent(getActivity(),"password login","完成密码登录");
+
         ToastUtil.showToast(getActivity(), error);
 
     }

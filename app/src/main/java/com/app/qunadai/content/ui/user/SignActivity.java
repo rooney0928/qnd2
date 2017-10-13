@@ -21,6 +21,7 @@ import com.app.qunadai.content.ui.user.frag.Step3PwdFragment;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 
 import org.greenrobot.eventbus.EventBus;
@@ -82,6 +83,7 @@ public class SignActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        CommUtil.tcEvent(this,"Login and registration","登录注册页");
         EventBus.getDefault().register(this);
         step1PhoneFragment = Step1PhoneFragment.getInstance();
         step2CodeFragment = Step2CodeFragment.getInstance();

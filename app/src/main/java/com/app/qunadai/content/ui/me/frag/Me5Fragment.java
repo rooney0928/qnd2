@@ -34,6 +34,7 @@ import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ReqKey;
@@ -250,8 +251,10 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     }
 
     public void requestUserData() {
-        me5Presenter.requestCurrent(getToken());
-        me5Presenter.requestPersonValue(getToken());
+        if(NetworkUtil.checkNetwork(getActivity())){
+            me5Presenter.requestCurrent(getToken());
+            me5Presenter.requestPersonValue(getToken());
+        }
     }
 
     MeBean meBean;

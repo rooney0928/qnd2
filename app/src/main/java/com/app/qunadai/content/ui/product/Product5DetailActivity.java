@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.qunadai.QNDFactory;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.NewReply;
@@ -375,8 +376,9 @@ view_input.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_reply_send:
                 //发帖
-                if (CommUtil.getText(et_reply_content).length() < 6) {
-                    ToastUtil.showToast(this, "评论内容不能少于6个字符");
+                if (CommUtil.getText(et_reply_content).length() < QNDFactory.COMMENT_MIN) {
+                    ToastUtil.showToast(this, "评论内容不能少于" + QNDFactory.COMMENT_MIN + "个字符");
+
                     return;
                 }
 
@@ -556,7 +558,7 @@ view_input.setVisibility(View.VISIBLE);
 
     @Override
     public void sendNewReply(BaseBean<NewReply> bean) {
-        ToastUtil.showToast(this,"恭喜您!回复成功!");
+        ToastUtil.showToast(this, "恭喜您!回复成功!");
         page = 0;
         product5DetailPresenter.getProduct5Comments(pid, page, PAGE_SIZE);
 

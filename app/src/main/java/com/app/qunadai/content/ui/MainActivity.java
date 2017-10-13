@@ -238,6 +238,7 @@ public class MainActivity extends BaseActivity {
                 setTitleText("");
                 switch (checkedId) {
                     case R.id.rb_nav_home:
+                        CommUtil.tcEvent(MainActivity.this,"home","着陆页");
                         vp_main.setCurrentItem(0);
 
                         index = 0;
@@ -245,7 +246,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.rb_nav_bbs:
 
-                        CommUtil.tcEvent(MainActivity.this, "strategy_list", "攻略列表");
+                        CommUtil.tcEvent(MainActivity.this, "find", "发现首页点击量");
                         vp_main.setCurrentItem(1);
                         setTitleBarVisible(true);
                         setTitleText("社区");

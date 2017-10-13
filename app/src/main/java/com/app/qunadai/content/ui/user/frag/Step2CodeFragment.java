@@ -96,9 +96,9 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()==4){
+                if (s.length() == 4) {
                     boolean result = CommUtil.shaEncrypt(CommUtil.getText(et_code)).equalsIgnoreCase(shaCode);
-                    if(result){
+                    if (result) {
                         tv_code_time.setVisibility(View.GONE);
                         cb_code_right.setVisibility(View.VISIBLE);
                     }
@@ -154,7 +154,6 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
         smsType = PrefUtil.getString(getActivity(), PrefKey.SMS_TYPE, "");
 
         et_code.setText("");
-
 
 
         tv_subtitle.setText("我们向" + phone + "发送了一个4位数的验证码。请在消息框中输入");
@@ -267,7 +266,7 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
     @Override
     public void loginDone(BaseBean<Token> token) {
-
+        CommUtil.tcEvent(getActivity(), "identifying code login", "完成验证码登录");
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
         PrefUtil.putString(getActivity(), PrefKey.PHONE, phone);
 
@@ -277,6 +276,7 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
     @Override
     public void loginFail(String error) {
+        CommUtil.tcEvent(getActivity(), "identifying code login", "完成验证码登录");
         ToastUtil.showToast(getActivity(), error);
 
     }

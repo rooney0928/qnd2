@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.qunadai.QNDFactory;
 import com.app.qunadai.R;
 import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.AddComment;
@@ -87,6 +88,13 @@ public class AddCommentActivity extends BaseActivity implements AddCommentContra
 
                 if (srb_add_star.getRating() == 0) {
                     ToastUtil.showToast(this, "评分不能为空");
+                    return;
+                }
+
+                //发帖
+                if (CommUtil.getText(et_add_content).length() < QNDFactory.COMMENT_MIN) {
+                    ToastUtil.showToast(this, "评论内容不能少于" + QNDFactory.COMMENT_MIN + "个字符");
+
                     return;
                 }
                 addCommentPresenter.addComment(p.getId(), getToken(),

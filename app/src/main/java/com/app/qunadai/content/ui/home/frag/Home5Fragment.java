@@ -272,6 +272,12 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         }
         BannerViewFactory factory = new BannerViewFactory(getActivity());
         factory.setBanners(banners);
+        factory.setListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommUtil.tcEvent(getActivity(),"banner","banner点击量");
+            }
+        });
         banner.setViewFactory(factory);
         banner.setDataList(list);
         banner.start();
@@ -319,6 +325,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     public static class BannerViewFactory implements BannerView.ViewFactory<BannerItem> {
         private Context context;
         private List<Banner> banners;
+        private View.OnClickListener listener;
 
         public BannerViewFactory(Context context) {
             this.context = context;
@@ -326,6 +333,10 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
         public void setBanners(List<Banner> banners) {
             this.banners = banners;
+        }
+
+        public void setListener(View.OnClickListener listener) {
+            this.listener = listener;
         }
 
         @Override
@@ -340,6 +351,10 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
                 ImgUtil.loadImg(container.getContext(), R.mipmap.banner1, iv);
             } else {
                 ImgUtil.loadImg(container.getContext(), imgUrl, iv);
+            }
+
+            if(listener!=null){
+                iv.setOnClickListener(listener);
             }
 /*
             if (banners != null) {

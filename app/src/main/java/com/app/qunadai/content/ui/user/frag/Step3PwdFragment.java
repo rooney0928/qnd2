@@ -180,6 +180,7 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
 
     @Override
     public void registerDone(BaseBean<Token> bean) {
+        CommUtil.tcEvent(getActivity(),"registered","完成注册");
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, bean.getContent().getAccess_token());
 
         ToastUtil.showToast(getActivity(), "恭喜您！注册成功！");

@@ -19,6 +19,7 @@ import com.app.qunadai.content.ui.home.FilterProductsActivity;
 import com.app.qunadai.content.ui.product.BrowserActivity;
 import com.app.qunadai.content.ui.product.Product5DetailActivity;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 
 import org.json.JSONException;
@@ -153,6 +154,7 @@ public class HomeFloorsAdapter extends RecyclerView.Adapter {
             iv_home_banner_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    CommUtil.tcEvent(context,"picture floor","图片楼层点击量");
                     switch (roomBean.getBannerMode()) {
                         case "EXTERNAL":
                             Intent intent = new Intent(context, BrowserActivity.class);

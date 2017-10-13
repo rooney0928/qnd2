@@ -204,7 +204,7 @@
 
         <meta-data
             android:name="TD_APP_ID"
-            android:value="6139BCBE350B4F508F2AD0413014B8BC" />
+            android:value="7D3DFD52853E4A478BBFC3B3C1B30C27" />
         <meta-data
             android:name="TD_CHANNEL_ID"
             android:value="${UMENG_CHANNEL_VALUE}" />

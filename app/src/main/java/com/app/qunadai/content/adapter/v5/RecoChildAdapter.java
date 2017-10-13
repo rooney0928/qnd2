@@ -12,6 +12,7 @@ import com.app.qunadai.R;
 import com.app.qunadai.bean.v5.RoomBean;
 import com.app.qunadai.content.ui.product.Product5DetailActivity;
 import com.app.qunadai.http.RxHttp;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 
 import java.util.List;
@@ -76,6 +77,7 @@ public class RecoChildAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
 //                    ToastUtil.showToast(context, p.getId());
+                    CommUtil.tcEvent(context,"special floor","特别推荐点击量");
                     Intent intentDetail = new Intent(context, Product5DetailActivity.class);
                     intentDetail.putExtra("pid", bean.getContentMappingId());
                     context.startActivity(intentDetail);
