@@ -240,7 +240,8 @@ public class MainActivity extends BaseActivity {
                     case R.id.rb_nav_home:
                         CommUtil.tcEvent(MainActivity.this,"home","着陆页");
                         vp_main.setCurrentItem(0);
-
+                        setTitleBarVisible(true);
+                        setTitleText("主页");
                         index = 0;
 
                         break;
@@ -249,7 +250,7 @@ public class MainActivity extends BaseActivity {
                         CommUtil.tcEvent(MainActivity.this, "find", "发现首页点击量");
                         vp_main.setCurrentItem(1);
                         setTitleBarVisible(true);
-                        setTitleText("社区");
+                        setTitleText("发现");
                         setTitleRightText("我的帖子");
                         setTitleRightEvent(new View.OnClickListener() {
                             @Override

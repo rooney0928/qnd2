@@ -7,8 +7,8 @@ android {
         applicationId "com.app.qunadai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 100
-        versionName "5.0.5"
+        versionCode 108
+        versionName "5.0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -109,7 +109,6 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.zxy.android:tiny:0.0.6'
-    compile 'com.yanzhenjie:recyclerview-swipe:1.1.2'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile 'com.github.czy1121:bannerview:1.0.0'
@@ -128,5 +127,7 @@ dependencies {
 
     compile 'com.github.Kennyc1012:MultiStateView:1.3.2'
     compile 'com.github.lawloretienne:trestle:0.0.7'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
 
 }

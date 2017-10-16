@@ -64,7 +64,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/selector_tab_bbs"
                 android:gravity="center_horizontal"
-                android:text="社区"
+                android:text="发现"
                 android:textColor="@drawable/selector_tab_text"
                 android:textSize="12sp"/>
 

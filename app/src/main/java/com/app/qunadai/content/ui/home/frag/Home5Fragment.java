@@ -246,6 +246,19 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        CommUtil.tcStart(getActivity(),"home");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CommUtil.tcEnd(getActivity(),"home");
+    }
+
     @Override
     public void requestStart() {
 //        EventBus.getDefault().post(new EventProgress(true));
@@ -348,9 +361,9 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
 //            LogU.t("banner----"+imgUrl);
             if (CommUtil.isNull(item.picUrl)) {
-                ImgUtil.loadImg(container.getContext(), R.mipmap.banner1, iv);
+                ImgUtil.loadBanner(container.getContext(), R.mipmap.banner1, iv);
             } else {
-                ImgUtil.loadImg(container.getContext(), imgUrl, iv);
+                ImgUtil.loadBanner(container.getContext(), imgUrl, iv);
             }
 
             if(listener!=null){

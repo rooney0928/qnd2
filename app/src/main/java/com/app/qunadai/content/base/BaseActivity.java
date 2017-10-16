@@ -27,6 +27,7 @@ import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
+import com.app.qunadai.utils.StatusBarUtil;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -110,7 +111,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         root = View.inflate(this, R.layout.activity_base, null);
-//        StatusBarUtil.StatusBarLightMode(this);
+//        StatusBarUtil.StatusBarLightMode(this,StatusBarUtil.StatusBarLightMode(this));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

@@ -36,4 +36,10 @@ public class ImgUtil {
     public static void loadImg(Context context, int id, ImageView iv) {
         Glide.with(context).load(id).error(R.mipmap.moren).into(iv);
     }
+    public static void loadBanner(Context context, int id, ImageView iv) {
+        Glide.with(context).load(id).centerCrop().error(R.mipmap.moren).into(iv);
+    }
+    public static void loadBanner(Context context,  String url, ImageView iv) {
+        Glide.with(context).load(url).centerCrop().error(R.mipmap.moren).into(iv);
+    }
 }

@@ -66,12 +66,20 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     }
 
     AlertDialog dialog;
+    public String IS_FIRST = "is_first";
 
     @Override
     protected void initView() {
-        splashPresenter = new SplashPresenter(this);
-//        Permission.
 
+        boolean isFirst = PrefUtil.getBoolean(this, PrefKey.IS_FIRST, true);
+
+        if (isFirst) {
+            CommUtil.tcEvent(this, "Guide page", "引导页");
+            PrefUtil.putBoolean(this, PrefKey.IS_FIRST, false);
+        }
+
+
+        splashPresenter = new SplashPresenter(this);
 
 
         //首先判断权限

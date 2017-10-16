@@ -48,23 +48,6 @@ public class SignActivity extends BaseActivity {
 
     private List<Fragment> fragments = new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Transition explode = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            explode = TransitionInflater.from(this).inflateTransition(R.transition.slide);
-            //退出时使用
-            getWindow().setEnterTransition(explode);
-            //第一次进入时使用
-            getWindow().setEnterTransition(explode);
-            //再次进入时使用
-            getWindow().setReenterTransition(explode);
-        }
-
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     protected void updateTopViewHideAndShow() {
         clearTitleBar();
@@ -83,8 +66,11 @@ public class SignActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        CommUtil.tcEvent(this,"Login and registration","登录注册页");
         EventBus.getDefault().register(this);
+
+        CommUtil.tcEvent(this,"Login and registration","登录注册页");
+
+
         step1PhoneFragment = Step1PhoneFragment.getInstance();
         step2CodeFragment = Step2CodeFragment.getInstance();
         step3PwdFragment = Step3PwdFragment.getInstance();
@@ -94,6 +80,8 @@ public class SignActivity extends BaseActivity {
         fragments.add(step3PwdFragment);
 
     }
+
+
 
     @Override
     public void initViewData() {
@@ -108,10 +96,13 @@ public class SignActivity extends BaseActivity {
 
     }
 
+
     @Override
     public void updateError(String error) {
 
     }
+
+
 
     @Override
     public void requestStart() {
@@ -121,6 +112,18 @@ public class SignActivity extends BaseActivity {
     @Override
     public void requestEnd() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CommUtil.tcStart(this,"Login and registration");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CommUtil.tcEnd(this,"Login and registration");
     }
 
     @Override

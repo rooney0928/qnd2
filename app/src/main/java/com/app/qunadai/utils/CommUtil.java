@@ -221,8 +221,20 @@ public class CommUtil {
     }
 
     public static void tcEvent(Context context, String eventId, String eventLabel) {
-        if(context!=null){
+        if (context != null) {
             TCAgent.onEvent(context, eventId, eventLabel);
+        }
+    }
+
+    public static void tcStart(Context context, String page) {
+        if (context != null) {
+            TCAgent.onPageStart(context, page);
+        }
+    }
+
+    public static void tcEnd(Context context, String page) {
+        if (context != null) {
+            TCAgent.onPageEnd(context, page);
         }
     }
 

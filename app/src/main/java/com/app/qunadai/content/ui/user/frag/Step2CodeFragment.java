@@ -276,7 +276,6 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
     @Override
     public void loginFail(String error) {
-        CommUtil.tcEvent(getActivity(), "identifying code login", "完成验证码登录");
         ToastUtil.showToast(getActivity(), error);
 
     }

@@ -264,7 +264,6 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
     @Override
     public void loginFail(String error) {
-        CommUtil.tcEvent(getActivity(),"password login","完成密码登录");
 
         ToastUtil.showToast(getActivity(), error);
 

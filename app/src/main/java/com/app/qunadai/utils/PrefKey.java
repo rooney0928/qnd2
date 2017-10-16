@@ -19,5 +19,7 @@ public class PrefKey {
     public static final String TEMP_CODE = "temp_code";
     public static final String TEMP_SHA_CODE = "temp_code_sha";
 
+    public static final String IS_FIRST = "is_first";
+
 
 }
