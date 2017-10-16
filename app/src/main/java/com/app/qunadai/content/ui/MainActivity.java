@@ -241,7 +241,7 @@ public class MainActivity extends BaseActivity {
                         CommUtil.tcEvent(MainActivity.this,"home","着陆页");
                         vp_main.setCurrentItem(0);
                         setTitleBarVisible(true);
-                        setTitleText("主页");
+                        setTitleText("去哪贷");
                         index = 0;
 
                         break;
