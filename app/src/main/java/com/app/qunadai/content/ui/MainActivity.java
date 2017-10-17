@@ -238,7 +238,6 @@ public class MainActivity extends BaseActivity {
                 setTitleText("");
                 switch (checkedId) {
                     case R.id.rb_nav_home:
-                        CommUtil.tcEvent(MainActivity.this,"home","着陆页");
                         vp_main.setCurrentItem(0);
                         setTitleBarVisible(true);
                         setTitleText("去哪贷");
@@ -247,7 +246,6 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.rb_nav_bbs:
 
-                        CommUtil.tcEvent(MainActivity.this, "find", "发现首页点击量");
                         vp_main.setCurrentItem(1);
                         setTitleBarVisible(true);
                         setTitleText("发现");

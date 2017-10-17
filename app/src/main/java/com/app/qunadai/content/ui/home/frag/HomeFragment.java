@@ -130,7 +130,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
 
     @Override
     protected void initData() {
-        CommUtil.tcEvent(getActivity(), "home_page", "首页着陆页");
 
         homePresenter = new HomePresenter(this);
         fragments = new ArrayList<>();
@@ -169,7 +168,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             @Override
             public void onClick(View v) {
                 //进入贷款产品列表
-                CommUtil.tcEvent(getActivity(), "Rapid_loan", "极速贷款");
                 Intent intentProducts = new Intent(getActivity(), ProductsActivity.class);
                 startActivity(intentProducts);
             }
@@ -186,7 +184,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             @Override
             public void onClick(View v) {
                 //进入推荐列表
-                CommUtil.tcEvent(getActivity(), "Loans_to_recommend", "贷款推荐");
                 Intent intentReco = new Intent(getActivity(), RecommendActivity.class);
                 startActivity(intentReco);
             }
@@ -444,7 +441,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_home_banner:
-                CommUtil.tcEvent(getActivity(), "banner", "焦点图");
                 break;
         }
     }

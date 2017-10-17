@@ -250,13 +250,11 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     @Override
     public void onResume() {
         super.onResume();
-        CommUtil.tcStart(getActivity(),"home");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        CommUtil.tcEnd(getActivity(),"home");
     }
 
     @Override
@@ -288,7 +286,6 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         factory.setListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommUtil.tcEvent(getActivity(),"banner","banner点击量");
             }
         });
         banner.setViewFactory(factory);

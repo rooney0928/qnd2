@@ -68,9 +68,6 @@ public class SignActivity extends BaseActivity {
     protected void initView() {
         EventBus.getDefault().register(this);
 
-        CommUtil.tcEvent(this,"Login and registration","登录注册页");
-
-
         step1PhoneFragment = Step1PhoneFragment.getInstance();
         step2CodeFragment = Step2CodeFragment.getInstance();
         step3PwdFragment = Step3PwdFragment.getInstance();
@@ -117,13 +114,11 @@ public class SignActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        CommUtil.tcStart(this,"Login and registration");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        CommUtil.tcEnd(this,"Login and registration");
     }
 
     @Override

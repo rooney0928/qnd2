@@ -373,7 +373,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                             av_bankcard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    CommUtil.tcEvent(getActivity(), "Bank_card", "银行卡验证");
                                     Intent intentBank = new Intent(getActivity(), BankCardActivity.class);
                                     intentBank.putExtra("titleHide", true);
                                     startActivityForResult(intentBank, ReqKey.REQ_BANK_INFO);
@@ -384,7 +383,6 @@ public class LimitFragment extends BaseFragment implements LimitContract.View, V
                         break;
                     case R.id.av_realinfo:
                         //进入个人信息认证
-                        CommUtil.tcEvent(getActivity(), "Real_information", "真实信息");
 
                         Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
                         intentInfo.putExtra("titleHide", true);

@@ -73,7 +73,6 @@ public class MeFragment extends BaseFragment implements MeContract.View {
 
     @Override
     protected void initData() {
-        CommUtil.tcEvent(getActivity(), "my_page", "我的着陆页");
         mePresenter = new MePresenter(this);
         ImgUtil.loadRound(getActivity(), R.mipmap.default_avatar, iv_me_avatar);
 
@@ -85,7 +84,6 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                     exeLogin();
                     return;
                 }
-                CommUtil.tcEvent(getActivity(), "Personal_information", "个人信息");
                 Intent intentInfo = new Intent(getActivity(), PersonInfoActivity.class);
                 startActivity(intentInfo);
             }
@@ -97,7 +95,6 @@ public class MeFragment extends BaseFragment implements MeContract.View {
                     exeLogin();
                     return;
                 }
-                CommUtil.tcEvent(getActivity(), "My_loan", "我的贷款");
                 Intent intentLoan = new Intent(getActivity(), MyLoanActivity.class);
                 startActivity(intentLoan);
             }

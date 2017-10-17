@@ -97,7 +97,6 @@ public class LoanAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     //进入贷款产品
-                    CommUtil.tcEvent(context, "Product list", "产品列表");
                     Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("pid", detail.getId());
                     context.startActivity(intent);
@@ -162,7 +161,6 @@ public class LoanAdapter extends RecyclerView.Adapter {
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CommUtil.tcEvent(context, "Product list", "产品列表");
                     Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("pid", detail.getId());
                     context.startActivity(intent);

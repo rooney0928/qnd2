@@ -77,7 +77,6 @@ public class RecoChildAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
 //                    ToastUtil.showToast(context, p.getId());
-                    CommUtil.tcEvent(context,"special floor","特别推荐点击量");
                     Intent intentDetail = new Intent(context, Product5DetailActivity.class);
                     intentDetail.putExtra("pid", bean.getContentMappingId());
                     context.startActivity(intentDetail);

@@ -175,12 +175,10 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
 
                 break;
             case R.id.ll_me_share:
-                CommUtil.tcEvent(getActivity(),"share","分享去哪贷点击量");
                 openBottom();
                 break;
             case R.id.ll_me_message:
             case R.id.tv_me_limit:
-                CommUtil.tcEvent(getActivity(),"my info","我的信息点击量");
 
                 if (CommUtil.isNull(getToken())) {
                     exeLogin();

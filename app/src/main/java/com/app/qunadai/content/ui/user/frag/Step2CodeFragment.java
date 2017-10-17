@@ -266,7 +266,6 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
     @Override
     public void loginDone(BaseBean<Token> token) {
-        CommUtil.tcEvent(getActivity(), "identifying code login", "完成验证码登录");
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
         PrefUtil.putString(getActivity(), PrefKey.PHONE, phone);
 

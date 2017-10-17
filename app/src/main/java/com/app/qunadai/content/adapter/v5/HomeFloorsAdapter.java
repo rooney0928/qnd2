@@ -154,7 +154,6 @@ public class HomeFloorsAdapter extends RecyclerView.Adapter {
             iv_home_banner_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CommUtil.tcEvent(context,"picture floor","图片楼层点击量");
                     switch (roomBean.getBannerMode()) {
                         case "EXTERNAL":
                             Intent intent = new Intent(context, BrowserActivity.class);

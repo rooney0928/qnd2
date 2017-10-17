@@ -181,7 +181,6 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
                             av_bankcard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    CommUtil.tcEvent(AuthActivity.this, "Bank_card", "银行卡验证");
                                     Intent intentBank = new Intent(AuthActivity.this, BankCardActivity.class);
                                     intentBank.putExtra("titleHide", true);
                                     startActivityForResult(intentBank, ReqKey.REQ_BANK_INFO);
@@ -192,7 +191,6 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
                         break;
                     case R.id.av_realinfo:
                         //进入个人信息认证
-                        CommUtil.tcEvent(AuthActivity.this, "Real_information", "真实信息");
 
                         Intent intentInfo = new Intent(AuthActivity.this, PersonInfoActivity.class);
                         intentInfo.putExtra("titleHide", true);
