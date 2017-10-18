@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 
+import com.app.qunadai.utils.LogU;
 import com.pgyersdk.Pgy;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -68,6 +69,9 @@ public class MyApp extends Application {
         TCAgent.LOG_ON = false;
         TCAgent.setReportUncaughtExceptions(false);
         TCAgent.init(this);
+
+        String brand = Build.BRAND;
+        LogU.t("brand:"+brand);
     }
 
 

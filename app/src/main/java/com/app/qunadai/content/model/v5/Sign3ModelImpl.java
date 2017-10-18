@@ -46,8 +46,8 @@ public class Sign3ModelImpl implements Sign3Contract.Model {
     }
 
     @Override
-    public void register(String phone, String sms, String pwd) {
-        Observable<BaseBean<Token>> request = RxHttp.getInstance().register5(phone, sms, pwd);
+    public void register(String phone, String sms, String pwd,String source) {
+        Observable<BaseBean<Token>> request = RxHttp.getInstance().register5(phone, sms, pwd,source);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<BaseBean<Token>>() {

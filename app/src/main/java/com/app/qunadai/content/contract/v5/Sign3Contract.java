@@ -26,13 +26,13 @@ public interface Sign3Contract {
     }
 
     interface Presenter extends BasePresenter {
-        void register(String phone, String sms, String pwd);
+        void register(String phone, String sms, String pwd,String source);
 
         void reset(String phone, String sms, String pwd);
     }
 
     interface Model extends BaseModel {
-        void register(String phone, String sms, String pwd);
+        void register(String phone, String sms, String pwd,String source);
 
         void reset(String phone, String sms, String pwd);
     }

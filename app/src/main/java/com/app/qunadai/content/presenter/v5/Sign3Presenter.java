@@ -55,8 +55,8 @@ public class Sign3Presenter implements Sign3Contract.Presenter {
     }
 
     @Override
-    public void register(String phone, String sms, String pwd) {
-        model.register(phone, sms, pwd);
+    public void register(String phone, String sms, String pwd, String source) {
+        model.register(phone, sms, pwd, source);
     }
 
     @Override

@@ -142,6 +142,8 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
         EventBus.getDefault().post(new EventTurn(1, "sign"));
     }
 
+
+    String source = null;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -170,7 +172,8 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
                 }
 
                 if (smsType.equalsIgnoreCase("reg")) {
-                    sign3Presenter.register(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)));
+//                    source = "oppo";
+                    sign3Presenter.register(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)),source);
                 } else if (smsType.equalsIgnoreCase("forget")) {
                     sign3Presenter.reset(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)));
                 }

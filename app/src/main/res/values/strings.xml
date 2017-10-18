@@ -2,7 +2,7 @@
     <string name="app_name">去哪贷</string>
 
     <!-- behavior -->
-    <string name="behavior_product_detatil_bottom_bar_behavior">com.app.qunadai.content.behavior.ProductDetailBottomBarBehavior</string>
+    <string name="behavior_product_detail_bottom_bar_behavior">com.app.qunadai.content.behavior.ProductDetailBottomBarBehavior</string>
 
 
     <!--home-->

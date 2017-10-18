@@ -56,6 +56,6 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:visibility="gone"
-        app:layout_behavior="@string/behavior_product_detatil_bottom_bar_behavior" />
+        app:layout_behavior="@string/behavior_product_detail_bottom_bar_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

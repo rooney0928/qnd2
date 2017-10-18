@@ -67,7 +67,7 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-                        public static final String ROOT = "https://mapi.qunadai.com/";
+    public static final String ROOT = "https://mapi.qunadai.com/";
 //    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
 //    public static final String ROOT = "http://192.168.7.165:8080/";
@@ -150,8 +150,8 @@ public class RxHttp {
     }
 
     //注册
-    public static Observable<BaseBean<Token>> register5(String phone, String sms, String pwd) {
-        return qndApi.register5("mobile", phone, sms, pwd);
+    public static Observable<BaseBean<Token>> register5(String phone, String sms, String pwd, String source) {
+        return qndApi.register5("mobile", phone, sms, pwd, source);
     }
 
     //重置密码

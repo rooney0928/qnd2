@@ -174,7 +174,8 @@ public interface QndApi {
     Observable<BaseBean<Token>> register5(@Query("filter") String filter,
                                           @Query("mobileNumber") String mobileNumber,
                                           @Query("smsActivateCode") String sms,
-                                          @Query("sha1password") String pwd);
+                                          @Query("sha1password") String pwd,
+                                          @Query("registerSource") String source);
 
     @FormUrlEncoded
     @POST("token")
