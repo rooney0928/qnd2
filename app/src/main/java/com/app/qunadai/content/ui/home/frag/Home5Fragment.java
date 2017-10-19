@@ -73,14 +73,14 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     @BindView(R.id.swipe_home)
     SwipeRefreshLayout swipe_home;
 
-    @BindView(R.id.ll_home_fast_loan)
-    LinearLayout ll_home_fast_loan;
-    @BindView(R.id.ll_home_low_rate)
-    LinearLayout ll_home_low_rate;
-    @BindView(R.id.ll_home_high_limit)
-    LinearLayout ll_home_high_limit;
-    @BindView(R.id.ll_home_long_term)
-    LinearLayout ll_home_long_term;
+//    @BindView(R.id.ll_home_fast_loan)
+//    LinearLayout ll_home_fast_loan;
+//    @BindView(R.id.ll_home_low_rate)
+//    LinearLayout ll_home_low_rate;
+//    @BindView(R.id.ll_home_high_limit)
+//    LinearLayout ll_home_high_limit;
+//    @BindView(R.id.ll_home_long_term)
+//    LinearLayout ll_home_long_term;
 
     List<Floors.FloorsBean> floors;
     List<Product> products;
@@ -131,10 +131,10 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         rv_floors.setLayoutManager(linearLayoutManager);
         rv_floors.setAdapter(adapter);
 
-        ll_home_fast_loan.setOnClickListener(this);
-        ll_home_low_rate.setOnClickListener(this);
-        ll_home_high_limit.setOnClickListener(this);
-        ll_home_long_term.setOnClickListener(this);
+//        ll_home_fast_loan.setOnClickListener(this);
+//        ll_home_low_rate.setOnClickListener(this);
+//        ll_home_high_limit.setOnClickListener(this);
+//        ll_home_long_term.setOnClickListener(this);
 
 
         if (NetworkUtil.checkNetwork(getActivity())) {
@@ -213,23 +213,23 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     public void onClick(View v) {
         Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
 
-        switch (v.getId()) {
-            case R.id.ll_home_fast_loan:
-                intent.putExtra("index",0);
-                break;
-            case R.id.ll_home_low_rate:
-                intent.putExtra("index",1);
-
-                break;
-            case R.id.ll_home_high_limit:
-                intent.putExtra("index",2);
-
-                break;
-            case R.id.ll_home_long_term:
-                intent.putExtra("index",3);
-
-                break;
-        }
+//        switch (v.getId()) {
+//            case R.id.ll_home_fast_loan:
+//                intent.putExtra("index",0);
+//                break;
+//            case R.id.ll_home_low_rate:
+//                intent.putExtra("index",1);
+//
+//                break;
+//            case R.id.ll_home_high_limit:
+//                intent.putExtra("index",2);
+//
+//                break;
+//            case R.id.ll_home_long_term:
+//                intent.putExtra("index",3);
+//
+//                break;
+//        }
 
         startActivity(intent);
 

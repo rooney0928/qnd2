@@ -101,6 +101,7 @@ public class CreditCardAdapter extends RecyclerView.Adapter {
             tv_card_average.setText(bean.getAvgAmount());
             tv_card_apply.setText(bean.getApplyBase()+"");
 
+            /*
             ll_card_label.removeAllViews();
             String[] labels = bean.getBLabel().split(",");
             for(String lb:labels){
@@ -109,7 +110,7 @@ public class CreditCardAdapter extends RecyclerView.Adapter {
                 tv_label.setText(lb);
                 ll_card_label.addView(view);
             }
-
+            */
             rl_card_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

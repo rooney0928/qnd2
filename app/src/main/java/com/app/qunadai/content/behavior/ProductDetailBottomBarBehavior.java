@@ -6,8 +6,11 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 /**
@@ -15,92 +18,93 @@ import android.view.animation.LinearInterpolator;
  */
 
 public class ProductDetailBottomBarBehavior extends CoordinatorLayout.Behavior<View> {
-    private static final String TAG = "ProductDetailBottomBarBehavior";
+    private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
 
-    private ObjectAnimator showAnimator;
-    private ObjectAnimator hideAnimator;
-
-    private boolean isShow = true;
-
-    private int bottomViewHeight;
-    private int currentTranslationY;
+    private float viewY;//控件距离coordinatorLayout底部距离
+    private boolean isAnimate;//动画是否在进行
 
     public ProductDetailBottomBarBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    //在嵌套滑动开始前回调
+    @Override
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
+
+        if (child.getVisibility() == View.VISIBLE && viewY == 0) {
+            //获取控件距离父布局（coordinatorLayout）底部距离
+            viewY = coordinatorLayout.getHeight() - child.getY();
+        }
+
+        return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;//判断是否竖直滚动
+    }
+
+    //在嵌套滑动进行时，对象消费滚动距离前回调
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
-        super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
+        //dy大于0是向上滚动 小于0是向下滚动
 
-        if (dy > 0) {
-            //hide();
+        if (dy >= 0 && !isAnimate && child.getVisibility() == View.VISIBLE) {
             hide(child);
-        } else if (dy < 0) {
+        } else if (dy < 0 && !isAnimate && child.getVisibility() == View.GONE) {
             show(child);
         }
     }
 
+    //隐藏时的动画
+    private void hide(final View view) {
+        ViewPropertyAnimator animator = view.animate().translationY(viewY).setInterpolator(INTERPOLATOR).setDuration(200);
 
-    @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
-        return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
+        animator.setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                isAnimate = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                view.setVisibility(View.GONE);
+                isAnimate = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+                show(view);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        animator.start();
     }
 
+    //显示时的动画
+    private void show(final View view) {
+        ViewPropertyAnimator animator = view.animate().translationY(0).setInterpolator(INTERPOLATOR).setDuration(200);
+        animator.setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                view.setVisibility(View.VISIBLE);
+                isAnimate = true;
+            }
 
-    public void hide(final View view) {
-        if (hideAnimator == null) {
-            hideAnimator = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0f, view.getHeight());
-            hideAnimator.setInterpolator(new LinearInterpolator());
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                isAnimate = false;
+            }
 
-            hideAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    isShow = false;
-                }
-            });
+            @Override
+            public void onAnimationCancel(Animator animator) {
+                hide(view);
+            }
 
-            hideAnimator.setDuration(200);
-        }
-
-        if (hideAnimator.isRunning() || !isShow) {
-            return;
-        }
-
-        hideAnimator.setFloatValues(0, view.getHeight());
-        if (showAnimator != null && showAnimator.isRunning()) {
-            showAnimator.cancel();
-            hideAnimator.setFloatValues(view.getTranslationY(), view.getHeight());
-        }
-
-        hideAnimator.start();
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        animator.start();
     }
 
-    public void show(final View view) {
-        if (showAnimator == null) {
-            showAnimator = ObjectAnimator.ofFloat(view, "translationY", view.getHeight(), 0);
-            showAnimator.setInterpolator(new LinearInterpolator());
-
-            showAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    isShow = true;
-                }
-            });
-
-            showAnimator.setDuration(200);
-        }
-
-        if (showAnimator.isRunning() || isShow) {
-            return;
-        }
-
-        showAnimator.setFloatValues(view.getHeight(), 0);
-        if (hideAnimator != null && hideAnimator.isRunning()) {
-            hideAnimator.cancel();
-            showAnimator.setFloatValues(view.getTranslationY(), 0);
-        }
-        showAnimator.start();
-    }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_explore_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
                 android:id="@+id/iv_explore_avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/tv_explore_name"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:text="花旗银行"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_explore_date"
@@ -38,14 +38,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="2017.8.22"
-                android:textColor="@color/v5_login_resms_dis"/>
+                android:textColor="@color/v5_login_resms_dis" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="42dp"
-            android:background="@color/gap"/>
+            android:background="@color/gap" />
         <!--额度，放款，费率，期限-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,13 +68,13 @@
                     android:layout_height="wrap_content"
                     android:text="10000"
                     android:textColor="@color/v5_price"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="预估额度(元)"
-                    android:textColor="@color/v5_gray"/>
+                    android:textColor="@color/v5_gray" />
             </LinearLayout>
 
             <View
@@ -82,7 +82,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
-                android:background="@color/gap"/>
+                android:background="@color/gap" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                     android:layout_marginTop="9dp"
                     android:text="日费率1.00%"
                     android:textColor="@color/v5_gray_dark"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_explore_period"
@@ -106,7 +106,7 @@
                     android:layout_marginTop="3dp"
                     android:text="贷款期限30天"
                     android:textColor="@color/v5_gray_dark"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,16 +115,18 @@
                 android:layout_weight="1"
                 android:gravity="right">
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginRight="12dp"
                     android:background="@drawable/shape_explore_view"
                     android:gravity="center"
-                    android:paddingLeft="18dp"
-                    android:paddingRight="18dp"
+                    android:maxLines="1"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
                     android:text="查看"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    autofit:minTextSize="9sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

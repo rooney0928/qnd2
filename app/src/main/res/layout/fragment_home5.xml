@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/icon_bg"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/icon_bg">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_home"
@@ -27,124 +26,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:background="@color/white"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_home_banner"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
-                    android:background="@mipmap/banner1"/>
-                <!--四大金刚按键-->
-                <LinearLayout
+                    android:background="@mipmap/banner1" />
+
+                <include layout="@layout/layout_home_nav" />
+
+                <android.support.v4.widget.Space
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="6dp">
+                    android:layout_height="12dp" />
 
-                    <LinearLayout
-                        android:id="@+id/ll_home_fast_loan"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_home_nav"
-                        android:gravity="center"
-                        android:padding="6dp">
+                <include layout="@layout/layout_home_limit" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic5_home_fast"/>
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
 
-                        <me.grantland.widget.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="快速放款"
-                            android:textSize="12sp"
-                            autofit:minTextSize="9sp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_home_low_rate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_home_nav"
-                        android:gravity="center"
-                        android:padding="6dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic5_home_low"/>
-
-                        <me.grantland.widget.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="超低利率"
-                            android:textSize="12sp"
-                            autofit:minTextSize="9sp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_home_high_limit"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_home_nav"
-                        android:gravity="center"
-                        android:padding="6dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic5_home_high"/>
-
-                        <me.grantland.widget.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="超高额度"
-                            android:textSize="12sp"
-                            autofit:minTextSize="9sp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_home_long_term"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_home_nav"
-                        android:gravity="center"
-                        android:padding="6dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic5_home_time"/>
-
-                        <me.grantland.widget.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="超长期限"
-                            android:textSize="12sp"
-                            autofit:minTextSize="9sp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <com.app.qunadai.content.view.FullRecyclerView
                         android:id="@+id/rv_floors"
                         android:layout_width="match_parent"

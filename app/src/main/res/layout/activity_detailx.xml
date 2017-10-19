@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.app.qunadai.third.keyboard.CheckSoftInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_detail_layout"
+    android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg">
+    android:background="@color/main_bg"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_post_detail5">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
@@ -323,20 +326,26 @@
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <Button
-        android:id="@+id/bt_submit"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="@drawable/ripple_submit5_bg"
-        android:gravity="center"
-        android:text="立即申请"
-        android:textColor="@color/white"
-        android:textSize="14dp" />
+        android:layout_gravity="bottom">
 
-    <include
-        android:id="@+id/view_input"
-        layout="@layout/input_layout"
-        android:visibility="gone" />
-</RelativeLayout>
+        <Button
+            android:id="@+id/bt_submit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple_submit5_bg"
+            android:gravity="center"
+            android:text="立即申请"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <include
+            android:id="@+id/view_input"
+            layout="@layout/input_layout"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</com.app.qunadai.third.keyboard.CheckSoftInputLayout>

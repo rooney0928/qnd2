@@ -90,7 +90,7 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
         adapter = new CreditCardAdapter(this);
         linearLayoutManager = new LinearLayoutManager(this);
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.gap_line);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.dp8);
         rv_cards.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         rv_cards.setLayoutManager(linearLayoutManager);
         rv_cards.setAdapter(adapter);
@@ -167,6 +167,9 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
                 tv_credit_location.setText("定位失败");
                 showLocSetting();
             }
+
+
+
         }
 
 
@@ -251,14 +254,14 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
     @Override
     public void initViewData() {
         if (NetworkUtil.checkNetwork(this)) {
-            creditCardPresenter.getStrategy(0, 500);
+//            creditCardPresenter.getStrategy(0, 500);
         }else {
             setViewOffline();
         }
         setOnReLinkListener(new OnReLinkListener() {
             @Override
             public void doNewRequest() {
-                creditCardPresenter.getStrategy(0, 500);
+//                creditCardPresenter.getStrategy(0, 500);
 
             }
         });

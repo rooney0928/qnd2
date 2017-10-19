@@ -248,6 +248,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitleBarVisible(boolean isShow) {
         ll_top.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
+    public void setTitleClickListener(View.OnClickListener listener){
+        tv_title.setOnClickListener(listener);
+    }
 
     public void setTitleLeftEvent(View.OnClickListener listener) {
         tv_title_left.setOnClickListener(listener);
