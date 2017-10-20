@@ -46,7 +46,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import ezy.ui.view.BannerView;
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -90,8 +89,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
     @BindView(R.id.rl_home_more)
     RelativeLayout rl_home_more;
 
-    @BindView(R.id.banner)
-    BannerView banner;
+//    @BindView(R.id.banner)
+//    BannerView banner;
 
     private HomePresenter homePresenter;
 
@@ -224,9 +223,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             BannerItem item = new BannerItem();
             list.add(item);
         }
-        banner.setViewFactory(new BannerViewFactory(getActivity()));
-        banner.setDataList(list);
-        banner.start();
+//        banner.setViewFactory(new BannerViewFactory(getActivity()));
+//        banner.setDataList(list);
+//        banner.start();
     }
 
     public static class BannerItem {
@@ -239,77 +238,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
         }
     }
 
-    public static class BannerViewFactory implements BannerView.ViewFactory<BannerItem> {
-        private Context context;
-        private List<Banner> banners;
-
-        public BannerViewFactory(Context context) {
-            this.context = context;
-        }
-
-        public void setBanners(List<Banner> banners) {
-            this.banners = banners;
-        }
-
-        @Override
-        public View create(final BannerItem item, final int position, final ViewGroup container) {
-            ImageView iv = new ImageView(container.getContext());
-//            RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA);
-//            Glide.with(container.getContext().getApplicationContext()).load(item.image).apply(options).into(iv);
-            String imgUrl = RxHttp.ROOT + "attachments/" + item.picUrl;
-
-//            LogU.t("banner----"+imgUrl);
-            if (CommUtil.isNull(item.picUrl)) {
-                ImgUtil.loadImg(container.getContext(), R.mipmap.banner1, iv);
-            } else {
-                ImgUtil.loadImg(container.getContext(), imgUrl, iv);
-            }
-
-            if (banners != null) {
-                final Banner b = banners.get(position);
-
-                if(b.getBannerMode().equals("EXTERNAL")){
-                    iv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(context, BrowserActivity.class);
-                            intent.putExtra("url", b.getBannerUrl());
-                            intent.putExtra("title",b.getName());
-                            context.startActivity(intent);
-                        }
-                    });
-                }else{
-                    iv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (b.getTargetInfo() != null) {
-                                Banner.TargetInfoBean target = b.getTargetInfo();
-                                switch (target.getType()) {
-                                    case "product":
-                                    case "PRODUCT":
-                                        //单个产品
-                                        Intent intent = new Intent(context, ProductDetailActivity.class);
-                                        intent.putExtra("pid", target.getId());
-                                        context.startActivity(intent);
-                                        break;
-                                    case "products":
-                                    case "PRODUCTS":
-                                    case "productList":
-                                        //多个产品
-                                        Intent intentProducts = new Intent(context, ProductsActivity.class);
-                                        context.startActivity(intentProducts);
-                                        break;
-                                }
-
-                            }
-                        }
-                    });
-                }
-
-            }
-            return iv;
-        }
-    }
 
     private void initTabLayout() {
         tabTitle = new ArrayList<>();
@@ -387,11 +315,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Vie
             item.picUrl = banners.get(i).getBannerPic();
             list.add(item);
         }
-        BannerViewFactory factory = new BannerViewFactory(getActivity());
-        factory.setBanners(banners);
-        banner.setViewFactory(factory);
-        banner.setDataList(list);
-        banner.start();
+//        BannerViewFactory factory = new BannerViewFactory(getActivity());
+//        factory.setBanners(banners);
+//        banner.setViewFactory(factory);
+//        banner.setDataList(list);
+//        banner.start();
     }
 
     @Override

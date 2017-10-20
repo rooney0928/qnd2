@@ -26,6 +26,7 @@ import com.app.qunadai.content.inter.OnKeyBoardChangeListener;
 import com.app.qunadai.content.inter.OnReLinkListener;
 import com.app.qunadai.content.presenter.v5.RepliesPresenter;
 import com.app.qunadai.third.eventbus.EventOffline;
+import com.app.qunadai.third.keyboard.CheckSoftInputLayout;
 import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
@@ -44,8 +45,6 @@ import butterknife.BindView;
 
 public class RepliesActivity extends BaseActivity implements RepliesContract.View {
     RepliesPresenter repliesPresenter;
-    @BindView(R.id.rl_reply_layout)
-    RelativeLayout rl_reply_layout;
     @BindView(R.id.view_input)
     View view_input;
     @BindView(R.id.et_reply_content)
@@ -59,6 +58,9 @@ public class RepliesActivity extends BaseActivity implements RepliesContract.Vie
     SwipeRefreshLayout swipe_layout;
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
+
+    @BindView(R.id.content_main)
+    CheckSoftInputLayout content_main;
 
     ReplyAdapter replyAdapter;
 
@@ -159,16 +161,6 @@ public class RepliesActivity extends BaseActivity implements RepliesContract.Vie
 
             }
         });
-        controlKeyboardLayout(rl_reply_layout, ll_input_layout, new OnKeyBoardChangeListener() {
-            @Override
-            public void keyBoardChange(boolean isShow) {
-                if (isShow) {
-                    view_input.setVisibility(View.VISIBLE);
-                } else {
-                    view_input.setVisibility(View.GONE);
-                }
-            }
-        });
 
         rv_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -194,6 +186,31 @@ public class RepliesActivity extends BaseActivity implements RepliesContract.Vie
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
             }
 
+        });
+
+        content_main.setOnResizeListener(new CheckSoftInputLayout.OnResizeListener() {
+            @Override
+            public void onResize(int w, int h, int oldw, int oldh) {
+                //如果第一次初始化
+                if (oldh == 0) {
+                    return;
+                }
+                //如果用户横竖屏转换
+                if (w != oldw) {
+                    return;
+                }
+                if (h < oldh) {
+                    //输入法弹出
+//                    bt_submit.setVisibility(View.GONE);
+                    view_input.setVisibility(View.VISIBLE);
+                } else if (h > oldh) {
+                    //输入法关闭
+//                    setInputViewEnabled(false);
+//                    bt_submit.setVisibility(View.VISIBLE);
+                    view_input.setVisibility(View.GONE);
+                }
+
+            }
         });
 
         setOnReLinkListener(new OnReLinkListener() {
@@ -233,47 +250,6 @@ public class RepliesActivity extends BaseActivity implements RepliesContract.Vie
         }
     }
 
-    /**
-     * 解决在页面底部置输入框，输入法弹出遮挡部分输入框的问题
-     *
-     * @param root       页面根元素
-     * @param editLayout 被软键盘遮挡的输入框
-     */
-    public static void controlKeyboardLayout(final View root,
-                                             final View editLayout, final OnKeyBoardChangeListener onKeyBoardChangeListener) {
-        // TODO Auto-generated method stub
-        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-            @Override
-            public void onGlobalLayout() {
-                // TODO Auto-generated method stub
-                Rect rect = new Rect();
-                //获取root在窗体的可视区域
-                root.getWindowVisibleDisplayFrame(rect);
-                //获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
-                int rootInVisibleHeigh = root.getRootView().getHeight() - rect.bottom;
-                //若不可视区域高度大于100，则键盘显示
-                if (rootInVisibleHeigh > 100) {
-//                    Log.v("hjb", "不可视区域高度大于100，则键盘显示");
-                    int[] location = new int[2];
-                    //获取editLayout在窗体的坐标
-                    editLayout.getLocationInWindow(location);
-                    //计算root滚动高度，使editLayout在可见区域
-                    int srollHeight = (location[1] + editLayout.getHeight()) - rect.bottom;
-                    onKeyBoardChangeListener.keyBoardChange(true);
-                    root.scrollTo(0, srollHeight);
-                } else {
-                    //键盘隐藏
-//                    Log.v("hjb", "不可视区域高度小于100，则键盘隐藏");
-                    onKeyBoardChangeListener.keyBoardChange(false);
-                    root.scrollTo(0, 0);
-
-                }
-
-
-            }
-        });
-    }
 
     @Override
     public void updateView(Object serverData) {
@@ -308,6 +284,7 @@ public class RepliesActivity extends BaseActivity implements RepliesContract.Vie
         list = tempList;
         replyAdapter.setList(list);
 //        linearLayoutManager.scrollToPosition(0);
+
     }
 
     @Override
@@ -338,6 +315,9 @@ public class RepliesActivity extends BaseActivity implements RepliesContract.Vie
 
         page = 0;
         repliesPresenter.getReplies(proComment.getId(), page, PAGE_SIZE);
+
+        et_reply_content.setText("");
+        view_input.setVisibility(View.GONE);
 
     }
 

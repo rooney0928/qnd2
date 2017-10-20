@@ -20,13 +20,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <!--
+                                <ezy.ui.view.BannerView
+                                    android:id="@+id/banner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:background="@color/white"
+                                    android:visibility="gone" />
+                -->
 
-                <ezy.ui.view.BannerView
+                <com.bigkoo.convenientbanner.ConvenientBanner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
-                    android:background="@color/white"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:canLoop="true" />
 
                 <ImageView
                     android:id="@+id/iv_home_banner"
@@ -34,17 +42,127 @@
                     android:layout_height="140dp"
                     android:background="@mipmap/banner1" />
 
-                <include layout="@layout/layout_home_nav" />
-
-                <android.support.v4.widget.Space
+                <!--四大金刚按键-->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="12dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp">
 
-                <include layout="@layout/layout_home_limit" />
+                    <LinearLayout
+                        android:id="@+id/ll_home_fast_loan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_home_nav"
+                        android:gravity="center"
+                        android:padding="6dp">
 
-                <android.support.v4.widget.Space
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic5_home_fast" />
+
+                        <me.grantland.widget.AutofitTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="快速放款"
+                            android:textSize="12sp"
+                            autofit:minTextSize="9sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_home_low_rate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_home_nav"
+                        android:gravity="center"
+                        android:padding="6dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic5_home_low" />
+
+                        <me.grantland.widget.AutofitTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="超低利率"
+                            android:textSize="12sp"
+                            autofit:minTextSize="9sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_home_high_limit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_home_nav"
+                        android:gravity="center"
+                        android:padding="6dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic5_home_high" />
+
+                        <me.grantland.widget.AutofitTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="超高额度"
+                            android:textSize="12sp"
+                            autofit:minTextSize="9sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_home_long_term"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_home_nav"
+                        android:gravity="center"
+                        android:padding="6dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic5_home_time" />
+
+                        <me.grantland.widget.AutofitTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="超长期限"
+                            android:textSize="12sp"
+                            autofit:minTextSize="9sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--
+                                <include layout="@layout/layout_home_nav" />
+
+                                <android.support.v4.widget.Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="12dp" />
+
+                                <include layout="@layout/layout_home_limit" />
+
+                                <android.support.v4.widget.Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="12dp" />
+                -->
 
                 <RelativeLayout
                     android:layout_width="match_parent"

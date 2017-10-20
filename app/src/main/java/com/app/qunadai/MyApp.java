@@ -70,8 +70,7 @@ public class MyApp extends Application {
         TCAgent.setReportUncaughtExceptions(false);
         TCAgent.init(this);
 
-        String brand = Build.BRAND;
-        LogU.t("brand:"+brand);
+
     }
 
 

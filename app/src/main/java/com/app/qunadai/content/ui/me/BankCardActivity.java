@@ -17,6 +17,7 @@ import com.app.qunadai.content.contract.BankcardContract;
 import com.app.qunadai.content.presenter.BankcardPresenter;
 import com.app.qunadai.content.ui.product.BrowserActivity;
 import com.app.qunadai.content.ui.user.LoginActivity;
+import com.app.qunadai.third.eventbus.EventRefresh;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.utils.NetworkUtil;
@@ -224,9 +225,9 @@ public class BankCardActivity extends BaseActivity implements BankcardContract.V
 
     @Override
     public void setBankcard(BankcardBean bean) {
-        EventBus.getDefault().post(new EventClose("info"));
+//        EventBus.getDefault().post(new EventClose("info"));
         ToastUtil.showToastLong(this, "验证成功");
-//        EventBus.getDefault().post(new EventTurn(1));
+        EventBus.getDefault().post(new EventRefresh("auth"));
         finish();
     }
 

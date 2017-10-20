@@ -17,6 +17,8 @@ import com.app.qunadai.content.contract.v5.AuthContract;
 import com.app.qunadai.content.presenter.v5.AuthPresenter;
 import com.app.qunadai.content.ui.bbs.HelpActivity;
 import com.app.qunadai.content.view.AuthView;
+import com.app.qunadai.third.eventbus.EventMe;
+import com.app.qunadai.third.eventbus.EventRefresh;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.PrefKey;
@@ -26,6 +28,9 @@ import com.app.qunadai.utils.ToastUtil;
 import com.moxie.client.model.MxParam;
 import com.shinelw.library.ColorArcProgressBar;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +40,7 @@ import butterknife.BindView;
  * Created by wayne on 2017/9/15.
  */
 
-public class AuthActivity extends BaseActivity implements AuthContract.View{
+public class AuthActivity extends BaseActivity implements AuthContract.View {
 
     private AuthPresenter authPresenter;
 
@@ -86,6 +91,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
     @Override
     protected void initView() {
         authPresenter = new AuthPresenter(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -132,7 +138,6 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
 //            mxParam.setCacheDisable(MxParam.PARAM_COMMON_YES);//不使用缓存（非必传）
 //            mxParam.setLoadingViewText("验证过程中不会浪费您任何流量\n请稍等片刻");  //设置导入过程中的自定义提示文案，为居中显示
 //            mxParam.setQuitDisable(true); //设置导入过程中，触发返回键或者点击actionbar的返回按钮的时候，不执行魔蝎的默认行为
-
 
 
             switch (v.getId()) {
@@ -207,7 +212,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
             }
 
 
-        }else if(v.getId()==R.id.rl_back){
+        } else if (v.getId() == R.id.rl_back) {
             finish();
         }
 
@@ -338,7 +343,6 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
         tv_limit_money.setText(bean.getContent().getPersonalValue().getValuation() + "");
 
 
-
         //银行卡验证
         setBindStatus(av_bankcard, bean.getContent().getPersonalValue().getBankStatus());
         //真实信息
@@ -373,33 +377,33 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
         bar1.setCurrentValues(countAuthCount());
     }
 
-    public int countAuthCount(){
+    public int countAuthCount() {
         int curr = 0;
-        if (av_bankcard.getStatus()==AuthView.AUTH_YES){
+        if (av_bankcard.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_realinfo.getStatus()==AuthView.AUTH_YES){
+        if (av_realinfo.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_ebank.getStatus()==AuthView.AUTH_YES){
+        if (av_ebank.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_carrier.getStatus()==AuthView.AUTH_YES){
+        if (av_carrier.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_alipay.getStatus()==AuthView.AUTH_YES){
+        if (av_alipay.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_email.getStatus()==AuthView.AUTH_YES){
+        if (av_email.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_fund.getStatus()==AuthView.AUTH_YES){
+        if (av_fund.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_taobao.getStatus()==AuthView.AUTH_YES){
+        if (av_taobao.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
-        if (av_credit.getStatus()==AuthView.AUTH_YES){
+        if (av_credit.getStatus() == AuthView.AUTH_YES) {
             curr++;
         }
 
@@ -416,5 +420,18 @@ public class AuthActivity extends BaseActivity implements AuthContract.View{
     public void getStatus(StatusBean bean) {
         authPresenter.requestPersonValue(getToken());
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventRefresh event) {
+        if ("auth".equalsIgnoreCase(event.getType())) {
+            authPresenter.requestPersonValue(getToken());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

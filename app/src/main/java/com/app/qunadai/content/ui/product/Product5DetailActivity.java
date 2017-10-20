@@ -134,10 +134,6 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     String cid;
 
 
-    //屏幕高度
-    private int screenHeight = 0;
-    //软件盘弹起后所占高度阀值
-    private int keyHeight = 0;
 
     InputMethodManager inputMethodManager;
 
@@ -228,20 +224,8 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         });
 
 
-        //获取屏幕高度
-        screenHeight = CommUtil.getSize(this).y;
-        //阀值设置为屏幕高度的1/3
-        keyHeight = screenHeight / 3;
 
 
-        setTitleClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                boolean isOpen=inputMethodManager.isActive();
-                LogU.t("status--"+isOpen);
-            }
-        });
 
     }
 

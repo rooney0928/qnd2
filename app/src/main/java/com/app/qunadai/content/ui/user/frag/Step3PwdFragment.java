@@ -1,5 +1,6 @@
 package com.app.qunadai.content.ui.user.frag;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -24,6 +25,7 @@ import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.PrefKey;
 import com.app.qunadai.utils.PrefUtil;
@@ -77,6 +79,8 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
     @Override
     protected void initData() {
         sign3Presenter = new Sign3Presenter(this);
+        source = CommUtil.getAppMetaData(getActivity(),"UMENG_CHANNEL");
+
         cb_pwd_hide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -93,7 +97,7 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tv_submit.setEnabled(s.length()>=6);
+                tv_submit.setEnabled(s.length() >= 6);
             }
 
             @Override
@@ -144,6 +148,7 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
 
 
     String source = null;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -172,8 +177,7 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
                 }
 
                 if (smsType.equalsIgnoreCase("reg")) {
-//                    source = "oppo";
-                    sign3Presenter.register(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)),source);
+                    sign3Presenter.register(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)), source);
                 } else if (smsType.equalsIgnoreCase("forget")) {
                     sign3Presenter.reset(phone, smsCode, CommUtil.shaEncrypt(CommUtil.getText(et_pwd)));
                 }
@@ -185,6 +189,8 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
     public void registerDone(BaseBean<Token> bean) {
 
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, bean.getContent().getAccess_token());
+        PrefUtil.putString(getActivity(), PrefKey.PHONE, phone);
+
 
         ToastUtil.showToast(getActivity(), "恭喜您！注册成功！");
         getActivity().finish();
@@ -199,6 +205,7 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
     @Override
     public void resetDone(BaseBean<Token> bean) {
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, bean.getContent().getAccess_token());
+
 
         ToastUtil.showToast(getActivity(), "恭喜您！重置成功！");
         getActivity().finish();

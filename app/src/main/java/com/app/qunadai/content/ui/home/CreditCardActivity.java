@@ -29,6 +29,7 @@ import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
 import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.PermissionNo;
 import com.yanzhenjie.permission.PermissionYes;
 
@@ -82,6 +83,24 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
         return null;
     }
 
+
+    private PermissionListener listener = new PermissionListener() {
+        @Override
+        public void onSucceed(int requestCode, List<String> grantedPermissions) {
+            // Successfully.
+            if(requestCode == 200) {
+                //获取权限成功
+                initLocation();
+                startLocation();
+            }
+        }
+
+        @Override
+        public void onFailed(int requestCode, List<String> deniedPermissions) {
+            // Failure.
+            hideLoading();
+        }
+    };
     @Override
     protected void initView() {
         creditCardPresenter = new CreditCardPresenter(this);
@@ -101,7 +120,7 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
                 .requestCode(300)
 
                 .permission(Manifest.permission.ACCESS_COARSE_LOCATION)
-                .callback(this)
+                .callback(listener)
                 .start()
         ;
         showLoading();
@@ -117,14 +136,7 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
     }
 
 
-    @PermissionYes(300)
-    private void getPermissionYes(List<String> grantedPermissions) {
-        // Successfully.
-//        update();
-        //获取权限成功
-        initLocation();
-        startLocation();
-    }
+
 
     private void initLocation() {
         locationClient = new AMapLocationClient(this.getApplicationContext());

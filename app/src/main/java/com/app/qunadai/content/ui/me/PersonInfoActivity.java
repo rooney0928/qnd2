@@ -30,6 +30,7 @@ import com.app.qunadai.third.address.utils.JsonUtil;
 import com.app.qunadai.third.address.utils.Utils;
 import com.app.qunadai.third.address.view.ChooseAddressWheel;
 import com.app.qunadai.third.address.view.listener.OnAddressChangeListener;
+import com.app.qunadai.third.eventbus.EventRefresh;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.third.eventbus.EventClose;
@@ -269,9 +270,11 @@ public class PersonInfoActivity extends BaseActivity implements PersonInfoContra
             finish();
         } else {
 //            if (canEnterBank) {
-                ToastUtil.showToast(this, bean.getDetail());
-                Intent intent = new Intent(this, BankCardActivity.class);
-                startActivity(intent);
+            EventBus.getDefault().post(new EventRefresh("auth"));
+
+            ToastUtil.showToast(this, bean.getDetail());
+            Intent intent = new Intent(this, BankCardActivity.class);
+            startActivity(intent);
 //            } else {
 //                EventBus.getDefault().post(new EventTurn(1));
 //

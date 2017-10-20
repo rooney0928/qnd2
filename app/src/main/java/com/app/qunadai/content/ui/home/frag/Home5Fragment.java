@@ -2,18 +2,13 @@ package com.app.qunadai.content.ui.home.frag;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -30,29 +25,22 @@ import com.app.qunadai.content.adapter.v5.ProductAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Home5Contract;
 import com.app.qunadai.content.presenter.v5.Home5Presenter;
-import com.app.qunadai.content.ui.MainActivity;
 import com.app.qunadai.content.ui.home.FilterProductsActivity;
-import com.app.qunadai.content.ui.home.ProductsActivity;
-import com.app.qunadai.content.ui.product.BrowserActivity;
-import com.app.qunadai.content.ui.product.ProductDetailActivity;
 import com.app.qunadai.content.view.FullRecyclerView;
 import com.app.qunadai.http.RxHttp;
-import com.app.qunadai.utils.AppManager;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
 import com.app.qunadai.utils.ToastUtil;
-import com.pgyersdk.javabean.AppBean;
-import com.pgyersdk.update.PgyUpdateManager;
-import com.pgyersdk.update.UpdateManagerListener;
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.holder.Holder;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import ezy.ui.view.BannerView;
 
 /**
  * Created by wayne on 2017/9/7.
@@ -60,10 +48,11 @@ import ezy.ui.view.BannerView;
 
 public class Home5Fragment extends BaseFragment implements Home5Contract.View, View.OnClickListener {
 
+    private static final int BANNER_SPEED = 3000;
     private Home5Presenter home5Presenter;
 
     @BindView(R.id.banner)
-    BannerView banner;
+    ConvenientBanner banner;
     @BindView(R.id.iv_home_banner)
     ImageView iv_home_banner;
     @BindView(R.id.rv_floors)
@@ -73,14 +62,14 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     @BindView(R.id.swipe_home)
     SwipeRefreshLayout swipe_home;
 
-//    @BindView(R.id.ll_home_fast_loan)
-//    LinearLayout ll_home_fast_loan;
-//    @BindView(R.id.ll_home_low_rate)
-//    LinearLayout ll_home_low_rate;
-//    @BindView(R.id.ll_home_high_limit)
-//    LinearLayout ll_home_high_limit;
-//    @BindView(R.id.ll_home_long_term)
-//    LinearLayout ll_home_long_term;
+    @BindView(R.id.ll_home_fast_loan)
+    LinearLayout ll_home_fast_loan;
+    @BindView(R.id.ll_home_low_rate)
+    LinearLayout ll_home_low_rate;
+    @BindView(R.id.ll_home_high_limit)
+    LinearLayout ll_home_high_limit;
+    @BindView(R.id.ll_home_long_term)
+    LinearLayout ll_home_long_term;
 
     List<Floors.FloorsBean> floors;
     List<Product> products;
@@ -131,10 +120,10 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         rv_floors.setLayoutManager(linearLayoutManager);
         rv_floors.setAdapter(adapter);
 
-//        ll_home_fast_loan.setOnClickListener(this);
-//        ll_home_low_rate.setOnClickListener(this);
-//        ll_home_high_limit.setOnClickListener(this);
-//        ll_home_long_term.setOnClickListener(this);
+        ll_home_fast_loan.setOnClickListener(this);
+        ll_home_low_rate.setOnClickListener(this);
+        ll_home_high_limit.setOnClickListener(this);
+        ll_home_long_term.setOnClickListener(this);
 
 
         if (NetworkUtil.checkNetwork(getActivity())) {
@@ -174,12 +163,12 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
                 if (Intent.ACTION_SCREEN_ON.equals(action)) {
 //                    LogU.t("screen on");
                     if (banner != null) {
-                        banner.setIsAuto(true);
+//                        banner.setIsAuto(true);
                     }
                 } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
 //                    LogU.t("screen off");
                     if (banner != null) {
-                        banner.setIsAuto(false);
+//                        banner.setIsAuto(false);
                     }
                 }
             }
@@ -188,48 +177,47 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         getActivity().registerReceiver(mBatInfoReceiver, filter);
 
 
-        LogU.t("token:"+getToken());
+        LogU.t("token:" + getToken());
 
 /**
-        int statusBarHeight1 = -1;
-        //获取status_bar_height资源的ID
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            //根据资源ID获取响应的尺寸值
-            statusBarHeight1 = getResources().getDimensionPixelSize(resourceId);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, statusBarHeight1, 0, 0);
-            banner.setLayoutParams(lp);
-        }
-*/
+ int statusBarHeight1 = -1;
+ //获取status_bar_height资源的ID
+ int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+ if (resourceId > 0) {
+ //根据资源ID获取响应的尺寸值
+ statusBarHeight1 = getResources().getDimensionPixelSize(resourceId);
+ LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+ lp.setMargins(0, statusBarHeight1, 0, 0);
+ banner.setLayoutParams(lp);
+ }
+ */
 
+        LogU.t("channel-" + CommUtil.getAppMetaData(getActivity(), "UMENG_CHANNEL"));
 
     }
-
-
 
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
 
-//        switch (v.getId()) {
-//            case R.id.ll_home_fast_loan:
-//                intent.putExtra("index",0);
-//                break;
-//            case R.id.ll_home_low_rate:
-//                intent.putExtra("index",1);
-//
-//                break;
-//            case R.id.ll_home_high_limit:
-//                intent.putExtra("index",2);
-//
-//                break;
-//            case R.id.ll_home_long_term:
-//                intent.putExtra("index",3);
-//
-//                break;
-//        }
+        switch (v.getId()) {
+            case R.id.ll_home_fast_loan:
+                intent.putExtra("index", 0);
+                break;
+            case R.id.ll_home_low_rate:
+                intent.putExtra("index", 1);
+
+                break;
+            case R.id.ll_home_high_limit:
+                intent.putExtra("index", 2);
+
+                break;
+            case R.id.ll_home_long_term:
+                intent.putExtra("index", 3);
+
+                break;
+        }
 
         startActivity(intent);
 
@@ -250,11 +238,21 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     @Override
     public void onResume() {
         super.onResume();
+        if (banner != null) {
+            if (bannerList != null && bannerList.size() > 1) {
+                banner.startTurning(BANNER_SPEED);
+            } else {
+                banner.stopTurning();
+            }
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        if (banner != null) {
+            banner.stopTurning();
+        }
     }
 
     @Override
@@ -269,30 +267,75 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
     }
 
+    List<Banner> bannerList;
 
     @Override
     public void getBanner(BannerBean bean) {
         iv_home_banner.setVisibility(View.GONE);
         banner.setVisibility(View.VISIBLE);
-        List<Banner> banners = bean.getContent().getAvailableBanners();
-        List<BannerItem> list = new ArrayList<>();
-        for (int i = 0; i < banners.size(); i++) {
-            BannerItem item = new BannerItem();
-            item.picUrl = banners.get(i).getBannerPic();
-            list.add(item);
+//        List<Banner> banners = bean.getContent().getAvailableBanners();
+//        List<BannerItem> list = new ArrayList<>();
+//        for (int i = 0; i < banners.size(); i++) {
+//            BannerItem item = new BannerItem();
+//            item.picUrl = banners.get(i).getBannerPic();
+//            list.add(item);
+//        }
+//        BannerViewFactory factory = new BannerViewFactory(getActivity());
+//        factory.setBanners(banners);
+//        factory.setListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            }
+//        });
+//        banner.setViewFactory(factory);
+//        banner.setDataList(list);
+//        banner.start();
+
+        bannerList = bean.getContent().getAvailableBanners();
+        if (bannerList.size() > 1) {
+            banner.setCanLoop(true);
+            banner.startTurning(BANNER_SPEED);
+        } else {
+            banner.setCanLoop(false);
+            banner.stopTurning();
         }
-        BannerViewFactory factory = new BannerViewFactory(getActivity());
-        factory.setBanners(banners);
-        factory.setListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-        banner.setViewFactory(factory);
-        banner.setDataList(list);
-        banner.start();
+//        banner.setScrollDuration(500);
+
+//        banner.setManualPageable();
+        banner.setPages(
+                new CBViewHolderCreator<LocalImageHolderView>() {
+                    @Override
+                    public LocalImageHolderView createHolder() {
+                        return new LocalImageHolderView();
+                    }
+                }, bannerList)
+                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
+                //设置指示器的方向
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+        //设置翻页的效果，不需要翻页效果可用不设
+        //.setPageTransformer(Transformer.DefaultTransformer);    集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
+//        convenientBanner.setManualPageable(false);//设置不能手动影响
 
 
+    }
+
+    public class LocalImageHolderView implements Holder<Banner> {
+        private ImageView imageView;
+
+        @Override
+        public View createView(Context context) {
+            imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            return imageView;
+        }
+
+        @Override
+        public void UpdateUI(Context context, final int position, Banner data) {
+//            imageView.setImageResource(data);
+            String imgUrl = RxHttp.ROOT + "attachments/" + data.getBannerPic();
+            ImgUtil.loadBanner(getActivity(), imgUrl, imageView);
+        }
     }
 
     @Override
@@ -320,7 +363,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         productAdapter.setList(products);
     }
 
-
+/*
     public static class BannerItem {
         public String pid;
         public String picUrl;
@@ -330,8 +373,9 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             return pid;
         }
     }
+    */
 
-
+/*
     public static class BannerViewFactory implements BannerView.ViewFactory<BannerItem> {
         private Context context;
         private List<Banner> banners;
@@ -366,58 +410,17 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             if(listener!=null){
                 iv.setOnClickListener(listener);
             }
-/*
-            if (banners != null) {
-                final Banner b = banners.get(position);
-
-                if (b.getBannerMode().equals("EXTERNAL")) {
-                    iv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(context, BrowserActivity.class);
-                            intent.putExtra("url", b.getBannerUrl());
-                            intent.putExtra("title", b.getName());
-                            context.startActivity(intent);
-                        }
-                    });
-                } else {
-                    iv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (b.getTargetInfo() != null) {
-                                Banner.TargetInfoBean target = b.getTargetInfo();
-                                switch (target.getType()) {
-                                    case "product":
-                                    case "PRODUCT":
-                                        //单个产品
-                                        Intent intent = new Intent(context, ProductDetailActivity.class);
-                                        intent.putExtra("pid", target.getId());
-                                        context.startActivity(intent);
-                                        break;
-                                    case "products":
-                                    case "PRODUCTS":
-                                    case "productList":
-                                        //多个产品
-                                        Intent intentProducts = new Intent(context, ProductsActivity.class);
-                                        context.startActivity(intentProducts);
-                                        break;
-                                }
-
-                            }
-                        }
-                    });
-                }
-
-            }
-            */
             return iv;
         }
 
     }
+    */
 
     @Override
     public void getHomeProductsFail(String error) {
         ToastUtil.showToast(getActivity(), error);
 
     }
+
+
 }
