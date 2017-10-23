@@ -366,7 +366,7 @@ public class BrowserActivity extends BaseActivity {
         webSetting.setUseWideViewPort(true);
         webSetting.setSupportMultipleWindows(false);
         // webSetting.setLoadWithOverviewMode(true);
-        webSetting.setAppCacheEnabled(true);
+        webSetting.setAppCacheEnabled(false);
         // webSetting.setDatabaseEnabled(true);
         webSetting.setDomStorageEnabled(true);
         webSetting.setJavaScriptEnabled(true);
@@ -598,10 +598,10 @@ public class BrowserActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (mTestHandler != null)
-            mTestHandler.removeCallbacksAndMessages(null);
-        if (mWebView != null)
-            mWebView.destroy();
+//        if (mTestHandler != null)
+//            mTestHandler.removeCallbacksAndMessages(null);
+//        if (mWebView != null)
+//            mWebView.destroy();
 
 //        if(mWebView != null) {
 //            mWebView.getSettings().setBuiltInZoomControls(true);
@@ -616,6 +616,16 @@ public class BrowserActivity extends BaseActivity {
 //                }
 //            }, timeout);
 //        }
+
+
+
+        if (mWebView != null) {
+            mWebView.getSettings().setBuiltInZoomControls(true);
+            mWebView.setVisibility(View.GONE);
+            mWebView.removeAllViews();
+            mWebView.destroy();
+            mWebView = null;
+        }
         super.onDestroy();
     }
 
