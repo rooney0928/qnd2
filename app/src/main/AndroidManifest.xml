@@ -143,8 +143,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.product.Product5DetailActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity
             android:name=".content.ui.home.AddCommentActivity"
             android:screenOrientation="portrait"></activity>
@@ -156,8 +156,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".content.ui.product.RepliesActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
 
 
         <activity
@@ -184,6 +184,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
 
         <!--监听网络状态
         <receiver android:name=".content.receiver.NetworkChangeReceiver">

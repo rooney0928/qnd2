@@ -49,6 +49,11 @@ public class CheckUtil {
     public static final String REGEX_IP_ADDR = "(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)";
 
     /**
+     * 正则表达式：下载的文件格式
+     */
+    public static final String REGEX_FILE_TYPE = "avi|mpeg|3gp|mp3|mp4|wav|jpeg|gif|jpg|png|apk|exe|pdf|rar|zip|docx|doc|apk";
+
+    /**
      * 校验用户名
      *
      * @param username
@@ -162,5 +167,16 @@ public class CheckUtil {
             flag = true;
 
         return flag;
+    }
+
+    public static String findFileName(String path){
+        Pattern pat=Pattern.compile("[\\w]+[\\.]("+REGEX_FILE_TYPE+")");//正则判断
+        Matcher mc=pat.matcher(path);//条件匹配
+        if(mc.find()){
+            String substring = mc.group();//截取文件名后缀名
+            return substring;
+        }else{
+            return "";
+        }
     }
 }

@@ -408,7 +408,11 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
                         if (p != null) {
                             product5DetailPresenter.applyOrder(getToken(), pid);
                             Intent intent = new Intent(Product5DetailActivity.this, BrowserActivity.class);
+
                             intent.putExtra("url", p.getUrl());
+//                            intent.putExtra("url", "http://a.app.qq.com/o/simple.jsp?pkgname=com.lianchuan.kaledai");
+//                            intent.putExtra("url", "file:///android_asset/file.html");
+
                             intent.putExtra("title", p.getName());
                             startActivity(intent);
                         }

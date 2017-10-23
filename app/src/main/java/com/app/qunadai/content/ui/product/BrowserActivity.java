@@ -32,7 +32,10 @@ import android.widget.Toast;
 import com.app.qunadai.R;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.third.tencent.X5WebView;
+import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
+import com.app.qunadai.utils.DownloadUtil;
+import com.app.qunadai.utils.LogU;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.CookieSyncManager;
@@ -47,6 +50,8 @@ import com.tencent.smtt.utils.TbsLog;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,6 +68,7 @@ public class BrowserActivity extends BaseActivity {
     private ImageButton mMore;
     private Button mGo;
     private EditText mUrl;
+    private DownloadUtil downloadUtil;
 
     private static final String mHomeUrl = "http://app.html5.qq.com/navi/index";
     private static final String TAG = "SdkDemo";
@@ -74,7 +80,9 @@ public class BrowserActivity extends BaseActivity {
 
     private ProgressBar mPageLoadingProgressBar = null;
 
+
     private ValueCallback<Uri> uploadFile;
+    private ValueCallback<Uri[]> uploadFiles;
 
     //	private URL mIntentUrl;
     private String webUrl;
@@ -99,12 +107,13 @@ public class BrowserActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        downloadUtil = new DownloadUtil(this);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
         Intent intent = getIntent();
         if (intent != null) {
 //				mIntentUrl = new URL(intent.getData().toString());
-                webUrl = getIntent().getExtras().getString("url");
+            webUrl = getIntent().getExtras().getString("url");
             setTitleText(getIntent().getStringExtra("title"));
 
         }
@@ -125,7 +134,7 @@ public class BrowserActivity extends BaseActivity {
 		 */
         mViewParent = (ViewGroup) findViewById(R.id.webView1);
 
-        initBtnListenser();
+        initBtnListener();
 
         mTestHandler.sendEmptyMessageDelayed(MSG_INIT_UI, 10);
     }
@@ -189,6 +198,7 @@ public class BrowserActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                LogU.t("u-"+url);
                 // mTestHandler.sendEmptyMessage(MSG_OPEN_TEST_URL);
                 mTestHandler.sendEmptyMessageDelayed(MSG_OPEN_TEST_URL, 5000);// 5s?
                 if (Build.VERSION.SDK_INT >= 16)
@@ -213,6 +223,34 @@ public class BrowserActivity extends BaseActivity {
 
             // /////////////////////////////////////////////////////////
             //
+
+
+            // For Android 3.0+
+            public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+                BrowserActivity.this.uploadFile = uploadFile;
+                openFileChooseProcess();
+            }
+
+            // For Android < 3.0
+            public void openFileChooser(ValueCallback<Uri> uploadMsgs) {
+                BrowserActivity.this.uploadFile = uploadFile;
+                openFileChooseProcess();
+            }
+
+            // For Android  > 4.1.1
+            public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+                BrowserActivity.this.uploadFile = uploadFile;
+                openFileChooseProcess();
+            }
+
+            // For Android  >= 5.0
+            public boolean onShowFileChooser(com.tencent.smtt.sdk.WebView webView,
+                                             ValueCallback<Uri[]> filePathCallback,
+                                             WebChromeClient.FileChooserParams fileChooserParams) {
+                BrowserActivity.this.uploadFiles = filePathCallback;
+                openFileChooseProcess();
+                return true;
+            }
 
             /**
              * 全屏播放配置
@@ -264,7 +302,7 @@ public class BrowserActivity extends BaseActivity {
         mWebView.setDownloadListener(new DownloadListener() {
 
             @Override
-            public void onDownloadStart(String arg0, String arg1, String arg2,
+            public void onDownloadStart(final String arg0, String arg1, String arg2,
                                         String arg3, long arg4) {
                 TbsLog.d(TAG, "url: " + arg0);
                 new AlertDialog.Builder(BrowserActivity.this)
@@ -276,8 +314,20 @@ public class BrowserActivity extends BaseActivity {
                                                         int which) {
                                         Toast.makeText(
                                                 BrowserActivity.this,
-                                                "fake message: i'll download...",
+                                                "i'll download...",
                                                 Toast.LENGTH_LONG).show();
+//                                        downloadUtil.downloadAPK("http://192.168.1.104:8080/XXX.apk", "XXX.apk");
+//                                        LogU.t("url--"+arg0);
+                                        String filename = CheckUtil.findFileName(arg0);
+                                        if (!CommUtil.isNull(filename)) {
+                                            downloadUtil.downloadAPK(arg0, filename);
+                                        } else {
+                                            Date date = new Date();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+                                            downloadUtil.downloadAPK(arg0, sdf.format(date));
+
+                                        }
+
                                     }
                                 })
                         .setNegativeButton("no",
@@ -342,7 +392,14 @@ public class BrowserActivity extends BaseActivity {
 //        CookieSyncManager.getInstance().sync();
     }
 
-    private void initBtnListenser() {
+    private void openFileChooseProcess() {
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("*/*");
+        startActivityForResult(Intent.createChooser(i, "test"), 0);
+    }
+
+    private void initBtnListener() {
         mBack = (ImageButton) findViewById(R.id.btnBack1);
         mForward = (ImageButton) findViewById(R.id.btnForward1);
         mExit = (ImageButton) findViewById(R.id.btnExit1);
@@ -512,6 +569,12 @@ public class BrowserActivity extends BaseActivity {
                         uploadFile.onReceiveValue(result);
                         uploadFile = null;
                     }
+                    if (null != uploadFiles) {
+                        Uri result = data == null || resultCode != RESULT_OK ? null
+                                : data.getData();
+                        uploadFiles.onReceiveValue(new Uri[]{result});
+                        uploadFiles = null;
+                    }
                     break;
                 default:
                     break;
@@ -584,7 +647,6 @@ public class BrowserActivity extends BaseActivity {
             super.handleMessage(msg);
         }
     };
-
 
 
     @Override

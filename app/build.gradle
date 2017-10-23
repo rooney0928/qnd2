@@ -46,15 +46,7 @@ android {
 
     productFlavors {
         official {}
-        xiaomi {}
-        baidu {}
-        yingyongbao {}
-        meizu {}
-        c360 {}
-        huawei {}
-        oppo {}
-        vivo {}
-        alibaba {}
+
 
 
         productFlavors.all { flavor ->

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+</head>
+<body>
+<input id="input" type="file"/>
+<input type="button" id="path" style="margin-top:50px" onclick="show()" value="获取图片地址"/>
+
+<script>
+
+            function show(){
+                var img = document.getElementsById('input');
+                alert(img.src);
+            }
+
+    </script>
+</body>
+</html>
