@@ -7,8 +7,8 @@ android {
         applicationId "com.app.qunadai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 112
-        versionName "5.0.10"
+        versionCode 116
+        versionName "5.0.14"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -46,6 +46,16 @@ android {
 
     productFlavors {
         official {}
+
+        xiaomi {}
+        baidu {}
+        yingyongbao {}
+        meizu {}
+        c360 {}
+        huawei {}
+        oppo {}
+        vivo {}
+        alibaba {}
 
 
 
@@ -126,5 +136,4 @@ dependencies {
     compile 'com.github.lawloretienne:trestle:0.0.7'
     compile 'q.rorbin:badgeview:1.1.3'
     compile 'com.bigkoo:convenientbanner:2.0.5'
-
 }

@@ -44,7 +44,7 @@ public class NetworkUtil {
     public static boolean checkNetwork(Context context) {
 //        CrashReport.postCatchedException(new Exception("检查网络，无context"));
         if (context == null) {
-            ToastUtil.showToast(context, "并没有网络，请联网再试1");
+//            ToastUtil.showToast(context, "并没有网络，请联网再试1");
             return false;
         }
         ConnectivityManager connectivityManager = (ConnectivityManager) context

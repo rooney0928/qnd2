@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,21 +22,25 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.base.BaseActivity;
+import com.app.qunadai.content.ui.me.AccountActivity;
 import com.app.qunadai.third.tencent.X5WebView;
 import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.DownloadUtil;
+import com.app.qunadai.utils.KeyBoardListener;
 import com.app.qunadai.utils.LogU;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.export.external.interfaces.JsResult;
@@ -47,15 +53,24 @@ import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.tencent.smtt.utils.TbsLog;
+import com.yanzhenjie.album.Album;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
+
 public class BrowserActivity extends BaseActivity {
+    private static final int REQUEST_WEBVIEW = 200;
+
+    @BindView(R.id.ll_x5_layout)
+    LinearLayout ll_x5_layout;
     /**
      * 作为一个浏览器的示例展示出来，采用android+web的模式
      */
@@ -107,6 +122,8 @@ public class BrowserActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        KeyBoardListener.getInstance(this).init();
         downloadUtil = new DownloadUtil(this);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
@@ -133,6 +150,7 @@ public class BrowserActivity extends BaseActivity {
 		 * android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		 */
         mViewParent = (ViewGroup) findViewById(R.id.webView1);
+
 
         initBtnListener();
 
@@ -198,7 +216,7 @@ public class BrowserActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                LogU.t("u-"+url);
+                LogU.t("u-" + url);
                 // mTestHandler.sendEmptyMessage(MSG_OPEN_TEST_URL);
                 mTestHandler.sendEmptyMessageDelayed(MSG_OPEN_TEST_URL, 5000);// 5s?
                 if (Build.VERSION.SDK_INT >= 16)
@@ -392,11 +410,26 @@ public class BrowserActivity extends BaseActivity {
 //        CookieSyncManager.getInstance().sync();
     }
 
+    private ArrayList<String> mImageList;
+
     private void openFileChooseProcess() {
-        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-        i.addCategory(Intent.CATEGORY_OPENABLE);
-        i.setType("*/*");
-        startActivityForResult(Intent.createChooser(i, "test"), 0);
+//        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+//        i.addCategory(Intent.CATEGORY_OPENABLE);
+//        i.setType("*/*");
+//        startActivityForResult(Intent.createChooser(i, "test"), 0);
+
+
+        Point p = CommUtil.getSize(this);
+
+        Album.albumRadio(this)
+                .statusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+                .toolBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .title("相册") // Title.
+//                .selectCount(1) // Choose up to a few pictures.
+                .columnCount(p.x >= 720 ? 4 : 3) // 宽度大于720px则显示4列
+                .camera(true) // Have a camera function.
+//                .checkedList(mImageList) // Has selected the picture, automatically select.
+                .start(REQUEST_WEBVIEW);
     }
 
     private void initBtnListener() {
@@ -559,7 +592,7 @@ public class BrowserActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         TbsLog.d(TAG, "onActivityResult, requestCode:" + requestCode
                 + ",resultCode:" + resultCode);
-
+/*
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 0:
@@ -585,7 +618,54 @@ public class BrowserActivity extends BaseActivity {
                 uploadFile = null;
             }
 
+            if (null != uploadFiles) {
+                uploadFiles.onReceiveValue(null);
+                uploadFiles = null;
+            }
+
         }
+*/
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_WEBVIEW: {
+                    //选取图片，选取完成后进入裁剪
+                    if (resultCode == RESULT_OK) { // Successfully.
+                        mImageList = Album.parseResult(data); // Parse select result.
+
+                        if (null != uploadFile) {
+//                            Uri result = data == null || resultCode != RESULT_OK ? null
+//                                    : data.getData();
+                            File f = new File(mImageList.get(0));
+                            uploadFile.onReceiveValue(Uri.fromFile(f));
+                            uploadFile = null;
+                        }
+                        if (null != uploadFiles) {
+//                            Uri result = data == null || resultCode != RESULT_OK ? null
+//                                    : data.getData();
+                            File f = new File(mImageList.get(0));
+                            uploadFiles.onReceiveValue(new Uri[]{Uri.fromFile(f)});
+                            uploadFiles = null;
+                        }
+                        LogU.t(mImageList.size() + "-select");
+                    } else if (resultCode == RESULT_CANCELED) { // User canceled.
+                        Snackbar.make(ll_x5_layout, "没有选择图片", Snackbar.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+            }
+        } else {
+            Snackbar.make(ll_x5_layout, "没有选择图片", Snackbar.LENGTH_LONG).show();
+            if (null != uploadFile) {
+                uploadFile.onReceiveValue(null);
+                uploadFile = null;
+            }
+
+            if (null != uploadFiles) {
+                uploadFiles.onReceiveValue(null);
+                uploadFiles = null;
+            }
+        }
+
 
     }
 
@@ -616,7 +696,6 @@ public class BrowserActivity extends BaseActivity {
 //                }
 //            }, timeout);
 //        }
-
 
 
         if (mWebView != null) {

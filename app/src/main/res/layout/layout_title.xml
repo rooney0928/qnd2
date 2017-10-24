@@ -4,7 +4,7 @@
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_top"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:background="@color/black5"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
@@ -12,7 +12,7 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <!--返回键-->
         <RelativeLayout
