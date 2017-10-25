@@ -5,70 +5,68 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/ll_home_loan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/ripple_nav_bg"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="14dp"
-        android:paddingTop="14dp">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:src="@mipmap/ic_home_loan" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:text="极速贷款"
             android:textColor="@color/black5" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_home_credit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/ripple_nav_bg"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="14dp"
-        android:paddingTop="14dp">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:src="@mipmap/ic_home_credit" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:text="信用卡专区 "
             android:textColor="@color/black5" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_home_new"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/ripple_nav_bg"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="14dp"
-        android:paddingTop="14dp">
+        android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_home_new_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:src="@mipmap/ic_home_new" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:text="最新口子"
             android:textColor="@color/black5" />
     </LinearLayout>

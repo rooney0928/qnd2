@@ -10,7 +10,7 @@ public class PersonBean {
      * msg : 操作成功
      * code : 000
      * detail : 操作成功
-     * content : {"personalValue":{"id":"8b813475-7711-4884-ae46-8e805d2f591e","createdTime":1493101490000,"updatedTime":1493110834000,"user":{"id":"f82538b9-af3d-4b7e-a6bd-15c3bddbaf6f","updatedTime":1493191640000,"avatar":"72bd005f-f1d4-4a58-afe0-557c21367119","nick":"哒哒哒","account":{"id":"f10bfc78-d0cb-49ed-bb2b-6526da780ca0","createdTime":1493101454000,"updatedTime":1493101490000,"mobileNumber":"17301746633","password":"7c4a8d09ca3762af61e59520943dc26494f8941b","verificationCode":"096095"},"status":"NORMAL"},"tips":"快去贷款吧!","valuation":2000,"balance":10000,"status":"CREATED","bankStatus":"CREATED","realInfoStatus":"SUCCESS","ebankStatus":"CREATED","zmxyStatus":"CREATED","operatorStatus":"CREATED","alipayStatus":"CREATED","emailStatus":"CREATED","fundStatus":"CREATED","zxStatus":"CREATED","taobaoStatus":"CREATED"}}
+     * content : {"personalValue":{"id":"8f25c641-b847-4164-a81c-ca9d2061515e","createdTime":1493544112000,"updatedTime":1499407097000,"user":{"id":"ae6b0df0-1db0-49f9-b1f9-d3af053f65f6","createdTime":1493696630000,"updatedTime":1508920188000,"avatar":"6e60a833-a287-43e2-a246-3c72f9d49a74","nick":"汝等小儿，可敢杀我","account":{"id":"d3b76361-c2be-40b0-b28d-94ac68e6a228","createdTime":1493544026000,"updatedTime":1506752870000,"mobileNumber":"15000983434","password":"3e35dbffd6b900e0033313643d78d9010cf0a312","verificationCode":"9168"},"status":"NORMAL","lastSMS":1506752870000,"lastLoginTime":1508920188000,"imei":"867368021787513","userValidity":"VALID","browsedLatestProducts":false},"tips":"快去贷款吧!","valuation":17000,"balance":10000,"status":"CREATED","bankStatus":"SUCCESS","realInfoStatus":"SUCCESS","ebankStatus":"CREATED","zmxyStatus":"CREATED","operatorStatus":"CREATED","alipayStatus":"CREATED","emailStatus":"CREATED","fundStatus":"CREATED","zxStatus":"CREATED","taobaoStatus":"PROCESSING"}}
      */
 
     private String msg;
@@ -52,7 +52,7 @@ public class PersonBean {
 
     public static class ContentBean {
         /**
-         * personalValue : {"id":"8b813475-7711-4884-ae46-8e805d2f591e","createdTime":1493101490000,"updatedTime":1493110834000,"user":{"id":"f82538b9-af3d-4b7e-a6bd-15c3bddbaf6f","updatedTime":1493191640000,"avatar":"72bd005f-f1d4-4a58-afe0-557c21367119","nick":"哒哒哒","account":{"id":"f10bfc78-d0cb-49ed-bb2b-6526da780ca0","createdTime":1493101454000,"updatedTime":1493101490000,"mobileNumber":"17301746633","password":"7c4a8d09ca3762af61e59520943dc26494f8941b","verificationCode":"096095"},"status":"NORMAL"},"tips":"快去贷款吧!","valuation":2000,"balance":10000,"status":"CREATED","bankStatus":"CREATED","realInfoStatus":"SUCCESS","ebankStatus":"CREATED","zmxyStatus":"CREATED","operatorStatus":"CREATED","alipayStatus":"CREATED","emailStatus":"CREATED","fundStatus":"CREATED","zxStatus":"CREATED","taobaoStatus":"CREATED"}
+         * personalValue : {"id":"8f25c641-b847-4164-a81c-ca9d2061515e","createdTime":1493544112000,"updatedTime":1499407097000,"user":{"id":"ae6b0df0-1db0-49f9-b1f9-d3af053f65f6","createdTime":1493696630000,"updatedTime":1508920188000,"avatar":"6e60a833-a287-43e2-a246-3c72f9d49a74","nick":"汝等小儿，可敢杀我","account":{"id":"d3b76361-c2be-40b0-b28d-94ac68e6a228","createdTime":1493544026000,"updatedTime":1506752870000,"mobileNumber":"15000983434","password":"3e35dbffd6b900e0033313643d78d9010cf0a312","verificationCode":"9168"},"status":"NORMAL","lastSMS":1506752870000,"lastLoginTime":1508920188000,"imei":"867368021787513","userValidity":"VALID","browsedLatestProducts":false},"tips":"快去贷款吧!","valuation":17000,"balance":10000,"status":"CREATED","bankStatus":"SUCCESS","realInfoStatus":"SUCCESS","ebankStatus":"CREATED","zmxyStatus":"CREATED","operatorStatus":"CREATED","alipayStatus":"CREATED","emailStatus":"CREATED","fundStatus":"CREATED","zxStatus":"CREATED","taobaoStatus":"PROCESSING"}
          */
 
         private PersonalValueBean personalValue;
@@ -67,15 +67,15 @@ public class PersonBean {
 
         public static class PersonalValueBean {
             /**
-             * id : 8b813475-7711-4884-ae46-8e805d2f591e
-             * createdTime : 1493101490000
-             * updatedTime : 1493110834000
-             * user : {"id":"f82538b9-af3d-4b7e-a6bd-15c3bddbaf6f","updatedTime":1493191640000,"avatar":"72bd005f-f1d4-4a58-afe0-557c21367119","nick":"哒哒哒","account":{"id":"f10bfc78-d0cb-49ed-bb2b-6526da780ca0","createdTime":1493101454000,"updatedTime":1493101490000,"mobileNumber":"17301746633","password":"7c4a8d09ca3762af61e59520943dc26494f8941b","verificationCode":"096095"},"status":"NORMAL"}
+             * id : 8f25c641-b847-4164-a81c-ca9d2061515e
+             * createdTime : 1493544112000
+             * updatedTime : 1499407097000
+             * user : {"id":"ae6b0df0-1db0-49f9-b1f9-d3af053f65f6","createdTime":1493696630000,"updatedTime":1508920188000,"avatar":"6e60a833-a287-43e2-a246-3c72f9d49a74","nick":"汝等小儿，可敢杀我","account":{"id":"d3b76361-c2be-40b0-b28d-94ac68e6a228","createdTime":1493544026000,"updatedTime":1506752870000,"mobileNumber":"15000983434","password":"3e35dbffd6b900e0033313643d78d9010cf0a312","verificationCode":"9168"},"status":"NORMAL","lastSMS":1506752870000,"lastLoginTime":1508920188000,"imei":"867368021787513","userValidity":"VALID","browsedLatestProducts":false}
              * tips : 快去贷款吧!
-             * valuation : 2000
+             * valuation : 17000
              * balance : 10000
              * status : CREATED
-             * bankStatus : CREATED
+             * bankStatus : SUCCESS
              * realInfoStatus : SUCCESS
              * ebankStatus : CREATED
              * zmxyStatus : CREATED
@@ -84,7 +84,7 @@ public class PersonBean {
              * emailStatus : CREATED
              * fundStatus : CREATED
              * zxStatus : CREATED
-             * taobaoStatus : CREATED
+             * taobaoStatus : PROCESSING
              */
 
             private String id;
@@ -252,20 +252,32 @@ public class PersonBean {
 
             public static class UserBean {
                 /**
-                 * id : f82538b9-af3d-4b7e-a6bd-15c3bddbaf6f
-                 * updatedTime : 1493191640000
-                 * avatar : 72bd005f-f1d4-4a58-afe0-557c21367119
-                 * nick : 哒哒哒
-                 * account : {"id":"f10bfc78-d0cb-49ed-bb2b-6526da780ca0","createdTime":1493101454000,"updatedTime":1493101490000,"mobileNumber":"17301746633","password":"7c4a8d09ca3762af61e59520943dc26494f8941b","verificationCode":"096095"}
+                 * id : ae6b0df0-1db0-49f9-b1f9-d3af053f65f6
+                 * createdTime : 1493696630000
+                 * updatedTime : 1508920188000
+                 * avatar : 6e60a833-a287-43e2-a246-3c72f9d49a74
+                 * nick : 汝等小儿，可敢杀我
+                 * account : {"id":"d3b76361-c2be-40b0-b28d-94ac68e6a228","createdTime":1493544026000,"updatedTime":1506752870000,"mobileNumber":"15000983434","password":"3e35dbffd6b900e0033313643d78d9010cf0a312","verificationCode":"9168"}
                  * status : NORMAL
+                 * lastSMS : 1506752870000
+                 * lastLoginTime : 1508920188000
+                 * imei : 867368021787513
+                 * userValidity : VALID
+                 * browsedLatestProducts : false
                  */
 
                 private String id;
+                private long createdTime;
                 private long updatedTime;
                 private String avatar;
                 private String nick;
                 private AccountBean account;
                 private String status;
+                private long lastSMS;
+                private long lastLoginTime;
+                private String imei;
+                private String userValidity;
+                private boolean browsedLatestProducts;
 
                 public String getId() {
                     return id;
@@ -273,6 +285,14 @@ public class PersonBean {
 
                 public void setId(String id) {
                     this.id = id;
+                }
+
+                public long getCreatedTime() {
+                    return createdTime;
+                }
+
+                public void setCreatedTime(long createdTime) {
+                    this.createdTime = createdTime;
                 }
 
                 public long getUpdatedTime() {
@@ -315,14 +335,54 @@ public class PersonBean {
                     this.status = status;
                 }
 
+                public long getLastSMS() {
+                    return lastSMS;
+                }
+
+                public void setLastSMS(long lastSMS) {
+                    this.lastSMS = lastSMS;
+                }
+
+                public long getLastLoginTime() {
+                    return lastLoginTime;
+                }
+
+                public void setLastLoginTime(long lastLoginTime) {
+                    this.lastLoginTime = lastLoginTime;
+                }
+
+                public String getImei() {
+                    return imei;
+                }
+
+                public void setImei(String imei) {
+                    this.imei = imei;
+                }
+
+                public String getUserValidity() {
+                    return userValidity;
+                }
+
+                public void setUserValidity(String userValidity) {
+                    this.userValidity = userValidity;
+                }
+
+                public boolean isBrowsedLatestProducts() {
+                    return browsedLatestProducts;
+                }
+
+                public void setBrowsedLatestProducts(boolean browsedLatestProducts) {
+                    this.browsedLatestProducts = browsedLatestProducts;
+                }
+
                 public static class AccountBean {
                     /**
-                     * id : f10bfc78-d0cb-49ed-bb2b-6526da780ca0
-                     * createdTime : 1493101454000
-                     * updatedTime : 1493101490000
-                     * mobileNumber : 17301746633
-                     * password : 7c4a8d09ca3762af61e59520943dc26494f8941b
-                     * verificationCode : 096095
+                     * id : d3b76361-c2be-40b0-b28d-94ac68e6a228
+                     * createdTime : 1493544026000
+                     * updatedTime : 1506752870000
+                     * mobileNumber : 15000983434
+                     * password : 3e35dbffd6b900e0033313643d78d9010cf0a312
+                     * verificationCode : 9168
                      */
 
                     private String id;

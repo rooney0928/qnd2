@@ -43,6 +43,7 @@ import com.app.qunadai.utils.DownloadUtil;
 import com.app.qunadai.utils.KeyBoardListener;
 import com.app.qunadai.utils.LogU;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
+import com.tencent.smtt.export.external.interfaces.IX5WebSettings;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.DownloadListener;
@@ -383,13 +384,14 @@ public class BrowserActivity extends BaseActivity {
         webSetting.setBuiltInZoomControls(true);
         webSetting.setUseWideViewPort(true);
         webSetting.setSupportMultipleWindows(false);
+        webSetting.setCacheMode(IX5WebSettings.LOAD_NO_CACHE);
         // webSetting.setLoadWithOverviewMode(true);
         webSetting.setAppCacheEnabled(false);
         // webSetting.setDatabaseEnabled(true);
         webSetting.setDomStorageEnabled(true);
         webSetting.setJavaScriptEnabled(true);
         webSetting.setGeolocationEnabled(true);
-        webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
+//        webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
         webSetting.setAppCachePath(this.getDir("appcache", 0).getPath());
         webSetting.setDatabasePath(this.getDir("databases", 0).getPath());
         webSetting.setGeolocationDatabasePath(this.getDir("geolocation", 0)
@@ -399,7 +401,6 @@ public class BrowserActivity extends BaseActivity {
         // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
         // webSetting.setPreFectch(true);
         long time = System.currentTimeMillis();
-
 
         if (!CommUtil.isNull(webUrl)) {
             mWebView.loadUrl(webUrl);

@@ -1,6 +1,7 @@
 package com.app.qunadai.content.presenter.v5;
 
 import com.app.qunadai.bean.BannerBean;
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.Products;
@@ -18,6 +19,16 @@ public class Home5Presenter implements Home5Contract.Presenter {
     public Home5Presenter(Home5Contract.View iview) {
         this.view = iview;
         model = new Home5ModelImpl(new Home5ModelImpl.OnReturnDataListener() {
+            @Override
+            public void getPersonValue(PersonBean bean) {
+                view.getPersonValue(bean);
+            }
+
+            @Override
+            public void getPersonValueFail(String error) {
+                view.getPersonValueFail(error);
+            }
+
             @Override
             public void getBanner(BannerBean bean) {
                 view.getBanner(bean);
@@ -83,5 +94,10 @@ public class Home5Presenter implements Home5Contract.Presenter {
     @Override
     public void getHomeProducts() {
         model.getHomeProducts();
+    }
+
+    @Override
+    public void requestPersonValue(String token) {
+        model.requestPersonValue(token);
     }
 }

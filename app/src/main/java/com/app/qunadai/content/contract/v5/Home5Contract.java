@@ -17,24 +17,42 @@ import com.app.qunadai.content.base.BaseView;
 public interface Home5Contract {
     interface View extends BaseView {
         void getBanner(BannerBean bean);
+
         void getBannerFail(String error);
+
         void getHomeFloors(BaseBean<Floors> bean);
+
         void getHomeFloorsFail(String error);
+
         void getHomeProducts(BaseBean<Products> bean);
+
         void getHomeProductsFail(String error);
+
+        void getPersonValue(PersonBean bean);
+
+        void getPersonValueFail(String error);
     }
 
     interface Presenter extends BasePresenter {
         void getBanner();
+
         void getHomeFloors();
+
         void getHomeProducts();
+
+        void requestPersonValue(String token);
+
 
     }
 
     interface Model extends BaseModel {
         void getBanner();
+
         void getHomeFloors();
+
         void getHomeProducts();
+
+        void requestPersonValue(String token);
 
     }
 }

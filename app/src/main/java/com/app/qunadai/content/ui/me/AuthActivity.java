@@ -16,6 +16,7 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.contract.v5.AuthContract;
 import com.app.qunadai.content.presenter.v5.AuthPresenter;
 import com.app.qunadai.content.ui.bbs.HelpActivity;
+import com.app.qunadai.content.ui.home.FilterProductsActivity;
 import com.app.qunadai.content.view.AuthView;
 import com.app.qunadai.third.eventbus.EventMe;
 import com.app.qunadai.third.eventbus.EventRefresh;
@@ -34,7 +35,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
+import me.bakumon.numberanimtextview.NumberAnimTextView;
 
 /**
  * Created by wayne on 2017/9/15.
@@ -63,11 +67,16 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
     @BindView(R.id.av_credit)
     AuthView av_credit;
 
-    @BindView(R.id.bar1)
-    ColorArcProgressBar bar1;
+//    @BindView(R.id.bar1)
+//    ColorArcProgressBar bar1;
 
-    @BindView(R.id.tv_limit_money)
-    TextView tv_limit_money;
+//    @BindView(R.id.tv_limit_money)
+//    TextView tv_limit_money;
+
+    @BindView(R.id.natv_limit_money)
+    NumberAnimTextView natv_limit_money;
+    @BindView(R.id.tv_auth_loan)
+    TextView tv_auth_loan;
 
     @BindView(R.id.iv_loan_question)
     ImageView iv_loan_question;
@@ -105,6 +114,15 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
         av_fund.setOnClickListener(this);
         av_taobao.setOnClickListener(this);
         av_credit.setOnClickListener(this);
+        tv_auth_loan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AuthActivity.this, FilterProductsActivity.class);
+                intent.putExtra("index", 0);
+                startActivity(intent);
+
+            }
+        });
 
         iv_loan_question.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +134,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
 
         authPresenter.requestPersonValue(getToken());
 
-        bar1.setCurrentValues(5);
+//        bar1.setCurrentValues(5);
 
     }
 
@@ -340,8 +358,9 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
 
     @Override
     public void getPersonValue(PersonBean bean) {
-        tv_limit_money.setText(bean.getContent().getPersonalValue().getValuation() + "");
-
+//        natv_limit_money.setText(bean.getContent().getPersonalValue().getValuation() + "");
+//        DecimalFormat dfdot = new DecimalFormat("#,###");
+        natv_limit_money.setNumberString(bean.getContent().getPersonalValue().getValuation() + "");
 
         //银行卡验证
         setBindStatus(av_bankcard, bean.getContent().getPersonalValue().getBankStatus());
@@ -374,7 +393,6 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
                 PrefUtil.putBoolean(this, PrefKey.BANK_CHECKED, false);
                 break;
         }
-        bar1.setCurrentValues(countAuthCount());
     }
 
     public int countAuthCount() {

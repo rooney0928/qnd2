@@ -32,6 +32,10 @@ public class Home5ModelImpl implements Home5Contract.Model {
 
     public interface OnReturnDataListener extends BaseReturnListener {
 
+        void getPersonValue(PersonBean bean);
+
+        void getPersonValueFail(String error);
+
         void getBanner(BannerBean bean);
 
         void getBannerFail(String error);
@@ -143,6 +147,39 @@ public class Home5ModelImpl implements Home5Contract.Model {
                     @Override
                     protected void onOk(BaseBean<Products> bean) {
                         onReturnDataListener.getHomeProducts(bean);
+                    }
+
+                    @Override
+                    protected void requestEnd() {
+                        onReturnDataListener.requestEnd();
+                    }
+                });
+        RxHolder.addSubscription(sub);
+    }
+
+    @Override
+    public void requestPersonValue(String token) {
+        Observable<PersonBean> request = RxHttp.getInstance().getPersonValue(token);
+        Subscription sub = request.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<PersonBean>() {
+                    @Override
+                    public void onStart() {
+                        onReturnDataListener.requestStart();
+                        super.onStart();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        onReturnDataListener.getPersonValueFail(ex.getDisplayMessage());
+                        if(ex.isTokenFail()){
+                            onReturnDataListener.tokenFail();
+                        }
+                    }
+
+                    @Override
+                    protected void onOk(PersonBean bean) {
+                        onReturnDataListener.getPersonValue(bean);
                     }
 
                     @Override

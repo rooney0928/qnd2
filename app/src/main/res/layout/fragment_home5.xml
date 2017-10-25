@@ -42,7 +42,7 @@
                     android:layout_height="140dp"
                     android:background="@mipmap/banner1" />
 
-                <!--四大金刚按键-->
+                <!--四大金刚按键
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -149,20 +149,18 @@
 
                     </LinearLayout>
 
-                </LinearLayout>
-                <!--
-                                <include layout="@layout/layout_home_nav" />
+                </LinearLayout>-->
+                <include layout="@layout/layout_home_nav" />
 
-                                <android.support.v4.widget.Space
-                                    android:layout_width="match_parent"
-                                    android:layout_height="12dp" />
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
 
-                                <include layout="@layout/layout_home_limit" />
+                <include layout="@layout/layout_home_limit" />
 
-                                <android.support.v4.widget.Space
-                                    android:layout_width="match_parent"
-                                    android:layout_height="12dp" />
-                -->
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

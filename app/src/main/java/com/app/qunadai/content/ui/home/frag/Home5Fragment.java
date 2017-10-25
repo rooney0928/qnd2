@@ -5,16 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.Banner;
 import com.app.qunadai.bean.BannerBean;
+import com.app.qunadai.bean.PersonBean;
 import com.app.qunadai.bean.base.BaseBean;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.Product;
@@ -25,7 +30,9 @@ import com.app.qunadai.content.adapter.v5.ProductAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Home5Contract;
 import com.app.qunadai.content.presenter.v5.Home5Presenter;
+import com.app.qunadai.content.ui.home.CreditCardActivity;
 import com.app.qunadai.content.ui.home.FilterProductsActivity;
+import com.app.qunadai.content.ui.me.AuthActivity;
 import com.app.qunadai.content.view.FullRecyclerView;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.utils.CommUtil;
@@ -41,6 +48,8 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import java.util.List;
 
 import butterknife.BindView;
+import me.bakumon.numberanimtextview.NumberAnimTextView;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * Created by wayne on 2017/9/7.
@@ -62,14 +71,31 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     @BindView(R.id.swipe_home)
     SwipeRefreshLayout swipe_home;
 
-    @BindView(R.id.ll_home_fast_loan)
-    LinearLayout ll_home_fast_loan;
-    @BindView(R.id.ll_home_low_rate)
-    LinearLayout ll_home_low_rate;
-    @BindView(R.id.ll_home_high_limit)
-    LinearLayout ll_home_high_limit;
-    @BindView(R.id.ll_home_long_term)
-    LinearLayout ll_home_long_term;
+//    @BindView(R.id.ll_home_fast_loan)
+//    LinearLayout ll_home_fast_loan;
+//    @BindView(R.id.ll_home_low_rate)
+//    LinearLayout ll_home_low_rate;
+//    @BindView(R.id.ll_home_high_limit)
+//    LinearLayout ll_home_high_limit;
+//    @BindView(R.id.ll_home_long_term)
+//    LinearLayout ll_home_long_term;
+
+    @BindView(R.id.ll_home_loan)
+    LinearLayout ll_home_loan;
+    @BindView(R.id.ll_home_credit)
+    LinearLayout ll_home_credit;
+    @BindView(R.id.ll_home_new)
+    LinearLayout ll_home_new;
+
+    @BindView(R.id.iv_home_new_icon)
+    ImageView iv_home_new_icon;
+
+    @BindView(R.id.rl_home_get_limit)
+    RelativeLayout rl_home_get_limit;
+    @BindView(R.id.natv_limit_money)
+    NumberAnimTextView natv_limit_money;
+
+
 
     List<Floors.FloorsBean> floors;
     List<Product> products;
@@ -77,6 +103,8 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     LinearLayoutManager linearLayoutManager2;
     HomeFloorsAdapter adapter;
     ProductAdapter productAdapter;
+
+    QBadgeView qBadgeView;
 
 
     public static Home5Fragment getInstance() {
@@ -99,6 +127,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
     @Override
     protected void initData() {
+        qBadgeView = new QBadgeView(getActivity());
         home5Presenter = new Home5Presenter(this);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -120,16 +149,24 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         rv_floors.setLayoutManager(linearLayoutManager);
         rv_floors.setAdapter(adapter);
 
-        ll_home_fast_loan.setOnClickListener(this);
-        ll_home_low_rate.setOnClickListener(this);
-        ll_home_high_limit.setOnClickListener(this);
-        ll_home_long_term.setOnClickListener(this);
+//        ll_home_fast_loan.setOnClickListener(this);
+//        ll_home_low_rate.setOnClickListener(this);
+//        ll_home_high_limit.setOnClickListener(this);
+//        ll_home_long_term.setOnClickListener(this);
+
+        ll_home_loan.setOnClickListener(this);
+        ll_home_credit.setOnClickListener(this);
+        ll_home_new.setOnClickListener(this);
+        rl_home_get_limit.setOnClickListener(this);
 
 
         if (NetworkUtil.checkNetwork(getActivity())) {
             home5Presenter.getHomeFloors();
             home5Presenter.getHomeProducts();
             home5Presenter.getBanner();
+            if(!CommUtil.isNull(getToken())){
+                home5Presenter.requestPersonValue(getToken());
+            }
         }
 
         swipe_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -137,6 +174,9 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             public void onRefresh() {
                 home5Presenter.getHomeFloors();
                 home5Presenter.getHomeProducts();
+                if(!CommUtil.isNull(getToken())){
+                    home5Presenter.requestPersonValue(getToken());
+                }
             }
         });
 
@@ -174,7 +214,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             }
         };
 //        LogU.t("registerReceiver");
-        getActivity().registerReceiver(mBatInfoReceiver, filter);
+//        getActivity().registerReceiver(mBatInfoReceiver, filter);
 
 
         LogU.t("token:" + getToken());
@@ -199,6 +239,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
     @Override
     public void onClick(View v) {
+        /*
         Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
 
         switch (v.getId()) {
@@ -220,7 +261,30 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         }
 
         startActivity(intent);
+*/
 
+        switch (v.getId()) {
+            case R.id.ll_home_loan:
+                Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
+                intent.putExtra("index", 0);
+                startActivity(intent);
+                break;
+            case R.id.ll_home_credit:
+                Intent intentCredit = new Intent(getActivity(), CreditCardActivity.class);
+                startActivity(intentCredit);
+                break;
+            case R.id.ll_home_new:
+                break;
+            case R.id.rl_home_get_limit:
+                if (CommUtil.isNull(getToken())) {
+                    exeLogin();
+                    return;
+                }
+                Intent intentAuth = new Intent(getActivity(), AuthActivity.class);
+                startActivity(intentAuth);
+                break;
+
+        }
     }
 
 
@@ -290,6 +354,15 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 //        banner.setViewFactory(factory);
 //        banner.setDataList(list);
 //        banner.start();
+
+        qBadgeView.bindTarget(iv_home_new_icon)
+                .setBadgeBackgroundColor(ContextCompat.getColor(getActivity(), R.color.v5_price))
+                .setBadgeTextColor(ContextCompat.getColor(getActivity(), R.color.white))
+                .setBadgeGravity(Gravity.START | Gravity.TOP)
+                .setShowShadow(false)
+                .setBadgeText("新");
+        qBadgeView.hide(true);
+
 
         bannerList = bean.getContent().getAvailableBanners();
         if (bannerList.size() > 1) {
@@ -363,58 +436,6 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         productAdapter.setList(products);
     }
 
-/*
-    public static class BannerItem {
-        public String pid;
-        public String picUrl;
-
-        @Override
-        public String toString() {
-            return pid;
-        }
-    }
-    */
-
-/*
-    public static class BannerViewFactory implements BannerView.ViewFactory<BannerItem> {
-        private Context context;
-        private List<Banner> banners;
-        private View.OnClickListener listener;
-
-        public BannerViewFactory(Context context) {
-            this.context = context;
-        }
-
-        public void setBanners(List<Banner> banners) {
-            this.banners = banners;
-        }
-
-        public void setListener(View.OnClickListener listener) {
-            this.listener = listener;
-        }
-
-        @Override
-        public View create(final BannerItem item, final int position, final ViewGroup container) {
-            ImageView iv = new ImageView(container.getContext());
-//            RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA);
-//            Glide.with(container.getContext().getApplicationContext()).load(item.image).apply(options).into(iv);
-            String imgUrl = RxHttp.ROOT + "attachments/" + item.picUrl;
-
-//            LogU.t("banner----"+imgUrl);
-            if (CommUtil.isNull(item.picUrl)) {
-                ImgUtil.loadBanner(container.getContext(), R.mipmap.banner1, iv);
-            } else {
-                ImgUtil.loadBanner(container.getContext(), imgUrl, iv);
-            }
-
-            if(listener!=null){
-                iv.setOnClickListener(listener);
-            }
-            return iv;
-        }
-
-    }
-    */
 
     @Override
     public void getHomeProductsFail(String error) {
@@ -422,5 +443,27 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
     }
 
+    @Override
+    public void getPersonValue(PersonBean bean) {
+        boolean isNew = bean.getContent().getPersonalValue().getUser().isBrowsedLatestProducts();
+        if(isNew){
+            qBadgeView.bindTarget(iv_home_new_icon)
+                    .setBadgeBackgroundColor(ContextCompat.getColor(getActivity(), R.color.v5_price))
+                    .setBadgeTextColor(ContextCompat.getColor(getActivity(), R.color.white))
+                    .setBadgeGravity(Gravity.START | Gravity.TOP)
+                    .setShowShadow(false)
+                    .setBadgeText("新");
+        }else{
+            qBadgeView.hide(true);
+        }
+
+        natv_limit_money.setNumberString(bean.getContent().getPersonalValue().getValuation()+"");
+    }
+
+    @Override
+    public void getPersonValueFail(String error) {
+        ToastUtil.showToast(getActivity(), error);
+
+    }
 
 }

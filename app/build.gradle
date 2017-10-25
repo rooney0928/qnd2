@@ -92,7 +92,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:cardview-v7:25.1.0'
-
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
@@ -104,7 +103,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.squareup.okio:okio:1.12.0'
     compile(name: 'moxie-client-1.2.9', ext: 'aar')
@@ -113,27 +111,22 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.zxy.android:tiny:0.0.6'
-
     compile 'com.yanzhenjie:permission:1.1.2'
     compile 'com.yanzhenjie:album:1.0.7'
     compile 'com.yanzhenjie:recyclerview-swipe:1.1.3'
-
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     //定位
     compile 'com.amap.api:location:latest.integration'
     //自动更新
     compile 'com.pgyersdk:sdk:2.5.6'
-
     compile 'com.github.ome450901:SimpleRatingBar:1.3.1'
     compile 'me.grantland:autofittextview:0.2.+'
-
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-
     compile 'com.github.shinelw:library:1.0.1'
-
     compile 'com.github.Kennyc1012:MultiStateView:1.3.2'
     compile 'com.github.lawloretienne:trestle:0.0.7'
     compile 'q.rorbin:badgeview:1.1.3'
     compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile project(':numberanimtextview')
 }
