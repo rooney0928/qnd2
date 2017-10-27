@@ -199,6 +199,7 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_bbs_credit:
+                CommUtil.tcEvent(getActivity(), "find-card", "发现信用卡专区");
                 //办信用卡
                 Intent intentCredit = new Intent(getActivity(), CreditCardActivity.class);
                 startActivity(intentCredit);
@@ -215,12 +216,12 @@ public class BBSFragment extends BaseFragment implements View.OnClickListener, B
                 break;
             case R.id.ll_bbs_talent:
                 //进入贷款达人
-
+                CommUtil.tcEvent(getActivity(),"find-Loan master","网贷达人");
                 Intent intentTalent = new Intent(getActivity(), TalentActivity.class);
                 startActivity(intentTalent);
                 break;
             case R.id.ll_bbs_help:
-
+                CommUtil.tcEvent(getActivity(),"find-Q&A","帮助中心");
                 Intent intentHelp = new Intent(getActivity(), HelpActivity.class);
                 startActivity(intentHelp);
                 break;

@@ -20,6 +20,7 @@ import com.app.qunadai.content.contract.AccountContract;
 import com.app.qunadai.content.presenter.AccountPresenter;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventMe;
+import com.app.qunadai.utils.CheckUtil;
 import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.FileUtil;
 import com.app.qunadai.utils.ImgUtil;
@@ -107,7 +108,11 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
         ImgUtil.loadRound(this, imgUrl, iv_account_avatar);
 
-        tv_account_nickname.setText(nickname);
+        if (CheckUtil.isMobile(nickname)) {
+            tv_account_nickname.setText(hideUserPhone(phone));
+        } else {
+            tv_account_nickname.setText(nickname);
+        }
         tv_account_phone.setText(hideUserPhone(phone));
 
         rl_account_avatar.setOnClickListener(this);
@@ -197,7 +202,7 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
                 //裁剪
                 if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
                     final Uri resultUri = UCrop.getOutput(data);
-                    if(NetworkUtil.checkNetwork(this)){
+                    if (NetworkUtil.checkNetwork(this)) {
                         uploadImg(resultUri);
                     }
                 } else if (resultCode == UCrop.RESULT_ERROR) {

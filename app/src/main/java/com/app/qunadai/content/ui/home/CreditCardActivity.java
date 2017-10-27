@@ -117,10 +117,9 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
 
         //首先判断权限
         AndPermission.with(this)
-                .requestCode(300)
-
+                .requestCode(400)
                 .permission(Manifest.permission.ACCESS_COARSE_LOCATION)
-                .callback(listener)
+                .callback(this)
                 .start()
         ;
         showLoading();
@@ -135,8 +134,34 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
 
     }
 
+    @PermissionYes(400)
+    private void getPermissionYes(List<String> grantedPermissions) {
+        // Successfully.
+//        update();
+        //获取权限成功
+        initLocation();
+        startLocation();
+    }
 
+    @PermissionNo(400)
+    private void getPermissionNo(List<String> deniedPermissions) {
+        // Failure.
+//        showSettingDialog();
+        hideLoading();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CommUtil.tcStart(this,"Visit-card");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CommUtil.tcEnd(this,"Visit-card");
+    }
 
     private void initLocation() {
         locationClient = new AMapLocationClient(this.getApplicationContext());
@@ -255,13 +280,6 @@ public class CreditCardActivity extends BaseActivity implements CreditCardContra
          */
     }
 
-    @PermissionNo(300)
-    private void getPermissionNo(List<String> deniedPermissions) {
-        // Failure.
-//        showSettingDialog();
-        //获取权限失败
-
-    }
 
     @Override
     public void initViewData() {

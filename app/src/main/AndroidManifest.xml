@@ -43,34 +43,34 @@
         <activity
             android:name=".content.ui.user.LoginActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.user.RegisterActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.user.ForgetPwdActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <!--home-->
         <activity
             android:name=".content.ui.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.home.ProductsActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.home.RecommendActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.product.ProductDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".content.ui.product.H5WebActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".content.ui.product.BrowserActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".content.ui.home.CreditCardActivity"
             android:screenOrientation="portrait" />
@@ -81,6 +81,11 @@
             android:name=".content.ui.home.FindCityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
+
+        <activity
+            android:name=".content.ui.home.ProductsNewActivity"
+            android:screenOrientation="portrait" />
+
 
         <!--bbs-->
         <activity

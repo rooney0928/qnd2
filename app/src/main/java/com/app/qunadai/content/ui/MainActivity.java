@@ -223,6 +223,18 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CommUtil.tcStart(this,"Visit-home");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CommUtil.tcEnd(this,"Visit-home");
+
+    }
 
     @Override
     public void initViewData() {
@@ -242,7 +254,9 @@ public class MainActivity extends BaseActivity {
                         setTitleBarVisible(true);
                         setTitleText("去哪贷");
                         index = 0;
-
+                        if (home5Fragment != null) {
+                            home5Fragment.updateUserInfo();
+                        }
                         break;
                     case R.id.rb_nav_bbs:
 
@@ -298,9 +312,11 @@ public class MainActivity extends BaseActivity {
                 rb_nav_home.setChecked(true);
                 break;
             case 1:
+                CommUtil.tcEvent(this, "find", "发现");
                 rb_nav_bbs.setChecked(true);
                 break;
             case 2:
+                CommUtil.tcEvent(this,"mine","我的");
                 rb_nav_me.setChecked(true);
                 break;
         }
@@ -348,6 +364,10 @@ public class MainActivity extends BaseActivity {
 //        if (meFragment != null) {
 //            meFragment.refreshMsg();
 //        }
+
+        if (home5Fragment != null) {
+            home5Fragment.updateUserInfo();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

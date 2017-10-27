@@ -74,7 +74,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         boolean isFirst = PrefUtil.getBoolean(this, PrefKey.IS_FIRST, true);
 
         if (isFirst) {
-//            CommUtil.tcEvent(this, "Guide page", "引导页");
+            CommUtil.tcEvent(this, "Visit-Guide page", "引导页");
             PrefUtil.putBoolean(this, PrefKey.IS_FIRST, false);
         }
 

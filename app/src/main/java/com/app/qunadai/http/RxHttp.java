@@ -9,7 +9,6 @@ import com.app.qunadai.bean.BannerBean;
 import com.app.qunadai.bean.CreditCard;
 import com.app.qunadai.bean.CreditStrategy;
 import com.app.qunadai.bean.FindCity;
-import com.app.qunadai.bean.LoanDetail;
 import com.app.qunadai.bean.NickBean;
 import com.app.qunadai.bean.PersonInfo;
 import com.app.qunadai.bean.ProductDetailBean;
@@ -39,16 +38,14 @@ import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.NewReply;
 import com.app.qunadai.bean.v5.ProComments;
-import com.app.qunadai.bean.v5.Product;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
 import com.app.qunadai.bean.v5.ProductsFilter;
+import com.app.qunadai.bean.v5.ProductsNew;
 import com.app.qunadai.bean.v5.Replies;
 import com.app.qunadai.bean.v5.SmsBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONArray;
 
 import java.util.concurrent.TimeUnit;
 
@@ -67,8 +64,8 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-//    public static final String ROOT = "https://mapi.qunadai.com/";
-    public static final String ROOT = "https://mapit.qunadai.com/";
+    public static final String ROOT = "https://mapi.qunadai.com/";
+//    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
 //    public static final String ROOT = "http://192.168.7.165:8080/";
 
@@ -246,10 +243,21 @@ public class RxHttp {
         return qndApi.sendNewReply(cid, token, body);
     }
 
+    //5.1.0产品新口子
+    public static Observable<BaseBean<ProductsNew>> getProductsNew(){
+        return qndApi.getProductsNew();
+    }
+    //5.1.0看一眼新口子
+    public static Observable<BaseBean> lookProductsNew(String token){
+        return qndApi.lookProductsNew(token);
+    }
+
+
     //首页banner
     public static Observable<BannerBean> getBanner() {
         return qndApi.getBanner("APPLICATION");
     }
+
 
     //信用卡
     //所有热门城市

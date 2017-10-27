@@ -80,8 +80,10 @@ public class ProductAdapter extends RecyclerView.Adapter {
         AutofitTextView tv_product_rate;
         @BindView(R.id.tv_product_period)
         AutofitTextView tv_product_period;
-        @BindView(R.id.iv_product_star)
-        ImageView iv_product_star;
+        //        @BindView(R.id.iv_product_star)
+//        ImageView iv_product_star;
+        @BindView(R.id.tv_product_people)
+        TextView tv_product_people;
 
 
         public ProductHolder(View itemView) {
@@ -122,20 +124,22 @@ public class ProductAdapter extends RecyclerView.Adapter {
                     unit = "周";
                     break;
                 case "DAY":
-                    unit = "天";
+                    unit = "日";
                     break;
                 default:
                     unit = "期";
                     break;
             }
-            tv_product_rate.setText(unit + "费率" + p.getMinRate() + "%");
+            tv_product_rate.setText(unit + "利率" + p.getMinRate() + "%");
             tv_product_period.setText("贷款期限" + p.getMaxTerm() + p.getTermUnit());
+            tv_product_people.setText("贷款成功：" + p.getNum() + "人");
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 //                    ToastUtil.showToast(context, p.getId());
                     Intent intentDetail = new Intent(context, Product5DetailActivity.class);
                     intentDetail.putExtra("pid", p.getId());
+                    intentDetail.putExtra("name", p.getName());
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         Activity activity = (Activity) context;

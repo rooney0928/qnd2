@@ -95,7 +95,11 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     }
 
     public String getToken() {
-        return PrefUtil.getString(getActivity(), PrefKey.TOKEN, "");
+        if (getActivity() != null) {
+            return PrefUtil.getString(getActivity(), PrefKey.TOKEN, "");
+        } else {
+            return null;
+        }
     }
 
     public void exeLogin() {

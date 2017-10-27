@@ -164,6 +164,7 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
                 break;
 
             case R.id.ll_me_explore:
+                CommUtil.tcEvent(getActivity(), "Browse record", "浏览记录");
                 if (CommUtil.isNull(getToken())) {
                     exeLogin();
                     return;
@@ -175,9 +176,11 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
 
                 break;
             case R.id.ll_me_share:
+                CommUtil.tcEvent(getActivity(), "share", "分享去哪贷");
                 openBottom();
                 break;
             case R.id.ll_me_message:
+                CommUtil.tcEvent(getActivity(),"my info","我的信息");
             case R.id.tv_me_limit:
 
                 if (CommUtil.isNull(getToken())) {
@@ -252,7 +255,7 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     }
 
     public void requestUserData() {
-        if(NetworkUtil.checkNetwork(getActivity())){
+        if (NetworkUtil.checkNetwork(getActivity())) {
             me5Presenter.requestCurrent(getToken());
             me5Presenter.requestPersonValue(getToken());
         }

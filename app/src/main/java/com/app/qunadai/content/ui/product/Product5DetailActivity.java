@@ -86,18 +86,18 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     ScaleRatingBar srb_detail_score;
     @BindView(R.id.tv_detail_limit)
     TextView tv_detail_limit;
-    @BindView(R.id.tv_detail_period)
-    TextView tv_detail_period;
+    //    @BindView(R.id.tv_detail_period)
+//    TextView tv_detail_period;
     @BindView(R.id.tv_detail_rate)
     TextView tv_detail_rate;
     @BindView(R.id.tv_detail_loan_time)
     TextView tv_detail_loan_time;
-    @BindView(R.id.tv_detail_suc)
-    TextView tv_detail_suc;
+    //    @BindView(R.id.tv_detail_suc)
+//    TextView tv_detail_suc;
     @BindView(R.id.tv_detail_person)
     TextView tv_detail_person;
-    @BindView(R.id.tv_detail_average)
-    TextView tv_detail_average;
+    //    @BindView(R.id.tv_detail_average)
+//    TextView tv_detail_average;
     @BindView(R.id.iv_detail_add)
     ImageView iv_detail_add;
     @BindView(R.id.rv_comment)
@@ -133,6 +133,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
     //当前评论id
     String cid;
 
+    String name;
 
 
     InputMethodManager inputMethodManager;
@@ -159,10 +160,11 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         EventBus.getDefault().register(this);
 
         product5DetailPresenter = new Product5DetailPresenter(this);
-        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         adapter = new ProCommentAdapter(this);
         pid = getIntent().getStringExtra("pid");
+        name = getIntent().getStringExtra("name");
 
         list = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -222,9 +224,6 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
             }
 
         });
-
-
-
 
 
     }
@@ -335,9 +334,25 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 //        controlKeyboardLayout(content_main,et_reply_content);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!CommUtil.isNull(name)) {
+            CommUtil.tcStart(this, name);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!CommUtil.isNull(name)) {
+            CommUtil.tcEnd(this, name);
+        }
+    }
 
     /**
      * 解决在页面底部置输入框，输入法弹出遮挡部分输入框的问题
+     *
      * @param root 页面根元素
      */
     public static void controlKeyboardLayout(final View root,
@@ -348,11 +363,11 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
             @Override
             public void onGlobalLayout() {
                 // TODO Auto-generated method stub
-                Rect rect=new Rect();
+                Rect rect = new Rect();
                 //获取root在窗体的可视区域
                 root.getWindowVisibleDisplayFrame(rect);
                 //获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
-                int rootInVisibleHeigh=root.getRootView().getHeight()-rect.bottom;
+                int rootInVisibleHeigh = root.getRootView().getHeight() - rect.bottom;
                 //若不可视区域高度大于100，则键盘显示
                 if (rootInVisibleHeigh > 100) {
                     int[] location = new int[2];
@@ -368,8 +383,6 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
             }
         });
     }
-
-
 
 
     @Override
@@ -458,6 +471,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
         }
         p = bean.getContent().getProduct();
         setTitleText(p.getName());
+        CommUtil.tcEvent(this, p.getName(), "产品详情页");
 
         String imgUrl = RxHttp.ROOT + "attachments/" + p.getIcon();
         ImgUtil.loadImgAvatar(this, imgUrl, iv_detail_avatar);
@@ -481,7 +495,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 //        srb_detail_score.setVisibility(p.getTotalCommentNumber() <= 3 ? View.GONE : View.VISIBLE);
 
 
-        tv_detail_period.setText(p.getMaxTerm() + p.getTermUnit());
+//        tv_detail_period.setText(p.getMaxTerm() + p.getTermUnit());
 
         String unit = "";
         switch (p.getRateStatus()) {
@@ -503,7 +517,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
         tv_detail_loan_time.setText(p.getLoanTime() + getUnit(p.getLoanTimeUnit()));
 
-        tv_detail_suc.setText(p.getSucRate() + "%");
+//        tv_detail_suc.setText(p.getSucRate() + "%");
         tv_detail_person.setText(p.getNum() + "人");
 
 
@@ -511,7 +525,7 @@ public class Product5DetailActivity extends BaseActivity implements Product5Deta
 
         java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
 
-        tv_detail_average.setText(df.format(amount) + "元");
+//        tv_detail_average.setText(df.format(amount) + "元");
     }
 
     @Override

@@ -40,6 +40,7 @@ import com.app.qunadai.bean.v5.ProComments;
 import com.app.qunadai.bean.v5.Product5DetailBean;
 import com.app.qunadai.bean.v5.Products;
 import com.app.qunadai.bean.v5.ProductsFilter;
+import com.app.qunadai.bean.v5.ProductsNew;
 import com.app.qunadai.bean.v5.Replies;
 import com.app.qunadai.bean.v5.SmsBean;
 
@@ -254,6 +255,14 @@ public interface QndApi {
 
     @POST("loan/products/comments/{id}")
     Observable<BaseBean<NewReply>> sendNewReply(@Path("id") String cid, @Query("access_token") String access_token, @Body RequestBody body);
+
+
+    @GET("loan/products/latestProducts")
+    Observable<BaseBean<ProductsNew>> getProductsNew();
+
+    @PUT("users/browsedLatestProducts")
+    Observable<BaseBean> lookProductsNew(@Query("access_token") String access_token);
+
 
 
     //credit card

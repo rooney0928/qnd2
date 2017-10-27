@@ -84,19 +84,6 @@
                 <View style="@style/line_15dp" />
 
                 <com.app.qunadai.content.view.AuthView
-                    android:id="@+id/av_realinfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_nav_bg"
-                    android:paddingBottom="6dp"
-                    android:paddingTop="6dp"
-                    av:mLogo="@mipmap/icon_real_info"
-                    av:mName="真实信息填写"
-                    av:mStatus="no" />
-
-                <View style="@style/line_15dp" />
-
-                <com.app.qunadai.content.view.AuthView
                     android:id="@+id/av_ebank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

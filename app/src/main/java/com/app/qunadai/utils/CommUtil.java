@@ -246,7 +246,7 @@ public class CommUtil {
 
     public static void tcEvent(Context context, String eventId, String eventLabel) {
         if (context != null) {
-            TCAgent.onEvent(context, eventId, eventLabel);
+            TCAgent.onEvent(context, eventLabel, eventLabel);
         }
     }
 

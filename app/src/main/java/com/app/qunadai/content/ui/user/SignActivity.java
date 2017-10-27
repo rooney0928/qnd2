@@ -79,7 +79,6 @@ public class SignActivity extends BaseActivity {
     }
 
 
-
     @Override
     public void initViewData() {
         vp_sign.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), fragments));
@@ -100,7 +99,6 @@ public class SignActivity extends BaseActivity {
     }
 
 
-
     @Override
     public void requestStart() {
 
@@ -114,11 +112,14 @@ public class SignActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        CommUtil.tcStart(this, "Visit-Login and registration");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        CommUtil.tcEnd(this, "Visit-Login and registration");
+
     }
 
     @Override
@@ -154,10 +155,10 @@ public class SignActivity extends BaseActivity {
                     if (step2CodeFragment != null) {
                         step2CodeFragment.startTimer();
                     }
-                    
+
                     break;
                 case 2:
-                    if(step3PwdFragment!=null){
+                    if (step3PwdFragment != null) {
                         step3PwdFragment.setData();
                     }
                     break;

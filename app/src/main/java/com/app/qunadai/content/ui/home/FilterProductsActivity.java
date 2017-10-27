@@ -13,6 +13,7 @@ import com.app.qunadai.content.ui.home.frag.FilterProductsFragment;
 import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventOffline;
 import com.app.qunadai.third.tablayout.TabEntity;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.LogU;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
@@ -38,13 +39,13 @@ public class FilterProductsActivity extends BaseActivity {
     ViewPager vp_pros;
 
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-    private String[] mTitles = new String[]{"快速放款", "超低利率", "超高额度", "超长期限"};
+    private String[] mTitles = new String[]{"快速放款", "超低利率", "超高额度"};
 
     private List<Fragment> fragments = new ArrayList<>();
     FilterProductsFragment filterProductsFragment1;
     FilterProductsFragment filterProductsFragment2;
     FilterProductsFragment filterProductsFragment3;
-    FilterProductsFragment filterProductsFragment4;
+//    FilterProductsFragment filterProductsFragment4;
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -76,12 +77,12 @@ public class FilterProductsActivity extends BaseActivity {
         filterProductsFragment1 = FilterProductsFragment.getInstance("loanTime", R.mipmap.banner_fast);
         filterProductsFragment2 = FilterProductsFragment.getInstance("minRate", R.mipmap.banner_low);
         filterProductsFragment3 = FilterProductsFragment.getInstance("maxAmount", R.mipmap.banner_high);
-        filterProductsFragment4 = FilterProductsFragment.getInstance("maxTerm", R.mipmap.banner_period);
+//        filterProductsFragment4 = FilterProductsFragment.getInstance("maxTerm", R.mipmap.banner_period);
 
         fragments.add(filterProductsFragment1);
         fragments.add(filterProductsFragment2);
         fragments.add(filterProductsFragment3);
-        fragments.add(filterProductsFragment4);
+//        fragments.add(filterProductsFragment4);
 
 
         vp_pros.setOffscreenPageLimit(4);
@@ -139,7 +140,7 @@ public class FilterProductsActivity extends BaseActivity {
 
                         break;
                     case 3:
-                        filterProductsFragment4.refresh();
+//                        filterProductsFragment4.refresh();
 
                         break;
                 }
@@ -150,6 +151,18 @@ public class FilterProductsActivity extends BaseActivity {
     @Override
     public void initViewData() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CommUtil.tcStart(this, "Visit-Fast loan");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CommUtil.tcEnd(this, "Visit-Fast loan");
     }
 
     @Override

@@ -20,6 +20,7 @@ public class PrefKey {
     public static final String TEMP_SHA_CODE = "temp_code_sha";
 
     public static final String IS_FIRST = "is_first";
+    public static final String HAS_LOOK = "has_look";
 
 
 }

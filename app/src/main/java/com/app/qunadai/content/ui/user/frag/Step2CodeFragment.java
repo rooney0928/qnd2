@@ -20,6 +20,7 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Sign2Contract;
 import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.presenter.v5.Sign2Presenter;
+import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CommUtil;
@@ -266,8 +267,11 @@ public class Step2CodeFragment extends BaseFragment implements Sign2Contract.Vie
 
     @Override
     public void loginDone(BaseBean<Token> token) {
+        CommUtil.tcEvent(getActivity(),"identifying code login","验证码登录");
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
         PrefUtil.putString(getActivity(), PrefKey.PHONE, phone);
+        EventBus.getDefault().post(new EventLogin());
+
 
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
         getActivity().finish();

@@ -38,7 +38,7 @@
             android:id="@+id/natv_limit_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="500"
             android:textColor="@color/v5_golden_dark"
             android:textSize="40sp" />
 

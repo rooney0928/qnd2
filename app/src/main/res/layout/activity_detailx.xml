@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.app.qunadai.third.keyboard.CheckSoftInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.app.qunadai.third.keyboard.CheckSoftInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_main"
@@ -113,7 +114,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_detail_period"
+                            android:id="@+id/tv_detail_person"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="36个月"
@@ -124,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:text="最长期限"
+                            android:text="贷款成功"
                             android:textColor="@color/v5_gray" />
                     </LinearLayout>
 
@@ -186,7 +187,7 @@
 
                 </LinearLayout>
 
-                <!--信息-->
+                <!--信息
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -269,7 +270,7 @@
 
 
                     </LinearLayout>
-                </LinearLayout>
+                </LinearLayout>-->
                 <!--评论-->
                 <LinearLayout
                     android:layout_width="match_parent"

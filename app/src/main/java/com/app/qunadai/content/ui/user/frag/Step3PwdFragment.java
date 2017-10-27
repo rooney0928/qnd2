@@ -21,6 +21,7 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Sign3Contract;
 import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.presenter.v5.Sign3Presenter;
+import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CheckUtil;
@@ -187,9 +188,11 @@ public class Step3PwdFragment extends BaseFragment implements Sign3Contract.View
 
     @Override
     public void registerDone(BaseBean<Token> bean) {
+        CommUtil.tcEvent(getActivity(),"registered","密码设置页");
 
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, bean.getContent().getAccess_token());
         PrefUtil.putString(getActivity(), PrefKey.PHONE, phone);
+        EventBus.getDefault().post(new EventLogin());
 
 
         ToastUtil.showToast(getActivity(), "恭喜您！注册成功！");

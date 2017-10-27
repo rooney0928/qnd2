@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.bean.Banner;
@@ -32,6 +31,7 @@ import com.app.qunadai.content.contract.v5.Home5Contract;
 import com.app.qunadai.content.presenter.v5.Home5Presenter;
 import com.app.qunadai.content.ui.home.CreditCardActivity;
 import com.app.qunadai.content.ui.home.FilterProductsActivity;
+import com.app.qunadai.content.ui.home.ProductsNewActivity;
 import com.app.qunadai.content.ui.me.AuthActivity;
 import com.app.qunadai.content.view.FullRecyclerView;
 import com.app.qunadai.http.RxHttp;
@@ -39,6 +39,8 @@ import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.ImgUtil;
 import com.app.qunadai.utils.LogU;
 import com.app.qunadai.utils.NetworkUtil;
+import com.app.qunadai.utils.PrefKey;
+import com.app.qunadai.utils.PrefUtil;
 import com.app.qunadai.utils.ToastUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -94,7 +96,6 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     RelativeLayout rl_home_get_limit;
     @BindView(R.id.natv_limit_money)
     NumberAnimTextView natv_limit_money;
-
 
 
     List<Floors.FloorsBean> floors;
@@ -160,11 +161,24 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
         rl_home_get_limit.setOnClickListener(this);
 
 
+        boolean hasLook = PrefUtil.getBoolean(getActivity(), PrefKey.HAS_LOOK, false);
+        if (!hasLook) {
+            qBadgeView.bindTarget(iv_home_new_icon)
+                    .setBadgeBackgroundColor(ContextCompat.getColor(getActivity(), R.color.v5_price))
+                    .setBadgeTextColor(ContextCompat.getColor(getActivity(), R.color.white))
+                    .setBadgeGravity(Gravity.START | Gravity.TOP)
+                    .setShowShadow(false)
+                    .setBadgeText("新");
+        } else {
+            qBadgeView.hide(true);
+        }
+
+
         if (NetworkUtil.checkNetwork(getActivity())) {
             home5Presenter.getHomeFloors();
             home5Presenter.getHomeProducts();
             home5Presenter.getBanner();
-            if(!CommUtil.isNull(getToken())){
+            if (!CommUtil.isNull(getToken())) {
                 home5Presenter.requestPersonValue(getToken());
             }
         }
@@ -174,7 +188,7 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
             public void onRefresh() {
                 home5Presenter.getHomeFloors();
                 home5Presenter.getHomeProducts();
-                if(!CommUtil.isNull(getToken())){
+                if (!CommUtil.isNull(getToken())) {
                     home5Presenter.requestPersonValue(getToken());
                 }
             }
@@ -265,17 +279,25 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
         switch (v.getId()) {
             case R.id.ll_home_loan:
+                CommUtil.tcEvent(getActivity(), "icon-Fast loan", "极速贷款icon");
                 Intent intent = new Intent(getActivity(), FilterProductsActivity.class);
                 intent.putExtra("index", 0);
                 startActivity(intent);
                 break;
             case R.id.ll_home_credit:
+                CommUtil.tcEvent(getActivity(), "icon-card", "信用卡专区icon");
                 Intent intentCredit = new Intent(getActivity(), CreditCardActivity.class);
                 startActivity(intentCredit);
                 break;
             case R.id.ll_home_new:
+                CommUtil.tcEvent(getActivity(), "icon-Newest loan", "最新口子icon");
+                PrefUtil.putBoolean(getActivity(), PrefKey.HAS_LOOK, true);
+                qBadgeView.hide(true);
+                Intent intentNew = new Intent(getActivity(), ProductsNewActivity.class);
+                startActivity(intentNew);
                 break;
             case R.id.rl_home_get_limit:
+                CommUtil.tcEvent(getActivity(),"home Estimated limit","首页预估额度");
                 if (CommUtil.isNull(getToken())) {
                     exeLogin();
                     return;
@@ -296,6 +318,12 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
     @Override
     public void updateError(String error) {
 
+    }
+
+    public void updateUserInfo() {
+        if (!CommUtil.isNull(getToken()) && home5Presenter != null) {
+            home5Presenter.requestPersonValue(getToken());
+        }
     }
 
 
@@ -355,13 +383,13 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 //        banner.setDataList(list);
 //        banner.start();
 
-        qBadgeView.bindTarget(iv_home_new_icon)
-                .setBadgeBackgroundColor(ContextCompat.getColor(getActivity(), R.color.v5_price))
-                .setBadgeTextColor(ContextCompat.getColor(getActivity(), R.color.white))
-                .setBadgeGravity(Gravity.START | Gravity.TOP)
-                .setShowShadow(false)
-                .setBadgeText("新");
-        qBadgeView.hide(true);
+//        qBadgeView.bindTarget(iv_home_new_icon)
+//                .setBadgeBackgroundColor(ContextCompat.getColor(getActivity(), R.color.v5_price))
+//                .setBadgeTextColor(ContextCompat.getColor(getActivity(), R.color.white))
+//                .setBadgeGravity(Gravity.START | Gravity.TOP)
+//                .setShowShadow(false)
+//                .setBadgeText("新");
+//        qBadgeView.hide(true);
 
 
         bannerList = bean.getContent().getAvailableBanners();
@@ -408,6 +436,12 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 //            imageView.setImageResource(data);
             String imgUrl = RxHttp.ROOT + "attachments/" + data.getBannerPic();
             ImgUtil.loadBanner(getActivity(), imgUrl, imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommUtil.tcEvent(getActivity(), "banner", "首页banner");
+                }
+            });
         }
     }
 
@@ -445,19 +479,20 @@ public class Home5Fragment extends BaseFragment implements Home5Contract.View, V
 
     @Override
     public void getPersonValue(PersonBean bean) {
-        boolean isNew = bean.getContent().getPersonalValue().getUser().isBrowsedLatestProducts();
-        if(isNew){
+
+        boolean isLook = bean.getContent().getPersonalValue().getUser().isBrowsedLatestProducts();
+        if (isLook) {
+            qBadgeView.hide(true);
+        } else {
             qBadgeView.bindTarget(iv_home_new_icon)
                     .setBadgeBackgroundColor(ContextCompat.getColor(getActivity(), R.color.v5_price))
                     .setBadgeTextColor(ContextCompat.getColor(getActivity(), R.color.white))
                     .setBadgeGravity(Gravity.START | Gravity.TOP)
                     .setShowShadow(false)
                     .setBadgeText("新");
-        }else{
-            qBadgeView.hide(true);
         }
 
-        natv_limit_money.setNumberString(bean.getContent().getPersonalValue().getValuation()+"");
+        natv_limit_money.setNumberString(bean.getContent().getPersonalValue().getValuation() + "");
     }
 
     @Override

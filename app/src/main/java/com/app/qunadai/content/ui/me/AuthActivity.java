@@ -50,8 +50,8 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
 
     @BindView(R.id.av_bankcard)
     AuthView av_bankcard;
-    @BindView(R.id.av_realinfo)
-    AuthView av_realinfo;
+    //    @BindView(R.id.av_realinfo)
+//    AuthView av_realinfo;
     @BindView(R.id.av_ebank)
     AuthView av_ebank;
     @BindView(R.id.av_carrier)
@@ -106,7 +106,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
     @Override
     public void initViewData() {
         av_bankcard.setOnClickListener(this);
-        av_realinfo.setOnClickListener(this);
+//        av_realinfo.setOnClickListener(this);
         av_ebank.setOnClickListener(this);
         av_carrier.setOnClickListener(this);
         av_alipay.setOnClickListener(this);
@@ -117,6 +117,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
         tv_auth_loan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CommUtil.tcEvent(AuthActivity.this, "my info Loan", "个人信息-立即借款");
                 Intent intent = new Intent(AuthActivity.this, FilterProductsActivity.class);
                 intent.putExtra("index", 0);
                 startActivity(intent);
@@ -137,6 +138,24 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
 //        bar1.setCurrentValues(5);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CommUtil.tcStart(this, "Visit-my info");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CommUtil.tcEnd(this, "Visit-my info");
+    }
+
+    public enum AuthType {
+        BANKCARD, EBANK, CARRIER, ALIPAY, EMAIL, FUND, TAOBAO, CREDIT
+    }
+
+    AuthType authType;
 
     @Override
     public void onClick(View v) {
@@ -161,28 +180,44 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
             switch (v.getId()) {
 
                 case R.id.av_ebank:
+                    authType = AuthType.EBANK;
+                    CommUtil.tcEvent(this, "click-Online banking", "网银验证点击");
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_ONLINEBANK);
                     break;
                 case R.id.av_carrier:
+                    authType = AuthType.CARRIER;
+                    CommUtil.tcEvent(this, "click-Operator", "运营商验证点击");
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_CARRIER);
                     break;
                 case R.id.av_alipay:
+                    authType = AuthType.ALIPAY;
+                    CommUtil.tcEvent(this, "click-Alipay", "支付宝验证点击");
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_ALIPAY);
                     break;
                 case R.id.av_email:
+                    authType = AuthType.EMAIL;
+                    CommUtil.tcEvent(this, "click-mail", "邮箱验证点击");
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_EMAIL);
                     break;
                 case R.id.av_fund:
+                    authType = AuthType.FUND;
+                    CommUtil.tcEvent(this, "click-Accumulation fund", "公积金验证点击");
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_FUND);
                     break;
                 case R.id.av_taobao:
+                    authType = AuthType.TAOBAO;
+                    CommUtil.tcEvent(this, "click-Taobao", "淘宝验证点击");
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_TAOBAO);
                     break;
                 case R.id.av_credit:
+                    authType = AuthType.CREDIT;
+                    CommUtil.tcEvent(this, "click-Credit", "征信验证点击");
                     mxParam.setFunction(MxParam.PARAM_FUNCTION_ZHENGXIN);
                     break;
             }
-            if (v.getId() == R.id.av_bankcard || v.getId() == R.id.av_realinfo) {
+            if (v.getId() == R.id.av_bankcard) {
+                CommUtil.tcEvent(this, "click-Bank card", "银行卡验证点击");
+
                 if (CommUtil.isNull(getToken())) {
                     exeLogin();
                     return;
@@ -190,6 +225,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
                 switch (v.getId()) {
                     case R.id.av_bankcard:
                         //进入银行卡认证
+
                         if (av_bankcard.getStatus() == AuthView.AUTH_YES) {
 //                            av_bankcard.setOnClickListener(nullClick);
 
@@ -299,8 +335,36 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
 //                                ToastUtil.showToast(getActivity(),"导入失败!");
                                     break;
                                 case 1:
+                                    switch (authType) {
+                                        case BANKCARD:
+                                            CommUtil.tcEvent(this, "verification-Bank card", "银行卡验证事件");
+                                            break;
+                                        case EBANK:
+                                            CommUtil.tcEvent(this, "verification-Accumulation fund", "网银验证事件");
+                                            break;
+                                        case CARRIER:
+                                            CommUtil.tcEvent(this, "verification-Operator", "运营商验证事件");
+                                            break;
+                                        case ALIPAY:
+                                            CommUtil.tcEvent(this, "verification-Alipay", "支付宝验证事件");
+                                            break;
+                                        case EMAIL:
+                                            CommUtil.tcEvent(this, "verification-mail", "邮箱验证事件");
+                                            break;
+                                        case FUND:
+                                            CommUtil.tcEvent(this, "verification-Fund", "公积金验证事件");
+                                            break;
+                                        case TAOBAO:
+                                            CommUtil.tcEvent(this, "verification-Taobao", "淘宝验证事件");
+                                            break;
+                                        case CREDIT:
+                                            CommUtil.tcEvent(this, "verification-Online banking", "征信验证事件");
+                                            break;
+                                    }
+
                                     requestUpdateStates(taskType);
                                     ToastUtil.showToast(this, "导入成功!");
+
                                     break;
                                 case 2:
                                     /**
@@ -365,7 +429,7 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
         //银行卡验证
         setBindStatus(av_bankcard, bean.getContent().getPersonalValue().getBankStatus());
         //真实信息
-        setBindStatus(av_realinfo, bean.getContent().getPersonalValue().getRealInfoStatus());
+//        setBindStatus(av_realinfo, bean.getContent().getPersonalValue().getRealInfoStatus());
         //网银
         setBindStatus(av_ebank, bean.getContent().getPersonalValue().getEbankStatus());
         //运营商
@@ -395,38 +459,38 @@ public class AuthActivity extends BaseActivity implements AuthContract.View {
         }
     }
 
-    public int countAuthCount() {
-        int curr = 0;
-        if (av_bankcard.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_realinfo.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_ebank.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_carrier.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_alipay.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_email.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_fund.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_taobao.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-        if (av_credit.getStatus() == AuthView.AUTH_YES) {
-            curr++;
-        }
-
-        return curr;
-    }
+//    public int countAuthCount() {
+//        int curr = 0;
+//        if (av_bankcard.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_realinfo.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_ebank.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_carrier.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_alipay.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_email.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_fund.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_taobao.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//        if (av_credit.getStatus() == AuthView.AUTH_YES) {
+//            curr++;
+//        }
+//
+//        return curr;
+//    }
 
     @Override
     public void getPersonValueFail(String error) {

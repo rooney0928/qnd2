@@ -24,6 +24,7 @@ import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.contract.v5.Sign1Contract;
 import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.content.presenter.v5.Sign1Presenter;
+import com.app.qunadai.third.eventbus.EventLogin;
 import com.app.qunadai.third.eventbus.EventProgress;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.CheckUtil;
@@ -254,10 +255,13 @@ public class Step1PhoneFragment extends BaseFragment implements Sign1Contract.Vi
 
     @Override
     public void loginDone(BaseBean<Token> token) {
+        CommUtil.tcEvent(getActivity(), "password login", "密码登录");
         PrefUtil.putString(getActivity(), PrefKey.TOKEN, token.getContent().getAccess_token());
         PrefUtil.putString(getActivity(), PrefKey.PHONE, CommUtil.getText(et_phone));
 
         ToastUtil.showToast(getActivity(), "恭喜您！登录成功！");
+        EventBus.getDefault().post(new EventLogin());
+
         getActivity().finish();
     }
 
