@@ -2,7 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '26.0.2'
+    flavorDimensions "default"
+
     defaultConfig {
         applicationId "com.app.qunadai"
         minSdkVersion 16
