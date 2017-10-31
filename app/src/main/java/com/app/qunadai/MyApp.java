@@ -3,6 +3,7 @@ package com.app.qunadai;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.support.multidex.MultiDex;
 
 import com.app.qunadai.utils.LogU;
 import com.pgyersdk.Pgy;
@@ -73,5 +74,9 @@ public class MyApp extends Application {
 
     }
 
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

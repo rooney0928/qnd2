@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.kt.User;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.dialog.UpdateDialog;
@@ -113,6 +114,7 @@ public class MainActivity extends BaseActivity {
         fragments.add(me5Fragment);
 
 
+        User user = new User();
         //检查更新
         update();
 
