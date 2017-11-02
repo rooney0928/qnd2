@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -30,6 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -42,6 +44,7 @@ import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.DownloadUtil;
 import com.app.qunadai.utils.KeyBoardListener;
 import com.app.qunadai.utils.LogU;
+import com.app.qunadai.utils.ScreenUtil;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.export.external.interfaces.IX5WebSettings;
 import com.tencent.smtt.export.external.interfaces.JsResult;
@@ -72,6 +75,8 @@ public class BrowserActivity extends BaseActivity {
 
     @BindView(R.id.ll_x5_layout)
     LinearLayout ll_x5_layout;
+    @BindView(R.id.toolbar1)
+    LinearLayout toolbar1;
     /**
      * 作为一个浏览器的示例展示出来，采用android+web的模式
      */
@@ -104,12 +109,14 @@ public class BrowserActivity extends BaseActivity {
     private String webUrl;
 
 
+
     @Override
     protected void updateTopViewHideAndShow() {
 //        setTitleBarStatus();
 //        clearTitleBar();
 
     }
+
 
     @Override
     protected View createCenterView() {
@@ -123,7 +130,14 @@ public class BrowserActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        int navH = ScreenUtil.getNavigationBarHeight(this);
+        System.out.println("navH-"+navH);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) toolbar1.getLayoutParams();
+        lp.setMargins(0, 0, 0, navH);
+        toolbar1.setLayoutParams(lp);
+
+
+
         KeyBoardListener.getInstance(this).init();
         downloadUtil = new DownloadUtil(this);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -206,6 +220,7 @@ public class BrowserActivity extends BaseActivity {
         mViewParent.addView(mWebView, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
+
 
         initProgressBar();
         mWebView.setWebViewClient(new WebViewClient() {

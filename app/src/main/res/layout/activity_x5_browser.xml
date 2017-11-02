@@ -1,73 +1,80 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/ll_x5_layout"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/navigation1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ECF0F2"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <EditText
-            android:id="@+id/editUrl1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="请输入网址..."
-            android:maxLength="1"
-            android:textSize="35px"></EditText>
-
-        <Button
-            android:id="@+id/btnGo1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="3dp"
-            android:background="#ECF0F2"
-            android:linksClickable="false"
-            android:text="GO"
-            android:textSize="35px"
-            android:visibility="gone" />
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="3dp" />
-
-    <RelativeLayout
+        android:id="@+id/ll_x5_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_above="@+id/toolbar1"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/webView1"
+        <LinearLayout
+            android:id="@+id/navigation1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="wrap_content"
+            android:background="#ECF0F2"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/editUrl1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="请输入网址..."
+                android:maxLength="1"
+                android:textSize="35px"></EditText>
+
+            <Button
+                android:id="@+id/btnGo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"
+                android:background="#ECF0F2"
+                android:linksClickable="false"
+                android:text="GO"
+                android:textSize="35px"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/webView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></FrameLayout>
 
 
+        </RelativeLayout>
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="#ECF0F2"
         android:orientation="horizontal">
 
@@ -124,4 +131,4 @@
             android:src="@drawable/theme_menu_btn_quit_fg_normal0" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
