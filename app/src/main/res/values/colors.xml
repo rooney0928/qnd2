@@ -79,4 +79,9 @@
     <color name="v5_gray_dark">#6d6d6d</color>
     <color name="v5_orange">#f4a642</color>
 
+
+    <color name="cpl_key">#b5bccc</color>
+    <color name="cpl_value">#4a4a4a</color>
+    <color name="cpl_hint">#cfd4dc</color>
+
 </resources>

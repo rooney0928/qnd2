@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="35dp"
+                android:paddingTop="15dp"
+                android:src="@mipmap/cpl_bg2" />
+
+            <!--省份-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="省份"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="64dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:text="caohaoqiu"
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/cpl_icon_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/line_0dp" />
+
+            <!--城市-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="城市"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="64dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:text="caohaoqiu"
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/cpl_icon_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/line_0dp" />
+
+            <!--区域-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="区域"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="64dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:text="caohaoqiu"
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/cpl_icon_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/line_0dp" />
+
+            <!--居住地址-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="居住地址"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="64dp"
+                    android:background="@null"
+                    android:hint="请输入详细地址"
+                    android:text=""
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <View style="@style/line_0dp" />
+
+            <!--是否缴纳社保2-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是否缴纳社保"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:background="@null"
+                    android:text="caohaoqiu"
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/cpl_icon_more" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View style="@style/line_0dp" />
+
+            <!--紧急联系人3-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="紧急联系人"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:background="@null"
+                    android:hint="请输入紧急联系人"
+                    android:text="caohaoqiu"
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View style="@style/line_0dp" />
+
+            <!--紧急联系人关系2-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="紧急联系人关系"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:background="@null"
+                    android:text="caohaoqiu"
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/cpl_icon_more" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View style="@style/line_0dp" />
+
+            <!--紧急联系人电话3-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="紧急联系人电话"
+                    android:textColor="@color/cpl_key"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:background="@null"
+                    android:hint="请输入紧急联系人联系方式"
+                    android:text=""
+                    android:textColor="@color/cpl_value"
+                    android:textColorHint="@color/cpl_hint"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View style="@style/line_0dp" />
+
+            <TextView
+                android:id="@+id/tv_feedback_submit"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/bg_loan"
+                android:gravity="center"
+                android:text="立即借款"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
