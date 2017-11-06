@@ -10,4 +10,14 @@
             <enum name="no" value="0" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="CPLAuthView">
+        <attr name="cpl_checked">
+            <enum name="yes" value="1"></enum>
+            <enum name="no" value="0"></enum>
+        </attr>
+        <attr name="cpl_name" format="string" />
+        <attr name="cpl_logo" format="reference" />
+
+    </declare-styleable>
 </resources>

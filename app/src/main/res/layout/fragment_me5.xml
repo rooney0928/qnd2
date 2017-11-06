@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sv_me_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -23,10 +22,10 @@
 
             <ImageView
                 android:id="@+id/iv_me_avatar"
-                android:transitionName="share_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic_launcher"
+                android:transitionName="share_avatar" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -38,7 +37,7 @@
                     android:id="@+id/tv_me_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="user"/>
+                    android:text="user" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -49,7 +48,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="预估额度:"/>
+                        android:text="预估额度:" />
 
                     <TextView
                         android:id="@+id/tv_me_limit"
@@ -57,12 +56,12 @@
                         android:layout_height="wrap_content"
                         android:text="点击预估额度"
                         android:textColor="@color/v5_orange"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <!--浏览记录，日历-->
+        <!--浏览记录，消息-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,13 +80,13 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic5_view"/>
+                    android:src="@mipmap/ic5_view" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="浏览记录"/>
+                    android:text="浏览记录" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -99,31 +98,30 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_go"/>
+                        android:src="@mipmap/ic_go" />
                 </LinearLayout>
             </LinearLayout>
-            <!--日历-->
+            <!--消息-->
             <LinearLayout
-                android:id="@+id/ll_me_calendar"
+                android:id="@+id/ll_me_msg"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/ripple_nav_bg"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp"
-                android:visibility="gone">
+                android:padding="12dp">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic5_calendar"/>
+                    android:src="@mipmap/ic5_message" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="还款日历"/>
+                    android:text="我的消息" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -135,7 +133,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_go"/>
+                        android:src="@mipmap/ic_go" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -160,13 +158,13 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic5_share"/>
+                    android:src="@mipmap/ic5_share" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="分享去哪贷"/>
+                    android:text="分享去哪贷" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -178,21 +176,22 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_go"/>
+                        android:src="@mipmap/ic_go" />
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
 
-        <!--信息，设置-->
+        <!--留言板，设置-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="vertical">
-            <!--信息-->
+
+            <!--留言板-->
             <LinearLayout
-                android:id="@+id/ll_me_message"
+                android:id="@+id/ll_me_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/ripple_nav_bg"
@@ -203,13 +202,13 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic5_message"/>
+                    android:src="@mipmap/ic5_feedback" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="我的信息"/>
+                    android:text="留言板" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -221,7 +220,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_go"/>
+                        android:src="@mipmap/ic_go" />
                 </LinearLayout>
             </LinearLayout>
             <!--设置-->
@@ -238,13 +237,13 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic5_set"/>
+                    android:src="@mipmap/ic5_set" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="设置"/>
+                    android:text="设置" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -256,7 +255,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_go"/>
+                        android:src="@mipmap/ic_go" />
                 </LinearLayout>
             </LinearLayout>
 

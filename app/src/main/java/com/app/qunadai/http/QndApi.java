@@ -32,6 +32,7 @@ import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.AddComment;
+import com.app.qunadai.bean.v5.FeedBack;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.ExploreBean;
 import com.app.qunadai.bean.v5.IsExist;
@@ -362,6 +363,9 @@ public interface QndApi {
 
     @POST("home/requirement")
     Observable<BankcardBean> setBankcardInfo(@Query("access_token") String access_token, @Body RequestBody body);
+
+    @POST("feedbacks")
+    Observable<BaseBean<FeedBack>> addFeedback(@Query("access_token") String access_token, @Query("message") String message);
 
 
     //v5

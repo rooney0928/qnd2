@@ -7,17 +7,42 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="12dp">
+        android:layout_above="@+id/tv_feedback_submit"
+        android:layout_margin="12dp"
+        android:background="@color/white">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:gravity="top"
-            android:hint="点击此处留言\n欢迎来到去哪贷意见反馈中心，使用中遇到任何问题都可以在此留言"
-            android:padding="12dp"
-            android:text=""
-            android:textColor="@color/black5"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_feedback_done" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:text="感谢您的反馈，您反馈的问题我们会尽快解决"
+                android:textColor="@color/black5"
+                android:textSize="15sp" />
+
+        </LinearLayout>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_feedback_submit"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="6dp"
+        android:background="@drawable/bg_loan"
+        android:gravity="center"
+        android:text="立即借款"
+        android:textColor="@color/white" />
 </RelativeLayout>

@@ -34,6 +34,7 @@ import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
 import com.app.qunadai.bean.v5.AddComment;
 import com.app.qunadai.bean.v5.ExploreBean;
+import com.app.qunadai.bean.v5.FeedBack;
 import com.app.qunadai.bean.v5.Floors;
 import com.app.qunadai.bean.v5.IsExist;
 import com.app.qunadai.bean.v5.NewReply;
@@ -64,8 +65,8 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-    public static final String ROOT = "https://mapi.qunadai.com/";
-//    public static final String ROOT = "https://mapit.qunadai.com/";
+//    public static final String ROOT = "https://mapi.qunadai.com/";
+    public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
 //    public static final String ROOT = "http://192.168.7.165:8080/";
 
@@ -402,6 +403,9 @@ public class RxHttp {
     //设置银行卡
     public static Observable<BankcardBean> setBankcard(String token, RequestBody body) {
         return qndApi.setBankcardInfo(token, body);
+    }
+    public static Observable<BaseBean<FeedBack>> addFeedback(String token, String msg){
+        return qndApi.addFeedback(token, msg);
     }
 
     //v5

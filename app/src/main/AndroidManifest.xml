@@ -86,6 +86,14 @@
             android:name=".content.ui.home.ProductsNewActivity"
             android:screenOrientation="portrait" />
 
+        <!--cpl-->
+        <activity
+            android:name=".content.ui.cpl.CplDetailActivity"
+            android:screenOrientation="portrait">
+
+
+        </activity>
+
 
         <!--bbs-->
         <activity
@@ -138,6 +146,8 @@
             android:name=".content.ui.me.AboutActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".content.ui.me.MyLoanActivity"></activity>
+        <activity android:name=".content.ui.me.FeedbackActivity"
+            android:screenOrientation="portrait"/>
 
         <!--v5-->
         <activity

@@ -83,5 +83,7 @@
     <color name="cpl_key">#b5bccc</color>
     <color name="cpl_value">#4a4a4a</color>
     <color name="cpl_hint">#cfd4dc</color>
+    <color name="cpl_golden">#f6b840</color>
+    <color name="cpl_line">#f8deac</color>
 
 </resources>

@@ -27,6 +27,7 @@ import com.app.qunadai.content.presenter.v5.Me5Presenter;
 import com.app.qunadai.content.ui.me.AccountActivity;
 import com.app.qunadai.content.ui.me.AuthActivity;
 import com.app.qunadai.content.ui.me.ExploreActivity;
+import com.app.qunadai.content.ui.me.FeedbackActivity;
 import com.app.qunadai.content.ui.me.SettingActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventTurn;
@@ -69,12 +70,12 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
     LinearLayout ll_me_account;
     @BindView(R.id.ll_me_explore)
     LinearLayout ll_me_explore;
-    @BindView(R.id.ll_me_calendar)
-    LinearLayout ll_me_calendar;
+    @BindView(R.id.ll_me_msg)
+    LinearLayout ll_me_msg;
     @BindView(R.id.ll_me_share)
     LinearLayout ll_me_share;
-    @BindView(R.id.ll_me_message)
-    LinearLayout ll_me_message;
+    @BindView(R.id.ll_me_feedback)
+    LinearLayout ll_me_feedback;
     @BindView(R.id.ll_me_setting)
     LinearLayout ll_me_setting;
 
@@ -105,9 +106,9 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
         ll_me_account.setOnClickListener(this);
         tv_me_limit.setOnClickListener(this);
         ll_me_explore.setOnClickListener(this);
-        ll_me_calendar.setOnClickListener(this);
+        ll_me_msg.setOnClickListener(this);
         ll_me_share.setOnClickListener(this);
-        ll_me_message.setOnClickListener(this);
+        ll_me_feedback.setOnClickListener(this);
         ll_me_setting.setOnClickListener(this);
 
     }
@@ -172,23 +173,16 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
                 Intent intentExplore = new Intent(getActivity(), ExploreActivity.class);
                 startActivity(intentExplore);
                 break;
-            case R.id.ll_me_calendar:
+            case R.id.ll_me_msg:
 
                 break;
             case R.id.ll_me_share:
                 CommUtil.tcEvent(getActivity(), "share", "分享去哪贷");
                 openBottom();
                 break;
-            case R.id.ll_me_message:
-                CommUtil.tcEvent(getActivity(),"my info","我的信息");
-            case R.id.tv_me_limit:
-
-                if (CommUtil.isNull(getToken())) {
-                    exeLogin();
-                    return;
-                }
-                Intent intentAuth = new Intent(getActivity(), AuthActivity.class);
-                startActivity(intentAuth);
+            case R.id.ll_me_feedback:
+                Intent intentFeedback = new Intent(getActivity(), FeedbackActivity.class);
+                startActivity(intentFeedback);
                 break;
             case R.id.ll_me_setting:
                 Intent intentSet = new Intent(getActivity(), SettingActivity.class);
