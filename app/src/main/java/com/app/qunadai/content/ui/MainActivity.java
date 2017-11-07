@@ -7,9 +7,7 @@ import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -18,15 +16,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
-import com.app.qunadai.bean.kt.User;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
-import com.app.qunadai.content.dialog.UpdateDialog;
 import com.app.qunadai.content.ui.bbs.PostMyActivity;
 import com.app.qunadai.content.ui.bbs.frag.BBSFragment;
 import com.app.qunadai.content.ui.home.frag.Home5Fragment;
 import com.app.qunadai.content.ui.me.frag.Me5Fragment;
-import com.app.qunadai.content.ui.user.SplashActivity;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventClose;
 import com.app.qunadai.third.eventbus.EventLogin;
@@ -114,7 +109,6 @@ public class MainActivity extends BaseActivity {
         fragments.add(me5Fragment);
 
 
-        User user = new User();
         //检查更新
         update();
 

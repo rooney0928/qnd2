@@ -43,6 +43,7 @@ import com.app.qunadai.bean.v5.Products;
 import com.app.qunadai.bean.v5.ProductsFilter;
 import com.app.qunadai.bean.v5.ProductsNew;
 import com.app.qunadai.bean.v5.Replies;
+import com.app.qunadai.bean.v5.ReplyMessages;
 import com.app.qunadai.bean.v5.SmsBean;
 
 import okhttp3.RequestBody;
@@ -366,6 +367,9 @@ public interface QndApi {
 
     @POST("feedbacks")
     Observable<BaseBean<FeedBack>> addFeedback(@Query("access_token") String access_token, @Query("message") String message);
+
+    @GET("loan/products/comments/replied")
+    Observable<BaseBean<ReplyMessages>> getReplyMessages(@Query("access_token") String access_token);
 
 
     //v5

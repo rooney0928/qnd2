@@ -44,6 +44,7 @@ import com.app.qunadai.bean.v5.Products;
 import com.app.qunadai.bean.v5.ProductsFilter;
 import com.app.qunadai.bean.v5.ProductsNew;
 import com.app.qunadai.bean.v5.Replies;
+import com.app.qunadai.bean.v5.ReplyMessages;
 import com.app.qunadai.bean.v5.SmsBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -406,6 +407,10 @@ public class RxHttp {
     }
     public static Observable<BaseBean<FeedBack>> addFeedback(String token, String msg){
         return qndApi.addFeedback(token, msg);
+    }
+
+    public static Observable<BaseBean<ReplyMessages>> getReplyMessages(String token){
+        return qndApi.getReplyMessages(token);
     }
 
     //v5

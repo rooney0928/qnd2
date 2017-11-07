@@ -76,14 +76,12 @@ public class AccountActivity extends BaseActivity implements AccountContract.Vie
 
     @Override
     protected void updateTopViewHideAndShow() {
-//        setTitleBarStatus(TITLE_ON_BACK_ON);
         setTitleText("账号信息");
     }
 
     @Override
     protected View createCenterView() {
         View view = View.inflate(this, R.layout.activity_account, null);
-
         return view;
     }
 

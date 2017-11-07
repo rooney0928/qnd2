@@ -3,7 +3,6 @@ package com.app.qunadai.content.ui.me;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
@@ -11,7 +10,6 @@ import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.ui.me.frag.FeedStep1Fragment;
 import com.app.qunadai.content.ui.me.frag.FeedStep2Fragment;
 import com.app.qunadai.third.eventbus.EventTurn;
-import com.app.qunadai.utils.CommUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,12 +28,9 @@ public class FeedbackActivity extends BaseActivity {
     @BindView(R.id.vp_feedback)
     ViewPager vp_feedback;
 
-
     private FeedStep1Fragment feedStep1Fragment;
     private FeedStep2Fragment feedStep2Fragment;
-
     private List<Fragment> fragments;
-
 
     @Override
     protected void updateTopViewHideAndShow() {
@@ -56,7 +51,6 @@ public class FeedbackActivity extends BaseActivity {
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-
         fragments = new ArrayList<>();
         feedStep1Fragment = FeedStep1Fragment.getInstance();
         feedStep2Fragment = FeedStep2Fragment.getInstance();
@@ -73,22 +67,18 @@ public class FeedbackActivity extends BaseActivity {
 
     @Override
     public void updateView(Object serverData) {
-
     }
 
     @Override
     public void updateError(String error) {
-
     }
 
     @Override
     public void requestStart() {
-
     }
 
     @Override
     public void requestEnd() {
-
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventTurn event) {
@@ -101,6 +91,5 @@ public class FeedbackActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
     }
 }
