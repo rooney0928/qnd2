@@ -178,6 +178,5 @@ public class SignActivity extends BaseActivity {
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slice_no, R.anim.slice_out_bottom);
-
     }
 }
