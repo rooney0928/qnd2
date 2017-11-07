@@ -66,7 +66,7 @@ import rx.schedulers.Schedulers;
 
 public class RxHttp {
 
-//    public static final String ROOT = "https://mapi.qunadai.com/";
+    //    public static final String ROOT = "https://mapi.qunadai.com/";
     public static final String ROOT = "https://mapit.qunadai.com/";
 //    public static final String ROOT = "http://192.168.13.132:8080/";
 //    public static final String ROOT = "http://192.168.7.165:8080/";
@@ -246,11 +246,12 @@ public class RxHttp {
     }
 
     //5.1.0产品新口子
-    public static Observable<BaseBean<ProductsNew>> getProductsNew(){
+    public static Observable<BaseBean<ProductsNew>> getProductsNew() {
         return qndApi.getProductsNew();
     }
+
     //5.1.0看一眼新口子
-    public static Observable<BaseBean> lookProductsNew(String token){
+    public static Observable<BaseBean> lookProductsNew(String token) {
         return qndApi.lookProductsNew(token);
     }
 
@@ -405,12 +406,13 @@ public class RxHttp {
     public static Observable<BankcardBean> setBankcard(String token, RequestBody body) {
         return qndApi.setBankcardInfo(token, body);
     }
-    public static Observable<BaseBean<FeedBack>> addFeedback(String token, String msg){
+
+    public static Observable<BaseBean<FeedBack>> addFeedback(String token, String msg) {
         return qndApi.addFeedback(token, msg);
     }
 
-    public static Observable<BaseBean<ReplyMessages>> getReplyMessages(String token){
-        return qndApi.getReplyMessages(token);
+    public static Observable<BaseBean<ReplyMessages>> getReplyMessages(String token, int page, int size) {
+        return qndApi.getReplyMessages(token, page, size);
     }
 
     //v5

@@ -28,6 +28,7 @@ import com.app.qunadai.content.ui.me.AccountActivity;
 import com.app.qunadai.content.ui.me.AuthActivity;
 import com.app.qunadai.content.ui.me.ExploreActivity;
 import com.app.qunadai.content.ui.me.FeedbackActivity;
+import com.app.qunadai.content.ui.me.MessageActivity;
 import com.app.qunadai.content.ui.me.SettingActivity;
 import com.app.qunadai.http.RxHttp;
 import com.app.qunadai.third.eventbus.EventTurn;
@@ -174,7 +175,8 @@ public class Me5Fragment extends BaseFragment implements Me5Contract.View, View.
                 startActivity(intentExplore);
                 break;
             case R.id.ll_me_msg:
-
+                Intent intentMsg = new Intent(getActivity(), MessageActivity.class);
+                startActivity(intentMsg);
                 break;
             case R.id.ll_me_share:
                 CommUtil.tcEvent(getActivity(), "share", "分享去哪贷");

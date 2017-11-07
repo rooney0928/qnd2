@@ -146,8 +146,9 @@
             android:name=".content.ui.me.AboutActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".content.ui.me.MyLoanActivity"></activity>
-        <activity android:name=".content.ui.me.FeedbackActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".content.ui.me.FeedbackActivity"
+            android:screenOrientation="portrait" />
 
         <!--v5-->
         <activity
@@ -173,6 +174,9 @@
             android:name=".content.ui.product.RepliesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity
+            android:name=".content.ui.me.MessageActivity"
+            android:screenOrientation="portrait" />
 
 
         <activity

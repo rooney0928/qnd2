@@ -369,7 +369,7 @@ public interface QndApi {
     Observable<BaseBean<FeedBack>> addFeedback(@Query("access_token") String access_token, @Query("message") String message);
 
     @GET("loan/products/comments/replied")
-    Observable<BaseBean<ReplyMessages>> getReplyMessages(@Query("access_token") String access_token);
+    Observable<BaseBean<ReplyMessages>> getReplyMessages(@Query("access_token") String access_token, @Query("page") int page, @Query("size") int size);
 
 
     //v5

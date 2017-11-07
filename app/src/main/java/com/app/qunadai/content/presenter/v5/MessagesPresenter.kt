@@ -1,11 +1,8 @@
 package com.app.qunadai.content.presenter.v5
 
 import com.app.qunadai.bean.base.BaseBean
-import com.app.qunadai.bean.v5.FeedBack
 import com.app.qunadai.bean.v5.ReplyMessages
-import com.app.qunadai.content.contract.v5.FeedbackContract
 import com.app.qunadai.content.contract.v5.MessagesContract
-import com.app.qunadai.content.model.v5.FeedbackModelImpl
 import com.app.qunadai.content.model.v5.MessagesModelImpl
 
 /**
@@ -19,6 +16,10 @@ class MessagesPresenter(private val view: MessagesContract.View) : MessagesContr
 
     init {
         model = MessagesModelImpl(object : MessagesModelImpl.OnReturnDataListener {
+            override fun getMessagesMore(bean: BaseBean<ReplyMessages>?) {
+                view.getMessagesMore(bean)
+            }
+
             override fun tokenFail() {
                 view.tokenFail()
             }
@@ -45,9 +46,8 @@ class MessagesPresenter(private val view: MessagesContract.View) : MessagesContr
 
     }
 
-    override fun getMessages(token: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        model.getMessages(token)
+    override fun getMessages(token: String?, page: Int, size: Int) {
+        model.getMessages(token, page, size)
     }
 
 }

@@ -29,6 +29,8 @@ public class MessagesModelImpl implements MessagesContract.Model {
     public interface OnReturnDataListener extends BaseReturnListener {
         void getMessages(BaseBean<ReplyMessages> bean);
 
+        void getMessagesMore(BaseBean<ReplyMessages> bean);
+
         void getMessagesFail(String error);
 
         void requestStart();
@@ -42,8 +44,8 @@ public class MessagesModelImpl implements MessagesContract.Model {
     }
 
     @Override
-    public void getMessages(String token) {
-        Observable<BaseBean<ReplyMessages>> request = RxHttp.getInstance().getReplyMessages(token);
+    public void getMessages(String token, final int page, int size) {
+        Observable<BaseBean<ReplyMessages>> request = RxHttp.getInstance().getReplyMessages(token, page, size);
         Subscription sub = request.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<BaseBean<ReplyMessages>>() {
@@ -63,7 +65,11 @@ public class MessagesModelImpl implements MessagesContract.Model {
 
                     @Override
                     protected void onOk(BaseBean<ReplyMessages> bean) {
-                        onReturnDataListener.getMessages(bean);
+                        if (page > 0) {
+                            onReturnDataListener.getMessagesMore(bean);
+                        } else {
+                            onReturnDataListener.getMessages(bean);
+                        }
                     }
 
                     @Override
