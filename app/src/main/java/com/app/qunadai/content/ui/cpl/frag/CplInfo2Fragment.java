@@ -1,4 +1,4 @@
-package com.app.qunadai.content.ui.home.frag;
+package com.app.qunadai.content.ui.cpl.frag;
 
 import android.os.Bundle;
 import android.view.View;
