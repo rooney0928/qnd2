@@ -117,6 +117,12 @@ public class CplHttp {
         return cplApi.reqToken(body);
     }
 
+    //提交用户信息
+    public static Observable<CplBase> setUserInfo(RequestBody body) {
+        return cplApi.setUserInfo(body);
+    }
+
+
     //获取浏览记录
 //    public static Observable<BaseBean> clearExplore(String token) {
 //        return qndApi.clearExplore(token);

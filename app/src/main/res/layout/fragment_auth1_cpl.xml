@@ -37,7 +37,7 @@
 
                 <EditText
                     android:id="@+id/et_cpl_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
@@ -65,13 +65,14 @@
 
                 <EditText
                     android:id="@+id/et_cpl_idcard"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
                     android:background="@null"
                     android:hint="请输入身份证号码"
                     android:inputType="numberDecimal"
+                    android:maxLength="18"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"
@@ -94,7 +95,7 @@
 
                 <EditText
                     android:id="@+id/et_cpl_wechat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
@@ -123,7 +124,7 @@
 
                 <EditText
                     android:id="@+id/et_cpl_qq"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"

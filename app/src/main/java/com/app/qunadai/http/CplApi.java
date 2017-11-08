@@ -22,6 +22,9 @@ public interface CplApi {
     @POST("app/reqToken")
     Observable<CplBase<CToken>> reqToken(@Body RequestBody body);
 
+    @POST("app/credit/basic/submit")
+    Observable<CplBase> setUserInfo(@Body RequestBody body);
+
 
     //v5
     @GET("user/browsinghistory/current/all")

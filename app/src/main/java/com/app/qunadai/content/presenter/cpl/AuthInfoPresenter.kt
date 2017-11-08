@@ -2,6 +2,7 @@ package com.app.qunadai.content.presenter.cpl
 
 import com.app.qunadai.bean.base.CplBase
 import com.app.qunadai.bean.cpl.CToken
+import com.app.qunadai.bean.cpl.UserInfo
 import com.app.qunadai.content.contract.cpl.AuthInfoContract
 import com.app.qunadai.content.model.cpl.AuthInfoModelImpl
 
@@ -10,10 +11,20 @@ import com.app.qunadai.content.model.cpl.AuthInfoModelImpl
  */
 
 class AuthInfoPresenter(private val view: AuthInfoContract.View) : AuthInfoContract.Presenter {
+
+
     private val model: AuthInfoContract.Model
 
     init {
         this.model = AuthInfoModelImpl(object : AuthInfoModelImpl.OnReturnDataListener {
+            override fun setCplUserInfoFail(error: String?) {
+                view.setCplUserInfoFail(error)
+            }
+
+            override fun setCplUserInfo(bean: CplBase<*>?) {
+                view.setCplUserInfo(bean)
+            }
+
             override fun getCplToken(bean: CplBase<CToken>) {
                 view.getCplToken(bean)
             }
@@ -42,5 +53,9 @@ class AuthInfoPresenter(private val view: AuthInfoContract.View) : AuthInfoContr
 
     override fun reqCplToken(phone: String) {
         model.reqCplToken(phone)
+    }
+
+    override fun setCplUserInfo(info: UserInfo?, token: String?) {
+        model.setCplUserInfo(info,token)
     }
 }

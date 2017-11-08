@@ -7,11 +7,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.cpl.UserInfo;
 import com.app.qunadai.content.adapter.OnCompatItemClickListener;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.inter.FragmentBackPressed;
+import com.app.qunadai.third.eventbus.EventCplInfo;
 import com.app.qunadai.third.eventbus.EventTurn;
+import com.app.qunadai.utils.CheckUtil;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.DialogUtil;
+import com.app.qunadai.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,12 +62,16 @@ public class CplInfo1Fragment extends BaseFragment implements FragmentBackPresse
 
     }
 
+    private UserInfo tempUserInfo;
+
     @Override
     protected void initData() {
+        tempUserInfo = new UserInfo();
 
     }
 
     String[] array;
+
 
 //    BottomSheetDialog dialog;
 
@@ -75,13 +84,33 @@ public class CplInfo1Fragment extends BaseFragment implements FragmentBackPresse
                     @Override
                     public void onItemClick(View view, int position) {
                         tv_cpl_edu.setText(array[position]);
-
+                        tempUserInfo.setEdu(position + 1);
                     }
                 });
 
                 break;
             case R.id.tv_cpl_submit:
-                EventBus.getDefault().post(new EventTurn(1, "cplInfo"));
+                tempUserInfo.setName(CommUtil.getText(et_cpl_name));
+                tempUserInfo.setIdcard(CommUtil.getText(et_cpl_idcard));
+                tempUserInfo.setWechat(CommUtil.getText(et_cpl_wechat));
+                tempUserInfo.setQq(CommUtil.getText(et_cpl_qq));
+
+//                EventBus.getDefault().post(new EventTurn(1, "cplInfo"));
+                if (!CommUtil.isNull(et_cpl_name)
+                        && CheckUtil.isIDCard(CommUtil.getText(et_cpl_idcard))
+                        && !CommUtil.isNull(et_cpl_wechat)
+                        && !CommUtil.isNull(et_cpl_qq)
+                        && !CommUtil.isNull(tv_cpl_edu)
+                        ) {
+
+//                    ToastUtil.showToast(getActivity(), "数据ok");
+                    EventBus.getDefault().post(new EventCplInfo(tempUserInfo,1));
+                    EventBus.getDefault().post(new EventTurn(1, "cplInfo"));
+                } else {
+                    ToastUtil.showToast(getActivity(), "数据格式不正确");
+                }
+
+
                 break;
         }
     }

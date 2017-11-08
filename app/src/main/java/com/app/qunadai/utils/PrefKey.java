@@ -23,4 +23,9 @@ public class PrefKey {
     public static final String HAS_LOOK = "has_look";
 
 
+    //cpl
+    public static final String CPL_TOKEN = "cpl_token";
+
+
+
 }

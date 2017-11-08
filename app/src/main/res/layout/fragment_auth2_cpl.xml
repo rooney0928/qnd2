@@ -79,7 +79,7 @@
 
                 <EditText
                     android:id="@+id/et_cpl_live"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
@@ -151,7 +151,7 @@
 
                 <EditText
                     android:id="@+id/et_cpl_warning_man"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
@@ -224,7 +224,7 @@
 
                 <EditText
                     android:id="@+id/et_cpl_warning_phone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
@@ -242,7 +242,7 @@
             <View style="@style/line_0dp" />
 
             <TextView
-                android:id="@+id/tv_feedback_submit"
+                android:id="@+id/tv_cpl_submit"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_alignParentBottom="true"

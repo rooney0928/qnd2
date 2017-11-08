@@ -7,11 +7,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
+import com.app.qunadai.bean.cpl.UserInfo;
 import com.app.qunadai.content.adapter.OnCompatItemClickListener;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.inter.FragmentBackPressed;
+import com.app.qunadai.third.eventbus.EventCplInfo;
 import com.app.qunadai.third.eventbus.EventTurn;
+import com.app.qunadai.utils.CheckUtil;
+import com.app.qunadai.utils.CommUtil;
 import com.app.qunadai.utils.DialogUtil;
+import com.app.qunadai.utils.ToastUtil;
 import com.lljjcoder.bean.CityBean;
 import com.lljjcoder.bean.DistrictBean;
 import com.lljjcoder.bean.ProvinceBean;
@@ -59,6 +64,12 @@ public class CplInfo2Fragment extends BaseFragment implements FragmentBackPresse
     @BindView(R.id.et_cpl_warning_phone)
     EditText et_cpl_warning_phone;
 
+    @BindView(R.id.tv_cpl_submit)
+    TextView tv_cpl_submit;
+
+    private UserInfo tempUserInfo;
+
+
     public static CplInfo2Fragment getInstance() {
         CplInfo2Fragment cplInfo2Fragment = new CplInfo2Fragment();
         Bundle bundle = new Bundle();
@@ -73,7 +84,7 @@ public class CplInfo2Fragment extends BaseFragment implements FragmentBackPresse
 
     @Override
     protected void initData() {
-
+        tempUserInfo = new UserInfo();
     }
 
     @Override
@@ -84,7 +95,7 @@ public class CplInfo2Fragment extends BaseFragment implements FragmentBackPresse
 
     String[] array;
 
-    @OnClick({R.id.ll_cpl_location, R.id.ll_cpl_social, R.id.ll_cpl_warning_relative})
+    @OnClick({R.id.ll_cpl_location, R.id.ll_cpl_social, R.id.ll_cpl_warning_relative, R.id.tv_cpl_submit})
     public void click(View v) {
         switch (v.getId()) {
             case R.id.ll_cpl_location:
@@ -122,13 +133,17 @@ public class CplInfo2Fragment extends BaseFragment implements FragmentBackPresse
                         StringBuilder sb = new StringBuilder();
                         if (provinceBean.getName().equalsIgnoreCase("直辖市")) {
                             sb.append(cityBean.getName());
+                            tempUserInfo.setProvince(cityBean.getName());
                         } else {
                             sb.append(provinceBean.getName());
+                            tempUserInfo.setProvince(provinceBean.getName());
                         }
                         sb.append("-" + cityBean.getName());
+                        tempUserInfo.setCity(cityBean.getName());
 
                         if (districtBean != null) {
                             sb.append("-" + districtBean.getName());
+                            tempUserInfo.setDistrict(districtBean.getName());
                         }
 
                         tv_cpl_location.setText(sb.toString());
@@ -148,6 +163,7 @@ public class CplInfo2Fragment extends BaseFragment implements FragmentBackPresse
                     @Override
                     public void onItemClick(View view, int position) {
                         tv_cpl_social.setText(array[position]);
+                        tempUserInfo.setShebao(position + 1);
                     }
                 });
                 break;
@@ -157,8 +173,31 @@ public class CplInfo2Fragment extends BaseFragment implements FragmentBackPresse
                     @Override
                     public void onItemClick(View view, int position) {
                         tv_cpl_warning_relative.setText(array[position]);
+                        tempUserInfo.setContactType(position);
                     }
                 });
+
+                break;
+            case R.id.tv_cpl_submit:
+                tempUserInfo.setLiving(CommUtil.getText(et_cpl_live));
+                tempUserInfo.setContactName(CommUtil.getText(et_cpl_warning_man));
+                tempUserInfo.setContactCell(CommUtil.getText(et_cpl_warning_phone));
+
+//                EventBus.getDefault().post(new EventTurn(1, "cplInfo"));
+                if (!CommUtil.isNull(tv_cpl_location)
+                        && !CommUtil.isNull(tv_cpl_social)
+                        && !CommUtil.isNull(tv_cpl_warning_relative)
+                        && !CommUtil.isNull(et_cpl_live)
+                        && !CommUtil.isNull(et_cpl_warning_man)
+                        && CheckUtil.isMobile(CommUtil.getText(et_cpl_warning_phone))
+                        ) {
+
+                    ToastUtil.showToast(getActivity(), "数据ok");
+                    //这里提交
+                    EventBus.getDefault().post(new EventCplInfo(tempUserInfo, 2));
+                } else {
+                    ToastUtil.showToast(getActivity(), "数据格式不正确");
+                }
                 break;
         }
     }

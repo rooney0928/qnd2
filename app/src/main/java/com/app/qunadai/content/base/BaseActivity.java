@@ -390,6 +390,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public String getToken() {
         return PrefUtil.getString(this, PrefKey.TOKEN, "");
     }
+    public String getCplToken() {
+        return PrefUtil.getString(this, PrefKey.CPL_TOKEN, "");
+    }
 
 
 }
