@@ -85,4 +85,27 @@
         <item>其他</item>
     </string-array>
 
+
+    <string-array name="cpl_edu">
+        <item>硕士及以上</item>
+        <item>本科</item>
+        <item>大专</item>
+        <item>中专/高中及以下</item>
+    </string-array>
+
+    <string-array name="cpl_social">
+        <item>缴纳本地社保</item>
+        <item>未缴纳社保</item>
+    </string-array>
+
+    <string-array name="cpl_relative">
+        <item>配偶</item>
+        <item>父母</item>
+        <item>兄弟姐妹</item>
+        <item>子女</item>
+        <item>同事</item>
+        <item>同学</item>
+        <item>朋友</item>
+    </string-array>
+
 </resources>

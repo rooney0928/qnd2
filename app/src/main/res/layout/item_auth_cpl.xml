@@ -45,7 +45,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingTop="6dp"
-                android:text="去认证"
+                android:text="已认证"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 

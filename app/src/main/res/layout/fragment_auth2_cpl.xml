@@ -22,111 +22,45 @@
                 android:paddingTop="15dp"
                 android:src="@mipmap/cpl_bg2" />
 
-            <!--省份-->
-            <RelativeLayout
+            <!--省市区-->
+            <LinearLayout
+                android:id="@+id/ll_cpl_location"
                 android:layout_width="match_parent"
-                android:layout_height="36dp">
+                android:layout_height="36dp"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="省份"
+                    android:text="省市区"
                     android:textColor="@color/cpl_key"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_cpl_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="64dp"
+                    android:layout_marginLeft="16dp"
                     android:background="@null"
-                    android:enabled="false"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/cpl_icon_more" />
+                    android:layout_weight="1">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/cpl_icon_more" />
+                </RelativeLayout>
 
-            <View style="@style/line_0dp" />
 
-            <!--城市-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="36dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="城市"
-                    android:textColor="@color/cpl_key"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="64dp"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:text=""
-                    android:textColor="@color/cpl_value"
-                    android:textColorHint="@color/cpl_hint"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/cpl_icon_more" />
-
-            </RelativeLayout>
-
-            <View style="@style/line_0dp" />
-
-            <!--区域-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="36dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="区域"
-                    android:textColor="@color/cpl_key"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="64dp"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:text=""
-                    android:textColor="@color/cpl_value"
-                    android:textColorHint="@color/cpl_hint"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/cpl_icon_more" />
-
-            </RelativeLayout>
+            </LinearLayout>
 
             <View style="@style/line_0dp" />
 
@@ -144,12 +78,14 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_cpl_live"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
                     android:background="@null"
                     android:hint="请输入详细地址"
+                    android:maxLines="1"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"
@@ -160,6 +96,7 @@
 
             <!--是否缴纳社保2-->
             <LinearLayout
+                android:id="@+id/ll_cpl_social"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center_vertical">
@@ -172,6 +109,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_cpl_social"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -212,12 +150,14 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_cpl_warning_man"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:background="@null"
                     android:hint="请输入紧急联系人"
+                    android:maxLines="1"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"
@@ -229,6 +169,7 @@
 
             <!--紧急联系人关系2-->
             <LinearLayout
+                android:id="@+id/ll_cpl_warning_relative"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:gravity="center_vertical">
@@ -241,6 +182,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_cpl_warning_relative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -281,12 +223,15 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_cpl_warning_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:background="@null"
                     android:hint="请输入紧急联系人联系方式"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"

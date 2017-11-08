@@ -36,6 +36,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_cpl_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -63,12 +64,14 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_cpl_idcard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
                     android:background="@null"
                     android:hint="请输入身份证号码"
+                    android:inputType="numberDecimal"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"
@@ -90,12 +93,14 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_cpl_wechat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
                     android:background="@null"
                     android:hint="请输入微信号码"
+                    android:inputType="textVisiblePassword"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"
@@ -117,12 +122,15 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_cpl_qq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="64dp"
                     android:background="@null"
                     android:hint="请输入QQ号码"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
                     android:text=""
                     android:textColor="@color/cpl_value"
                     android:textColorHint="@color/cpl_hint"
@@ -132,6 +140,7 @@
             <View style="@style/line_0dp" />
 
             <RelativeLayout
+                android:id="@+id/rl_cpl_edu"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
 
@@ -144,6 +153,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_cpl_edu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

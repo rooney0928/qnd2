@@ -82,13 +82,13 @@ public class CPLAuthView extends RelativeLayout {
 
         switch (status) {
             case AUTH_NO:
-                tv_auth_unchecked.setVisibility(VISIBLE);
-                break;
-            case AUTH_YES:
                 tv_auth_unchecked.setVisibility(GONE);
                 break;
-            default:
+            case AUTH_YES:
                 tv_auth_unchecked.setVisibility(VISIBLE);
+                break;
+            default:
+                tv_auth_unchecked.setVisibility(GONE);
                 break;
         }
     }
