@@ -10,7 +10,7 @@ public class Message {
     /**
      * msg : 创建成功
      * code : 000
-     * detail : Token was created.
+     * detail : CToken was created.
      * content : {"mobileNumber":"13162695559","userId":"e8131be4-5afd-4b91-b400-de8a170ff591","message":"短信已发送"}
      */
 

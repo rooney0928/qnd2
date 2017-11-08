@@ -1,28 +1,17 @@
-package com.app.qunadai.content.ui.home.frag;
+package com.app.qunadai.content.ui.cpl.frag;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.OnCompatItemClickListener;
-import com.app.qunadai.content.adapter.v5.TextAdapter;
 import com.app.qunadai.content.base.BaseFragment;
 import com.app.qunadai.content.inter.FragmentBackPressed;
 import com.app.qunadai.third.eventbus.EventTurn;
 import com.app.qunadai.utils.DialogUtil;
-import com.app.qunadai.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -42,6 +42,12 @@ public class MyApp extends Application {
     private static final String WX_ID = "wx02d89c8c3173cb34";
     public static IWXAPI api;
 
+
+    //cpl
+    public static final String CPL_ID = "ae63f230969f11e7af100cc47a578ff0";
+    public static final String CPL_PSW = "sfe023f_9fd&fwfl";
+
+
     @Override
     public void onCreate() {
         super.onCreate();

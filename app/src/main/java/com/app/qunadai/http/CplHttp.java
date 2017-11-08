@@ -23,6 +23,7 @@ import com.app.qunadai.bean.ResetBean;
 import com.app.qunadai.bean.StatusBean;
 import com.app.qunadai.bean.Token;
 import com.app.qunadai.bean.base.BaseBean;
+import com.app.qunadai.bean.base.CplBase;
 import com.app.qunadai.bean.bbs.CommentList;
 import com.app.qunadai.bean.bbs.HotCity;
 import com.app.qunadai.bean.bbs.PostBean;
@@ -32,6 +33,7 @@ import com.app.qunadai.bean.bbs.PraiseBean;
 import com.app.qunadai.bean.bbs.SendCommentBean;
 import com.app.qunadai.bean.bbs.StrategyBean;
 import com.app.qunadai.bean.bbs.TalentBean;
+import com.app.qunadai.bean.cpl.CToken;
 import com.app.qunadai.bean.v5.AddComment;
 import com.app.qunadai.bean.v5.ExploreBean;
 import com.app.qunadai.bean.v5.FeedBack;
@@ -109,6 +111,11 @@ public class CplHttp {
         return SingletonHolder.rxHttp;
     }
 
+
+    //获取token
+    public static Observable<CplBase<CToken>> reqToken(RequestBody body) {
+        return cplApi.reqToken(body);
+    }
 
     //获取浏览记录
 //    public static Observable<BaseBean> clearExplore(String token) {

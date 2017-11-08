@@ -1,4 +1,4 @@
-package com.app.qunadai.content.ui.home;
+package com.app.qunadai.content.ui.cpl;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -7,8 +7,8 @@ import com.app.qunadai.R;
 import com.app.qunadai.content.adapter.MainFragmentPagerAdapter;
 import com.app.qunadai.content.base.BaseActivity;
 import com.app.qunadai.content.inter.FragmentBackPressed;
-import com.app.qunadai.content.ui.home.frag.CplInfo1Fragment;
-import com.app.qunadai.content.ui.home.frag.CplInfo2Fragment;
+import com.app.qunadai.content.ui.cpl.frag.CplInfo1Fragment;
+import com.app.qunadai.content.ui.cpl.frag.CplInfo2Fragment;
 import com.app.qunadai.content.view.NoScrollViewPager;
 import com.app.qunadai.third.eventbus.EventTurn;
 
