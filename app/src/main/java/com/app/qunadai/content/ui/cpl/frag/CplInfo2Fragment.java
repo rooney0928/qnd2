@@ -191,7 +191,6 @@ public class CplInfo2Fragment extends BaseFragment implements FragmentBackPresse
                         && !CommUtil.isNull(et_cpl_warning_man)
                         && CheckUtil.isMobile(CommUtil.getText(et_cpl_warning_phone))
                         ) {
-
                     ToastUtil.showToast(getActivity(), "数据ok");
                     //这里提交
                     EventBus.getDefault().post(new EventCplInfo(tempUserInfo, 2));
